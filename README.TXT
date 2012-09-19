@@ -9,7 +9,15 @@ PURPOSE OF PROJECT: To turn in as a class assignment
 VERSION or DATE: 9-17-12
 HOW TO START THIS PROJECT:
 AUTHORS: Josh Gillham
-USER INSTRUCTIONS:
+ASSIGNMENT:
+
+Your design for the Hangman application should have provided an API that includes the signatures of all publicly visible entities (e.g., interfaces, classes, methods).
+
+1. Based on your design/API, create a BlueJ project that contains skeletal classes (that is, source code that implements all of the public classes and methods and compiles without error).
+
+2. Create a unit test class for each of the public classes.
+
+3. Create test methods for each publicly visible method that returns a value. Strive to create tests that adequate assess the correctness of the behaviors of the methods.
 
 DESCRIPTION:
 
