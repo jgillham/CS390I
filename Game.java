@@ -2,13 +2,19 @@
 /**
  * When game is created, it will create a new instance of manger and retain the reference.
  * 
+ * A team may have only one player or it may have many players. The game will know which 
+ * team is up to bat. The manager should in-turn know which player is up to bat.
+ * 
+ * Constructor:
+ *  Accepts the word length and the max attempts.
  * 
  * Private data summary:
- *  Manager Instance
+ *  A list of teams (Manager classes)
  *  Guess list
- *  Wrong Guesses
- *  Word Instance
- *  Word Goal
+ *  Total Wrong Guesses
+ *  Game Word
+ *  active team reference
+ *  
  * 
  * @author Josh Gillham
  * @version 9-17-12
@@ -26,13 +32,42 @@ public interface Game{
      * @throws IllegalArgumentException when playerID does not represent a player
      * @throws IllegalArgumentException when letter is not a letter i.e. '?' or '9'
      */
-    public bool makeGuess( int playerID, char letter );
+    public boolean makeGuess( Player player, char letter );
     /**
      * Gets the current word with underscores representing unguessed letters.
+     * 
+     * Used by the GUI to display to the players.
+     * 
+     * @return the word with underscores
      */
     public String getWordStatus();
+    
     /**
-     * Gets an instance of the Manager that Game is currently using.
+     * Adds a new team and returns the manager of the team.
+     * 
+     * @return the manager of the new team.
      */
-    public Manager getManager();
+    public Manager addTeam();
+    
+    /**
+     * Gets the team whose turn to guess.
+     * 
+     * Preconditions:
+     *  at least one call to addTeam()
+     *  at least one call to Manager.addPlayer()
+     *  startGame() must have been called.
+     * 
+     * 
+     */
+    public Manager getActiveTeam();
+    
+    /**
+     * Starts a new game.
+     * 
+     * Preconditons:
+     *  at least one call to addTeam()
+     *  at least one call to Manager.addPlayer()
+     */
+    public void startGame();
+    
 }

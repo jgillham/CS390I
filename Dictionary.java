@@ -1,17 +1,29 @@
 
 /**
- * Write a description of interface Dictionary here.
+ * Responsible for loading the word data bank and also for retrieving a random word.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Dictionary will be a singleton.
+ * 
+ * @author Josh Gillham
+ * @version 9-17-12
  */
-public interface Dictionary
-{
+public interface Dictionary{
     /**
-     * An example of a method header - replace this comment with your own
+     * getInstance finds the instance of the singleton and the file is disregarded, but, if
+     *  no instance exists, a new dictionary class is created and the file is loaded.
      * 
-     * @param  y    a sample parameter for a method
-     * @return        the result produced by sampleMethod 
+     * @arg file the dictionary file to load.
+     * 
+     * @return the Dictionary instance
      */
-    int sampleMethod(int y);
+    public Dictionary getInstance( String file );
+    
+    /**
+     * Finds a random word from the dictionary.
+     * 
+     * @arg length is the length of the word to find
+     * 
+     * @return the random word
+     */
+    public String getWord( int length );
 }

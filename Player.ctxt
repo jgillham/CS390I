@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.params=letter\ goodGuess
+comment0.target=void\ recordGuess(char,\ boolean)
+comment0.text=\n\ Adds\ the\ letter\ to\ the\ list\ of\ guesses.\ If\ goodGuess\ is\ false,\ then\ \n\ \ increments\ the\ wrong\ answers\ counter\ by\ 1.\n\ \n\ @arg\ letter\ the\ guess\n\ @arg\ goodGuess\ true\ if\ the\ letter\ is\ found\ in\ the\ goal\ word\n
+numComments=1
