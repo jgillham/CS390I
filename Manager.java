@@ -72,4 +72,11 @@ public interface Manager
      * @throws NoSuchElementException when getRosterSize() == 0.
      */
     public void nextPlayer();
+    
+    /**
+     * Accesses the name of the team.
+     * 
+     * @return the team name
+     */
+    public String getName();
 }

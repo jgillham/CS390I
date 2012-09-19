@@ -89,7 +89,7 @@ Calls to makeGuess( Player, String ) should have the same behavior as the functi
 
 Manager class:
 
-The constructor for the Manager class will accept the team name. For bad names an error will be thrown. It should retain the name. The score will be set to 0. The 
+The constructor for the Manager class will accept the team name. For bad names an error will be thrown. It should retain the name. The score will be set to 0.
 
 Calls to addPlayer( String ) accept the player name. For bad names an error will be thrown. The player will be added to the roster. The return will be the new player.
 
