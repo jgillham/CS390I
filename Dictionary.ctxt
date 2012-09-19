@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.params=file
-comment0.target=Dictionary\ getInstance(java.lang.String)
-comment0.text=\n\ getInstance\ finds\ the\ instance\ of\ the\ singleton\ and\ the\ file\ is\ disregarded,\ but,\ if\n\ \ no\ instance\ exists,\ a\ new\ dictionary\ class\ is\ created\ and\ the\ file\ is\ loaded.\n\ \n\ @arg\ file\ the\ dictionary\ file\ to\ load.\n\ \n\ @return\ the\ Dictionary\ instance\n
-comment1.params=length
-comment1.target=java.lang.String\ getWord(int)
-comment1.text=\n\ Finds\ a\ random\ word\ from\ the\ dictionary.\n\ \n\ @arg\ length\ is\ the\ length\ of\ the\ word\ to\ find\n\ \n\ @return\ the\ random\ word\n
-numComments=2

@@ -110,4 +110,4 @@ Calls to resign() will throw an error when the Player has already resigned.  Oth
 
 Calls to getHistory() will return a String with all the player's guesses or an empty String for no guesses.
 
-
+Calls to getScore() will return the total guesses found in the game word.

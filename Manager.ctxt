@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.params=
-comment0.target=int\ newPlayer()
-comment0.text=\n\ Creates\ a\ new\ player\ in\ the\ Manager\ class\ and\ adds\ him\ to\ the\ list.\n\ \n\ @return\ the\ id\ of\ the\ new\ player\n
-comment1.params=playerID
-comment1.target=boolean\ kickPlayer(int)
-comment1.text=\n\ The\ manager\ can\ kick\ a\ player\ off\ the\ list.\\\n\ \n\ @return\ true\ if\ the\ kick\ was\ successful\n
-numComments=2
