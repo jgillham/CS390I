@@ -79,4 +79,18 @@ public interface ManagerInterface
      * @return the team name
      */
     public String getName();
+    
+    /**
+     * Removes the player from the roster and changes the player up as needed.
+     * 
+     * Preconditions:
+     *  The player must have been created with addPlayer() successfully
+     * 
+     * Postconditions:
+     *  The player no longer exists on the roster.
+     *  
+     * @throws NoSuchElementException when getRosterSize() == 0 or the player is
+     *  not on the roster.
+     */
+    public void resignPlayer( Player player );
 }
