@@ -39,4 +39,12 @@ public class testPlayer
     public void tearDown()
     {
     }
+    
+    /**
+     * Test the constructor with bad arguments. The result should be an error
+     */
+    @Test//( expected=
+    public void testConstructor_Null() {
+        //DictionaryInterface d= new Dictionary( null );
+    }
 }

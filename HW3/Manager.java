@@ -14,4 +14,5 @@ public class Manager implements ManagerInterface {
     public int getRosterSize() { return 0; }
     public void nextPlayer() {}
     public String getName() { return ""; }
+    public void resignPlayer( Player player ) throws java.util.NoSuchElementException{ throw new java.util.NoSuchElementException(); }
 }

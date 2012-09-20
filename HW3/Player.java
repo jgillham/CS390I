@@ -7,13 +7,18 @@
  */
 public class Player implements PlayerInterface {
     /**
-     * Adds the letter to the list of guesses. If goodGuess is false, then 
-     *  increments the wrong answers counter by 1.
+     * Accesses a list of the player's guesses. Returns an empty string when
+     *  there are no guesses otherwise the string contains letters.
      * 
-     * @arg letter the guess
-     * @arg goodGuess true if the letter is found in the goal word
+     * @return the letters guessed
      */
-    public void recordGuess( char letter, boolean goodGuess ) {
-        
-    }
+    public String getHistory() { return null; }
+    
+    /**
+     * Accesses the player's score. Returns 0 at the beginning of the game
+     *  otherwise the number of letters found in the game word.
+     *  
+     * @return the score
+     */
+    public int getScore() { return -1; }
 }

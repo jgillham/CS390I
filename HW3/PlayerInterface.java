@@ -11,16 +11,6 @@
  */
 public interface PlayerInterface {
     /**
-     * Lets the player drop the game. The player will automatically lose.
-     * 
-     * Postconditions:
-     *  player cannot do anymore actions
-     * 
-     * @throws IllegalArgumentException when the player is not in the game
-     */
-    public void resign();
-    
-    /**
      * Accesses a list of the player's guesses. Returns an empty string when
      *  there are no guesses otherwise the string contains letters.
      * 

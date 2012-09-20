@@ -92,5 +92,5 @@ public interface ManagerInterface
      * @throws NoSuchElementException when getRosterSize() == 0 or the player is
      *  not on the roster.
      */
-    public void resignPlayer( Player player );
+    public void resignPlayer( Player player ) throws java.util.NoSuchElementException;
 }
