@@ -6,13 +6,31 @@
  * @version (a version number or a date)
  */
 public class Manager implements ManagerInterface {
-    public Manager( String name ){ throw new IllegalArgumentException(); }
-    public int getScore(){ return 5; }
-    public PlayerInterface addPlayer( String name ) { return null; }
-    public boolean kickPlayer( PlayerInterface player ) { return false; }
-    public PlayerInterface getPlayerUp() { return null; }
-    public int getRosterSize() { return 0; }
-    public void nextPlayer() {}
-    public String getName() { return ""; }
-    public void resignPlayer( Player player ) throws java.util.NoSuchElementException{ throw new java.util.NoSuchElementException(); }
+    /** Empty unimplemented body. */
+    public Manager( String name )
+    { throw new UnsupportedOperationException(); }
+    /** Empty unimplemented body. */
+    public int getScore()
+    { throw new UnsupportedOperationException(); }
+    /** Empty unimplemented body. */
+    public PlayerInterface addPlayer( String name )
+    { throw new UnsupportedOperationException(); }
+    /** Empty unimplemented body. */
+    public boolean kickPlayer( PlayerInterface player )
+    { throw new UnsupportedOperationException(); }
+    /** Empty unimplemented body. */
+    public PlayerInterface getPlayerUp()
+    { throw new UnsupportedOperationException(); }
+    /** Empty unimplemented body. */
+    public int getRosterSize()
+    { throw new UnsupportedOperationException(); }
+    /** Empty unimplemented body. */
+    public void nextPlayer()
+    { throw new UnsupportedOperationException(); }
+    /** Empty unimplemented body. */
+    public String getName()
+    { throw new UnsupportedOperationException(); }
+    /** Empty unimplemented body. */
+    public void resignPlayer( Player player ) throws java.util.NoSuchElementException
+    { throw new UnsupportedOperationException(); }
 }
