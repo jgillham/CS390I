@@ -10,6 +10,10 @@
  * @version 9-19-12
  */
 public class Game implements GameInterface {
+
+    public Game( int maxAttempts, int gameWordLength ){
+        throw new IllegalArgumentException();
+    }
     /**
      * Submits a guess. The guess is game word. If the letter is contained in the word
      *  then true is returned.
