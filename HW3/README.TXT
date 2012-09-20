@@ -85,6 +85,8 @@ Calls to makeGuess( Player, String ) should have the same behavior as the functi
 
 Calls to resignTeam( Manager ) should thow an error if the Manager is not part of the game or is null. Otherwise should remove the team from the game. The active team may be changed if it is the same as the team that was removed. If there is zero teams remaining, there is no winner. If there is one team remaining, that team is the winner.
 
+Calls to nextTeam() should throw an error if there are no teams in the game. Otherwise move active team to the next team to make a guess.
+
 Manager class:
 
 The constructor for the Manager class will accept the team name. For bad names an error will be thrown. It should retain the name. The score will be set to 0.
