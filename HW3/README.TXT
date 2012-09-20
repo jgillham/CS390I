@@ -127,3 +127,11 @@ Calls to getHistory() will return a String with all the player's guesses or an e
 
 Calls to getScore() will return the total guesses found in the game word.
 
+UICallback class:
+
+Calls to playerToMakeGuess( char ) will make a call to Game.makeGuess( char ) when the player using the UI makes a letter guess. Will throw an error if the input is bad.
+
+Calls to playerToMakeGuess( String ) will make a call to Game.makeGuess( String ) when the player using the UI wants to guess the whole word. Will throw an error if the input is bad.
+
+Calls to setupComplete( int, int ) will create a new instance of the Game class with the appropriate parameters. Will throw an error if the input is bad.
+

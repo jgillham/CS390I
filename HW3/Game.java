@@ -13,7 +13,7 @@ public class Game implements GameInterface {
     /** The least guesses allowed that make the game interesting. */
     static public final int MIN_ATTEMPTS= 2;
     /** Empty unimplemented body. */
-    public Game( int maxAttempts, int gameWordLength ) 
+    public Game( int maxAttempts, int gameWordLength ) throws IllegalArgumentException
     { throw new UnsupportedOperationException(); }
     /** Empty unimplemented body. */
     public boolean makeGuess( PlayerInterface player, char letter ) 
