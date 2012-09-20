@@ -29,6 +29,21 @@ Player - tracks player stats, scores, and accepts player actions.
 
 Dictionary - holds word data bank and has game-related methods.
 
+GOALS/TODO:
+
+Test coverage in testGame.
+
+Test coverage in testManager.
+
+Test coverage in testPlayer.
+
+Test coverage in testDictionary.
+
+Update and improve README.TXT.
+
+Update documentation.
+
+
 
 VOCABULARY:
 
