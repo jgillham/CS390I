@@ -7,6 +7,18 @@
  */
 public class Player implements PlayerInterface {
     /**
+     * Initializes Player with the name.
+     * 
+     * @arg name the player's name
+     * 
+     * @throws NullPointerException when name is null
+     * @throws IllegalArgumentsException when name is empty
+     */
+    public Player( String name ) throws NullPointerException, IllegalArgumentException {
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
      * Accesses a list of the player's guesses. Returns an empty string when
      *  there are no guesses otherwise the string contains letters.
      * 
