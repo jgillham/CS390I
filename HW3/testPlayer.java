@@ -41,10 +41,18 @@ public class testPlayer
     }
     
     /**
-     * Test the constructor with bad arguments. The result should be an error
+     * Test the constructor with null argument. The result should be an error.
      */
-    @Test//( expected=
+    @Test( expected= NullPointerException.class )
     public void testConstructor_Null() {
-        //DictionaryInterface d= new Dictionary( null );
+        PlayerInterface d= new Player( null );
+    }
+    
+    /**
+     * Test the constructor with empty string arguments. The result should be an error
+     */
+    @Test( expected= IllegalArgumentException.class )
+    public void testConstructor_Empty() {
+        PlayerInterface d= new Player( "" );
     }
 }
