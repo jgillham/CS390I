@@ -11,11 +11,29 @@
  */
 public interface PlayerInterface {
     /**
-     * Adds the letter to the list of guesses. If goodGuess is false, then 
-     *  increments the wrong answers counter by 1.
+     * Lets the player drop the game. The player will automatically lose.
      * 
-     * @arg letter the guess
-     * @arg goodGuess true if the letter is found in the goal word
+     * Postconditions:
+     *  player cannot do anymore actions
+     * 
+     * @throws IllegalArgumentException when the player is not in the game
      */
-    public void recordGuess( char letter, boolean goodGuess );
+    public void resign();
+    
+    /**
+     * Accesses a list of the player's guesses. Returns an empty string when
+     *  there are no guesses otherwise the string contains letters.
+     * 
+     * @return the letters guessed
+     */
+    public String getHistory();
+    
+    /**
+     * Accesses the player's score. Returns 0 at the beginning of the game
+     *  otherwise the number of letters found in the game word.
+     *  
+     * @return the score
+     */
+    public int getScore();
+    
 }
