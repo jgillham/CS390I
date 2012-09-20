@@ -41,6 +41,18 @@ public class testGame
     }
     
     /**
+     * Test the constructor to make sure it can successfully construct
+     */
+    @Before
+    public void testConstructor() {
+        try{
+            Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MIN_WORDLENGTH );
+        } catch( Exception e ) {
+            fail( "Exception should not have occured." );
+        }
+    }
+    
+    /**
      * Test the constructor to make sure it will throw errors when given bad
      *  arguments
      */
@@ -59,7 +71,20 @@ public class testGame
         try{
             Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH + 1 );
             fail( "Constructor should have thrown an error." );
-        }catch( Exception e ) {}
-            
+        }catch( Exception e ) {}       
     }
+    
+    /**
+     * GetStatusWord should return all underscores before the game starts.
+     */
+    @Test
+    public void testGetStatusWord_BeforeGame() {
+        for( int i= Dictionary.MIN_WORDLENGTH; i <= Dictionary.MAX_WORDLENGTH; ++i ) {
+            Game g= new Game( Game.MIN_ATTEMPTS, i );
+            String word= g.getWordStatus();
+            for( int k= 0; k <  word.length(); ++k )
+                assertEquals( '_', word.charAt( k ) );
+        }
+    }
+    
 }
