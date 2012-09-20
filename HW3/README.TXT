@@ -135,3 +135,15 @@ Calls to playerToMakeGuess( String ) will make a call to Game.makeGuess( String 
 
 Calls to setupComplete( int, int ) will create a new instance of the Game class with the appropriate parameters. Will throw an error if the input is bad.
 
+UI class:
+
+Calls to gameOver() will update the UI showing the player that the game is over.
+
+Calls to teamUp( Manager ) will show which team is up for guessing.
+
+Calls to playerUp() will show which player is up for guessing.
+
+Calls to gameWinner( Manager ) announces which team has won.
+
+
+
