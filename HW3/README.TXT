@@ -50,7 +50,7 @@ Line Up - the order on which players are listed on the roster.
 
 
 
-DESCRIPTION:
+VISION:
 
 This project is currently under development. Work is being done to create an interface that will blueprint the design for the classes in this project.
  
@@ -73,19 +73,17 @@ Game class:
 
 The constructor for the game class should accept two arguments: the max attempts and the game word length. It should set a the game word with the dictionary getRandomWord( withLength ) function. It should retain a copy of max attempts.
 
-Calls to getStatusWord(), before the game begins, should return a String the length of the game word length and every character should be an underscore.
+Calls to getStatusWord(), before the game begins, should return a String the length of the game word length and every character should be an underscore.  Calls to getStatusWord(), after the game has began, should show that the first value of status word has mutated with the player guesses that were found in the word.
 
-Calls to getStatusWord(), after the game has began, should show that the first value of status word has mutated with the player guesses that were found in the word.
-
-Calls to getActiveTeam(), before the game begins, should throw an error.
-
-Calls to getActiveTeam(), after the game began, should return a Manager class and subsequencial calls should rotate teams.
+Calls to getActiveTeam(), before the game begins, should throw an error. Calls to getActiveTeam(), after the game began, should return a Manager class and subsequencial calls should rotate teams.
 
 Calls to startGame() should throw an error when there are empty teams in the game.
 
 Calls to makeGuess( Player, char ) should throw an error if either the guess is invalid or the player is not front player for the active team. Otherwise, the return will be true when the letter was found and false if not. All guess will be recorded. The score will be counted. The players on the active team will be rotated with a call to nextPlayer().
 
 Calls to makeGuess( Player, String ) should have the same behavior as the function it overloads except that String will be compared with the game word.
+
+Calls to resignTeam( Manager ) should thow an error if the Manager is not part of the game or is null. Otherwise should remove the team from the game. The active team may be changed if it is the same as the team that was removed. If there is zero teams remaining, there is no winner. If there is one team remaining, that team is the winner.
 
 Manager class:
 
@@ -101,13 +99,14 @@ Calls to getPlayerUp() will throw an error when getRosterSize() is zero. Otherwi
 
 Calls to nextPlayer() will throw an error when getRosterSize() is zero. Otherwise will set the player up to the next player in the line up.
 
+Calls to resign( Player ) will throw an error when  getRosterSize() is zero or the Player is not on the roster. Otherwise will remove the player from the roster. If the Player is the player up, then the game will set the next player up. If there are no players on the roster after the removal, the Game.resign( Manager ) will be called.
+
 
 Player class:
 
 The constructor for the Player class will accept the player name and the a reference to the team Manager class. For bad names or null Manager refereneces an error will be thrown. It should retain the name and a manager reference. The score will be set to 0 and the history will be initialized. 
 
-Calls to resign() will throw an error when the Player has already resigned.  Otherwise the manager reference will be set to null.
-
 Calls to getHistory() will return a String with all the player's guesses or an empty String for no guesses.
 
 Calls to getScore() will return the total guesses found in the game word.
+
