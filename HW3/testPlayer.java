@@ -7,7 +7,11 @@ import org.junit.Test;
 
 /**
  * This unit test will check the integrity of the Player class.
- *
+ * 
+ * TODO:
+ *  testGetScore_InGame() - ensure the score gets incremented when the player guesses correctly
+ *  testGetHistory_InGame() - ensure that correct guess get added to the list
+ * 
  * @author  Josh Gillham
  * @version 9-19-12
  */
@@ -39,6 +43,15 @@ public class testPlayer
     public void tearDown()
     {
     }
+    PlayerInterface player;
+    
+    /**
+     * Tests the constructor with good arguments. No errors should occur.
+     */
+    @Before
+    public void testConstructor() {
+        player= new Player( "Bob" );
+    }
     
     /**
      * Test the constructor with null argument. The result should be an error.
@@ -54,5 +67,21 @@ public class testPlayer
     @Test( expected= IllegalArgumentException.class )
     public void testConstructor_Empty() {
         PlayerInterface d= new Player( "" );
+    }
+    
+    /**
+     * Ensure that the initial score is 0.
+     */
+    @Test
+    public void testGetScore_Beginning() {
+        assertEquals( 0, player.getScore() );
+    }
+    
+    /**
+     * Ensure that the initial history is "".
+     */
+    @Test
+    public void testGetHistory_Beginning() {
+        assertEquals( "", player.getHistory() );
     }
 }
