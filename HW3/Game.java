@@ -76,4 +76,25 @@ public class Game implements GameInterface {
     public void startGame() {
         return;
     }
+    
+    /**
+     * Removes a team from the game. The team will automatically lose. If there is no teams
+     *  left in the game, there is no winner. If there is one team left, that team is the
+     *  winner. If there are two or more, the game resumes.
+     * 
+     * Preconditions:
+     *  manager must have been created with addTeam().
+     *  manager's team must be in the game.
+     *  
+     * Postconditions:
+     *  The manager's team is no longer in the game.
+     * 
+     * @arg manager the manager of the team to remove.
+     * 
+     * @throws NoSuchElementException when the manager's team is not in the game.
+     * @throws NullPointerException when the manager is null
+     */
+    public void resignTeam( Manager manager ) throws java.util.NoSuchElementException, java.lang.NullPointerException {
+        throw new UnsupportedOperationException();
+    }
 }
