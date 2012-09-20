@@ -15,21 +15,6 @@ import org.junit.Assert;
 public class testManager 
 {
     /**
-     * This class does not do anything
-     */
-    private class MockManager implements Manager{
-        public MockManager( String name ){ throw new IllegalArgumentException(); }
-        
-        public int getScore(){ return 5; }
-        public Player addPlayer( String name ) { return null; }
-        public boolean kickPlayer( Player player ) { return false; }
-        public Player getPlayerUp() { return null; }
-        public int getRosterSize() { return 0; }
-        public void nextPlayer() {}
-        public String getName() { return ""; }
-        
-    }
-    /**
      * Default constructor for test class testManager
      */
     public testManager()
@@ -45,7 +30,7 @@ public class testManager
     public void setUp(){
         try{
             String teamName= "Test Team";
-            Manager m= new MockManager( "Test Team" );
+            Manager m= new Manager( "Test Team" );
         } catch( Exception e ) {
             fail( "Constructor should not throw error" );
         }
@@ -68,12 +53,12 @@ public class testManager
     public void testConstructor_BadTeamNames(){
         // Test null names
         try{
-            Manager m= new MockManager( null );
+            ManagerInterface m= new Manager( null );
             fail( "Constructor should have thrown an error." );
         }catch( Exception e ){}
         // Test empty names
         try{
-            Manager m= new MockManager( "" );
+            ManagerInterface m= new Manager( "" );
             fail( "Constructor should have thrown an error." );
         }catch( Exception e ){}
     }
@@ -84,7 +69,7 @@ public class testManager
     @Test
     public void testGetScore() {
         String teamName= "Test Team";
-        Manager m= new MockManager( "Test Team" );
+        ManagerInterface m= new Manager( "Test Team" );
         
         Assert.assertEquals( 0, m.getScore() );
     }
@@ -95,7 +80,7 @@ public class testManager
     @Test
     public void testGetName() {
         String teamName= "Test Team";
-        Manager m= new MockManager( "Test Team" );
+        ManagerInterface m= new Manager( "Test Team" );
         
         Assert.assertEquals( teamName, m.getName() );
     }
@@ -106,7 +91,7 @@ public class testManager
     @Test
     public void testAddPlayer(){
         String teamName= "Test Team";
-        Manager m= new MockManager( "Test Team" );
+        ManagerInterface m= new Manager( "Test Team" );
         
         String[] morePlayerNames= { "Susan", "George", "Bob", "Lucas", "Fred" };
         
@@ -120,7 +105,7 @@ public class testManager
     @Test
     public void testGetRosterSize() {
         String teamName= "Test Team";
-        Manager m= new MockManager( "Test Team" );
+        ManagerInterface m= new Manager( "Test Team" );
         
         for( int i= 0; i < 10; ++i ){
             m.addPlayer( new Integer( i ).toString() );
@@ -135,8 +120,8 @@ public class testManager
     @Test
     public void testGetPlayeUp() {
         String teamName= "Test Team";
-        Manager m= new MockManager( "Test Team" );
-        Player firstPlayer= null;
+        ManagerInterface m= new Manager( "Test Team" );
+        PlayerInterface firstPlayer= null;
         for( int i= 0; i < 10; ++i ){
             if( i == 0 )
                 firstPlayer= m.addPlayer( new Integer( i ).toString() );
@@ -153,7 +138,7 @@ public class testManager
     @Test
     public void testNextPlayer(){
         String teamName= "Test Team";
-        Manager m= new MockManager( "Test Team" );
+        ManagerInterface m= new Manager( "Test Team" );
         
         for( int i= 0; i < 10; ++i ){
             m.addPlayer( new Integer( i ).toString() );
