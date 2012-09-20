@@ -14,7 +14,7 @@
  * @author Josh Gillham
  * @version 9-18-12
  */
-public interface Manager
+public interface ManagerInterface
 {
     /**
      * Creates a new player in the Manager class and adds him to the list.
@@ -24,7 +24,7 @@ public interface Manager
      * @throws an IllegalArgumentException when the player's name is invalid.
      * @throws an NullPointerException when the player's name is null.
      */
-    public Player addPlayer( String name );
+    public PlayerInterface addPlayer( String name );
     /**
      * The manager can kick a player off the list.\
      * 
@@ -35,7 +35,7 @@ public interface Manager
      * 
      * @throws an NullPointerException when player is null
      */
-    public boolean kickPlayer( Player player );
+    public boolean kickPlayer( PlayerInterface player );
     
     /**
      * Gets the score of the team.
@@ -54,7 +54,7 @@ public interface Manager
      * 
      * @throws NoSuchElementException when getRosterSize() == 0.
      */
-    public Player getPlayerUp();
+    public PlayerInterface getPlayerUp();
     
     /**
      * Gets the roster size with List.size().

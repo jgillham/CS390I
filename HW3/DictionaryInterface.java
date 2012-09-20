@@ -7,7 +7,7 @@
  * @author Josh Gillham
  * @version 9-17-12
  */
-public interface Dictionary{
+public interface DictionaryInterface{
     /**
      * getInstance finds the instance of the singleton and the file is disregarded, but, if
      *  no instance exists, a new dictionary class is created and the file is loaded.
@@ -16,7 +16,7 @@ public interface Dictionary{
      * 
      * @return the Dictionary instance
      */
-    public Dictionary getInstance( String file );
+    public DictionaryInterface getInstance( String file );
     
     /**
      * Finds a random word from the dictionary.

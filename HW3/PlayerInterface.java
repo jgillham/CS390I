@@ -9,7 +9,7 @@
  * @author Josh Gillham
  * @version 9-17-12
  */
-public interface Player {
+public interface PlayerInterface {
     /**
      * Adds the letter to the list of guesses. If goodGuess is false, then 
      *  increments the wrong answers counter by 1.

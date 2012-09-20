@@ -19,7 +19,7 @@
  * @author Josh Gillham
  * @version 9-19-12
  */
-public interface Game{
+public interface GameInterface{
     /**
      * Submits a guess. The guess is game word. If the letter is contained in the word
      *  then true is returned.
@@ -32,7 +32,7 @@ public interface Game{
      * @throws IllegalArgumentException when playerID does not represent a player
      * @throws IllegalArgumentException when letter is not a letter i.e. '?' or '9'
      */
-    public boolean makeGuess( Player player, char letter );
+    public boolean makeGuess( PlayerInterface player, char letter );
     /**
      * Gets the current word with underscores representing unguessed letters.
      * 
@@ -47,7 +47,7 @@ public interface Game{
      * 
      * @return the manager of the new team.
      */
-    public Manager addTeam();
+    public ManagerInterface addTeam();
     
     /**
      * Gets the team whose turn to guess.
@@ -59,7 +59,7 @@ public interface Game{
      * 
      * 
      */
-    public Manager getActiveTeam();
+    public ManagerInterface getActiveTeam();
     
     /**
      * Starts a new game.
