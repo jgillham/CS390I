@@ -39,4 +39,27 @@ public class testGame
     public void tearDown()
     {
     }
+    
+    /**
+     * Test the constructor to make sure it will throw errors when given bad
+     *  arguments
+     */
+    @Test
+    public void testConstructor_BadArgs() {
+        try{
+            Game g= new Game( Game.MIN_ATTEMPTS - 1, Dictionary.MIN_WORDLENGTH );
+            fail( "Constructor should have thrown an error." );
+        }catch( Exception e ) {}
+        
+        try{
+            Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MIN_WORDLENGTH - 1 );
+            fail( "Constructor should have thrown an error." );
+        }catch( Exception e ) {}
+        
+        try{
+            Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH + 1 );
+            fail( "Constructor should have thrown an error." );
+        }catch( Exception e ) {}
+            
+    }
 }
