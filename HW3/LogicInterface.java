@@ -1,5 +1,8 @@
 
 /**
+ * 
+ * Allows other objects to take actions on the game logic.
+ * 
  * When game is created, it will create a new instance of manger and retain the reference.
  * 
  * A team may have only one player or it may have many players. The game will know which 
@@ -56,7 +59,7 @@ public interface LogicInterface{
      * 
      * @throws Exception if startGame has already been Called
      */
-    public ManagerInterface addTeam() throws Exception;
+    //public ManagerInterface addTeam() throws Exception;
     
     /**
      * Gets the team whose turn to guess.
@@ -64,7 +67,7 @@ public interface LogicInterface{
      * Preconditions:
      *  at least one call to addTeam()
      */
-    public ManagerInterface getActiveTeam();
+    //public ManagerInterface getActiveTeam();
     
     /**
      * Starts a new game.
@@ -75,7 +78,7 @@ public interface LogicInterface{
      *  
      * @throw Exception when the preconditions are not met
      */
-    public void startGame();
+    //public void startGame();
     
     /**
      * Removes a team from the game. The team will automatically lose. If there is no teams
@@ -111,7 +114,7 @@ public interface LogicInterface{
      * 
      * @return the number of teams
      */
-    public int getNumberOfTeams();
+    //public int getNumberOfTeams();
     
     
 }

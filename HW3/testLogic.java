@@ -82,7 +82,7 @@ public class testLogic
     /**
      * GetStatusWord should return all underscores before the game starts.
      */
-    @Test
+    /*@Test
     public void testGetStatusWord_BeforeGame() {
         for( int i= Dictionary.MIN_WORDLENGTH; i <= Dictionary.MAX_WORDLENGTH; ++i ) {
             Logic g= new Logic( Logic.MIN_ATTEMPTS, i );
@@ -90,76 +90,76 @@ public class testLogic
             for( int k= 0; k <  word.length(); ++k )
                 assertEquals( '_', word.charAt( k ) );
         }
-    }
+    }*/
     
     /**
      * Test makeGuess with a bad argument.
      */
-    @Test( expected= NullPointerException.class )
+    /* @Test( expected= NullPointerException.class )
     public void testMakeGuess_NullPlayer() {
         Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         PlayerInterface player= g.addTeam().addPlayer( "Bob" );
         g.startGame();
         g.makeGuess( null, 'a' );
-    }
+    }*/
     
     /**
      * Test makeGuess with a bad argument.
      */
-    @Test( expected= java.util.NoSuchElementException.class )
+    /* @Test( expected= java.util.NoSuchElementException.class )
     public void testMakeGuess_BadPlayer() {
         Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         PlayerInterface player= g.addTeam().addPlayer( "Bob" );
         g.startGame();
         g.makeGuess( new Player( "Name" ), 'a' );
-    }
+    } */
     
     /**
      * Test makeGuess with a bad argument.
      */
-    @Test( expected= IllegalArgumentException.class )
+    /* @Test( expected= IllegalArgumentException.class )
     public void testMakeGuess_WithoutStart() {
         Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         PlayerInterface player= g.addTeam().addPlayer( "Bob" );
         g.makeGuess( player, '9' );
-    }
+    } */
     
     /**
      * Test makeGuess with a bad argument.
      */
-    @Test( expected= IllegalArgumentException.class )
+   /* @Test( expected= IllegalArgumentException.class )
     public void testMakeGuess() {
         Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         PlayerInterface player= g.addTeam().addPlayer( "Bob" );
         g.startGame();
         g.makeGuess( player, '9' );
-    }
+    }*/
     
     /**
      * Tests addTeam after a call with startGame(). The result should be an error.
      */
-    @Test( expected= Exception.class )
+    /*@Test( expected= Exception.class )
     public void testAddTeam_afterStartGame() {
         Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         g.startGame();
         g.addTeam();
-    }
+    }*/
     
     /**
      * Tests addteam.
      * 
      */
-    @Test
+    /*@Test
     public void testAddTeam() {
         Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         assertNotNull( g.addTeam() );
-    }
+    }*/
     
     /**
      * Tests getActiveTeam();
      * 
      */
-    @Test
+    /* @Test
     public void testGetActiveTeam() {
         Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         ManagerInterface firstTeam= null;
@@ -170,39 +170,34 @@ public class testLogic
                 g.addTeam();
             assertEquals( firstTeam, g.getActiveTeam() );
         }
-    }
+    }*/
     
     /**
      * Tests startGame before there is one team in the game. Expected to fail.
      */
-    @Test( expected= Exception.class )
+    /*@Test( expected= Exception.class )
     public void testStartGame_wOneTeam() {
         Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         g.startGame();
-    }
+    } */
     
     /**
      * Tests startGame before there is one player in the game. Expected to fail.
      */
-    @Test( expected= Exception.class )
+    /*@Test( expected= Exception.class )
     public void testStartGame_wOnePlayer() {
         Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         g.addTeam();
         g.startGame();
-    }
+    }*/
     
     /**
      * Tests startGame before there is one player in the game.
      */
-    @Test
+    /* @Test
     public void testStartGame() {
         Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         g.addTeam().addPlayer( "Name" );
         g.startGame();
-    }
-        
-    
-    
-    
-    
+    } */
 }

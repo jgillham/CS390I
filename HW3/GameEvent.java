@@ -1,6 +1,6 @@
 
 /**
- * Provides an infrastructure to allow the UI to respond to game events.
+ * Allows the game to update the UI.
  * 
  * @author Josh Gillham
  * @version 9-20-12
