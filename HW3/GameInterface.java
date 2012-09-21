@@ -26,6 +26,8 @@ public interface GameInterface{
      * 
      * Preconditions:
      *  startGame must have been called successfully
+     *  player must have been added with a call to Manager.addPlayer()
+     *  player must be on the active team
      *  
      * Postconditions:
      *  getActiveTeam().nextPlayer() is called
@@ -55,19 +57,20 @@ public interface GameInterface{
     /**
      * Adds a new team and returns the manager of the team.
      * 
+     * Preconditions:
+     *  startGame() must not have been called.
+     * 
      * @return the manager of the new team.
+     * 
+     * @throws Exception if startGame has already been Called
      */
-    public ManagerInterface addTeam();
+    public ManagerInterface addTeam() throws Exception;
     
     /**
      * Gets the team whose turn to guess.
      * 
      * Preconditions:
      *  at least one call to addTeam()
-     *  at least one call to Manager.addPlayer()
-     *  startGame() must have been called.
-     * 
-     * 
      */
     public ManagerInterface getActiveTeam();
     
@@ -77,6 +80,8 @@ public interface GameInterface{
      * Preconditons:
      *  at least one call to addTeam()
      *  at least one call to Manager.addPlayer()
+     *  
+     * @throw Exception when the preconditions are not met
      */
     public void startGame();
     
@@ -101,6 +106,9 @@ public interface GameInterface{
     
     /**
      * Rotates teams. Moves the active team to the next team in the game to make a guess.
+     * 
+     * Preconditions:
+     *  at least one call to addTeam()
      * 
      * @throws NoSuchElementException when getNumberOfTeams() == 0
      */

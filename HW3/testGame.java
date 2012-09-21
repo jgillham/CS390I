@@ -135,6 +135,72 @@ public class testGame
         g.makeGuess( player, '9' );
     }
     
+    /**
+     * Tests addTeam after a call with startGame(). The result should be an error.
+     */
+    @Test( expected= Exception.class )
+    public void testAddTeam_afterStartGame() {
+        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        g.startGame();
+        g.addTeam();
+    }
+    
+    /**
+     * Tests addteam.
+     * 
+     */
+    @Test
+    public void testAddTeam() {
+        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        assertNotNull( g.addTeam() );
+    }
+    
+    /**
+     * Tests getActiveTeam();
+     * 
+     */
+    @Test
+    public void testGetActiveTeam() {
+        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        ManagerInterface firstTeam= null;
+        for( int i= 0; i < 10; ++i ){
+            if( i == 0 )
+                firstTeam= g.addTeam();
+            else
+                g.addTeam();
+            assertEquals( firstTeam, g.getActiveTeam() );
+        }
+    }
+    
+    /**
+     * Tests startGame before there is one team in the game. Expected to fail.
+     */
+    @Test( expected= Exception.class )
+    public void testStartGame_wOneTeam() {
+        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        g.startGame();
+    }
+    
+    /**
+     * Tests startGame before there is one player in the game. Expected to fail.
+     */
+    @Test( expected= Exception.class )
+    public void testStartGame_wOnePlayer() {
+        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        g.addTeam();
+        g.startGame();
+    }
+    
+    /**
+     * Tests startGame before there is one player in the game.
+     */
+    @Test
+    public void testStartGame() {
+        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        g.addTeam().addPlayer( "Name" );
+        g.startGame();
+    }
+        
     
     
     
