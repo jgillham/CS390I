@@ -96,16 +96,20 @@ public class testGame
      */
     @Test( expected= NullPointerException.class )
     public void testMakeGuess_NullPlayer() {
-        Game g= new Game( Game.MIN_ATTEMPTS, i );
+        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        PlayerInterface player= g.addTeam().addPlayer( "Bob" );
+        g.startGame();
         g.makeGuess( null, 'a' );
     }
     
     /**
      * Test makeGuess with a bad argument.
      */
-    @Test( expected= NoSuchElementException.class )
+    @Test( expected= java.util.NoSuchElementException.class )
     public void testMakeGuess_BadPlayer() {
-        Game g= new Game( Game.MIN_ATTEMPTS, i );
+        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        PlayerInterface player= g.addTeam().addPlayer( "Bob" );
+        g.startGame();
         g.makeGuess( new Player( "Name" ), 'a' );
     }
     
@@ -113,9 +117,9 @@ public class testGame
      * Test makeGuess with a bad argument.
      */
     @Test( expected= IllegalArgumentException.class )
-    public void testMakeGuess_BadPlayer() {
-        Game g= new Game( Game.MIN_ATTEMPTS, i );
-        Player player= g.addTeam().addPlayer();
+    public void testMakeGuess_WithoutStart() {
+        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        PlayerInterface player= g.addTeam().addPlayer( "Bob" );
         g.makeGuess( player, '9' );
     }
     
@@ -123,9 +127,9 @@ public class testGame
      * Test makeGuess with a bad argument.
      */
     @Test( expected= IllegalArgumentException.class )
-    public void testMakeGuess_BadPlayer() {
-        Game g= new Game( Game.MIN_ATTEMPTS, i );
-        Player player= g.addTeam().addPlayer();
+    public void testMakeGuess() {
+        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        PlayerInterface player= g.addTeam().addPlayer( "Bob" );
         g.startGame();
         g.makeGuess( player, '9' );
     }
