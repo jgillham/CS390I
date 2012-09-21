@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import java.lang.NullPointerException;
+
 
 /**
  * This unit test will check the integrity of the Dictionary class.
@@ -41,10 +43,45 @@ public class testDictionary
     }
     
     /**
-     * Test the constructor with bad arguments. The result should be an error
+     * Test the getInstance with a null. The result should be an error
      */
-    @Test//( expected=
-    public void testConstructor_Null() {
-        //DictionaryInterface d= new Dictionary( null );
+    @Test( expected= java.lang.NullPointerException.class )
+    public void testGetInstance_Null() {
+        DictionaryInterface d= Dictionary.getInstance( null );
     }
+    
+    /**
+     * Test the getInstance with an empty. The result should be an error
+     */
+    @Test( expected= IllegalArgumentException.class )
+    public void testGetInstance_Empty() {
+        DictionaryInterface d= Dictionary.getInstance( "" );
+    }
+    
+    String dictionaryFile="";
+    DictionaryInterface dictionary= Dictionary.getInstance( dictionaryFile );
+    /**
+     * Test the getInstance.
+     */
+    @Before
+    public void testGetInstance() {
+        dictionary= Dictionary.getInstance( dictionaryFile );
+    }
+    
+    /**
+     * Test getWord with bad lengths. The result should be an error.
+     */
+    @Test( expected= IllegalArgumentException.class )
+    public void testGetWord_TooSmall() {
+        dictionary.getWord( Dictionary.MIN_WORDLENGTH - 1 );
+    }
+    
+    /**
+     * Test getWord with bad lengths. The result should be an error.
+     */
+    @Test( expected= IllegalArgumentException.class )
+    public void testGetWord_TooLarge() {
+        dictionary.getWord( Dictionary.MIN_WORDLENGTH + 1 );
+    }
+    
 }

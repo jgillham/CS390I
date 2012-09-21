@@ -9,21 +9,13 @@
  */
 public interface DictionaryInterface{
     /**
-     * getInstance finds the instance of the singleton and the file is disregarded, but, if
-     *  no instance exists, a new dictionary class is created and the file is loaded.
-     * 
-     * @arg file the dictionary file to load.
-     * 
-     * @return the Dictionary instance
-     */
-    public DictionaryInterface getInstance( String file );
-    
-    /**
      * Finds a random word from the dictionary.
      * 
      * @arg length is the length of the word to find
      * 
      * @return the random word
+     * 
+     * @throw IllegalArgumentException when the length is less than MIN_WORDLENGTH or greater than MAX_WORDLENGTH
      */
     public String getWord( int length );
 }
