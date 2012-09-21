@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import java.util.List;
+import java.util.LinkedList;
 
 /**
  * The test class testFormGamePlay.
@@ -16,7 +18,7 @@ public class testGameEvent
     /**
      * Default constructor for test class testGame
      */
-    public testLogic()
+    public testGameEvent()
     {
     }
 
@@ -41,7 +43,7 @@ public class testGameEvent
     }
     Logic game;
     List< Manager > teams;
-    PlayerInterface player;
+    Player player;
     
     /**
      * Test the constructor to make sure it can successfully construct

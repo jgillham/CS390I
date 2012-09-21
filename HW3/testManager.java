@@ -56,12 +56,12 @@ public class testManager
     public void testConstructor_BadTeamNames(){
         // Test null names
         try{
-            ManagerInterface m= new Manager( null );
+            Manager m= new Manager( null );
             fail( "Constructor should have thrown an error." );
         }catch( Exception e ){}
         // Test empty names
         try{
-            ManagerInterface m= new Manager( "" );
+            Manager m= new Manager( "" );
             fail( "Constructor should have thrown an error." );
         }catch( Exception e ){}
     }
@@ -72,7 +72,7 @@ public class testManager
     @Test
     public void testGetScore() {
         String teamName= "Test Team";
-        ManagerInterface m= new Manager( "Test Team" );
+        Manager m= new Manager( "Test Team" );
         
         Assert.assertEquals( 0, m.getScore() );
     }
@@ -83,7 +83,7 @@ public class testManager
     @Test
     public void testGetName() {
         String teamName= "Test Team";
-        ManagerInterface m= new Manager( "Test Team" );
+        Manager m= new Manager( "Test Team" );
         
         Assert.assertEquals( teamName, m.getName() );
     }
@@ -94,7 +94,7 @@ public class testManager
     @Test
     public void testAddPlayer(){
         String teamName= "Test Team";
-        ManagerInterface m= new Manager( "Test Team" );
+        Manager m= new Manager( "Test Team" );
         
         String[] morePlayerNames= { "Susan", "George", "Bob", "Lucas", "Fred" };
         
@@ -108,7 +108,7 @@ public class testManager
     @Test
     public void testGetRosterSize() {
         String teamName= "Test Team";
-        ManagerInterface m= new Manager( "Test Team" );
+        Manager m= new Manager( "Test Team" );
         
         for( int i= 0; i < 10; ++i ){
             m.addPlayer( new Integer( i ).toString() );
@@ -123,8 +123,8 @@ public class testManager
     @Test
     public void testGetPlayerUp() {
         String teamName= "Test Team";
-        ManagerInterface m= new Manager( "Test Team" );
-        PlayerInterface firstPlayer= null;
+        Manager m= new Manager( "Test Team" );
+        Player firstPlayer= null;
         for( int i= 0; i < 10; ++i ){
             if( i == 0 )
                 firstPlayer= m.addPlayer( new Integer( i ).toString() );
@@ -141,7 +141,7 @@ public class testManager
     @Test
     public void testNextPlayer(){
         String teamName= "Test Team";
-        ManagerInterface m= new Manager( "Test Team" );
+        Manager m= new Manager( "Test Team" );
         
         for( int i= 0; i < 10; ++i ){
             m.addPlayer( new Integer( i ).toString() );
@@ -159,7 +159,7 @@ public class testManager
      */
     @Test( expected= java.lang.NullPointerException.class )
     public void testResignPlayer_Null() {
-        ManagerInterface m= new Manager( "Test" );
+        Manager m= new Manager( "Test" );
         m.resignPlayer( null );
     }
     
@@ -168,7 +168,7 @@ public class testManager
      */
     @Test( expected= java.util.NoSuchElementException.class )
     public void testResignPlayer_BadPlayer() {
-        ManagerInterface m= new Manager( "Test" );
+        Manager m= new Manager( "Test" );
         m.resignPlayer( new Player( "Test" ) );
     }
     
@@ -179,12 +179,12 @@ public class testManager
     @Test
     public void testResignPlayer() {
         String teamName= "Test Team";
-        ManagerInterface m= new Manager( teamName );
+        Manager m= new Manager( teamName );
         
         String[] morePlayerNames= { "Susan", "George", "Bob", "Lucas", "Fred" };
         
         for( String name: morePlayerNames ) {
-            PlayerInterface player= m.addPlayer( name );
+            Player player= m.addPlayer( name );
             m.resignPlayer( player );
         }
     }

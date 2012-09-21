@@ -47,7 +47,7 @@ public class testLogic
     }
     Logic game;
     List< Manager > teams;
-    PlayerInterface player;
+    Player player;
     
     /**
      * Test the constructor to make sure it can successfully construct

@@ -23,7 +23,7 @@ public class Dictionary{
      * 
      * @return the Dictionary instance
      */
-    static public DictionaryInterface getInstance( String file )
+    static public Dictionary getInstance( String file )
     { throw new UnsupportedOperationException(); }
     
     /** Empty unimplemented body. */
@@ -39,5 +39,6 @@ public class Dictionary{
      * 
      * @throw IllegalArgumentException when the length is less than MIN_WORDLENGTH or greater than MAX_WORDLENGTH
      */
-    public String getWord( int length );
+    public String getWord( int length )
+    { throw new UnsupportedOperationException(); }
 }

@@ -47,7 +47,7 @@ public class testDictionary
      */
     @Test( expected= java.lang.NullPointerException.class )
     public void testGetInstance_Null() {
-        DictionaryInterface d= Dictionary.getInstance( null );
+        Dictionary d= Dictionary.getInstance( null );
     }
     
     /**
@@ -55,11 +55,11 @@ public class testDictionary
      */
     @Test( expected= IllegalArgumentException.class )
     public void testGetInstance_Empty() {
-        DictionaryInterface d= Dictionary.getInstance( "" );
+        Dictionary d= Dictionary.getInstance( "" );
     }
     
     String dictionaryFile="";
-    DictionaryInterface dictionary= Dictionary.getInstance( dictionaryFile );
+    Dictionary dictionary= Dictionary.getInstance( dictionaryFile );
     /**
      * Test the getInstance.
      */

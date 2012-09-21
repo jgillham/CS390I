@@ -9,7 +9,7 @@
  * @author Josh Gillham
  * @version 9-17-12
  */
-public interface PlayerInterface {
+public class Player {
     /** Empty unimplemented body. */
     public Player( String name ) throws NullPointerException, IllegalArgumentException
     { throw new UnsupportedOperationException(); }
@@ -19,7 +19,8 @@ public interface PlayerInterface {
      * 
      * @return the letters guessed
      */
-    public String getHistory();
+    public String getHistory()
+    { throw new UnsupportedOperationException(); }
     
     /**
      * Accesses the player's score. Returns 0 at the beginning of the game
@@ -27,6 +28,7 @@ public interface PlayerInterface {
      *  
      * @return the score
      */
-    public int getScore();
+    public int getScore()
+    { throw new UnsupportedOperationException(); }
     
 }

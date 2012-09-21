@@ -43,7 +43,7 @@ public class testPlayer
     public void tearDown()
     {
     }
-    PlayerInterface player;
+    Player player;
     
     /**
      * Tests the constructor with good arguments. No errors should occur.
@@ -58,7 +58,7 @@ public class testPlayer
      */
     @Test( expected= NullPointerException.class )
     public void testConstructor_Null() {
-        PlayerInterface d= new Player( null );
+        Player d= new Player( null );
     }
     
     /**
@@ -66,7 +66,7 @@ public class testPlayer
      */
     @Test( expected= IllegalArgumentException.class )
     public void testConstructor_Empty() {
-        PlayerInterface d= new Player( "" );
+        Player d= new Player( "" );
     }
     
     /**
