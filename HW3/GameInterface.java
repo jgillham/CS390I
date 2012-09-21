@@ -38,6 +38,7 @@ public interface GameInterface{
      * 
      * @return True if the guess is found in the word
      * 
+     * @throws NullPointerException when player is null.
      * @throws NoSuchElementException when the player is not on the active team.
      * @throws IllegalArgumentException when letter is not a letter i.e. '?' or '9'
      */

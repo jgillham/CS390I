@@ -7,6 +7,9 @@ import org.junit.Test;
 
 /**
  * This test unit will check the integrity of the Game class.
+ * 
+ * TODO:
+ *  testGetStatusWord_InGame()
  *
  * @author  Josh Gillham
  * @version 9-19-12
@@ -39,6 +42,7 @@ public class testGame
     public void tearDown()
     {
     }
+    Game game;
     
     /**
      * Test the constructor to make sure it can successfully construct
@@ -46,7 +50,7 @@ public class testGame
     @Before
     public void testConstructor() {
         try{
-            Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MIN_WORDLENGTH );
+            game= new Game( Game.MIN_ATTEMPTS, Dictionary.MIN_WORDLENGTH );
         } catch( Exception e ) {
             fail( "Exception should not have occured." );
         }
@@ -86,5 +90,45 @@ public class testGame
                 assertEquals( '_', word.charAt( k ) );
         }
     }
+    
+    /**
+     * Test makeGuess with a bad argument.
+     */
+    @Test( expected= NullPointerException.class )
+    public void testMakeGuess_NullPlayer() {
+        Game g= new Game( Game.MIN_ATTEMPTS, i );
+        g.makeGuess( null, 'a' );
+    }
+    
+    /**
+     * Test makeGuess with a bad argument.
+     */
+    @Test( expected= NoSuchElementException.class )
+    public void testMakeGuess_BadPlayer() {
+        Game g= new Game( Game.MIN_ATTEMPTS, i );
+        g.makeGuess( new Player( "Name" ), 'a' );
+    }
+    
+    /**
+     * Test makeGuess with a bad argument.
+     */
+    @Test( expected= IllegalArgumentException.class )
+    public void testMakeGuess_BadPlayer() {
+        Game g= new Game( Game.MIN_ATTEMPTS, i );
+        Player player= g.addTeam().addPlayer();
+        g.makeGuess( player, '9' );
+    }
+    
+    /**
+     * Test makeGuess with a bad argument.
+     */
+    @Test( expected= IllegalArgumentException.class )
+    public void testMakeGuess_BadPlayer() {
+        Game g= new Game( Game.MIN_ATTEMPTS, i );
+        Player player= g.addTeam().addPlayer();
+        g.startGame();
+        g.makeGuess( player, '9' );
+    }
+    
     
 }
