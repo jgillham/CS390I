@@ -11,12 +11,12 @@ import org.junit.Test;
  * @author  (your name)
  * @version (a version number or a date)
  */
-public class testFormGamePlay
+public class testGameEvent
 {
     /**
      * Default constructor for test class testFormGamePlay
      */
-    public testFormGamePlay()
+    public testGameEvent()
     {
     }
 

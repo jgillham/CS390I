@@ -7,10 +7,7 @@
  */
 public class UI implements GameEvent {
     /** Empty unimplemented body. */
-    public FormGamePlay( SetupEvent  callback )
-    { throw new UnsupportedOperationException(); }
-    /** Empty unimplemented body. */
-    public FormGamePlay( )
+    public UI( SetupEvent  callback )
     { throw new UnsupportedOperationException(); }
     /** Empty unimplemented body. */
     public void gameOver()

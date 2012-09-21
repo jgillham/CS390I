@@ -11,12 +11,12 @@ import org.junit.Test;
  * @author  (your name)
  * @version (a version number or a date)
  */
-public class testFormGameSetup
+public class testSetupEvent
 {
     /**
      * Default constructor for test class testFormGameSetup
      */
-    public testFormGameSetup()
+    public testSetupEvent()
     {
     }
 
@@ -39,13 +39,13 @@ public class testFormGameSetup
     public void tearDown()
     {
     }
-    FormGameSetup form;
+    UI form;
     /**
      * Tests the constructor to see if it won't throw an error.
      */
     @Before
     public void testConstructor() {
-        form= new FormGameSetup( new SetupEvent() {
+        form= new UI( new SetupEvent() {
             public void completedSetup( int maxAttempts, int wordLen ) throws IllegalArgumentException
             { throw new UnsupportedOperationException(); }
         } );
