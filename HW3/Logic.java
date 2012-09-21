@@ -13,7 +13,7 @@ public class Logic implements LogicInterface {
     /** The least guesses allowed that make the game interesting. */
     static public final int MIN_ATTEMPTS= 2;
     /** Empty unimplemented body. */
-    public Logic( int maxAttempts, int gameWordLength ) throws IllegalArgumentException
+    public Logic( java.util.List< Manager > teams, int gameWordLength ) throws IllegalArgumentException
     { throw new UnsupportedOperationException(); }
     /** Empty unimplemented body. */
     public boolean makeGuess( PlayerInterface player, char letter ) 
@@ -39,4 +39,7 @@ public class Logic implements LogicInterface {
     ///** Empty unimplemented body. */
     //public int getNumberOfTeams()
     //{ throw new UnsupportedOperationException(); }
+    /** Empty unimplemented body. */
+    public void setGameEventsHandler( GameEvent handler )
+    { throw new UnsupportedOperationException(); }
 }

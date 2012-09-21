@@ -116,5 +116,10 @@ public interface LogicInterface{
      */
     //public int getNumberOfTeams();
     
+    /**
+     * Sets the GameEvents handler. Used to pass messages back to the UI.
+     */
+    public void setGameEventsHandler( GameEvent handler );
+    
     
 }

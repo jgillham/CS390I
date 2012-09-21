@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import java.util.List;
+import java.util.LinkedList;
 
 /**
  * This test unit will check the integrity of the Logic class.
@@ -44,48 +46,49 @@ public class testLogic
     {
     }
     Logic game;
+    List< Manager > teams;
     
     /**
      * Test the constructor to make sure it can successfully construct
      */
     @Before
     public void testConstructor() {
-        try{
-            game= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MIN_WORDLENGTH );
-        } catch( Exception e ) {
-            fail( "Exception should not have occured." );
-        }
+        
+        teams= new LinkedList< Manager >();
+        Manager man= new Manager( "Alpha" );
+        teams.add( man );
+        man.addPlayer( "Bob" );
+        
+        game= new Logic( teams, Dictionary.MIN_WORDLENGTH );
     }
     
-    /**
-     * Test the constructor to make sure it will throw errors when given bad
-     *  arguments
-     */
-    @Test
-    public void testConstructor_BadArgs() {
-        try{
-            Logic g= new Logic( Logic.MIN_ATTEMPTS - 1, Dictionary.MIN_WORDLENGTH );
-            fail( "Constructor should have thrown an error." );
-        }catch( Exception e ) {}
-        
-        try{
-            Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MIN_WORDLENGTH - 1 );
-            fail( "Constructor should have thrown an error." );
-        }catch( Exception e ) {}
-        
-        try{
-            Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH + 1 );
-            fail( "Constructor should have thrown an error." );
-        }catch( Exception e ) {}       
+    @Test( expected= NullPointerException.class )
+    public void testConstructor_Null(){
+        Logic g= new Logic( null, Dictionary.MIN_WORDLENGTH );
+    }
+    
+    @Test( expected= IllegalArgumentException.class )
+    public void testConstructor_NoPlayers(){
+        Logic g= new Logic( new LinkedList< Manager >(), Dictionary.MIN_WORDLENGTH );
+    }
+    
+    @Test( expected= IllegalArgumentException.class )
+    public void testConstructor_WordTooSmall(){
+        Logic g= new Logic( teams, Dictionary.MIN_WORDLENGTH - 1 );
+    }
+    
+    @Test( expected= IllegalArgumentException.class )
+    public void testConstructor_WordTooLarge(){
+        Logic g= new Logic( teams, Dictionary.MAX_WORDLENGTH + 1 );
     }
     
     /**
      * GetStatusWord should return all underscores before the game starts.
      */
-    /*@Test
+    /* @Test
     public void testGetStatusWord_BeforeGame() {
         for( int i= Dictionary.MIN_WORDLENGTH; i <= Dictionary.MAX_WORDLENGTH; ++i ) {
-            Logic g= new Logic( Logic.MIN_ATTEMPTS, i );
+            Logic g= new Logic( teams, i );
             String word= g.getWordStatus();
             for( int k= 0; k <  word.length(); ++k )
                 assertEquals( '_', word.charAt( k ) );
