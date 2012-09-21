@@ -5,8 +5,7 @@
  * @author Josh Gillham
  * @version 9-20-12
  */
-public interface UI
-{
+public interface GameEvent {
     /**
      * Will announce that the game has finished.
      */

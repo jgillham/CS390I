@@ -1,10 +1,4 @@
-﻿------------------------------------------------------------------------
-This is the project README file. Here, you should describe your project.
-Tell the reader (someone who does not know anything about this project)
-all he/she needs to know. The comments should usually include at least:
-------------------------------------------------------------------------
-
-PROJECT TITLE: Hangman
+﻿PROJECT TITLE: Hangman
 PURPOSE OF PROJECT: To turn in as a class assignment
 VERSION or DATE: 9-17-12
 HOW TO START THIS PROJECT:
@@ -38,6 +32,12 @@ Test coverage in testManager.
 Test coverage in testPlayer.
 
 Test coverage in testDictionary.
+
+Test coverage in testFormGameSetup.
+
+Test coverage in testFormGamePlay.
+
+Test coverage in testHangman.
 
 Update and improve README.TXT.
 

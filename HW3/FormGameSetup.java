@@ -7,7 +7,7 @@
  */
 public class FormGameSetup {
     /** Empty unimplemented body. */
-    public FormGameSetup( UICallbackInterface  callback )
+    public FormGameSetup( SetupEvent  callback )
     { throw new UnsupportedOperationException(); }
 
 }

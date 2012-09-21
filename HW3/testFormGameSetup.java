@@ -39,4 +39,15 @@ public class testFormGameSetup
     public void tearDown()
     {
     }
+    FormGameSetup form;
+    /**
+     * Tests the constructor to see if it won't throw an error.
+     */
+    @Before
+    public void testConstructor() {
+        form= new FormGameSetup( new SetupEvent() {
+            public void completedSetup( int maxAttempts, int wordLen ) throws IllegalArgumentException
+            { throw new UnsupportedOperationException(); }
+        } );
+    }
 }
