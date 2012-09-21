@@ -49,9 +49,9 @@ VOCABULARY:
 
 Player Up - the player who has the turn to guess.
 
-Team - each player in the game belongs to a team even with one player and each team has a manager.
+Team - each player in the game belongs to a team and each team has a manager. A team must have at least one player.
 
-Manager - have the information about the team like the score and also a team. roster.
+Manager - has the information about the team like the score and also a team roster.
 
 Roster - each team has a list of players.
 
@@ -63,26 +63,32 @@ Active Team - the team who has the turn to guess.
 
 Line Up - the order on which players are listed on the roster.
 
+DESCRIPTION:
 
+The game of hangman has a setup where the teams are picked and players are added to the teams. The maximum guesses and length of the word is decided. This is all the information needed to setup the game.
+
+For a game with only one team, there is only one player. That player will make all the guesses in the game.
+
+For a game with more than one team, the teams will compete and try to guess the game word. The game rotates through each team allowing them to guess. For example, the game starts with one team guessing first and then the second and so on. After the last team has guessed then the order repeats.
+
+Within a team, there is a player roster. The order of the roster decides which player is first. When a team guesses, the first player on the roster guesses. The next time the team guesses the second player will guess and so on. After the last player has guessed, the first player guesses again.
+
+When a team guesses the word, they win the game. They can win either by guessing the word, by guessing all the letters in the word, or a combination of the two.
+
+Teams can also give up (or resign) from the game. The resigning team automatically looses. The game will continue without the resigning team unless there are no teams left in the game. A team maybe forced to resign when all the players resign.
 
 VISION:
 
-This project is currently under development. Work is being done to create an interface that will blueprint the design for the classes in this project.
+The main will setup (bootstrap) the game. The dictionary will be initialized and the setup form will be launched. This form will prompt the user for the length of the word, and the maximum attempts to solve. The player choose to have different teams and add players to each team, but, the default is to have only one player. Currently, the game will support only one player. When the user hits the start button, the UI will signal through the GameEvent callback.
  
-The current theory on the relationship of these classes is under developement. As of today it thought that the GUI will contain the main() function. 
+Once the setup is completed successfully, a new game window will show up and the game will begin. The game defaults to having the first added team and player go first. The first team will make a guess. The player may guess the entire word or only a letter. When guessing the entire word, a good guess wins the game for the team. When guessing a single letter, a good guess will change the status word to show the letter's positions. After the guess is made, the manager designates the next player on the roster to guess later on and the game rotates to the next team. The guessing continues while the total guesses is below the maximum attempts.
 
-The main will call the dictionary initialization procedure and launch the game setup form. This form will prompt the user for the length of the word, and the maximum attempts to solve. The player choose to have different teams and add players to each team, but, the default is to have only one player. The user hits the start button and the game will begin.
- 
-The start button will launch a new window for the game and also create a new game class. The start button will also add teams and players onto the roster of each team. Each team will have a manager class or else with just one player there will be just one manager class.  The game will select a team to go first according to its rules (random number?). The GUI can call a method to see which team is up and which player is up. Now the first round of the game begins!
-
-The player who is first will make a guess. Players may, at their choice, guess the entire word or guess a letter. If the guess is invalid (contains non-alphabetic characters i. e. '?' or '9'), then the player should try again. If the guess is found in the game word, the player scores a point or else the player gets one wrong and in either case the player's turn is over. Now the opposite team gets to guess and they try their first player and this repeats while the max guesses have not been exceeded or the word has not been guessed.
-
-Once the word is guessed or the max attempts have been exceeded, then the game ends and one team may be awarded.
-
-Players may resign from the game. If all players in the team resign from the game, the team looses the
- game.
+If the player makes an invalid guess like, for example, an '?'. The player will be alerted. The game will signal this through an exception.
 
 FUNCTIONAL BEHAVIOR:
+
+Dictionary class:
+
 
 Game class:
 
