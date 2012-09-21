@@ -9,11 +9,11 @@
  * @author Josh Gillham
  * @version 9-19-12
  */
-public class Game implements GameInterface {
+public class Logic implements LogicInterface {
     /** The least guesses allowed that make the game interesting. */
     static public final int MIN_ATTEMPTS= 2;
     /** Empty unimplemented body. */
-    public Game( int maxAttempts, int gameWordLength ) throws IllegalArgumentException
+    public Logic( int maxAttempts, int gameWordLength ) throws IllegalArgumentException
     { throw new UnsupportedOperationException(); }
     /** Empty unimplemented body. */
     public boolean makeGuess( PlayerInterface player, char letter ) 

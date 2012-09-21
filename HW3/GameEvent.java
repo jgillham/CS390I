@@ -31,4 +31,13 @@ public interface GameEvent {
      * @arg team the winning team
      */
     public void gameWinnder( Manager team );
+    
+    /**
+     * Lets the UI know when the status word has changed.
+     * 
+     * Used by the GUI to display to the players.
+     * 
+     * @return the word with underscores
+     */
+    public void changedStatusWord( String statusWord );
 }

@@ -5,9 +5,9 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class UI implements GameEvent {
+public class GameUI implements GameEvent {
     /** Empty unimplemented body. */
-    public UI( SetupEvent  callback )
+    public void changedStatusWord( String statusWord )
     { throw new UnsupportedOperationException(); }
     /** Empty unimplemented body. */
     public void gameOver()

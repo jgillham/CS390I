@@ -19,7 +19,7 @@
  * @author Josh Gillham
  * @version 9-19-12
  */
-public interface GameInterface{
+public interface LogicInterface{
     /**
      * Submits a guess. The guess is game word. If the letter is contained in the word
      *  then true is returned.
@@ -45,14 +45,6 @@ public interface GameInterface{
      * @throws IllegalArgumentException when letter is not a letter i.e. '?' or '9'
      */
     public boolean makeGuess( PlayerInterface player, char letter );
-    /**
-     * Gets the current word with underscores representing unguessed letters.
-     * 
-     * Used by the GUI to display to the players.
-     * 
-     * @return the word with underscores
-     */
-    public String getWordStatus();
     
     /**
      * Adds a new team and returns the manager of the team.

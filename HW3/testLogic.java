@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * This test unit will check the integrity of the Game class.
+ * This test unit will check the integrity of the Logic class.
  * 
  * TODO:
  *  testGetStatusWord_InGame()
@@ -15,12 +15,12 @@ import org.junit.Test;
  * @author  Josh Gillham
  * @version 9-19-12
  */
-public class testGame
+public class testLogic
 {
     /**
      * Default constructor for test class testGame
      */
-    public testGame()
+    public testLogic()
     {
     }
 
@@ -43,7 +43,7 @@ public class testGame
     public void tearDown()
     {
     }
-    Game game;
+    Logic game;
     
     /**
      * Test the constructor to make sure it can successfully construct
@@ -51,7 +51,7 @@ public class testGame
     @Before
     public void testConstructor() {
         try{
-            game= new Game( Game.MIN_ATTEMPTS, Dictionary.MIN_WORDLENGTH );
+            game= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MIN_WORDLENGTH );
         } catch( Exception e ) {
             fail( "Exception should not have occured." );
         }
@@ -64,17 +64,17 @@ public class testGame
     @Test
     public void testConstructor_BadArgs() {
         try{
-            Game g= new Game( Game.MIN_ATTEMPTS - 1, Dictionary.MIN_WORDLENGTH );
+            Logic g= new Logic( Logic.MIN_ATTEMPTS - 1, Dictionary.MIN_WORDLENGTH );
             fail( "Constructor should have thrown an error." );
         }catch( Exception e ) {}
         
         try{
-            Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MIN_WORDLENGTH - 1 );
+            Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MIN_WORDLENGTH - 1 );
             fail( "Constructor should have thrown an error." );
         }catch( Exception e ) {}
         
         try{
-            Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH + 1 );
+            Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH + 1 );
             fail( "Constructor should have thrown an error." );
         }catch( Exception e ) {}       
     }
@@ -85,7 +85,7 @@ public class testGame
     @Test
     public void testGetStatusWord_BeforeGame() {
         for( int i= Dictionary.MIN_WORDLENGTH; i <= Dictionary.MAX_WORDLENGTH; ++i ) {
-            Game g= new Game( Game.MIN_ATTEMPTS, i );
+            Logic g= new Logic( Logic.MIN_ATTEMPTS, i );
             String word= g.getWordStatus();
             for( int k= 0; k <  word.length(); ++k )
                 assertEquals( '_', word.charAt( k ) );
@@ -97,7 +97,7 @@ public class testGame
      */
     @Test( expected= NullPointerException.class )
     public void testMakeGuess_NullPlayer() {
-        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         PlayerInterface player= g.addTeam().addPlayer( "Bob" );
         g.startGame();
         g.makeGuess( null, 'a' );
@@ -108,7 +108,7 @@ public class testGame
      */
     @Test( expected= java.util.NoSuchElementException.class )
     public void testMakeGuess_BadPlayer() {
-        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         PlayerInterface player= g.addTeam().addPlayer( "Bob" );
         g.startGame();
         g.makeGuess( new Player( "Name" ), 'a' );
@@ -119,7 +119,7 @@ public class testGame
      */
     @Test( expected= IllegalArgumentException.class )
     public void testMakeGuess_WithoutStart() {
-        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         PlayerInterface player= g.addTeam().addPlayer( "Bob" );
         g.makeGuess( player, '9' );
     }
@@ -129,7 +129,7 @@ public class testGame
      */
     @Test( expected= IllegalArgumentException.class )
     public void testMakeGuess() {
-        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         PlayerInterface player= g.addTeam().addPlayer( "Bob" );
         g.startGame();
         g.makeGuess( player, '9' );
@@ -140,7 +140,7 @@ public class testGame
      */
     @Test( expected= Exception.class )
     public void testAddTeam_afterStartGame() {
-        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         g.startGame();
         g.addTeam();
     }
@@ -151,7 +151,7 @@ public class testGame
      */
     @Test
     public void testAddTeam() {
-        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         assertNotNull( g.addTeam() );
     }
     
@@ -161,7 +161,7 @@ public class testGame
      */
     @Test
     public void testGetActiveTeam() {
-        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         ManagerInterface firstTeam= null;
         for( int i= 0; i < 10; ++i ){
             if( i == 0 )
@@ -177,7 +177,7 @@ public class testGame
      */
     @Test( expected= Exception.class )
     public void testStartGame_wOneTeam() {
-        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         g.startGame();
     }
     
@@ -186,7 +186,7 @@ public class testGame
      */
     @Test( expected= Exception.class )
     public void testStartGame_wOnePlayer() {
-        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         g.addTeam();
         g.startGame();
     }
@@ -196,7 +196,7 @@ public class testGame
      */
     @Test
     public void testStartGame() {
-        Game g= new Game( Game.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
         g.addTeam().addPlayer( "Name" );
         g.startGame();
     }
