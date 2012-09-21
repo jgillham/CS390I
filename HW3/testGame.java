@@ -10,6 +10,7 @@ import org.junit.Test;
  * 
  * TODO:
  *  testGetStatusWord_InGame()
+ *  testMakeGuess_InGame()
  *
  * @author  Josh Gillham
  * @version 9-19-12
@@ -133,6 +134,8 @@ public class testGame
         g.startGame();
         g.makeGuess( player, '9' );
     }
+    
+    
     
     
     
