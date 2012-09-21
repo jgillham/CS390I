@@ -22,7 +22,13 @@
  * @author Josh Gillham
  * @version 9-19-12
  */
-public interface LogicInterface{
+public class Logic{
+    /** The least guesses allowed that make the game interesting. */
+    static public final int MIN_ATTEMPTS= 2;
+    /** Empty unimplemented body. */
+    public Logic( java.util.List< Manager > teams, int gameWordLength ) throws IllegalArgumentException
+    { throw new UnsupportedOperationException(); }
+    
     /**
      * Submits a guess. The guess is game word. If the letter is contained in the word
      *  then true is returned.
@@ -47,7 +53,8 @@ public interface LogicInterface{
      * @throws NoSuchElementException when the player is not on the active team.
      * @throws IllegalArgumentException when letter is not a letter i.e. '?' or '9'
      */
-    public boolean makeGuess( PlayerInterface player, char letter );
+    public boolean makeGuess( PlayerInterface player, char letter )
+    { throw new UnsupportedOperationException(); }
     
     /**
      * Removes a team from the game. The team will automatically lose. If there is no teams
@@ -88,5 +95,6 @@ public interface LogicInterface{
     /**
      * Sets the GameEvents handler. Used to pass messages back to the UI.
      */
-    public void setGameEventsHandler( GameEvent handler );
+    public void setGameEventsHandler( GameEvent handler )
+    { throw new UnsupportedOperationException(); }
 }

@@ -10,6 +10,9 @@
  * @version 9-17-12
  */
 public interface PlayerInterface {
+    /** Empty unimplemented body. */
+    public Player( String name ) throws NullPointerException, IllegalArgumentException
+    { throw new UnsupportedOperationException(); }
     /**
      * Accesses a list of the player's guesses. Returns an empty string when
      *  there are no guesses otherwise the string contains letters.

@@ -14,9 +14,9 @@ import org.junit.Test;
 public class testGameEvent
 {
     /**
-     * Default constructor for test class testFormGamePlay
+     * Default constructor for test class testGame
      */
-    public testGameEvent()
+    public testLogic()
     {
     }
 
@@ -38,6 +38,23 @@ public class testGameEvent
     @After
     public void tearDown()
     {
+    }
+    Logic game;
+    List< Manager > teams;
+    PlayerInterface player;
+    
+    /**
+     * Test the constructor to make sure it can successfully construct
+     */
+    @Before
+    public void testConstructor() {
+        
+        teams= new LinkedList< Manager >();
+        Manager man= new Manager( "Alpha" );
+        teams.add( man );
+        player= man.addPlayer( "Bob" );
+        
+        game= new Logic( teams, Dictionary.MIN_WORDLENGTH );
     }
     
     /**

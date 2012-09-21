@@ -14,8 +14,10 @@
  * @author Josh Gillham
  * @version 9-18-12
  */
-public interface ManagerInterface
-{
+public class Manager {
+    /** Empty unimplemented body. */
+    public Manager( String name )
+    { throw new UnsupportedOperationException(); }
     /**
      * Creates a new player in the Manager class and adds him to the list.
      * 
