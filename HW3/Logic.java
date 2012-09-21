@@ -38,6 +38,9 @@ public class Logic{
     public Logic( java.util.List< Manager > teams, int gameWordLength ) throws IllegalArgumentException
     { throw new UnsupportedOperationException(); }
     
+    public Logic( java.util.List< Manager > teams, String gameWord ) throws IllegalArgumentException
+    { throw new UnsupportedOperationException(); }
+    
     /**
      * Submits a guess. The guess is game word. If the letter is contained in the word
      *  then true is returned.

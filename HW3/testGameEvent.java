@@ -41,20 +41,42 @@ public class testGameEvent
     public void tearDown()
     {
     }
-    Logic game;
-    List< Manager > teams;
-    Player player;
-    Manager man;
     
-    Player playerUp= null;
-    Manager teamUp= null;
-    String savedGameWord= null;
+    public String savedGameWord= "flamingo";
     
-    Manager gameWinningTeam= null;
     
-    boolean gameOver= false;
+    class MockLogic extends Logic {
+        public MockLogic( java.util.List< Manager > teams, int gameWordLength, String word ) 
+         throws IllegalArgumentException {
+             super( teams, word );
+        }
+        public int getAttempts() { return DEFAULT_ATTEMPTS; }
+    }
     
-    GameUI gameUI= new GameUI() {
+    class MockGameUI extends GameUI {
+        MockLogic logic;
+        List< Manager > teams;
+        Player player;
+        Manager man;
+    
+        Player playerUp= null;
+        Manager teamUp= null;
+        String savedGameWord= null;        
+        Manager gameWinningTeam= null;        
+        boolean gameOver= false;        
+        int statusWordChanges= 0;
+        
+        public MockGameUI( String word ) {
+            teams= new LinkedList< Manager >();
+            man= new Manager( "Alpha" );
+            teams.add( man );
+            player= man.addPlayer( "Bob" );
+            
+            logic= new MockLogic( teams, Dictionary.MIN_WORDLENGTH, word );
+            // Set events should shoot off playerUp and teamUp events as soon as it is set
+            logic.setGameEventsHandler( this );
+        }
+        
         public void teamUp( Manager team ){
             teamUp= team;
         }
@@ -67,15 +89,12 @@ public class testGameEvent
         public void gameOver() {
             gameOver= true;
         }
-    };
-    
-    class LogicMock extends Logic {
-            public LogicMock( java.util.List< Manager > teams, int gameWordLength ) 
-             throws IllegalArgumentException {
-                 super( teams, gameWordLength );
-                  savedGameWord= "Schoter"; //gameWord=
-            }
+        public void changedStatusWord( String statusWord ) {
+            ++statusWordChanges;
         }
+    }
+    
+    
     
     
     
@@ -85,42 +104,68 @@ public class testGameEvent
     @Before
     public void testConstructor() {
         
-        teams= new LinkedList< Manager >();
-        man= new Manager( "Alpha" );
-        teams.add( man );
-        player= man.addPlayer( "Bob" );
+        MockGameUI game= new MockGameUI( savedGameWord );
         
-        game= new LogicMock( teams, Dictionary.MIN_WORDLENGTH );
-        // Set events should shoot off playerUp and teamUp events as soon as it is set
-        game.setGameEventsHandler( gameUI );
-        assertEquals( man, teamUp );
-        assertEquals( player, playerUp );
+        assertEquals( game.man, game.teamUp );
+        assertEquals( game.player, game.playerUp );
     }
     
     /**
      * Test loosing the game.
      */
     public void testGameOver(){
+        MockGameUI game= new MockGameUI( savedGameWord );
         String partialABCs= "abcdefghijklmnopqr";
-        for( int i= 0; i < partialABCs.length() && i < LogicMock.DEFAULT_ATTEMPTS; ++i ) {
+        for( int i= 0; i < partialABCs.length() && i < game.logic.getAttempts(); ++i ) {
             char c= partialABCs.charAt( i );
-            game.makeGuess( player, c );
+            game.logic.makeGuess( game.player, c );
         }
-        assertTrue( gameOver );
-        assertNull( gameWinningTeam );
+        assertTrue( game.gameOver );
+        assertNull( game.gameWinningTeam );
     }
     
     /**
      * Test winning the game.
      */
     public void testGameWinner(){
+        MockGameUI game= new MockGameUI( savedGameWord );
         for( int i= 0; i < savedGameWord.length(); ++i ) {
             char c= savedGameWord.charAt( i );
-            game.makeGuess( player, c );
+            game.logic.makeGuess( game.player, c );
         }
-        assertNotNull( gameWinningTeam );
-        assertEquals( man, gameWinningTeam );
-        
+        assertNotNull( game.gameWinningTeam );
+        assertEquals( game.man, game.gameWinningTeam );
+    }
+    
+    /**
+     * Test updates to the status word
+     */
+    public void testChangedStatusWord(){
+        MockGameUI game= new MockGameUI( savedGameWord );
+        for( int i= 0; i < savedGameWord.length(); ++i ) {
+            char c= savedGameWord.charAt( i );
+            game.logic.makeGuess( game.player, c );
+        }
+        assertEquals( savedGameWord.length(), statusWordChanges );
+    }
+    
+    /**
+     * Test updates to the status word with bad guesses.
+     */
+    public void testChangedStatusWord_wBadGuesses(){
+        MockGameUI game= new MockGameUI( savedGameWord );
+        StringBuilder wrd= new String( savedGameWord );
+        // Insert crazy letters in between to simulate bad guesses
+        wrd.insert( 1, 'u' );
+        wrd.insert( 3, 'z' );
+        wrd.insert( 5, 'y' );
+        for( int i= 0; i < savedGameWord.length(); ++i ) {
+            char c= savedGameWord.charAt( i );
+            game.logic.makeGuess( game.player, c );
+        }
+        // The status word changes should be the same
+        // Remember it only changes for good guesses
+        assertEquals( savedGameWord.length(), statusWordChanges );
     }
     
     
