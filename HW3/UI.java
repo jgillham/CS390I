@@ -5,7 +5,10 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class FormGamePlay implements GameEvent {
+public class UI implements GameEvent {
+    /** Empty unimplemented body. */
+    public FormGamePlay( SetupEvent  callback )
+    { throw new UnsupportedOperationException(); }
     /** Empty unimplemented body. */
     public FormGamePlay( )
     { throw new UnsupportedOperationException(); }
