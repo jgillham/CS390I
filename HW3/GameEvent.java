@@ -30,7 +30,7 @@ public interface GameEvent {
      * 
      * @arg team the winning team
      */
-    public void gameWinnder( Manager team );
+    public void gameWinner( Manager team );
     
     /**
      * Lets the UI know when the status word has changed.

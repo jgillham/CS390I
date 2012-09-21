@@ -19,6 +19,6 @@ public class GameUI implements GameEvent {
     public void playerUp( Player player )
     { throw new UnsupportedOperationException(); }
     /** Empty unimplemented body. */
-    public void gameWinnder( Manager team )
+    public void gameWinner( Manager team )
     { throw new UnsupportedOperationException(); }
 }
