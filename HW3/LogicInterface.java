@@ -50,37 +50,6 @@ public interface LogicInterface{
     public boolean makeGuess( PlayerInterface player, char letter );
     
     /**
-     * Adds a new team and returns the manager of the team.
-     * 
-     * Preconditions:
-     *  startGame() must not have been called.
-     * 
-     * @return the manager of the new team.
-     * 
-     * @throws Exception if startGame has already been Called
-     */
-    //public ManagerInterface addTeam() throws Exception;
-    
-    /**
-     * Gets the team whose turn to guess.
-     * 
-     * Preconditions:
-     *  at least one call to addTeam()
-     */
-    //public ManagerInterface getActiveTeam();
-    
-    /**
-     * Starts a new game.
-     * 
-     * Preconditons:
-     *  at least one call to addTeam()
-     *  at least one call to Manager.addPlayer()
-     *  
-     * @throw Exception when the preconditions are not met
-     */
-    //public void startGame();
-    
-    /**
      * Removes a team from the game. The team will automatically lose. If there is no teams
      *  left in the game, there is no winner. If there is one team left, that team is the
      *  winner. If there are two or more, the game resumes.
@@ -97,7 +66,7 @@ public interface LogicInterface{
      * @throws NoSuchElementException when the manager's team is not in the game.
      * @throws NullPointerException when the manager is null
      */
-    public void resignTeam( Manager manager ) throws java.util.NoSuchElementException, java.lang.NullPointerException;
+    //public void resignTeam( Manager manager ) throws java.util.NoSuchElementException, java.lang.NullPointerException;
     
     /**
      * Rotates teams. Moves the active team to the next team in the game to make a guess.
@@ -107,7 +76,7 @@ public interface LogicInterface{
      * 
      * @throws NoSuchElementException when getNumberOfTeams() == 0
      */
-    public void nextTeam() throws java.util.NoSuchElementException;
+    //public void nextTeam() throws java.util.NoSuchElementException;
     
     /**
      * Accesses the number of teams in the game. Returns 0 when Game is first created.
@@ -120,6 +89,4 @@ public interface LogicInterface{
      * Sets the GameEvents handler. Used to pass messages back to the UI.
      */
     public void setGameEventsHandler( GameEvent handler );
-    
-    
 }

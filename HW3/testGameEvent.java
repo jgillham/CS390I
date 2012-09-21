@@ -39,4 +39,21 @@ public class testGameEvent
     public void tearDown()
     {
     }
+    
+    /**
+     * Tests getActiveTeam();
+     * 
+     */
+    /* @Test
+    public void testGetActiveTeam() {
+        Logic g= new Logic( Logic.MIN_ATTEMPTS, Dictionary.MAX_WORDLENGTH );
+        ManagerInterface firstTeam= null;
+        for( int i= 0; i < 10; ++i ){
+            if( i == 0 )
+                firstTeam= g.addTeam();
+            else
+                g.addTeam();
+            assertEquals( firstTeam, g.getActiveTeam() );
+        }
+    }*/
 }
