@@ -8,6 +8,9 @@ import org.junit.Assert;
 
 /**
  * The test class testManager.
+ * 
+ * TODO:
+ *  testGetScore_InGame()
  *
  * @author  (your name)
  * @version (a version number or a date)
@@ -118,7 +121,7 @@ public class testManager
      *  it always returns the first player.
      */
     @Test
-    public void testGetPlayeUp() {
+    public void testGetPlayerUp() {
         String teamName= "Test Team";
         ManagerInterface m= new Manager( "Test Team" );
         PlayerInterface firstPlayer= null;
@@ -149,5 +152,40 @@ public class testManager
             Assert.assertEquals( new Integer( i ), m.getPlayerUp() );
         }
         
+    }
+    
+    /**
+     * Test resignPlayer with a null.
+     */
+    @Test( expected= java.lang.NullPointerException.class )
+    public void testResignPlayer_Null() {
+        ManagerInterface m= new Manager( "Test" );
+        m.resignPlayer( null );
+    }
+    
+    /**
+     * Test resignPlayer with a bad argument.
+     */
+    @Test( expected= java.util.NoSuchElementException.class )
+    public void testResignPlayer_BadPlayer() {
+        ManagerInterface m= new Manager( "Test" );
+        m.resignPlayer( new Player( "Test" ) );
+    }
+    
+    /**
+     * Test resignPlayer with good arguments
+     * 
+     */
+    @Test
+    public void testResignPlayer() {
+        String teamName= "Test Team";
+        ManagerInterface m= new Manager( teamName );
+        
+        String[] morePlayerNames= { "Susan", "George", "Bob", "Lucas", "Fred" };
+        
+        for( String name: morePlayerNames ) {
+            PlayerInterface player= m.addPlayer( name );
+            m.resignPlayer( player );
+        }
     }
 }

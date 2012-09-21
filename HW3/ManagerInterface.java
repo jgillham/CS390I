@@ -25,17 +25,6 @@ public interface ManagerInterface
      * @throws an NullPointerException when the player's name is null.
      */
     public PlayerInterface addPlayer( String name );
-    /**
-     * The manager can kick a player off the list.\
-     * 
-     * Preconditions:
-     *  addPlayer must have been successfully called at least once.
-     * 
-     * @return true if the kick was successful or false if not.
-     * 
-     * @throws an NullPointerException when player is null
-     */
-    public boolean kickPlayer( PlayerInterface player );
     
     /**
      * Gets the score of the team.
@@ -92,5 +81,5 @@ public interface ManagerInterface
      * @throws NoSuchElementException when getRosterSize() == 0 or the player is
      *  not on the roster.
      */
-    public void resignPlayer( Player player ) throws java.util.NoSuchElementException;
+    public void resignPlayer( PlayerInterface player ) throws java.util.NoSuchElementException;
 }

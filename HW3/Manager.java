@@ -16,9 +16,6 @@ public class Manager implements ManagerInterface {
     public PlayerInterface addPlayer( String name )
     { throw new UnsupportedOperationException(); }
     /** Empty unimplemented body. */
-    public boolean kickPlayer( PlayerInterface player )
-    { throw new UnsupportedOperationException(); }
-    /** Empty unimplemented body. */
     public PlayerInterface getPlayerUp()
     { throw new UnsupportedOperationException(); }
     /** Empty unimplemented body. */
@@ -31,6 +28,6 @@ public class Manager implements ManagerInterface {
     public String getName()
     { throw new UnsupportedOperationException(); }
     /** Empty unimplemented body. */
-    public void resignPlayer( Player player ) throws java.util.NoSuchElementException
+    public void resignPlayer( PlayerInterface player ) throws java.util.NoSuchElementException
     { throw new UnsupportedOperationException(); }
 }
