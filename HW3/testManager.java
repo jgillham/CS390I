@@ -15,8 +15,7 @@ import org.junit.Assert;
  * @author  Josh Gillham
  * @version 9-23-12
  */
-public class testManager 
-{
+public class testManager {
     /**
      * Default constructor for test class testManager
      */
@@ -31,12 +30,6 @@ public class testManager
      */
     @Before
     public void setUp(){
-        try{
-            String teamName= "Test Team";
-            Manager m= new Manager( "Test Team" );
-        } catch( Exception e ) {
-            fail( "Constructor should not throw error" );
-        }
     }
 
     /**
@@ -63,6 +56,14 @@ public class testManager
     @Test( expected= IllegalArgumentException.class )
     public void testConstructor_BadTeamNames(){
         Manager m= new Manager( "" );
+    }
+    
+    /**
+     * Test constructor to ensure no errors.
+     */
+    @Before
+    public void testConstructor() {
+        Manager m= new Manager( "Alpha" );
     }
     
     /**
