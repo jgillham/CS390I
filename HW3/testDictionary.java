@@ -1,5 +1,3 @@
-
-
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -43,29 +41,31 @@ public class testDictionary
     }
     
     /**
-     * Test the getInstance with a null. The result should be an error
+     * Test the load with a null. The result should be an error
      */
     @Test( expected= java.lang.NullPointerException.class )
-    public void testGetInstance_Null() {
-        Dictionary d= Dictionary.getInstance( null );
+    public void testLoad_Null() {
+        Dictionary.load( null );
     }
     
     /**
-     * Test the getInstance with an empty. The result should be an error
+     * Test the load with an empty path. The result should be an error
      */
     @Test( expected= IllegalArgumentException.class )
-    public void testGetInstance_Empty() {
-        Dictionary d= Dictionary.getInstance( "" );
+    public void testLoad_Empty() {
+        Dictionary.load( "" );
     }
-    
+    /** The file of the dictionary. */
     String dictionaryFile="";
-    Dictionary dictionary= Dictionary.getInstance( dictionaryFile );
+    /** An instance of the dictionary. */
+    Dictionary dictionary;
     /**
-     * Test the getInstance.
+     * Test the load.
      */
     @Before
-    public void testGetInstance() {
-        dictionary= Dictionary.getInstance( dictionaryFile );
+    public void testLoad() {
+        Dictionary.load( dictionaryFile );
+        dictionary= new Dictionary();
     }
     
     /**
