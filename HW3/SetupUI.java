@@ -1,11 +1,33 @@
+import java.util.List;
+import java.util.LinkedList;
 
 /**
- * Write a description of class Hangman here.
+ * Provides the saffolding to get the game up and running. Prompts 
+ *  the user for the word length and max attempts. Creates a new Logic 
+ *  and GameUI instance when the user has finished input.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Josh Gillham
+ * @version 9-23-12
  */
 public class SetupUI{
+    /**
+     * Initializes the dictionary. Creates a new instance of SetupUI.
+     * 
+     * @arg args command line arguments - not used.
+     */
     static public void main( String[] args )
     { throw new UnsupportedOperationException(); }
+    
+    /** Holds the teams for game setup. */
+    private List< Manager > teams= new LinkedList< Manager >();
+    /** Holds a copy of the Game Logic. */
+    private Logic game= null;
+    
+    /**
+     * Prompts for user input.
+     */
+    public SetupUI( )
+    { throw new UnsupportedOperationException(); }
+        
+        
 }

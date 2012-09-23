@@ -1,12 +1,23 @@
 
 /**
- * Write a description of class FormGamePlay here.
+ * Handles the input from the user and displaying game statuses in response
+ *  to game events.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Josh Gillham
+ * @version 9-23-12
  */
 public class GameUI implements GameEvent {
-    /** Empty unimplemented body. */
+    /**
+     * Creates a new instance of GameUI. Responds to user input and takes
+     *  game actions.
+     *  
+     * @arg gameLogic the logic to take game actions on.
+     * 
+     * @throw NullPointerException when gameLogic is null.
+     */
+    public GameUI( Logic gameLogic )
+    { throw new UnsupportedOperationException(); }
+    /** Empty unimplemented body.*/
     public void changedStatusWord( String statusWord )
     { throw new UnsupportedOperationException(); }
     /** Empty unimplemented body. */
