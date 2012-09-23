@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.LinkedList;
 
 /**
- * The test class testFormGamePlay.
+ * Ensures the game events are being called by Logic.
  *
- * @author  (your name)
- * @version (a version number or a date)
+ * @author  Josh Gillham
+ * @version 9-23-12
  */
 public class testGameEvent
 {
@@ -94,16 +94,11 @@ public class testGameEvent
         }
     }
     
-    
-    
-    
-    
     /**
      * Test the constructor to make sure it can successfully construct
      */
     @Before
     public void testConstructor() {
-        
         MockGameUI game= new MockGameUI( savedGameWord );
         
         assertEquals( game.man, game.teamUp );
@@ -111,7 +106,7 @@ public class testGameEvent
     }
     
     /**
-     * Test loosing the game.
+     * Test gameOver event.
      */
     public void testGameOver(){
         MockGameUI game= new MockGameUI( savedGameWord );
@@ -125,7 +120,7 @@ public class testGameEvent
     }
     
     /**
-     * Test winning the game.
+     * Test gameWinningTeam event.
      */
     public void testGameWinner(){
         MockGameUI game= new MockGameUI( savedGameWord );
@@ -133,6 +128,7 @@ public class testGameEvent
             char c= savedGameWord.charAt( i );
             game.logic.makeGuess( game.player, c );
         }
+        assertTrue( game.gameOver );
         assertNotNull( game.gameWinningTeam );
         assertEquals( game.man, game.gameWinningTeam );
     }
