@@ -1,30 +1,50 @@
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Iterator;
 
 /**
- * The Manager class handles players in a team.
+ * The Manager class handles players in a team. Responsible for keeping a player roster and the
+ *  teams score.
  * 
- * Keeps a list of players. Hides direct access to the player's data.
  * Keeps a list of Guesses for players in list.
  * Keeps a running total of wrong answers.
- * 
- * Private Data:
- *  Players - a linkedlist of players
- *  Score - number of successful guesses
- *  Player up - the player who has the turn to guess
  * 
  * @author Josh Gillham
  * @version 9-18-12
  */
 public class Manager {
-    /** Empty unimplemented body. */
+
+    /** Keeps a list of players. Hides direct access to the player's data. */
+    private List< Player > roster= new LinkedList< Player >();
+    /** The number of successful guesses. */
+    private int score= 0;
+    /** Refers to the player with the turn next. */
+    private Iterator playerUp;
+    
+    /**
+     * Creates a new empty team.
+     * 
+     * @arg name the team name.
+     * 
+     * @throws NullPointerException if is name is null.
+     * @throws IllegalArgumentException if name is empty.
+     * 
+     * Empty unimplemented body.
+     */
     public Manager( String name )
     { throw new UnsupportedOperationException(); }
+    
     /**
      * Creates a new player in the Manager class and adds him to the list.
      * 
-     * @return the id of the new player.
+     * @arg name the player name.
+     * 
+     * @return the new player.
      * 
      * @throws an IllegalArgumentException when the player's name is invalid.
      * @throws an NullPointerException when the player's name is null.
+     * 
+     * Empty unimplemented body.
      */
     public Player addPlayer( String name )
     { throw new UnsupportedOperationException(); }
@@ -33,6 +53,8 @@ public class Manager {
      * Gets the score of the team.
      * 
      * @return the score.
+     * 
+     * Empty unimplemented body.
      */
     public int getScore()
     { throw new UnsupportedOperationException(); }
@@ -46,6 +68,8 @@ public class Manager {
      * @return the player.
      * 
      * @throws NoSuchElementException when getRosterSize() == 0.
+     * 
+     * Empty unimplemented body.
      */
     public Player getPlayerUp()
     { throw new UnsupportedOperationException(); }
@@ -54,6 +78,8 @@ public class Manager {
      * Gets the roster size with List.size().
      * 
      * @return the number of players on the team.
+     * 
+     * Empty unimplemented body.
      */
     public int getRosterSize()
     { throw new UnsupportedOperationException(); }
@@ -65,6 +91,8 @@ public class Manager {
      *  addPlayer must have been successfully called at least once.
      * 
      * @throws NoSuchElementException when getRosterSize() == 0.
+     * 
+     * Empty unimplemented body.
      */
     public void nextPlayer()
     { throw new UnsupportedOperationException(); }
@@ -72,7 +100,9 @@ public class Manager {
     /**
      * Accesses the name of the team.
      * 
-     * @return the team name
+     * @return the team name.
+     * 
+     * Empty unimplemented body.
      */
     public String getName()
     { throw new UnsupportedOperationException(); }
@@ -88,6 +118,8 @@ public class Manager {
      *  
      * @throws NoSuchElementException when getRosterSize() == 0 or the player is
      *  not on the roster.
+     *  
+     *  Empty unimplemented body.
      */
     public void resignPlayer( Player player ) throws java.util.NoSuchElementException
     { throw new UnsupportedOperationException(); }
