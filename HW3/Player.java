@@ -10,9 +10,16 @@
  * @version 9-17-12
  */
 public class Player {
-    /** Empty unimplemented body. */
+    /**
+     * Creates a new player.
+     * 
+     * @throws NullPointerException when the name is null.
+     * @throws IllegalArgumentException when the name is empty.
+     * Empty unimplemented body.
+     */
     public Player( String name ) throws NullPointerException, IllegalArgumentException
     { throw new UnsupportedOperationException(); }
+    
     /**
      * Accesses a list of the player's guesses. Returns an empty string when
      *  there are no guesses otherwise the string contains letters.
@@ -30,5 +37,4 @@ public class Player {
      */
     public int getScore()
     { throw new UnsupportedOperationException(); }
-    
 }
