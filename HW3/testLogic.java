@@ -13,6 +13,7 @@ import java.util.LinkedList;
  * TODO:
  *  testGetStatusWord_InGame()
  *  testMakeGuess_InGame()
+ *  testGetAttempts()
  *
  * @author  Josh Gillham
  * @version 9-19-12
@@ -46,75 +47,8 @@ public class testLogic
     {
     }
     
-    /**
-     * This class provides a scalfolding tool for the test that run in here. The main purpose is 
-     *  to set defaults arguments for the constructor, simplify setup, and retain values for testing.
-     */
-    class WrapLogic {
-        /** Hold the team setup. */
-        List< Manager > teams= new LinkedList< Manager >();
-        /** Has the default word length. */
-        int wordLength= Dictionary.MIN_WORDLENGTH;
-        /** Retains the first player to be added.*/
-        Player firstPlayer= null;
-        /** Retains the first team to be added.*/
-        Manager firstTeam= null;
-        /** Retains the last team to be added. */
-        Manager lastTeam= null;
-        
-        /** 
-         * Simplifies adding a manager and retains the first manager to be added.
-         * 
-         * @arg name the team name
-         * 
-         * @return the new manager
-         */
-        public Manager addManager( String name ) {
-            Manager man= new Manager( name );
-            teams.add( man );
-            if( firstTeam == null )
-                firstTeam= man;
-            return lastTeam=man;
-        }
-        
-        /**
-         * Simplifies adding a player to a team and retains the first player added.
-         * 
-         * @arg name the player name
-         * 
-         * @return the new player
-         */
-        public Player addPlayer( String name ) {
-            Player player= lastTeam.addPlayer( name );
-            if( firstPlayer == null )
-                firstPlayer= player;
-            return player;
-        }
-        
-        /**
-         * Gets a new instance of the Logic.
-         * 
-         * @return a Logic instance
-         */
-        public Logic getInstance() {
-            return new Logic( teams, wordLength );
-        }
-        
-        /**
-         * Gets a new instance of the Logic with a specific game word.
-         * 
-         * @arg word the game word
-         * 
-         * @return a Logic instance
-         */
-        public Logic getInstance( String word) {
-            return new Logic( teams, word );
-        }
-        
-    }
-    
-    /** Keeps the WrapLogic class for other tests. */
-    WrapLogic wrapLogic;
+    /** Keeps the Test_InstrumentLogic class for other tests. */
+    Test_InstrumentLogic wrapLogic;
     /** Keeps a Logic instance for other tests. */
     Logic game;
     
@@ -124,7 +58,7 @@ public class testLogic
      */
     @Before
     public void testConstructor() {
-        wrapLogic= new WrapLogic();
+        wrapLogic= new Test_InstrumentLogic();
         wrapLogic.addManager( "Alpha" );
         wrapLogic.addPlayer( "bob" );
         game= wrapLogic.getInstance();
@@ -299,6 +233,6 @@ public class testLogic
      */
     @Test
     public void testSetGameEventsHandler() {
-        game.setGameEventsHandler( new GameUI() );
+        game.setGameEventsHandler( new GameUI( game ) );
     }
 }

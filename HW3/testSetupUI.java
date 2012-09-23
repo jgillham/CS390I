@@ -39,4 +39,12 @@ public class testSetupUI
     public void tearDown()
     {
     }
+    
+    /**
+     * Tests the constructor to ensure that it throws no errors.
+     */
+    @Test
+    public void testConstructor() {
+        new SetupUI();
+    }
 }

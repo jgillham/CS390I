@@ -39,4 +39,14 @@ public class testGameUI
     public void tearDown()
     {
     }
+    
+    /**
+     * Tests the constructor to make sure there are no errors.
+     */
+    @Test
+    public void testConstructor() {
+        Test_InstrumentLogic wrapGame= new Test_InstrumentLogic();
+        Logic game= wrapGame.getInstance();
+        new GameUI( game );
+    }
 }

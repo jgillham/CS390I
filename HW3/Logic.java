@@ -116,4 +116,12 @@ public class Logic{
      */
     public void setGameEventsHandler( GameEvent handler )
     { throw new UnsupportedOperationException(); }
+    
+    /**
+     * Gets the guesses remaining.
+     * 
+     * @return the number of attempts remaining.
+     */
+    public int getAttempts()
+    { throw new UnsupportedOperationException(); }
 }
