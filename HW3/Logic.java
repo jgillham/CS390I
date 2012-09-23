@@ -35,6 +35,10 @@ public class Logic{
     private List< String > guesses;
     private Iterator activeTeam;
     
+    /**
+     * 
+     * @throws IllegalArgumentException when teams is empty or any Manager.getRosterSize() returns 0.
+     */
     public Logic( java.util.List< Manager > teams, int gameWordLength ) throws IllegalArgumentException
     { throw new UnsupportedOperationException(); }
     
@@ -46,9 +50,8 @@ public class Logic{
      *  then true is returned.
      * 
      * Preconditions:
-     *  startGame must have been called successfully
-     *  player must have been added with a call to Manager.addPlayer()
-     *  player must be on the active team
+     *  player must have been in a team when the class was constructed
+     *  player must be the player up and on the active team
      *  
      * Postconditions:
      *  rotateTurn() is called
@@ -64,7 +67,7 @@ public class Logic{
      * @return True if the guess is found in the word
      * 
      * @throws NullPointerException when player is null.
-     * @throws NoSuchElementException when the player is not on the active team.
+     * @throws NoSuchElementException when the player is not the player up on the active team.
      * @throws IllegalArgumentException when letter is not a letter i.e. '?' or '9'
      */
     public boolean makeGuess( Player player, char letter )
@@ -76,7 +79,6 @@ public class Logic{
      *  winner. If there are two or more, the game resumes.
      * 
      * Preconditions:
-     *  manager must have been created with addTeam().
      *  manager's team must be in the game.
      *  
      * Postconditions:
@@ -91,9 +93,6 @@ public class Logic{
     
     /**
      * Rotates teams. Moves the active team to the next team in the game to make a guess.
-     * 
-     * Preconditions:
-     *  at least one call to addTeam()
      *  
      * Postconditions:
      *  active team is set to the next team
@@ -101,8 +100,6 @@ public class Logic{
      *  getActiveTeam().nextPlayer() is called
      *  GameEvent.playerUp() is called
      *  
-     * @throws NoSuchElementException when getNumberOfTeams() == 0 or 
-     *  when getActiveTeam().nextPlayer() throws
      */
     public void rotateTurn() throws java.util.NoSuchElementException
     { throw new UnsupportedOperationException(); }
