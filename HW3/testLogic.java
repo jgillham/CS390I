@@ -45,22 +45,89 @@ public class testLogic
     public void tearDown()
     {
     }
+    
+    /**
+     * This class provides a scalfolding tool for the test that run in here. The main purpose is 
+     *  to set defaults arguments for the constructor, simplify setup, and retain values for testing.
+     */
+    class WrapLogic {
+        /** Hold the team setup. */
+        List< Manager > teams= new LinkedList< Manager >();
+        /** Has the default word length. */
+        int wordLength= Dictionary.MIN_WORDLENGTH;
+        /** Retains the first player to be added.*/
+        Player firstPlayer= null;
+        /** Retains the first team to be added.*/
+        Manager firstTeam= null;
+        /** Retains the last team to be added. */
+        Manager lastTeam= null;
+        
+        /** 
+         * Simplifies adding a manager and retains the first manager to be added.
+         * 
+         * @arg name the team name
+         * 
+         * @return the new manager
+         */
+        public Manager addManager( String name ) {
+            Manager man= new Manager( name );
+            teams.add( man );
+            if( firstTeam == null )
+                firstTeam= man;
+            return lastTeam=man;
+        }
+        
+        /**
+         * Simplifies adding a player to a team and retains the first player added.
+         * 
+         * @arg name the player name
+         * 
+         * @return the new player
+         */
+        public Player addPlayer( String name ) {
+            Player player= lastTeam.addPlayer( name );
+            if( firstPlayer == null )
+                firstPlayer= player;
+            return player;
+        }
+        
+        /**
+         * Gets a new instance of the Logic.
+         * 
+         * @return a Logic instance
+         */
+        public Logic getInstance() {
+            return new Logic( teams, wordLength );
+        }
+        
+        /**
+         * Gets a new instance of the Logic with a specific game word.
+         * 
+         * @arg word the game word
+         * 
+         * @return a Logic instance
+         */
+        public Logic getInstance( String word) {
+            return new Logic( teams, word );
+        }
+        
+    }
+    
+    /** Keeps the WrapLogic class for other tests. */
+    WrapLogic wrapLogic;
+    /** Keeps a Logic instance for other tests. */
     Logic game;
-    List< Manager > teams;
-    Player player;
+    
     
     /**
      * Test the constructor to make sure it can successfully construct
      */
     @Before
     public void testConstructor() {
-        
-        teams= new LinkedList< Manager >();
-        Manager man= new Manager( "Alpha" );
-        teams.add( man );
-        player= man.addPlayer( "Bob" );
-        
-        game= new Logic( teams, Dictionary.MIN_WORDLENGTH );
+        wrapLogic= new WrapLogic();
+        wrapLogic.addManager( "Alpha" );
+        wrapLogic.addPlayer( 0, "bob" );
+        game= wrapLogic.getInstance();
     }
     
     @Test( expected= NullPointerException.class )
@@ -68,19 +135,66 @@ public class testLogic
         Logic g= new Logic( null, Dictionary.MIN_WORDLENGTH );
     }
     
+    /**
+     * Tests the constructor to ensure it fails when there are no teams.
+     */
     @Test( expected= IllegalArgumentException.class )
-    public void testConstructor_NoPlayers(){
+    public void testConstructor_NoTeams(){
         Logic g= new Logic( new LinkedList< Manager >(), Dictionary.MIN_WORDLENGTH );
     }
     
+    /**
+     * Tests the constructor to ensure it fails when there are no players.
+     */
     @Test( expected= IllegalArgumentException.class )
-    public void testConstructor_WordTooSmall(){
-        Logic g= new Logic( teams, Dictionary.MIN_WORDLENGTH - 1 );
+    public void testConstructor_NoPlayers(){
+        List< Manager > teams= new LinkedList< Manager >();
+        teams.add( new Manager( "Alpha" ) );
+        Logic g= new Logic( teams, Dictionary.MIN_WORDLENGTH );
     }
     
+    /**
+     * Tests the constructor to ensure it fails when there are empty teams.
+     */
+    @Test( expected= IllegalArgumentException.class )
+    public void testConstructor_NoPlayers2(){
+        List< Manager > teams= new LinkedList< Manager >();
+        Manager man= new Manager( "Alpha" );
+        man.addPlayer( "bob" );
+        teams.add( new Manager( "Bravo" ) );
+        Logic g= new Logic( teams, Dictionary.MIN_WORDLENGTH );
+    }
+    
+    /**
+     * Tests the constructor to ensure it fails when the wordLength is smaller than the dictionary limit.
+     */
+    @Test( expected= IllegalArgumentException.class )
+    public void testConstructor_WordTooSmall(){
+        Logic g= new Logic( wrapLogic.teams, Dictionary.MIN_WORDLENGTH - 1 );
+    }
+    
+    /**
+     * Tests the constructor to ensure it fails when the wordLength is larger than the dictionary limit.
+     */
     @Test( expected= IllegalArgumentException.class )
     public void testConstructor_WordTooLarge(){
-        Logic g= new Logic( teams, Dictionary.MAX_WORDLENGTH + 1 );
+        Logic g= new Logic( wrapLogic.teams, Dictionary.MAX_WORDLENGTH + 1 );
+    }
+    
+    /**
+     * Tests the constructor to ensure it fails when the gameWord is null.
+     */
+    @Test( expected= NullPointerException.class )
+    public void testConstructor_NullGameWord(){
+        Logic g= new Logic( wrapLogic.teams, null );
+    }
+    
+    /**
+     * Tests the constructor to ensure it fails when the gameWord is empty.
+     */
+    @Test( expected= IllegalArgumentException.class )
+    public void testConstructor_EmptyGameWord(){
+        Logic g= new Logic( wrapLogic.teams, "" );
     }
     
     /**
@@ -97,7 +211,7 @@ public class testLogic
     }*/
     
     /**
-     * Test makeGuess with a bad argument.
+     * Test makeGuess with a bad argument. Error expected.
      */
     @Test( expected= NullPointerException.class )
     public void testMakeGuess_NullPlayer() {
@@ -105,7 +219,7 @@ public class testLogic
     }
     
     /**
-     * Test makeGuess with a bad argument.
+     * Test makeGuess with a bad argument. Error expected.
      */
     @Test( expected= java.util.NoSuchElementException.class )
     public void testMakeGuess_BadPlayer() {
@@ -113,24 +227,75 @@ public class testLogic
     }
     
     /**
-     * Test makeGuess with a bad argument.
+     * Test makeGuess with a bad argument. Error expected.
      */
     @Test( expected= IllegalArgumentException.class )
     public void testMakeGuess_wDigit() {
-        game.makeGuess( player, '9' );
+        game.makeGuess( wrapLogic.firstPlayer, '9' );
     }
     
     /**
-     * Test makeGuess.
+     * Test makeGuess. Should not throw an error.
      */
-    @Test( expected= IllegalArgumentException.class )
+    @Test
     public void testMakeGuess() {
-        game.makeGuess( player, 'a' );
+        Logic newGame= wrapLogic.getInstance();
+        newGame.makeGuess( wrapLogic.firstPlayer, 'a' );
     }
     
     /**
-     * Test UI event setter.
-     * 
+     * Tests makeGuess to make sure good guesses return true.
+     */
+    @Test
+    public void testMakeGuess_GoodGuess() {
+        {
+            Logic newGame= wrapLogic.getInstance( "logic" );
+            assertTrue( newGame.makeGuess( wrapLogic.firstPlayer, 'l' ) );
+        }
+        
+        {
+            Logic newGame= wrapLogic.getInstance( "logic" );
+            assertTrue( newGame.makeGuess( wrapLogic.firstPlayer, 'g' ) );
+        }
+        
+        {
+            Logic newGame= wrapLogic.getInstance( "logic" );
+            assertTrue( newGame.makeGuess( wrapLogic.firstPlayer, 'c' ) );
+        }
+    }
+    
+    /**
+     * Tests makeGuess to make sure good guesses return true. Capital letters shouldn't matter.
+     */
+    @Test
+    public void testMakeGuess_GoodGuess_Capital() {
+        {
+            Logic newGame= wrapLogic.getInstance( "logic" );
+            assertTrue( newGame.makeGuess( wrapLogic.firstPlayer, 'L' ) );
+        }
+        
+        {
+            Logic newGame= wrapLogic.getInstance( "logic" );
+            assertTrue( newGame.makeGuess( wrapLogic.firstPlayer, 'G' ) );
+        }
+        
+        {
+            Logic newGame= wrapLogic.getInstance( "logic" );
+            assertTrue( newGame.makeGuess( wrapLogic.firstPlayer, 'C' ) );
+        }
+    }
+    
+    /**
+     * Tests makeGuess to make sure bad guesses return false.
+     */
+    @Test
+    public void testMakeGuess_BadGuess() {
+        Logic newGame= wrapLogic.getInstance( "logic" );
+        assertFalse( newGame.makeGuess( wrapLogic.firstPlayer, 'a' ) );
+    }
+    
+    /**
+     * Test UI event setter to make sure this doesn't throw an error.
      */
     @Test
     public void testSetGameEventsHandler() {
