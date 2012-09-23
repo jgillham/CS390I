@@ -12,8 +12,8 @@ import org.junit.Assert;
  * TODO:
  *  testGetScore_InGame()
  *
- * @author  (your name)
- * @version (a version number or a date)
+ * @author  Josh Gillham
+ * @version 9-23-12
  */
 public class testManager 
 {
@@ -50,20 +50,19 @@ public class testManager
     }
     
     /**
-     * Test the constructor with bad names. Errors should be thrown.
+     * Test the constructor with a null. Errors are expected
      */
-    @Test
+    @Test( expected= NullPointerException.class )
     public void testConstructor_BadTeamNames(){
-        // Test null names
-        try{
-            Manager m= new Manager( null );
-            fail( "Constructor should have thrown an error." );
-        }catch( Exception e ){}
-        // Test empty names
-        try{
-            Manager m= new Manager( "" );
-            fail( "Constructor should have thrown an error." );
-        }catch( Exception e ){}
+        Manager m= new Manager( null );
+    }
+    
+    /**
+     * Test the constructor with an empty name. Errors are expected
+     */
+    @Test( expected= IllegalArgumentException.class )
+    public void testConstructor_BadTeamNames(){
+        Manager m= new Manager( "" );
     }
     
     /**
@@ -117,6 +116,16 @@ public class testManager
     }
     
     /**
+     * Test getPlayerUp() with no players. Errors are expected.
+     */
+    @Test( expected= NoSuchElementException.class )
+    public void testGetPlayerUp() {
+        String teamName= "Test Team";
+        Manager m= new Manager( "Test Team" );
+        m.getPlayerUp();
+    }
+    
+    /**
      * Test getPlayerUp() by adding players and checking that
      *  it always returns the first player.
      */
@@ -132,6 +141,16 @@ public class testManager
                 m.addPlayer( new Integer( i ).toString() );
             Assert.assertEquals( firstPlayer, m.getPlayerUp() );
         }
+    }
+    
+    /**
+     * Tests nextPlayer() with no players. Errors are expected.
+     */
+    @Test( expected= NoSuchElementException.class )
+    public void testNextPlayer(){
+        String teamName= "Test Team";
+        Manager m= new Manager( "Test Team" );
+        m.nextPlayer()
     }
     
     /**
@@ -174,7 +193,6 @@ public class testManager
     
     /**
      * Test resignPlayer with good arguments
-     * 
      */
     @Test
     public void testResignPlayer() {
