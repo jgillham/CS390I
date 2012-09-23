@@ -126,7 +126,7 @@ public class testLogic
     public void testConstructor() {
         wrapLogic= new WrapLogic();
         wrapLogic.addManager( "Alpha" );
-        wrapLogic.addPlayer( 0, "bob" );
+        wrapLogic.addPlayer( "bob" );
         game= wrapLogic.getInstance();
     }
     

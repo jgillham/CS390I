@@ -146,7 +146,7 @@ public class testGameEvent
             char c= savedGameWord.charAt( i );
             game.logic.makeGuess( game.player, c );
         }
-        assertEquals( savedGameWord.length(), statusWordChanges );
+        assertEquals( savedGameWord.length(), game.statusWordChanges );
     }
     
     /**
@@ -154,7 +154,7 @@ public class testGameEvent
      */
     public void testChangedStatusWord_wBadGuesses(){
         MockGameUI game= new MockGameUI( savedGameWord );
-        StringBuilder wrd= new String( savedGameWord );
+        StringBuilder wrd= new StringBuilder( game.savedGameWord );
         // Insert crazy letters in between to simulate bad guesses
         wrd.insert( 1, 'u' );
         wrd.insert( 3, 'z' );
@@ -165,7 +165,7 @@ public class testGameEvent
         }
         // The status word changes should be the same
         // Remember it only changes for good guesses
-        assertEquals( savedGameWord.length(), statusWordChanges );
+        assertEquals( savedGameWord.length(), game.statusWordChanges );
     }
     
     

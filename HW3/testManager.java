@@ -53,7 +53,7 @@ public class testManager
      * Test the constructor with a null. Errors are expected
      */
     @Test( expected= NullPointerException.class )
-    public void testConstructor_BadTeamNames(){
+    public void testConstructor_NullName(){
         Manager m= new Manager( null );
     }
     
@@ -118,8 +118,8 @@ public class testManager
     /**
      * Test getPlayerUp() with no players. Errors are expected.
      */
-    @Test( expected= NoSuchElementException.class )
-    public void testGetPlayerUp() {
+    @Test( expected= java.util.NoSuchElementException.class )
+    public void testGetPlayerUp_NoPlayers() {
         String teamName= "Test Team";
         Manager m= new Manager( "Test Team" );
         m.getPlayerUp();
@@ -146,11 +146,11 @@ public class testManager
     /**
      * Tests nextPlayer() with no players. Errors are expected.
      */
-    @Test( expected= NoSuchElementException.class )
-    public void testNextPlayer(){
+    @Test( expected= java.util.NoSuchElementException.class )
+    public void testNextPlayer_NoPlayers(){
         String teamName= "Test Team";
         Manager m= new Manager( "Test Team" );
-        m.nextPlayer()
+        m.nextPlayer();
     }
     
     /**
