@@ -46,8 +46,8 @@ public class GameUI implements GameEvent {
      * 
      * Empty unimplemented body.
      */
-    public void teamUp( Manager team )
-    { throw new UnsupportedOperationException(); }
+    //public void teamUp( Manager team )
+    //{ throw new UnsupportedOperationException(); }
     
     /**
      * Called when players are rotated. Announces the next 
@@ -57,8 +57,8 @@ public class GameUI implements GameEvent {
      * 
      * Empty unimplemented body.
      */
-    public void playerUp( Player player )
-    { throw new UnsupportedOperationException(); }
+    //public void playerUp( Player player )
+    //{ throw new UnsupportedOperationException(); }
     
     /**
      * Called when one team wins the game. Announces the winner.

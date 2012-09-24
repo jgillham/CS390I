@@ -1,6 +1,7 @@
 
 /**
- * Holds player information such as guesses and wrong answers
+ * Holds player information such as guesses and wrong answers. This is
+ *  currently unused but will be used when new features are added.
  * 
  * Private Data:
  *  Guesses - a list of guesses
@@ -13,12 +14,23 @@ public class Player {
     /**
      * Creates a new player.
      * 
+     * @arg name the name of the player.
+     * 
      * @throws NullPointerException when the name is null.
      * @throws IllegalArgumentException when the name is empty.
+     * 
      * Empty unimplemented body.
      */
     public Player( String name ) throws NullPointerException, IllegalArgumentException
     { throw new UnsupportedOperationException(); }
+    
+    /**
+     * Accesses the name of the player.
+     * 
+     * @return the player name.
+     */
+    //public String getName()
+    //{ throw new UnsupportedOperationException(); }
     
     /**
      * Accesses a list of the player's guesses. Returns an empty string when
@@ -26,8 +38,8 @@ public class Player {
      * 
      * @return the letters guessed
      */
-    public String getHistory()
-    { throw new UnsupportedOperationException(); }
+    //public String getHistory()
+    //{ throw new UnsupportedOperationException(); }
     
     /**
      * Accesses the player's score. Returns 0 at the beginning of the game
@@ -35,6 +47,6 @@ public class Player {
      *  
      * @return the score
      */
-    public int getScore()
-    { throw new UnsupportedOperationException(); }
+    //public int getScore()
+    //{ throw new UnsupportedOperationException(); }
 }

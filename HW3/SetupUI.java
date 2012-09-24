@@ -31,6 +31,4 @@ public class SetupUI{
      */
     public SetupUI( )
     { throw new UnsupportedOperationException(); }
-        
-        
 }

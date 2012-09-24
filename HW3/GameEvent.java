@@ -16,14 +16,14 @@ public interface GameEvent {
      * 
      * @arg team is team who is ready to guess.
      */
-    public void teamUp( Manager team );
+    //public void teamUp( Manager team );
     
     /**
      * Called when the players are rotated.
      * 
      * @arg player the player with the turn to guess.
      */
-    public void playerUp( Player player );
+    //public void playerUp( Player player );
     
     /**
      * Called when one team wins the game.

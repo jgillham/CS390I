@@ -111,8 +111,8 @@ public class Logic{
      *  GameEvent.playerUp() is called
      *  
      */
-    public void rotateTurn() throws java.util.NoSuchElementException
-    { throw new UnsupportedOperationException(); }
+    //public void rotateTurn() throws java.util.NoSuchElementException
+    //{ throw new UnsupportedOperationException(); }
     
     /**
      * Accesses the number of teams in the game. Returns 0 when Game is first created.

@@ -72,16 +72,16 @@ public class testPlayer
     /**
      * Ensure that the initial score is 0.
      */
-    @Test
+    /* @Test
     public void testGetScore_Beginning() {
         assertEquals( 0, player.getScore() );
-    }
+    } */
     
     /**
      * Ensure that the initial history is "".
      */
-    @Test
+    /* @Test
     public void testGetHistory_Beginning() {
         assertEquals( "", player.getHistory() );
-    }
+    } */
 }
