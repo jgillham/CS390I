@@ -3,6 +3,8 @@
  *  to game events. Will be either a console prompt or a java swing panel. 
  *  Methods in the Logic class are called when the player makes a guess or 
  *  takes another game action.
+ *  
+ * Note: GameEvent methods are tested in testGameEvent
  * 
  * @author Josh Gillham
  * @version 9-23-12

@@ -122,8 +122,8 @@ public class Logic{
     //public int getNumberOfTeams();
     
     /**
-     * Sets the GameEvents handler. Used to pass messages back to the UI. Note that
-     *  handler can be null and that will unset the event handler.
+     * Sets the GameEvents handler. Used to pass messages back to the UI. Note a
+     *  null handler will unset the event handler.
      *  
      * @arg handler the new event handler
      */

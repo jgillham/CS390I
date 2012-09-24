@@ -217,4 +217,23 @@ public class testLogic
     public void testSetGameEventsHandler() {
         game.setGameEventsHandler( new GameUI( game ) );
     }
+    
+    /**
+     * Test UI event setter to make sure null does not throw an error.
+     */
+    @Test
+    public void testSetGameEventsHandler_null() {
+        game.setGameEventsHandler( null );
+    }
+    
+    /**
+     * Test UI event setter to make sure null does not throw an error.
+     */
+    @Test
+    public void testGetAttempts() {
+        Logic newGame= wrapLogic.getInstance( "Logic" );
+        assertEquals( 0, newGame.getAttempts() );
+        newGame.makeGuess( 'l' );
+        assertEquals( 1, newGame.getAttempts() );
+    }
 }
