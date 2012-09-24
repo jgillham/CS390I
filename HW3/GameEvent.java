@@ -1,43 +1,42 @@
 
 /**
- * Allows the game to update the UI.
+ * Allows the Logic to send messages to the GameUI as the game changes.
  * 
  * @author Josh Gillham
  * @version 9-20-12
  */
 public interface GameEvent {
     /**
-     * Will announce that the game has finished.
+     * Called when the game is finished.
      */
     public void gameOver();
     
     /**
-     * Will announce which team whose turn it is to guess.
+     * Called when the teams are rotated.
      * 
-     * @arg team the Manager class for the team with the turn.
+     * @arg team is team who is ready to guess.
      */
     public void teamUp( Manager team );
     
     /**
-     * Announces which player whose turn it is to guess.
+     * Called when the players are rotated.
      * 
-     * @arg player the player with the turn
+     * @arg player the player with the turn to guess.
      */
     public void playerUp( Player player );
     
     /**
-     * Announces the team that won the game.
+     * Called when one team wins the game.
      * 
      * @arg team the winning team
      */
     public void gameWinner( Manager team );
     
     /**
-     * Lets the UI know when the status word has changed.
+     * Lets the UI know when an underscore is replaced
+     *  with a letter.
      * 
-     * Used by the GUI to display to the players.
-     * 
-     * @return the word with underscores
+     * @arg statusWord the new status word.
      */
     public void changedStatusWord( String statusWord );
 }
