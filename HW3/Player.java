@@ -1,7 +1,6 @@
 
 /**
- * Holds player information such as guesses and wrong answers. This is
- *  currently unused but will be used when new features are added.
+ * With new features this may hold the player score and guesses.
  * 
  * Private Data:
  *  Guesses - a list of guesses

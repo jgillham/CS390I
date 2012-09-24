@@ -4,9 +4,9 @@ import java.util.LinkedList;
 /**
  * Provides the saffolding to get the game up and running. Prompts 
  *  the user for the word length and max attempts. Creates a new Logic 
- *  and GameUI instance when the user has finished input.
+ *  and GameUI instance when the user is ready to play.
  *  
- * The API will be generic so that this game can run from the console
+ * The API will be generic so that this game can be run from the console
  *  or with a swing pane.
  * 
  * @author Josh Gillham

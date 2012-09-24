@@ -6,9 +6,6 @@ import java.util.Iterator;
  * The Manager class handles players in a team. Responsible for keeping a player roster and 
  *  rotating the players. Will hold addition information as more features are added on.
  * 
- * Keeps a list of Guesses for players in list.
- * Keeps a running total of wrong answers.
- * 
  * @author Josh Gillham
  * @version 9-18-12
  */

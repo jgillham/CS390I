@@ -13,7 +13,7 @@ import org.junit.Test;
  *  testGetHistory_InGame() - ensure that correct guess get added to the list
  * 
  * @author  Josh Gillham
- * @version 9-19-12
+ * @version 9-23-12
  */
 public class testPlayer
 {
@@ -43,6 +43,7 @@ public class testPlayer
     public void tearDown()
     {
     }
+    
     Player player;
     
     /**
