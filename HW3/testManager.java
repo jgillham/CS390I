@@ -110,6 +110,8 @@ public class testManager {
         String teamName= "Test Team";
         Manager m= new Manager( "Test Team" );
         
+        Assert.assertEquals( 0, m.getRosterSize() );
+        
         for( int i= 0; i < 10; ++i ){
             m.addPlayer( new Integer( i ).toString() );
             Assert.assertEquals( i + 1, m.getRosterSize() );
