@@ -1,4 +1,3 @@
-
 /**
  * Handles the input from the user and displaying game statuses in response
  *  to game events. Will be either a console prompt or a java swing panel. 

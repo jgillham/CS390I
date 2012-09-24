@@ -1,15 +1,13 @@
-
-
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The test class testGameUI.
+ * Tests the class GameUI.
  *
- * @author  (your name)
- * @version (a version number or a date)
+ * @author  Josh Gillham
+ * @version 9-23-12
  */
 public class testGameUI
 {

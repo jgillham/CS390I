@@ -22,7 +22,7 @@ import java.util.Iterator;
  *  
  * 
  * @author Josh Gillham
- * @version 9-19-12
+ * @version 9-23-12
  */
 public class Logic{
     /** The default guesses. */

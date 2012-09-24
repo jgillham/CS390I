@@ -1,4 +1,3 @@
-
 /**
  * Responsible for loading the word data bank and also for retrieving a random word.
  * 

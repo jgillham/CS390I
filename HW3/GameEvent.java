@@ -1,4 +1,3 @@
-
 /**
  * Allows the Logic to send messages to the GameUI as the game changes.
  * 

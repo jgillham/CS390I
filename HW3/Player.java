@@ -1,4 +1,3 @@
-
 /**
  * With new features this may hold the player score and guesses.
  * 
@@ -7,7 +6,7 @@
  *  Wrong Answers - a list of wrong guesses
  * 
  * @author Josh Gillham
- * @version 9-17-12
+ * @version 9-23-12
  */
 public class Player {
     /**

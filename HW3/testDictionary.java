@@ -9,7 +9,7 @@ import java.lang.NullPointerException;
  * This unit test will check the integrity of the Dictionary class.
  *
  * @author  Josh Gillham
- * @version 9-19-12
+ * @version 9-23-12
  */
 public class testDictionary
 {

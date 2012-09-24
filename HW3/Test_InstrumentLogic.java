@@ -1,8 +1,11 @@
 import java.util.List;
 import java.util.LinkedList;
 /**
- * This class provides a scaffolding tool for tests. The purpose is 
+ * This class provides a scaffolding tool for test units. The purpose is 
  *  to set defaults arguments for the constructor, simplify setup, and retain values for testing.
+ *  
+ * @author  Josh Gillham
+ * @version 9-23-12
  */
 class Test_InstrumentLogic implements GameEvent {
     /** Hold the team setup. */

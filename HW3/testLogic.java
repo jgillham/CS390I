@@ -1,5 +1,3 @@
-
-
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -16,7 +14,7 @@ import java.util.LinkedList;
  *  testGetAttempts()
  *
  * @author  Josh Gillham
- * @version 9-19-12
+ * @version 9-23-12
  */
 public class testLogic
 {
