@@ -3,8 +3,8 @@ import java.util.LinkedList;
 import java.util.Iterator;
 
 /**
- * The Manager class handles players in a team. Responsible for keeping a player roster and the
- *  teams score.
+ * The Manager class handles players in a team. Responsible for keeping a player roster and 
+ *  rotating the players.
  * 
  * Keeps a list of Guesses for players in list.
  * Keeps a running total of wrong answers.
@@ -41,7 +41,7 @@ public class Manager {
      * 
      * @return the new player.
      * 
-     * @throws an IllegalArgumentException when the player's name is invalid.
+     * @throws an IllegalArgumentException when the player's name is empty.
      * @throws an NullPointerException when the player's name is null.
      * 
      * Empty unimplemented body.
@@ -56,8 +56,8 @@ public class Manager {
      * 
      * Empty unimplemented body.
      */
-    public int getScore()
-    { throw new UnsupportedOperationException(); }
+    //public int getScore()
+    //{ throw new UnsupportedOperationException(); }
     
     /**
      * Gets the players whose turn it is to guess.
@@ -94,8 +94,8 @@ public class Manager {
      * 
      * Empty unimplemented body.
      */
-    public void nextPlayer()
-    { throw new UnsupportedOperationException(); }
+    //public void nextPlayer()
+    //{ throw new UnsupportedOperationException(); }
     
     /**
      * Accesses the name of the team.
@@ -104,8 +104,8 @@ public class Manager {
      * 
      * Empty unimplemented body.
      */
-    public String getName()
-    { throw new UnsupportedOperationException(); }
+    //public String getName()
+    //{ throw new UnsupportedOperationException(); }
     
     /**
      * Removes the player from the roster and changes the player up as needed.
@@ -121,6 +121,6 @@ public class Manager {
      *  
      *  Empty unimplemented body.
      */
-    public void resignPlayer( Player player ) throws java.util.NoSuchElementException
-    { throw new UnsupportedOperationException(); }
+    //public void resignPlayer( Player player ) throws java.util.NoSuchElementException
+    //{ throw new UnsupportedOperationException(); }
 }
