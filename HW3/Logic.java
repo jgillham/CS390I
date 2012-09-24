@@ -70,7 +70,7 @@ public class Logic{
      * @throws NoSuchElementException when the player is not the player up on the active team.
      * @throws IllegalArgumentException when letter is not a letter i.e. '?' or '9'
      */
-    public boolean makeGuess( Player player, char letter )
+    public boolean makeGuess( char letter )
     { throw new UnsupportedOperationException(); }
     
     /**

@@ -2,6 +2,11 @@
 /**
  * Handles the input from the user and displaying game statuses in response
  *  to game events.
+ *  
+ * This can be either a console prompt or a java swing panel.
+ * 
+ * When the player makes a guess or takes another game action, the GameUI
+ *  will call methods in the Logic class.
  * 
  * @author Josh Gillham
  * @version 9-23-12

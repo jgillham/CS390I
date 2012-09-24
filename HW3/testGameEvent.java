@@ -65,7 +65,7 @@ public class testGameEvent
         String partialABCs= "abcdefghijklmnopqr";
         for( int i= 0; i < partialABCs.length() && i < game.getAttempts(); ++i ) {
             char c= partialABCs.charAt( i );
-            game.makeGuess( wrapGame.playerUp, c );
+            game.makeGuess( c );
         }
         assertTrue( wrapGame.gameOver );
         assertNull( wrapGame.gameWinningTeam );
@@ -79,7 +79,7 @@ public class testGameEvent
         Logic game= wrapGame.getInstance( savedGameWord );
         for( int i= 0; i < savedGameWord.length(); ++i ) {
             char c= savedGameWord.charAt( i );
-            game.makeGuess( wrapGame.playerUp, c );
+            game.makeGuess( c );
         }
         assertTrue( wrapGame.gameOver );
         assertNotNull( wrapGame.gameWinningTeam );
@@ -94,7 +94,7 @@ public class testGameEvent
         Logic game= wrapGame.getInstance( savedGameWord );
         for( int i= 0; i < savedGameWord.length(); ++i ) {
             char c= savedGameWord.charAt( i );
-            game.makeGuess( wrapGame.playerUp, c );
+            game.makeGuess( c );
         }
         assertEquals( savedGameWord.length(), wrapGame.statusWordChanges );
     }
@@ -112,7 +112,7 @@ public class testGameEvent
         wrd.insert( 5, 'y' );
         for( int i= 0; i < savedGameWord.length(); ++i ) {
             char c= savedGameWord.charAt( i );
-            game.makeGuess( wrapGame.playerUp, c );
+            game.makeGuess( c );
         }
         // The status word changes should be the same
         // Remember it only changes for good guesses

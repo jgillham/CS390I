@@ -147,25 +147,9 @@ public class testLogic
     /**
      * Test makeGuess with a bad argument. Error expected.
      */
-    @Test( expected= NullPointerException.class )
-    public void testMakeGuess_NullPlayer() {
-        game.makeGuess( null, 'a' );
-    }
-    
-    /**
-     * Test makeGuess with a bad argument. Error expected.
-     */
-    @Test( expected= java.util.NoSuchElementException.class )
-    public void testMakeGuess_BadPlayer() {
-        game.makeGuess( new Player( "Name" ), 'a' );
-    }
-    
-    /**
-     * Test makeGuess with a bad argument. Error expected.
-     */
     @Test( expected= IllegalArgumentException.class )
     public void testMakeGuess_wDigit() {
-        game.makeGuess( wrapLogic.firstPlayer, '9' );
+        game.makeGuess( '9' );
     }
     
     /**
@@ -174,7 +158,7 @@ public class testLogic
     @Test
     public void testMakeGuess() {
         Logic newGame= wrapLogic.getInstance();
-        newGame.makeGuess( wrapLogic.firstPlayer, 'a' );
+        newGame.makeGuess( 'a' );
     }
     
     /**
@@ -184,17 +168,17 @@ public class testLogic
     public void testMakeGuess_GoodGuess() {
         {
             Logic newGame= wrapLogic.getInstance( "logic" );
-            assertTrue( newGame.makeGuess( wrapLogic.firstPlayer, 'l' ) );
+            assertTrue( newGame.makeGuess( 'l' ) );
         }
         
         {
             Logic newGame= wrapLogic.getInstance( "logic" );
-            assertTrue( newGame.makeGuess( wrapLogic.firstPlayer, 'g' ) );
+            assertTrue( newGame.makeGuess( 'g' ) );
         }
         
         {
             Logic newGame= wrapLogic.getInstance( "logic" );
-            assertTrue( newGame.makeGuess( wrapLogic.firstPlayer, 'c' ) );
+            assertTrue( newGame.makeGuess( 'c' ) );
         }
     }
     
@@ -205,17 +189,17 @@ public class testLogic
     public void testMakeGuess_GoodGuess_Capital() {
         {
             Logic newGame= wrapLogic.getInstance( "logic" );
-            assertTrue( newGame.makeGuess( wrapLogic.firstPlayer, 'L' ) );
+            assertTrue( newGame.makeGuess( 'L' ) );
         }
         
         {
             Logic newGame= wrapLogic.getInstance( "logic" );
-            assertTrue( newGame.makeGuess( wrapLogic.firstPlayer, 'G' ) );
+            assertTrue( newGame.makeGuess( 'G' ) );
         }
         
         {
             Logic newGame= wrapLogic.getInstance( "logic" );
-            assertTrue( newGame.makeGuess( wrapLogic.firstPlayer, 'C' ) );
+            assertTrue( newGame.makeGuess( 'C' ) );
         }
     }
     
@@ -225,7 +209,7 @@ public class testLogic
     @Test
     public void testMakeGuess_BadGuess() {
         Logic newGame= wrapLogic.getInstance( "logic" );
-        assertFalse( newGame.makeGuess( wrapLogic.firstPlayer, 'a' ) );
+        assertFalse( newGame.makeGuess( 'a' ) );
     }
     
     /**
