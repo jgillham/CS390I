@@ -5,13 +5,11 @@ HOW TO START THIS PROJECT:
 AUTHORS: Josh Gillham
 ASSIGNMENT:
 
-Your design for the Hangman application should have provided an API that includes the signatures of all publicly visible entities (e.g., interfaces, classes, methods).
+Submit a single file, whose name must be hangman.zip, that contains a zip-format archive of an entire BlueJ project folder with your implementation of the Hangman application.
 
-1. Based on your design/API, create a BlueJ project that contains skeletal classes (that is, source code that implements all of the public classes and methods and compiles without error).
+Your project must include well-documented java source code files that implement the hangman application as well as unit test classes with tests for the non-void public methods.
 
-2. Create a unit test class for each of the public classes.
-
-3. Create test methods for each publicly visible method that returns a value. Strive to create tests that adequate assess the correctness of the behaviors of the methods.
+Use the Notes section to provide your observations and insights regarding the learning associated with this experience. 
 
 API Outline
 
