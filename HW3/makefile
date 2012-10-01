@@ -1,4 +1,4 @@
-ZIPFILE=HW3_HangmanAPI_JoshGillham.zip
+ZIPFILE=hangman.zip
 
 zip: $(ZIPFILE) *.java
 	zip -fr $(ZIPFILE) . -x *.zip -x *.class -x *.ctxt
