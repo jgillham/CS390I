@@ -9,6 +9,7 @@
  * @version 9-23-12
  */
 public class Player {
+    private String name;
     /**
      * Creates a new player.
      * 
@@ -19,8 +20,13 @@ public class Player {
      * 
      * Empty unimplemented body.
      */
-    public Player( String name ) throws NullPointerException, IllegalArgumentException
-    { throw new UnsupportedOperationException(); }
+    public Player( String name ) throws NullPointerException, IllegalArgumentException {
+        if( name == null )
+            throw new NullPointerException();
+        if( name.isEmpty() )
+            throw new IllegalArgumentException();
+        this.name= name;
+    }
     
     /**
      * Accesses the name of the player.

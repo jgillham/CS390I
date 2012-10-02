@@ -16,7 +16,9 @@ public class Manager {
     /** The number of successful guesses. */
     private int score= 0;
     /** Refers to the player with the turn next. */
-    private Iterator playerUp;
+    private Iterator<Player> playerUp= null;
+    /** Holds the name of team. */
+    private String teamName;
     
     /**
      * Creates a new empty team.
@@ -28,8 +30,13 @@ public class Manager {
      * 
      * Empty unimplemented body.
      */
-    public Manager( String name )
-    { throw new UnsupportedOperationException(); }
+    public Manager( String name ) throws NullPointerException, IllegalArgumentException {
+        if( name == null )
+            throw new NullPointerException();
+        if( name.isEmpty() ) 
+            throw new IllegalArgumentException();
+        this.teamName= name;
+    }
     
     /**
      * Creates a new player in the Manager class and adds him to the list.
@@ -43,8 +50,14 @@ public class Manager {
      * 
      * Empty unimplemented body.
      */
-    public Player addPlayer( String name )
-    { throw new UnsupportedOperationException(); }
+    public Player addPlayer( String name ) throws IllegalArgumentException, NullPointerException  {
+        Player newPlayer= new Player( name );
+        roster.add( newPlayer );
+        // Setup the playerUp if this is the first player.
+        if( playerUp == null )
+            playerUp= roster.iterator();
+        return newPlayer;
+    }
     
     /**
      * Gets the score of the team.
@@ -68,8 +81,16 @@ public class Manager {
      * 
      * Empty unimplemented body.
      */
-    public Player getPlayerUp()
-    { throw new UnsupportedOperationException(); }
+    public Player getPlayerUp() throws java.util.NoSuchElementException {
+        // Cannot use this method when the roster is empty.
+        if( getRosterSize() == 0 )
+            throw new java.util.NoSuchElementException();
+        // If the iterator has gone past the end then start back at the beginning.
+        if( !playerUp.hasNext() )
+            playerUp= roster.iterator();
+        // Get the next player.
+        return playerUp.next();
+    }
     
     /**
      * Gets the roster size with List.size().
@@ -78,8 +99,9 @@ public class Manager {
      * 
      * Empty unimplemented body.
      */
-    public int getRosterSize()
-    { throw new UnsupportedOperationException(); }
+    public int getRosterSize() {
+        return roster.size();
+    }
     
     /**
      * Sets the player up to the next player in the line up.
