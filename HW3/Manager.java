@@ -16,7 +16,7 @@ public class Manager {
     /** The number of successful guesses. */
     private int score= 0;
     /** Refers to the player with the turn next. */
-    private Iterator<Player> playerUp= null;
+    private int playerUp= 0;
     /** Holds the name of team. */
     private String teamName;
     
@@ -53,9 +53,6 @@ public class Manager {
     public Player addPlayer( String name ) throws IllegalArgumentException, NullPointerException  {
         Player newPlayer= new Player( name );
         roster.add( newPlayer );
-        // Setup the playerUp if this is the first player.
-        if( playerUp == null )
-            playerUp= roster.iterator();
         return newPlayer;
     }
     
@@ -86,10 +83,9 @@ public class Manager {
         if( getRosterSize() == 0 )
             throw new java.util.NoSuchElementException();
         // If the iterator has gone past the end then start back at the beginning.
-        if( !playerUp.hasNext() )
-            playerUp= roster.iterator();
-        // Get the next player.
-        return playerUp.next();
+        if( playerUp == getRosterSize() )
+            playerUp= 0;
+        return roster.get( playerUp );
     }
     
     /**

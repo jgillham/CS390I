@@ -7,6 +7,4 @@ $(ZIPFILE) :
 	zip -r $@ . -x *.zip -x *.class -x *.ctxt
 
 clean:
-	rm *.zip
-	rm *.class
-	rm *.ctxt
+	rm -f *.zip *.class *.ctxt

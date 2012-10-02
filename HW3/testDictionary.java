@@ -56,7 +56,7 @@ public class testDictionary
         Dictionary.load( "" );
     }
     /** The file of the dictionary. */
-    String dictionaryFile="";
+    String dictionaryFile= "smalldictionary.txt";
     /** An instance of the dictionary. */
     Dictionary dictionary;
     /**
@@ -81,7 +81,7 @@ public class testDictionary
      */
     @Test( expected= IllegalArgumentException.class )
     public void testGetWord_TooLarge() {
-        dictionary.getWord( Dictionary.MIN_WORDLENGTH + 1 );
+        dictionary.getWord( Dictionary.MAX_WORDLENGTH + 1 );
     }
     
 }
