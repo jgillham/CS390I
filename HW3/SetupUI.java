@@ -27,7 +27,9 @@ public class SetupUI {
     private List< Manager > teams= new LinkedList< Manager >();
     /** Holds a copy of the Game Logic. */
     private Logic game= null;
+    /** Holds a copy of the player name. */
     private String name= null;
+    /** Holds the word length. */
     private int wordLength= 0;
     
     /**
