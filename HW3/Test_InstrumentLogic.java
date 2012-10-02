@@ -49,6 +49,8 @@ class Test_InstrumentLogic implements GameEvent {
      * @return the new player
      */
     public Player addPlayer( String name ) {
+        if( lastTeam == null )
+            addManager( "Default" );
         Player player= lastTeam.addPlayer( name );
         if( firstPlayer == null )
             firstPlayer= player;
