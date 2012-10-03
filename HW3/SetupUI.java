@@ -14,6 +14,7 @@ import java.util.Scanner;
  * @version 9-23-12
  */
 public class SetupUI {
+    static public final String DICTIONARY_FILE= "smalldictionary.txt";
     /**
      * Initializes the dictionary. Creates a new instance of SetupUI.
      * 

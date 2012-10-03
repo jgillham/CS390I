@@ -8,6 +8,9 @@ import java.util.LinkedList;
  * @version 9-23-12
  */
 class Test_InstrumentLogic implements GameEvent {
+    {
+        Dictionary.load( SetupUI.DICTIONARY_FILE );
+    }
     /** Hold the team setup. */
     List< Manager > teams= new LinkedList< Manager >();
     /** Has the default word length. */

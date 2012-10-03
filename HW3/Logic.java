@@ -32,8 +32,11 @@ public class Logic{
     
     private String gameWord;
     private List< Manager > gameTeams;
-    private List< String > guesses;
-    private Iterator activeTeam;
+    private StringBuilder guesses;
+    private StringBuilder statusWord;
+    private int activeTeam= 0;
+    private GameEvent eventHandler= null;
+    private int attempts= 0;
     
     /**
      * Checks to make sure teams has no teams with empty rosters. Makes sure there is at least one player
@@ -46,8 +49,9 @@ public class Logic{
      * @throws IllegalArgumentException when gameWordLength is less than Dictionary.MIN_WORDLENGTH
      *  and greater than Dictionary.MAX_WORDLENGTH.
      */
-    public Logic( java.util.List< Manager > teams, int gameWordLength ) throws IllegalArgumentException
-    { throw new UnsupportedOperationException(); }
+    public Logic( java.util.List< Manager > teams, int gameWordLength ) throws IllegalArgumentException {
+        this( teams, Dictionary.getWord( gameWordLength ) );
+    }
     
     /**
      * Checks to make sure teams has no teams with empty rosters. Makes sure there is at least one player
@@ -60,8 +64,18 @@ public class Logic{
      * @throws IllegalArgumentException when gameWord is empty.
      * @throws NullPointerException when gameWord is null.
      */
-    public Logic( java.util.List< Manager > teams, String gameWord ) throws IllegalArgumentException
-    { throw new UnsupportedOperationException(); }
+    public Logic( java.util.List< Manager > teams, String gameWord ) throws IllegalArgumentException {
+        for( Manager team: teams ) {
+            if( team.getRosterSize() == 0 )
+                throw new java.util.NoSuchElementException();
+        }
+        if( gameWord == null )
+            throw new NullPointerException();
+        if( gameWord.isEmpty() )
+            throw new IllegalArgumentException();
+        gameTeams= teams;
+        this.gameWord= gameWord;
+    }
     
     /**
      * Submits a guess. The guess is game word. If the letter is contained in the word
@@ -79,9 +93,28 @@ public class Logic{
      * @return True if the guess is found in the word
      * 
      * @throws IllegalArgumentException when letter is not a letter i.e. '?' or '9'
+     * @throws IllegalArgumentException when the letter is already guessed.
      */
-    public boolean makeGuess( char letter )
-    { throw new UnsupportedOperationException(); }
+    public boolean makeGuess( char letter ){
+        if( !Character.isLetter( letter ) )
+            throw new IllegalArgumentException();
+        for( int i= 0; i < guesses.length(); ++i ) {
+            char guess= guesses.charAt( i );
+            if( guess == letter )
+                throw new IllegalArgumentException();
+        }
+        guesses.append( letter );
+        boolean found= false;
+        ++attempts;
+        for( int i= 0; i < gameWord.length(); ++i ) {
+            char wordLetter= gameWord.charAt( i );
+            if( letter == wordLetter ) {
+                found= true;
+                statusWord.setCharAt( i, letter );
+            }
+        }
+        return found;
+    }
     
     /**
      * Removes a team from the game. The team will automatically lose. If there is no teams
@@ -127,14 +160,16 @@ public class Logic{
      *  
      * @arg handler the new event handler
      */
-    public void setGameEventsHandler( GameEvent handler )
-    { throw new UnsupportedOperationException(); }
+    public void setGameEventsHandler( GameEvent handler ) {
+        this.eventHandler= handler;
+    }
     
     /**
      * Gets the guesses remaining.
      * 
      * @return the number of attempts remaining.
      */
-    public int getAttempts()
-    { throw new UnsupportedOperationException(); }
+    public int getAttempts() {
+        return attempts;
+    }
 }

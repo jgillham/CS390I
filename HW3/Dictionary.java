@@ -45,6 +45,9 @@ public class Dictionary{
     /**
      * Finds a random word from the dictionary.
      * 
+     * Preconditions:
+     *  Word data bank must have at least one word.
+     * 
      * @arg length is the length of the word to find.
      * 
      * @return the random word.
@@ -52,7 +55,9 @@ public class Dictionary{
      * @throw IllegalArgumentException when the length is less than MIN_WORDLENGTH 
      *   or greater than MAX_WORDLENGTH
      */
-    static public String getWord( int length ) {
+    static public String getWord( int length )throws java.util.NoSuchElementException {
+        if( words.size() == 0 )
+            throw new java.util.NoSuchElementException();
         if( length < MIN_WORDLENGTH || length > MAX_WORDLENGTH )
             throw new IllegalArgumentException();
         int randomIndex= (int)( Math.random() * words.size() );
