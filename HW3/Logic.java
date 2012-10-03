@@ -32,8 +32,8 @@ public class Logic{
     
     private String gameWord;
     private List< Manager > gameTeams;
-    private StringBuilder guesses;
-    private StringBuilder statusWord;
+    private StringBuilder guesses= new StringBuilder();
+    private StringBuilder statusWord= new StringBuilder();
     private int activeTeam= 0;
     private GameEvent eventHandler= null;
     private int attempts= 0;
@@ -65,6 +65,8 @@ public class Logic{
      * @throws NullPointerException when gameWord is null.
      */
     public Logic( java.util.List< Manager > teams, String gameWord ) throws IllegalArgumentException {
+        if( teams.size() == 0 )
+            throw new java.util.NoSuchElementException();
         for( Manager team: teams ) {
             if( team.getRosterSize() == 0 )
                 throw new java.util.NoSuchElementException();
@@ -75,6 +77,8 @@ public class Logic{
             throw new IllegalArgumentException();
         gameTeams= teams;
         this.gameWord= gameWord;
+        for( int i= 0; i < gameWord.length(); ++i )
+            statusWord.append( '-' );
     }
     
     /**
@@ -98,17 +102,18 @@ public class Logic{
     public boolean makeGuess( char letter ){
         if( !Character.isLetter( letter ) )
             throw new IllegalArgumentException();
+        letter= Character.toLowerCase( letter );
         for( int i= 0; i < guesses.length(); ++i ) {
             char guess= guesses.charAt( i );
             if( guess == letter )
                 throw new IllegalArgumentException();
         }
-        guesses.append( letter );
+        guesses.append( Character.toLowerCase( letter ) );
         boolean found= false;
         ++attempts;
         for( int i= 0; i < gameWord.length(); ++i ) {
             char wordLetter= gameWord.charAt( i );
-            if( letter == wordLetter ) {
+            if( letter == Character.toLowerCase( wordLetter ) ) {
                 found= true;
                 statusWord.setCharAt( i, letter );
             }

@@ -70,7 +70,7 @@ public class testLogic
     /**
      * Tests the constructor to ensure it fails when there are no teams.
      */
-    @Test( expected= IllegalArgumentException.class )
+    @Test( expected= java.util.NoSuchElementException.class )
     public void testConstructor_NoTeams(){
         Logic g= new Logic( new LinkedList< Manager >(), Dictionary.MIN_WORDLENGTH );
     }
@@ -78,7 +78,7 @@ public class testLogic
     /**
      * Tests the constructor to ensure it fails when there are no players.
      */
-    @Test( expected= IllegalArgumentException.class )
+    @Test( expected= java.util.NoSuchElementException.class )
     public void testConstructor_NoPlayers(){
         List< Manager > teams= new LinkedList< Manager >();
         teams.add( new Manager( "Alpha" ) );
@@ -88,7 +88,7 @@ public class testLogic
     /**
      * Tests the constructor to ensure it fails when there are empty teams.
      */
-    @Test( expected= IllegalArgumentException.class )
+    @Test( expected= java.util.NoSuchElementException.class )
     public void testConstructor_NoPlayers2(){
         List< Manager > teams= new LinkedList< Manager >();
         Manager man= new Manager( "Alpha" );
@@ -215,7 +215,7 @@ public class testLogic
      */
     @Test
     public void testSetGameEventsHandler() {
-        game.setGameEventsHandler( new GameUI( game ) );
+        game.setGameEventsHandler( wrapLogic );
     }
     
     /**
