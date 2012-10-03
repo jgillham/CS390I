@@ -29,12 +29,14 @@ public class Dictionary{
      * 
      * Empty unimplemented body.
      */
-    static public void load( String file ) throws NullPointerException, IllegalArgumentException {
+    static public void load( String file ) throws NullPointerException {
         if( file == null )
             throw new NullPointerException();
+            
         if( file.isEmpty() )
             throw new IllegalArgumentException();
-            
+        
+        // Read in each word line by line
         File src= new File( file );
         Scanner input= new Scanner( file );
         while( input.hasNext() ) {
@@ -58,8 +60,10 @@ public class Dictionary{
     static public String getWord( int length )throws java.util.NoSuchElementException {
         if( words.size() == 0 )
             throw new java.util.NoSuchElementException();
+            
         if( length < MIN_WORDLENGTH || length > MAX_WORDLENGTH )
             throw new IllegalArgumentException();
+        // Get a random word
         int randomIndex= (int)( Math.random() * words.size() );
         return words.get( randomIndex );
     }
