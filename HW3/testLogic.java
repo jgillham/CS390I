@@ -236,4 +236,13 @@ public class testLogic
         newGame.makeGuess( 'l' );
         assertEquals( 1, newGame.getAttempts() );
     }
+    
+    /**
+     * Test UI event setter to make sure null does not throw an error.
+     */
+    @Test( expected= IllegalArgumentException.class )
+    public void testSetMaxAttempts() {
+        Logic newGame= wrapLogic.getInstance( "Logic" );
+        newGame.setMaxAttempts( Logic.MIN_ATTEMPTS - 1 );
+    }
 }

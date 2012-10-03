@@ -37,6 +37,7 @@ public class Logic{
     private int activeTeam= 0;
     private GameEvent eventHandler= null;
     private int attempts= 0;
+    private int maxGuesses= DEFAULT_ATTEMPTS;
     
     /**
      * Checks to make sure teams has no teams with empty rosters. Makes sure there is at least one player
@@ -175,6 +176,15 @@ public class Logic{
      * @return the number of attempts remaining.
      */
     public int getAttempts() {
-        return attempts;
+        return this.maxGuesses;
+    }
+    
+    /**
+     * Sets the max guesses.
+     * 
+     * @return the number of attempts remaining.
+     */
+    public void setMaxAttempts( int nMaxGuesses ) {
+        this.maxGuesses= nMaxGuesses;
     }
 }
