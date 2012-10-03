@@ -33,8 +33,10 @@ public class Manager {
     public Manager( String name ) throws NullPointerException, IllegalArgumentException {
         if( name == null )
             throw new NullPointerException();
+            
         if( name.isEmpty() ) 
             throw new IllegalArgumentException();
+            
         this.teamName= name;
     }
     
@@ -82,9 +84,10 @@ public class Manager {
         // Cannot use this method when the roster is empty.
         if( getRosterSize() == 0 )
             throw new java.util.NoSuchElementException();
-        // If the iterator has gone past the end then start back at the beginning.
+        // Return to the beginning of the lineup.
         if( playerUp == getRosterSize() )
             playerUp= 0;
+            
         return roster.get( playerUp );
     }
     

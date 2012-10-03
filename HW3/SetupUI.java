@@ -14,6 +14,7 @@ import java.util.Scanner;
  * @version 9-23-12
  */
 public class SetupUI {
+    /** Holds the default dictionary file. Should in the root of the project folder. */
     static public final String DICTIONARY_FILE= "smalldictionary.txt";
     /**
      * Initializes the dictionary. Creates a new instance of SetupUI.
@@ -35,7 +36,7 @@ public class SetupUI {
     private String name= null;
     /** Holds the word length. */
     private int wordLength= 0;
-    
+    /** Holds the manager of the first team. */
     private Manager man= null;
     
     /**
@@ -43,32 +44,47 @@ public class SetupUI {
      */
     public SetupUI( ){
         man= new Manager( "Default" );
+        teams.add( man );
     }
     
+    /**
+     * Launches the Game UI.
+     * 
+     * @return the newly create GameUI.
+     */
     public GameUI startGame() {
         return new GameUI( game );
     }
     
+    /**
+     * Walk through the setup steps with the user.
+     * 
+     * @return a new game logic.
+     */
     public Logic inputSetupGame() {
         Scanner userInput= new Scanner(System.in);
+        // Get their name
         int tries= 0;
         String name= null;
         while( tries++ < 3 )
             name= inputPlayerName( userInput );
-            
+        // The player doesn't want to play?
         if( name == null )
             System.exit( 1 );
         
-        teams.add( man );
+        // Add him to the first team.
         man.addPlayer( name );
         
+        // Get the word length
         tries= 0;
         int wordLength= 0;
         while( tries++ < 3 )
             wordLength= inputGameWordLength( userInput );
-            
+        
+        // Now we have enough information to create the game.
         game= new Logic( teams, wordLength );
         
+        // Get the maximum allowed guesses.
         tries= 0;
         int maxAttempts= 0;
         while( tries++ < 3 )

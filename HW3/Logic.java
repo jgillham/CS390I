@@ -30,13 +30,19 @@ public class Logic{
     /** The least guesses allowed that make the game interesting. */
     static public final int MIN_ATTEMPTS= 2;
     
+    /** The word every player in the game will try and guess. */
     private String gameWord;
+    /** Holds the teams in the game. */
     private List< Manager > gameTeams;
+    /** Holds the guess made. */
     private StringBuilder guesses= new StringBuilder();
+    /** Holds a string the same length of gameWord but with dashes in places where no player has guessed. */
     private StringBuilder statusWord= new StringBuilder();
+    /** Refers to the team with the turn to guess. */
     private int activeTeam= 0;
+    /** Holds the call back for events during the game. Allows this class to send messages to the UI. */
     private GameEvent eventHandler= null;
-    private int attempts= 0;
+    /** Holds the maximum guess allowed during the game. */
     private int maxGuesses= DEFAULT_ATTEMPTS;
     
     /**
@@ -68,14 +74,16 @@ public class Logic{
     public Logic( java.util.List< Manager > teams, String gameWord ) throws IllegalArgumentException {
         if( teams.size() == 0 )
             throw new java.util.NoSuchElementException();
-        for( Manager team: teams ) {
-            if( team.getRosterSize() == 0 )
-                throw new java.util.NoSuchElementException();
-        }
         if( gameWord == null )
             throw new NullPointerException();
         if( gameWord.isEmpty() )
             throw new IllegalArgumentException();
+        // Make sure all teams have at least one player.
+        for( Manager team: teams ) {
+            if( team.getRosterSize() == 0 )
+                throw new java.util.NoSuchElementException();
+        }
+        
         gameTeams= teams;
         this.gameWord= gameWord;
         for( int i= 0; i < gameWord.length(); ++i )
@@ -104,19 +112,22 @@ public class Logic{
         if( !Character.isLetter( letter ) )
             throw new IllegalArgumentException();
         letter= Character.toLowerCase( letter );
-        for( int i= 0; i < guesses.length(); ++i ) {
-            char guess= guesses.charAt( i );
+        // Make sure this guess has never been guessed before.
+        for( int i= 0; i < this.guesses.length(); ++i ) {
+            char guess= this.guesses.charAt( i );
             if( guess == letter )
                 throw new IllegalArgumentException();
         }
-        guesses.append( Character.toLowerCase( letter ) );
+        // Add this guess to the list.
+        this.guesses.append( letter );
         boolean found= false;
-        ++attempts;
-        for( int i= 0; i < gameWord.length(); ++i ) {
-            char wordLetter= gameWord.charAt( i );
+        // Try to find the letter in the game word and update the status word as we go.
+        for( int i= 0; i < this.gameWord.length(); ++i ) {
+            char wordLetter= this.gameWord.charAt( i );
             if( letter == Character.toLowerCase( wordLetter ) ) {
                 found= true;
-                statusWord.setCharAt( i, letter );
+                // Replace the dash with the letter
+                this.statusWord.setCharAt( i, letter );
             }
         }
         return found;
@@ -176,7 +187,7 @@ public class Logic{
      * @return the number of attempts remaining.
      */
     public int getAttempts() {
-        return this.maxGuesses;
+        return this.guesses.length();
     }
     
     /**
