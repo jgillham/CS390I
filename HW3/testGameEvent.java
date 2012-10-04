@@ -78,7 +78,9 @@ public class testGameEvent
         String partialABCs= "abcdefghijklmnopqr";
         for( int i= 0; i < partialABCs.length() && i < game.getAttempts(); ++i ) {
             char c= partialABCs.charAt( i );
-            game.makeGuess( c );
+            try{
+                game.makeGuess( c );
+            }catch( Logic.AmbiguousGuessException e ) {}
         }
         assertTrue( gameEvents.gameOver );
         assertNull( gameEvents.gameWinningTeam );
@@ -96,7 +98,9 @@ public class testGameEvent
         game.setGameEventsHandler( gameEvents );
         for( int i= 0; i < savedGameWord.length(); ++i ) {
             char c= savedGameWord.charAt( i );
-            game.makeGuess( c );
+            try{
+                game.makeGuess( c );
+            }catch( Logic.AmbiguousGuessException e ) {}
         }
         assertTrue( gameEvents.gameOver );
         assertNotNull( gameEvents.gameWinningTeam );
@@ -115,7 +119,9 @@ public class testGameEvent
         game.setGameEventsHandler( gameEvents );
         for( int i= 0; i < savedGameWord.length(); ++i ) {
             char c= savedGameWord.charAt( i );
-            game.makeGuess( c );
+            try{
+                game.makeGuess( c );
+            }catch( Logic.AmbiguousGuessException e ) {}
         }
         assertEquals( savedGameWord.length(), gameEvents.statusWordChanges );
     }
@@ -135,7 +141,9 @@ public class testGameEvent
         wrd.insert( 5, 'y' );
         for( int i= 0; i < savedGameWord.length(); ++i ) {
             char c= savedGameWord.charAt( i );
-            game.makeGuess( c );
+            try{ 
+                game.makeGuess( c );
+            }catch( Logic.AmbiguousGuessException e ) {}
         }
         // The status word changes should be the same
         // Remember it only changes for good guesses

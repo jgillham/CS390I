@@ -90,7 +90,9 @@ public class GameUI implements GameEvent {
                     System.out.println( "Sorry that was a bad guess!" );
             } catch( IllegalArgumentException e ){
                 // Bad input could be a symbol or maybe the letter is alread guessed.
-                System.out.println( e.getMessage() );
+                System.out.println( "Guesses should be letters only." );
+            } catch( Logic.AmbiguousGuessException e ) {
+                System.out.println( "That letter has alread been guessed." );
             }
         }        
     }

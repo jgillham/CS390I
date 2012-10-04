@@ -30,6 +30,8 @@ public class Logic{
     /** The least guesses allowed that make the game interesting. */
     static public final int MIN_ATTEMPTS= 2;
     
+    public class AmbiguousGuessException extends Exception {}
+    
     /** The word every player in the game will try and guess. */
     private String gameWord;
     /** Holds the teams in the game. */
@@ -120,17 +122,17 @@ public class Logic{
      * @return True if the guess is found in the word
      * 
      * @throws IllegalArgumentException when letter is not a letter i.e. '?' or '9'
-     * @throws IllegalArgumentException when the letter is already guessed.
+     * @throws AmbiguousGuessException when the letter is already guessed.
      */
-    public boolean makeGuess( char letter ){
+    public boolean makeGuess( char letter ) throws AmbiguousGuessException {
         if( !Character.isLetter( letter ) )
-            throw new IllegalArgumentException( "Guesses should be letters only." );
+            throw new IllegalArgumentException();
         letter= Character.toLowerCase( letter );
         // Make sure this guess has never been guessed before.
         for( int i= 0; i < this.guesses.length(); ++i ) {
             char guess= this.guesses.charAt( i );
             if( guess == letter )
-                throw new IllegalArgumentException( "That letter has alread been guessed." );
+                throw new AmbiguousGuessException( );
         }
         // Add this guess to the list.
         this.guesses.append( letter );

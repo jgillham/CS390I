@@ -47,7 +47,28 @@ public class integrationTestGamePlay {
     {
     }
     abstract class GameEventsBaseTester extends GameEventsBase {
-        public abstract void makeAssertions();
+        int badGuesses= 0;
+        int errorGuesses= 0;
+        int ambiguousGuesses= 0;
+        
+        public abstract void makeAssertions(); // String guesses, int maxGuesses
+        //Calculate the results
+//         {
+//             for( int i= 0; i < guesses.length() && i < maxGuesses; ++i ) {
+//                 
+//             }
+//         }
+        public void guess( Logic game, char c ){
+            System.out.println( "guess: " + c );
+            try {
+                if( !game.makeGuess( c ) )
+                    ++badGuesses;
+            }catch( Logic.AmbiguousGuessException e ){
+                ++ambiguousGuesses;
+            }catch( IllegalArgumentException e ) {
+                ++errorGuesses;
+            }
+        }
     }
 
     
@@ -57,16 +78,10 @@ public class integrationTestGamePlay {
     public void testPlayerWins(){
         final int maxGuesses= gameWord.length();
         GameEventsBaseTester tester= new GameEventsBaseTester(){
-            int badGuesses= 0;
-            int errorGuesses= 0;
             int i= 0;
             public void playerUp( Player player ){
-                if( i < maxGuesses )try {
-                    if( !game.makeGuess( gameWord.charAt( i++ ) ) )
-                        ++badGuesses;
-                } catch( Exception e ) {
-                    ++errorGuesses;
-                }
+                if( i < maxGuesses )
+                    this.guess( game, gameWord.charAt( i++ ) );
             }
             public void makeAssertions(){
                 assertFalse( gameOver );
@@ -90,17 +105,12 @@ public class integrationTestGamePlay {
         final String guesses= "abcdefghijkl";
         final int maxGuesses= gameWord.length();
         GameEventsBaseTester tester= new GameEventsBaseTester(){
-            int badGuesses= 0;
-            int errorGuesses= 0;
             
             int i= 0;
             public void playerUp( Player player ){
-                if( i < maxGuesses )try {
-                    if( !game.makeGuess( guesses.charAt( i++ ) ) )
-                        ++badGuesses;
-                } catch( Exception e ) {
-                    ++errorGuesses;
-                }
+                System.out.println( "guessplayerUp " + i );
+                if( i < maxGuesses )
+                    this.guess( game, guesses.charAt( i++ ) );
             }
             public void makeAssertions(){
                 assertTrue( gameOver );
@@ -113,6 +123,7 @@ public class integrationTestGamePlay {
         game.setGameEventsHandler( tester );
         int counter= 0;
         while( counter++ < MAX_TURNS && game.getGameState() == Logic.Statis.STARTED ) {
+            System.out.println( "inloop " + counter );
             game.rotateTurn();
         }
         assertTrue( counter < MAX_TURNS );
@@ -123,23 +134,17 @@ public class integrationTestGamePlay {
         final String guesses= "fyu.eyl";
         final int maxGuesses= gameWord.length() + 3;
         GameEventsBaseTester tester= new GameEventsBaseTester(){
-            int badGuesses= 0;
-            int errorGuesses= 0;
             
             int i= 0;
             public void playerUp( Player player ){
-                if( i < maxGuesses ) try {
-                    if( !game.makeGuess( guesses.charAt( i++ ) ) )
-                        ++badGuesses;
-                } catch( Exception e ) {
-                    ++errorGuesses;
-                }
+                if( i < maxGuesses )
+                    this.guess( game, guesses.charAt( i++ ) );
             }
             public void makeAssertions(){
                 assertFalse( gameOver );
                 assertNotNull( gameWinningTeam );
                 assertEquals( 1, badGuesses );
-                assertEquals( 2, errorGuesses );
+                assertEquals( 1, errorGuesses );
             }
         };
         game.setMaxAttempts( maxGuesses );
@@ -153,26 +158,23 @@ public class integrationTestGamePlay {
     }
     @Test
     public void testPlayerHasAFewBadGuessesButLooses(){
-        final String guesses= "fyu.eyl";
-        final int maxGuesses= gameWord.length() + 2;
+        final String guesses= "fyu.eyil";
+        final int maxGuesses= gameWord.length()+1;
         GameEventsBaseTester tester= new GameEventsBaseTester(){
-            int badGuesses= 0;
-            int errorGuesses= 0;
             
             int i= 0;
             public void playerUp( Player player ){
-                if( i < maxGuesses ) try {
-                    if( !game.makeGuess( guesses.charAt( i++ ) ) )
-                        ++badGuesses;
-                } catch( Exception e ) {
-                    ++errorGuesses;
-                }
+                System.out.println( "playerUP: " + i );
+                if( i < guesses.length() - 1 )
+                    this.guess( game, guesses.charAt( i++ ) );
             }
             public void makeAssertions(){
-                assertFalse( gameOver );
-                assertNotNull( gameWinningTeam );
-                assertEquals( 1, badGuesses );
-                assertEquals( 2, errorGuesses );
+                assertTrue( gameOver );
+                assertNull( gameWinningTeam );
+                assertEquals( 2, badGuesses );
+                System.out.println( "ambiguousGuesses: " + ambiguousGuesses );
+                assertEquals( 1, errorGuesses );
+                assertEquals( 1, ambiguousGuesses );
             }
         };
         game.setMaxAttempts( maxGuesses );

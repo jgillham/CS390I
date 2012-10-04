@@ -147,7 +147,7 @@ public class testLogic
      * Test makeGuess with a bad argument. Error expected.
      */
     @Test( expected= IllegalArgumentException.class )
-    public void testMakeGuess_wDigit() {
+    public void testMakeGuess_wDigit()throws Exception {
         game.makeGuess( '9' );
     }
     
@@ -155,7 +155,7 @@ public class testLogic
      * Test makeGuess. Should not throw an error.
      */
     @Test
-    public void testMakeGuess() {
+    public void testMakeGuess() throws Exception {
         Logic newGame= wrapLogic.getGame();
         newGame.makeGuess( 'a' );
     }
@@ -164,7 +164,7 @@ public class testLogic
      * Tests makeGuess to make sure good guesses return true.
      */
     @Test
-    public void testMakeGuess_GoodGuess() {
+    public void testMakeGuess_GoodGuess() throws Exception{
         {
             Logic newGame= wrapLogic.getGame( "logic" );
             assertTrue( newGame.makeGuess( 'l' ) );
@@ -185,7 +185,7 @@ public class testLogic
      * Tests makeGuess to make sure good guesses return true. Capital letters shouldn't matter.
      */
     @Test
-    public void testMakeGuess_GoodGuess_Capital() {
+    public void testMakeGuess_GoodGuess_Capital() throws Exception{
         {
             Logic newGame= wrapLogic.getGame( "logic" );
             assertTrue( newGame.makeGuess( 'L' ) );
@@ -206,7 +206,7 @@ public class testLogic
      * Tests makeGuess to make sure bad guesses return false.
      */
     @Test
-    public void testMakeGuess_BadGuess() {
+    public void testMakeGuess_BadGuess() throws Exception{
         Logic newGame= wrapLogic.getGame( "logic" );
         assertFalse( newGame.makeGuess( 'a' ) );
     }
@@ -231,7 +231,7 @@ public class testLogic
      * Test UI event setter to make sure null does not throw an error.
      */
     @Test
-    public void testGetAttempts() {
+    public void testGetAttempts()throws Exception {
         Logic newGame= wrapLogic.getGame( "Logic" );
         assertEquals( 0, newGame.getAttempts() );
         newGame.makeGuess( 'l' );
