@@ -23,8 +23,11 @@ public class SetupUI {
      */
     static public void main( String[] args ){
         SetupUI setup= new SetupUI();
-        setup.inputSetupGame();
+        Logic game= setup.inputSetupGame();
         setup.startGame();
+        while( game.getGameState() == Logic.Statis.STARTED ){
+            game.rotateTurn();
+        }
         
     }
     
@@ -53,7 +56,9 @@ public class SetupUI {
      * @return the newly create GameUI.
      */
     public GameUI startGame() {
-        return new GameUI( game );
+        GameUI UI= new GameUI( game );
+        game.setGameEventsHandler(UI);
+        return UI;
     }
     
     /**
@@ -66,7 +71,7 @@ public class SetupUI {
         // Get their name
         int tries= 0;
         String name= null;
-        while( tries++ < 3 )
+        while( name != null && tries++ < 3 )
             name= inputPlayerName( userInput );
         // The player doesn't want to play?
         if( name == null )
@@ -78,7 +83,7 @@ public class SetupUI {
         // Get the word length
         tries= 0;
         int wordLength= 0;
-        while( tries++ < 3 )
+        while( wordLength != 0 && tries++ < 3 )
             wordLength= inputGameWordLength( userInput );
         
         // Now we have enough information to create the game.
@@ -106,6 +111,8 @@ public class SetupUI {
     public String inputPlayerName( Scanner inputScanner ) {
         System.out.println( "Enter your name:" );
         String name= inputScanner.next();
+        if( name.isEmpty() )
+            return null;
         return name;
     }
     
@@ -119,6 +126,8 @@ public class SetupUI {
     public int inputGameWordLength( Scanner inputScanner ) {
         System.out.println( "Whats the word length:" );
         int wordLength= inputScanner.nextInt();
+        if( wordLength < Dictionary.MIN_WORDLENGTH || wordLength > Dictionary.MAX_WORDLENGTH )
+            return 0;
         return wordLength;
     }
     

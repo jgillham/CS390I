@@ -45,6 +45,14 @@ public class Logic{
     /** Holds the maximum guess allowed during the game. */
     private int maxGuesses= DEFAULT_ATTEMPTS;
     
+    static public enum Statis {
+        STARTED,
+        OVER,
+        WINNER
+    }
+    
+    Statis gameState= Statis.STARTED;
+    
     /**
      * Checks to make sure teams has no teams with empty rosters. Makes sure there is at least one player
      *  and one team. Makes sure the word length is allowed in the dictionary.
@@ -212,6 +220,13 @@ public class Logic{
      */
     public int getAttempts() {
         return this.guesses.length();
+    }
+    
+    /**
+     * @return the game statis.
+     */
+    public Statis getGameState() {
+        return gameState;
     }
     
     /**
