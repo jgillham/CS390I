@@ -15,7 +15,37 @@ public class Dictionary{
     /** The largest allowed word in the dictionary. */
     static public final int MAX_WORDLENGTH= 7;
     /** Keeps the word data bank. */
-    static List<String> words= new ArrayList<String>(5000);
+    //static List<String> words= new ArrayList<String>(5000);
+    
+    static List< ArrayList<String> > dataBank= new ArrayList< ArrayList<String> >(MAX_WORDLENGTH);
+    
+    {
+        System.out.println( "static constructor" );
+        // Add one list for each length including 1
+        for( int i= 0; i < MAX_WORDLENGTH; ++i ) {
+            dataBank.add( new ArrayList<String>(1000) );
+        }
+    }
+    
+    static public boolean checkWordLength( int length ) {
+        return length >= MIN_WORDLENGTH && length <= MAX_WORDLENGTH;
+    }
+    
+    /**
+     * @arg word is the new word to add.
+     * 
+     * @throws NullPointerException when word is null.
+     * @throws IllegalArgumentException when word is empty.
+     * @throws IllegalArgumentException when word is smaller than MIN_WORDLENGTH or larger than MAX_WORDLENGTH.
+     */
+    static public void depositWord( String word ) {
+        if( word == null )
+            throw new NullPointerException();
+        if( word.isEmpty() || !checkWordLength( word.length() ) )
+            throw new IllegalArgumentException();
+        dataBank.get( word.length() - 1 ).add( word );
+    }
+    
     
     
     /**
@@ -40,7 +70,7 @@ public class Dictionary{
         File src= new File( file );
         Scanner input= new Scanner( src );
         while( input.hasNext() ) {
-            words.add( input.next() );
+            depositWord( input.next() );
         }
     }
     
@@ -58,14 +88,19 @@ public class Dictionary{
      *   or greater than MAX_WORDLENGTH
      */
     static public String getWord( int length )throws java.util.NoSuchElementException {
-        if( words.size() == 0 )
+        if( !checkWordLength( length ) )
+            throw new IllegalArgumentException();
+        List<String> list= dataBank.get( length - 1 );
+        if( list.size() == 0 )
             throw new java.util.NoSuchElementException();
+        
+        
             
         if( length < MIN_WORDLENGTH || length > MAX_WORDLENGTH )
             throw new IllegalArgumentException();
         // Get a random word
-        int randomIndex= (int)( Math.random() * words.size() );
-        return words.get( randomIndex );
+        int randomIndex= (int)( Math.random() * list.size() );
+        return list.get( randomIndex );
     }
         
 }

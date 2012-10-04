@@ -7,7 +7,9 @@ import java.lang.NullPointerException;
 
 /**
  * This unit test will check the integrity of the Dictionary class.
- *
+ * TODO
+ * -TEST checkWordLength
+ * -test depositWord
  * @author  Josh Gillham
  * @version 9-23-12
  */
