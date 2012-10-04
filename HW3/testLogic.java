@@ -111,7 +111,7 @@ public class testLogic
      */
     @Test( expected= IllegalArgumentException.class )
     public void testConstructor_WordTooLarge(){
-        wrapLogic.getGame( Dictionary.MAX_WORDLENGTH + 1 );
+        wrapLogic.getGame( Dictionary.LARGEST_WORD + 1 );
     }
     
     /**

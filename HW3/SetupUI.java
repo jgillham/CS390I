@@ -133,8 +133,11 @@ public class SetupUI extends SetupBase {
     public int inputGameWordLength( Scanner inputScanner ) {
         System.out.println( "Whats the word length:" );
         int wordLength= inputScanner.nextInt();
-        if( wordLength < Dictionary.MIN_WORDLENGTH || wordLength > Dictionary.MAX_WORDLENGTH )
+        
+        if( !Dictionary.checkWordLength( wordLength ) ) {
+            System.out.println( "Please enter a length between " + Dictionary.MIN_WORDLENGTH + " and " + Dictionary.LARGEST_WORD + "." );
             return 0;
+        }
         return wordLength;
     }
     

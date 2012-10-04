@@ -40,6 +40,10 @@ public class testSetupUI
     public void tearDown()
     {
     }
+    
+    /**
+     * Provides an input stream to pass to a Scanner class to simulate an input.
+     */
     class BadSetupUser extends java.io.InputStream {
         String badInput;
         int index= 0;

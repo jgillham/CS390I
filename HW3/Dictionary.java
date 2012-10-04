@@ -13,22 +13,29 @@ public class Dictionary{
     /** The smallest allowed word in the dictionary. */
     static public final int MIN_WORDLENGTH= 3;
     /** The largest allowed word in the dictionary. */
-    static public final int MAX_WORDLENGTH= 7;
+    static public final int LARGEST_WORD= 12;
     /** Keeps the word data bank. */
     //static List<String> words= new ArrayList<String>(5000);
     
-    static List< ArrayList<String> > dataBank= new ArrayList< ArrayList<String> >(MAX_WORDLENGTH);
-    
+    static List< ArrayList<String> > dataBank= new ArrayList< ArrayList<String> >(LARGEST_WORD);
+    static public boolean constructed= false;
     {
-        System.out.println( "static constructor" );
-        // Add one list for each length including 1
-        for( int i= 0; i < MAX_WORDLENGTH; ++i ) {
-            dataBank.add( new ArrayList<String>(1000) );
+        staticConstructor();
+    }
+    
+    static private void staticConstructor(){
+        if( !constructed ) {
+            constructed= true;
+            System.out.println( "static constructor" );
+            // Add one list for each length including 1
+            for( int i= 0; i < LARGEST_WORD; ++i ) {
+                dataBank.add( new ArrayList<String>(1000) );
+            }
         }
     }
     
     static public boolean checkWordLength( int length ) {
-        return length >= MIN_WORDLENGTH && length <= MAX_WORDLENGTH;
+        return length >= MIN_WORDLENGTH && length <= dataBank.size();
     }
     
     /**
@@ -39,11 +46,14 @@ public class Dictionary{
      * @throws IllegalArgumentException when word is smaller than MIN_WORDLENGTH or larger than MAX_WORDLENGTH.
      */
     static public void depositWord( String word ) {
+        staticConstructor();
         if( word == null )
             throw new NullPointerException();
-        if( word.isEmpty() || !checkWordLength( word.length() ) )
+        System.out.println( "Deposit: "+ word );
+        if( word.isEmpty() )
             throw new IllegalArgumentException();
-        dataBank.get( word.length() - 1 ).add( word );
+        if( checkWordLength( word.length() ) )
+            dataBank.get( word.length() - 1 ).add( word );
     }
     
     
@@ -83,21 +93,22 @@ public class Dictionary{
      * @arg length is the length of the word to find.
      * 
      * @return the random word.
+     * @return null if the length is not allowed in the dictionary.
      * 
      * @throw IllegalArgumentException when the length is less than MIN_WORDLENGTH 
      *   or greater than MAX_WORDLENGTH
      */
     static public String getWord( int length )throws java.util.NoSuchElementException {
+        staticConstructor();
         if( !checkWordLength( length ) )
             throw new IllegalArgumentException();
         List<String> list= dataBank.get( length - 1 );
         if( list.size() == 0 )
             throw new java.util.NoSuchElementException();
         
-        
             
-        if( length < MIN_WORDLENGTH || length > MAX_WORDLENGTH )
-            throw new IllegalArgumentException();
+        if( !checkWordLength( length ) )
+            return null;
         // Get a random word
         int randomIndex= (int)( Math.random() * list.size() );
         return list.get( randomIndex );

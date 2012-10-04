@@ -83,7 +83,7 @@ public class testDictionary
      */
     @Test( expected= IllegalArgumentException.class )
     public void testGetWord_TooLarge() {
-        dictionary.getWord( Dictionary.MAX_WORDLENGTH + 1 );
+        dictionary.getWord( Dictionary.LARGEST_WORD + 1 );
     }
     
     /**
