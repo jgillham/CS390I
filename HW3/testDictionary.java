@@ -44,7 +44,7 @@ public class testDictionary
      * Test the load with a null. The result should be an error
      */
     @Test( expected= java.lang.NullPointerException.class )
-    public void testLoad_Null() {
+    public void testLoad_Null() throws java.io.FileNotFoundException {
         Dictionary.load( null );
     }
     
@@ -52,18 +52,18 @@ public class testDictionary
      * Test the load with an empty path. The result should be an error
      */
     @Test( expected= IllegalArgumentException.class )
-    public void testLoad_Empty() {
+    public void testLoad_Empty() throws java.io.FileNotFoundException {
         Dictionary.load( "" );
     }
     /** The file of the dictionary. */
-    String dictionaryFile= "smalldictionary.txt";
+    String dictionaryFile= "testwords.txt";
     /** An instance of the dictionary. */
     Dictionary dictionary;
     /**
      * Test the load.
      */
     @Before
-    public void testLoad() {
+    public void testLoad() throws java.io.FileNotFoundException {
         Dictionary.load( dictionaryFile );
         dictionary= new Dictionary();
     }
@@ -82,6 +82,38 @@ public class testDictionary
     @Test( expected= IllegalArgumentException.class )
     public void testGetWord_TooLarge() {
         dictionary.getWord( Dictionary.MAX_WORDLENGTH + 1 );
+    }
+    
+    /**
+     * 
+     */
+    @Test
+    public void testNotTheFileName() {
+        String word= Dictionary.getWord( 3 );
+        if( dictionaryFile.equalsIgnoreCase( word ) )
+            fail( "Word is the file name." );
+    }
+    
+    /**
+     * 
+     */
+    @Test
+    public void testCorrectWords() {
+        String[] words={
+            "cat",
+            "mouse",
+            "hat"
+        };
+        String word= Dictionary.getWord( 3 );
+        System.out.println( "word: " + word );
+        boolean found= false;
+        for( String listWord: words ) {
+            System.out.println( "listWord: " + listWord );
+            if( word.equalsIgnoreCase(listWord) ){
+                found= true; break;
+            }
+        }
+        assertTrue( found );
     }
     
 }

@@ -29,7 +29,7 @@ public class Dictionary{
      * 
      * Empty unimplemented body.
      */
-    static public void load( String file ) throws NullPointerException {
+    static public void load( String file ) throws NullPointerException, java.io.FileNotFoundException {
         if( file == null )
             throw new NullPointerException();
             
@@ -38,7 +38,7 @@ public class Dictionary{
         
         // Read in each word line by line
         File src= new File( file );
-        Scanner input= new Scanner( file );
+        Scanner input= new Scanner( src );
         while( input.hasNext() ) {
             words.add( input.next() );
         }
