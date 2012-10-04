@@ -103,7 +103,7 @@ public class testLogic
      */
     @Test( expected= IllegalArgumentException.class )
     public void testConstructor_WordTooSmall(){
-        Logic g= new Logic( wrapLogic.teams, Dictionary.MIN_WORDLENGTH - 1 );
+        wrapLogic.getGame( Dictionary.MIN_WORDLENGTH - 1 );
     }
     
     /**
@@ -111,7 +111,7 @@ public class testLogic
      */
     @Test( expected= IllegalArgumentException.class )
     public void testConstructor_WordTooLarge(){
-        Logic g= new Logic( wrapLogic.teams, Dictionary.MAX_WORDLENGTH + 1 );
+        wrapLogic.getGame( Dictionary.MAX_WORDLENGTH - 1 );
     }
     
     /**
@@ -119,7 +119,7 @@ public class testLogic
      */
     @Test( expected= NullPointerException.class )
     public void testConstructor_NullGameWord(){
-        Logic g= new Logic( wrapLogic.teams, null );
+        wrapLogic.getGame( null );
     }
     
     /**
@@ -127,7 +127,7 @@ public class testLogic
      */
     @Test( expected= IllegalArgumentException.class )
     public void testConstructor_EmptyGameWord(){
-        Logic g= new Logic( wrapLogic.teams, "" );
+        wrapLogic.getGame( "" );
     }
     
     /**

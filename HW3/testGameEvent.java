@@ -57,12 +57,14 @@ public class testGameEvent
     @Before
     public void testConstructor() throws java.io.FileNotFoundException {
         SetupBase wrapGame= new SetupBase( );
+        Manager firstTeam= wrapGame.addManager( "Default" );
+        Player firstPlayer= wrapGame.addPlayer( "Default" );
         
         Logic game= wrapGame.getGame();
         GameEventsBase gameEvents= new GameEventsBase();
         game.setGameEventsHandler( gameEvents );
-        assertEquals( wrapGame.firstTeam, gameEvents.teamUp );
-        assertEquals( wrapGame.firstPlayer, gameEvents.playerUp );
+        assertEquals( firstTeam, gameEvents.teamUp );
+        assertEquals( firstPlayer, gameEvents.playerUp );
     }
     
     /**
@@ -87,6 +89,8 @@ public class testGameEvent
      */
     public void testGameWinner() throws java.io.FileNotFoundException {
         SetupBase wrapGame= new SetupBase();
+        Manager firstTeam= wrapGame.addManager( "Default" );
+        Player firstPlayer= wrapGame.addPlayer( "Default" );
         GameEventsBase gameEvents= new GameEventsBase();
         Logic game= wrapGame.getGame( savedGameWord );
         game.setGameEventsHandler( gameEvents );
@@ -96,7 +100,7 @@ public class testGameEvent
         }
         assertTrue( gameEvents.gameOver );
         assertNotNull( gameEvents.gameWinningTeam );
-        assertEquals( wrapGame.firstTeam, gameEvents.gameWinningTeam );
+        assertEquals( firstTeam, gameEvents.gameWinningTeam );
     }
     
     

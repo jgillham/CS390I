@@ -60,7 +60,7 @@ public class testSetupUI
      * Tests the constructor to ensure that it throws no errors.
      */
     @Before
-    public void testConstructor() {
+    public void testConstructor() throws java.io.FileNotFoundException {
         setup= new SetupUI();
     }
     

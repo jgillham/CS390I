@@ -61,6 +61,7 @@ public class integrationTestGamePlay {
                 game.makeGuess( gameWord.charAt( i++ ) );
             }
             public void makeAssertions(){
+                assertTrue( gameOver );
                 assertNotNull( gameWinningTeam );
             }
         };
@@ -70,8 +71,5 @@ public class integrationTestGamePlay {
             game.rotateTurn();
         }
         tester.makeAssertions();
-        
-        
-        
     }
 }
