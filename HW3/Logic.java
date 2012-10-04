@@ -236,10 +236,12 @@ public class Logic{
      */
     public void setGameEventsHandler( GameEvent handler ) {
         this.eventHandler= handler;
-        // Show the initial state of the status word.
-        this.eventHandler.changedStatusWord( statusWord.toString() );
-        // First player to guess.
-        this.eventHandler.playerUp( gameTeams.get( activeTeam ).getPlayerUp()  );
+        if( this.eventHandler != null ) {
+            // Show the initial state of the status word.
+            this.eventHandler.changedStatusWord( statusWord.toString() );
+            // First player to guess.
+            this.eventHandler.playerUp( gameTeams.get( activeTeam ).getPlayerUp()  );
+        }
     }
     
     /**
@@ -263,9 +265,14 @@ public class Logic{
     /**
      * Sets the max guesses.
      * 
+     * @arg nMaxGuesses the new number of maximum guesses.
      * @return the number of attempts remaining.
+     * 
+     * @throws IllegalArgumentException when nMaxGuesses < Logic.MIN_ATTEMPTS.
      */
     public void setMaxAttempts( int nMaxGuesses ) {
+        if( nMaxGuesses < MIN_ATTEMPTS )
+            throw new IllegalArgumentException();
         this.maxGuesses= nMaxGuesses;
     }
 }

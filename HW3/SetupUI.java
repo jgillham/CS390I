@@ -113,10 +113,14 @@ public class SetupUI extends SetupBase {
      */
     public String inputPlayerName( Scanner inputScanner ) {
         System.out.println( "Enter your name:" );
-        String name= inputScanner.next();
-        if( name.isEmpty() )
+        try{
+            String name= inputScanner.next();
+            if( name.isEmpty() )
+                return null;
+            return name;
+        }catch( Exception e) {
             return null;
-        return name;
+        }
     }
     
     /**

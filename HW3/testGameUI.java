@@ -44,6 +44,8 @@ public class testGameUI
     @Test
     public void testConstructor() throws java.io.FileNotFoundException {
         SetupBase wrapGame= new SetupBase();
+        wrapGame.addManager( "Default" );
+        wrapGame.addPlayer( "Default" );
         Logic game= wrapGame.getGame();
         new GameUI( game );
     }
