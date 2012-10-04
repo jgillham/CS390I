@@ -200,8 +200,11 @@ public class Logic{
             return;
         }
         // Player still needs to make a guess.
-        if( this.playerInTurn )
+        if( this.playerInTurn ) {
+            if( this.eventHandler != null )
+                this.eventHandler.playerUp( this.gameTeams.get( this.activeTeam ).getPlayerUp() );
             return;
+        }
         // Now its the next player's turn.
         this.playerInTurn= true;
         // Rotate players
