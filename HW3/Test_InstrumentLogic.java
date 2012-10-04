@@ -8,7 +8,7 @@ import java.util.LinkedList;
  * @version 9-23-12
  */
 class Test_InstrumentLogic implements GameEvent {
-    {
+    public Test_InstrumentLogic() throws java.io.FileNotFoundException {
         Dictionary.load( SetupUI.DICTIONARY_FILE );
     }
     /** Hold the team setup. */
@@ -89,7 +89,7 @@ class Test_InstrumentLogic implements GameEvent {
     public void gameWinner( Manager team ){
         gameWinningTeam= team;
     }
-    public void gameOver() {
+    public void gameOver( String gameWord ) {
         gameOver= true;
     }
     public void changedStatusWord( String statusWord ) {

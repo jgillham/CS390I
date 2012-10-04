@@ -49,7 +49,7 @@ public class testGameEvent
      * Test the constructor to make sure it can successfully construct
      */
     @Before
-    public void testConstructor() {
+    public void testConstructor() throws java.io.FileNotFoundException {
         Test_InstrumentLogic wrapGame= new Test_InstrumentLogic( );
         
         Logic game= wrapGame.getInstance();
@@ -60,7 +60,7 @@ public class testGameEvent
     /**
      * Test gameOver event.
      */
-    public void testGameOver(){
+    public void testGameOver() throws java.io.FileNotFoundException {
         Test_InstrumentLogic wrapGame= new Test_InstrumentLogic( );
         Logic game= wrapGame.getInstance();
         String partialABCs= "abcdefghijklmnopqr";
@@ -75,7 +75,7 @@ public class testGameEvent
     /**
      * Test gameWinningTeam event.
      */
-    public void testGameWinner(){
+    public void testGameWinner() throws java.io.FileNotFoundException {
         Test_InstrumentLogic wrapGame= new Test_InstrumentLogic();
         Logic game= wrapGame.getInstance( savedGameWord );
         for( int i= 0; i < savedGameWord.length(); ++i ) {
@@ -90,7 +90,7 @@ public class testGameEvent
     /**
      * Test updates to the status word
      */
-    public void testChangedStatusWord(){
+    public void testChangedStatusWord() throws java.io.FileNotFoundException {
         Test_InstrumentLogic wrapGame= new Test_InstrumentLogic( );
         Logic game= wrapGame.getInstance( savedGameWord );
         for( int i= 0; i < savedGameWord.length(); ++i ) {
@@ -103,7 +103,7 @@ public class testGameEvent
     /**
      * Test updates to the status word with bad guesses.
      */
-    public void testChangedStatusWord_wBadGuesses(){
+    public void testChangedStatusWord_wBadGuesses() throws java.io.FileNotFoundException {
         Test_InstrumentLogic wrapGame= new Test_InstrumentLogic( );
         Logic game= wrapGame.getInstance( savedGameWord );
         StringBuilder wrd= new StringBuilder( wrapGame.savedGameWord );

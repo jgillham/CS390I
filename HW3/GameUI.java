@@ -43,7 +43,8 @@ public class GameUI implements GameEvent {
      * 
      * Empty unimplemented body.
      */
-    public void gameOver() {
+    public void gameOver( String gameWord ) {
+        System.out.println( gameWord );
         System.out.println( "Game has finished." );
     }
     
@@ -94,6 +95,8 @@ public class GameUI implements GameEvent {
      * Empty unimplemented body.
      */
     public void gameWinner( Manager team ) {
+        if( statusWord != null )
+            System.out.println( statusWord );
         System.out.println( "Player won the game!" );
     }
 }

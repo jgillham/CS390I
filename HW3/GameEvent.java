@@ -8,7 +8,7 @@ public interface GameEvent {
     /**
      * Called when the game is finished.
      */
-    public void gameOver();
+    public void gameOver( String gameWord );
     
     /**
      * Called when the teams are rotated.

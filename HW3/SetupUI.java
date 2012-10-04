@@ -22,6 +22,13 @@ public class SetupUI {
      * @arg args command line arguments - not used.
      */
     static public void main( String[] args ){
+        try{
+            Dictionary.load( DICTIONARY_FILE );
+        } catch( Exception e ) {
+            e.printStackTrace();
+            System.exit( 1 );
+        }
+        
         SetupUI setup= new SetupUI();
         Logic game= setup.inputSetupGame();
         setup.startGame();
@@ -71,7 +78,7 @@ public class SetupUI {
         // Get their name
         int tries= 0;
         String name= null;
-        while( name != null && tries++ < 3 )
+        while( name == null && tries++ < 3 )
             name= inputPlayerName( userInput );
         // The player doesn't want to play?
         if( name == null )
@@ -83,7 +90,7 @@ public class SetupUI {
         // Get the word length
         tries= 0;
         int wordLength= 0;
-        while( wordLength != 0 && tries++ < 3 )
+        while( wordLength == 0 && tries++ < 3 )
             wordLength= inputGameWordLength( userInput );
         
         // Now we have enough information to create the game.
@@ -92,7 +99,7 @@ public class SetupUI {
         // Get the maximum allowed guesses.
         tries= 0;
         int maxAttempts= 0;
-        while( tries++ < 3 )
+        while( maxAttempts == 0 && tries++ < 3 )
             maxAttempts= inputMaxAttempts( userInput );
         
         game.setMaxAttempts( maxAttempts );

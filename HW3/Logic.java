@@ -138,6 +138,8 @@ public class Logic{
                 this.statusWord.setCharAt( i, letter );
             }
         }
+        if( this.eventHandler != null && found )
+            this.eventHandler.changedStatusWord( statusWord.toString() );
         return found;
     }
     
@@ -171,16 +173,17 @@ public class Logic{
      */
     public void rotateTurn() throws java.util.NoSuchElementException {
         // Check to see if all the letters are guessed.
-        if( statusWord.indexOf( "_" ) < 0 ){
-            if( this.eventHandler != null )
-                this.eventHandler.gameOver();
-            if( gameTeams.size() == 1 )
+        if( statusWord.indexOf( "-" ) < 0 ){
+            gameState= Statis.WINNER;
+            if( this.eventHandler != null && gameTeams.size() == 1 )
                 this.eventHandler.gameWinner( gameTeams.get( 0 ) );
+            
             return;
         }
         // Check to see if there no guesses remaining
         if( guesses.length() >= maxGuesses ){
-            this.eventHandler.gameOver();
+            gameState= Statis.OVER;
+            this.eventHandler.gameOver( gameWord );
             return;
         }
         // Rotate players
@@ -211,6 +214,7 @@ public class Logic{
     public void setGameEventsHandler( GameEvent handler ) {
         this.eventHandler= handler;
         this.eventHandler.playerUp( gameTeams.get( activeTeam ).getPlayerUp()  );
+        this.eventHandler.changedStatusWord( statusWord.toString() );
     }
     
     /**

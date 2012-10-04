@@ -56,7 +56,7 @@ public class testLogic
      * Test the constructor to make sure it can successfully construct
      */
     @Before
-    public void testConstructor() {
+    public void testConstructor() throws java.io.FileNotFoundException {
         wrapLogic= new Test_InstrumentLogic();
         wrapLogic.addManager( "Alpha" );
         wrapLogic.addPlayer( "bob" );
