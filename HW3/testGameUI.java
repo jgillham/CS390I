@@ -43,8 +43,8 @@ public class testGameUI
      */
     @Test
     public void testConstructor() throws java.io.FileNotFoundException {
-        Test_InstrumentLogic wrapGame= new Test_InstrumentLogic();
-        Logic game= wrapGame.getInstance();
+        SetupBase wrapGame= new SetupBase();
+        Logic game= wrapGame.getGame();
         new GameUI( game );
     }
 }

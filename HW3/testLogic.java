@@ -47,7 +47,7 @@ public class testLogic
     }
     
     /** Keeps the Test_InstrumentLogic class for other tests. */
-    Test_InstrumentLogic wrapLogic;
+    SetupBase wrapLogic;
     /** Keeps a Logic instance for other tests. */
     Logic game;
     
@@ -57,10 +57,10 @@ public class testLogic
      */
     @Before
     public void testConstructor() throws java.io.FileNotFoundException {
-        wrapLogic= new Test_InstrumentLogic();
+        wrapLogic= new SetupBase();
         wrapLogic.addManager( "Alpha" );
         wrapLogic.addPlayer( "bob" );
-        game= wrapLogic.getInstance();
+        game= wrapLogic.getGame();
     }
     
     @Test( expected= NullPointerException.class )
@@ -156,7 +156,7 @@ public class testLogic
      */
     @Test
     public void testMakeGuess() {
-        Logic newGame= wrapLogic.getInstance();
+        Logic newGame= wrapLogic.getGame();
         newGame.makeGuess( 'a' );
     }
     
@@ -166,17 +166,17 @@ public class testLogic
     @Test
     public void testMakeGuess_GoodGuess() {
         {
-            Logic newGame= wrapLogic.getInstance( "logic" );
+            Logic newGame= wrapLogic.getGame( "logic" );
             assertTrue( newGame.makeGuess( 'l' ) );
         }
         
         {
-            Logic newGame= wrapLogic.getInstance( "logic" );
+            Logic newGame= wrapLogic.getGame( "logic" );
             assertTrue( newGame.makeGuess( 'g' ) );
         }
         
         {
-            Logic newGame= wrapLogic.getInstance( "logic" );
+            Logic newGame= wrapLogic.getGame( "logic" );
             assertTrue( newGame.makeGuess( 'c' ) );
         }
     }
@@ -187,17 +187,17 @@ public class testLogic
     @Test
     public void testMakeGuess_GoodGuess_Capital() {
         {
-            Logic newGame= wrapLogic.getInstance( "logic" );
+            Logic newGame= wrapLogic.getGame( "logic" );
             assertTrue( newGame.makeGuess( 'L' ) );
         }
         
         {
-            Logic newGame= wrapLogic.getInstance( "logic" );
+            Logic newGame= wrapLogic.getGame( "logic" );
             assertTrue( newGame.makeGuess( 'G' ) );
         }
         
         {
-            Logic newGame= wrapLogic.getInstance( "logic" );
+            Logic newGame= wrapLogic.getGame( "logic" );
             assertTrue( newGame.makeGuess( 'C' ) );
         }
     }
@@ -207,7 +207,7 @@ public class testLogic
      */
     @Test
     public void testMakeGuess_BadGuess() {
-        Logic newGame= wrapLogic.getInstance( "logic" );
+        Logic newGame= wrapLogic.getGame( "logic" );
         assertFalse( newGame.makeGuess( 'a' ) );
     }
     
@@ -216,7 +216,7 @@ public class testLogic
      */
     @Test
     public void testSetGameEventsHandler() {
-        game.setGameEventsHandler( wrapLogic );
+        game.setGameEventsHandler( new GameEventsBase() );
     }
     
     /**
@@ -232,7 +232,7 @@ public class testLogic
      */
     @Test
     public void testGetAttempts() {
-        Logic newGame= wrapLogic.getInstance( "Logic" );
+        Logic newGame= wrapLogic.getGame( "Logic" );
         assertEquals( 0, newGame.getAttempts() );
         newGame.makeGuess( 'l' );
         assertEquals( 1, newGame.getAttempts() );
@@ -243,7 +243,7 @@ public class testLogic
      */
     @Test( expected= IllegalArgumentException.class )
     public void testSetMaxAttempts() {
-        Logic newGame= wrapLogic.getInstance( "Logic" );
+        Logic newGame= wrapLogic.getGame( "Logic" );
         newGame.setMaxAttempts( Logic.MIN_ATTEMPTS - 1 );
     }
 }

@@ -44,69 +44,87 @@ public class testGameEvent
     }
     
     public String savedGameWord= "flamingo";
+    class GameEventsTester extends GameEventsBase{
+        public int statusWordChanges= 0;
+        public void changedStatusWord( String statusWord ) {
+            ++statusWordChanges;
+        }
+    };
     
     /**
      * Test the constructor to make sure it can successfully construct
      */
     @Before
     public void testConstructor() throws java.io.FileNotFoundException {
-        Test_InstrumentLogic wrapGame= new Test_InstrumentLogic( );
+        SetupBase wrapGame= new SetupBase( );
         
-        Logic game= wrapGame.getInstance();
-        assertEquals( wrapGame.firstTeam, wrapGame.teamUp );
-        assertEquals( wrapGame.firstPlayer, wrapGame.playerUp );
+        Logic game= wrapGame.getGame();
+        GameEventsBase gameEvents= new GameEventsBase();
+        game.setGameEventsHandler( gameEvents );
+        assertEquals( wrapGame.firstTeam, gameEvents.teamUp );
+        assertEquals( wrapGame.firstPlayer, gameEvents.playerUp );
     }
     
     /**
      * Test gameOver event.
      */
     public void testGameOver() throws java.io.FileNotFoundException {
-        Test_InstrumentLogic wrapGame= new Test_InstrumentLogic( );
-        Logic game= wrapGame.getInstance();
+        SetupBase wrapGame= new SetupBase( );
+        GameEventsBase gameEvents= new GameEventsBase();
+        Logic game= wrapGame.getGame();
+        game.setGameEventsHandler( gameEvents );
         String partialABCs= "abcdefghijklmnopqr";
         for( int i= 0; i < partialABCs.length() && i < game.getAttempts(); ++i ) {
             char c= partialABCs.charAt( i );
             game.makeGuess( c );
         }
-        assertTrue( wrapGame.gameOver );
-        assertNull( wrapGame.gameWinningTeam );
+        assertTrue( gameEvents.gameOver );
+        assertNull( gameEvents.gameWinningTeam );
     }
     
     /**
      * Test gameWinningTeam event.
      */
     public void testGameWinner() throws java.io.FileNotFoundException {
-        Test_InstrumentLogic wrapGame= new Test_InstrumentLogic();
-        Logic game= wrapGame.getInstance( savedGameWord );
+        SetupBase wrapGame= new SetupBase();
+        GameEventsBase gameEvents= new GameEventsBase();
+        Logic game= wrapGame.getGame( savedGameWord );
+        game.setGameEventsHandler( gameEvents );
         for( int i= 0; i < savedGameWord.length(); ++i ) {
             char c= savedGameWord.charAt( i );
             game.makeGuess( c );
         }
-        assertTrue( wrapGame.gameOver );
-        assertNotNull( wrapGame.gameWinningTeam );
-        assertEquals( wrapGame.firstTeam, wrapGame.gameWinningTeam );
+        assertTrue( gameEvents.gameOver );
+        assertNotNull( gameEvents.gameWinningTeam );
+        assertEquals( wrapGame.firstTeam, gameEvents.gameWinningTeam );
     }
+    
+    
     
     /**
      * Test updates to the status word
      */
     public void testChangedStatusWord() throws java.io.FileNotFoundException {
-        Test_InstrumentLogic wrapGame= new Test_InstrumentLogic( );
-        Logic game= wrapGame.getInstance( savedGameWord );
+        SetupBase wrapGame= new SetupBase( );
+        Logic game= wrapGame.getGame( savedGameWord );
+        GameEventsTester gameEvents= new GameEventsTester();
+        game.setGameEventsHandler( gameEvents );
         for( int i= 0; i < savedGameWord.length(); ++i ) {
             char c= savedGameWord.charAt( i );
             game.makeGuess( c );
         }
-        assertEquals( savedGameWord.length(), wrapGame.statusWordChanges );
+        assertEquals( savedGameWord.length(), gameEvents.statusWordChanges );
     }
     
     /**
      * Test updates to the status word with bad guesses.
      */
     public void testChangedStatusWord_wBadGuesses() throws java.io.FileNotFoundException {
-        Test_InstrumentLogic wrapGame= new Test_InstrumentLogic( );
-        Logic game= wrapGame.getInstance( savedGameWord );
-        StringBuilder wrd= new StringBuilder( wrapGame.savedGameWord );
+        SetupBase wrapGame= new SetupBase( );
+        Logic game= wrapGame.getGame( savedGameWord );
+        GameEventsTester gameEvents= new GameEventsTester();
+        game.setGameEventsHandler( gameEvents );
+        StringBuilder wrd= new StringBuilder( gameEvents.savedGameWord );
         // Insert crazy letters in between to simulate bad guesses
         wrd.insert( 1, 'u' );
         wrd.insert( 3, 'z' );
@@ -117,7 +135,7 @@ public class testGameEvent
         }
         // The status word changes should be the same
         // Remember it only changes for good guesses
-        assertEquals( savedGameWord.length(), wrapGame.statusWordChanges );
+        assertEquals( savedGameWord.length(), gameEvents.statusWordChanges );
     }
     
     
