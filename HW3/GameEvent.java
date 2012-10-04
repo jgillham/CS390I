@@ -22,7 +22,7 @@ public interface GameEvent {
      * 
      * @arg player the player with the turn to guess.
      */
-    //public void playerUp( Player player );
+    public void playerUp( Player player );
     
     /**
      * Called when one team wins the game.

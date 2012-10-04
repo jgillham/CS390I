@@ -83,9 +83,9 @@ class Test_InstrumentLogic implements GameEvent {
     //public void teamUp( Manager team ){
     //    teamUp= team;
     //}
-    //public void playerUp( Player player ){
-    //    playerUp= player;
-    //}
+    public void playerUp( Player player ){
+        playerUp= player;
+    }
     public void gameWinner( Manager team ){
         gameWinningTeam= team;
     }

@@ -7,6 +7,9 @@ import java.util.LinkedList;
 
 /**
  * Ensures the game events are being called by Logic.
+ * 
+ * TODO:
+ * -test playerUp()
  *
  * @author  Josh Gillham
  * @version 9-23-12

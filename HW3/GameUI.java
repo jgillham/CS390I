@@ -1,3 +1,4 @@
+import java.util.Scanner;
 /**
  * Handles the input from the user and displaying game statuses in response
  *  to game events. Will be either a console prompt or a java swing panel. 
@@ -10,6 +11,8 @@
  * @version 9-23-12
  */
 public class GameUI implements GameEvent {
+    Logic gameLogic;
+    String statusWord;
     /**
      * Displays the game interface to the players.
      * 
@@ -17,8 +20,11 @@ public class GameUI implements GameEvent {
      * 
      * @throw NullPointerException when gameLogic is null.
      */
-    public GameUI( Logic gameLogic )
-    { throw new UnsupportedOperationException(); }
+    public GameUI( Logic gameLogic ) {
+        if( gameLogic == null )
+            throw new NullPointerException();
+        this.gameLogic= gameLogic;
+    }
     
     /**
      * Called after a guess is made. Displays the status word to the user.
@@ -27,8 +33,9 @@ public class GameUI implements GameEvent {
      * 
      * Empty unimplemented body.
      */
-    public void changedStatusWord( String statusWord )
-    { throw new UnsupportedOperationException(); }
+    public void changedStatusWord( String statusWord ) {
+        this.statusWord= statusWord;
+    }
     
     /**
      * Called when the game is finished. Announces the end of the game
@@ -36,8 +43,9 @@ public class GameUI implements GameEvent {
      * 
      * Empty unimplemented body.
      */
-    public void gameOver()
-    { throw new UnsupportedOperationException(); }
+    public void gameOver() {
+        System.out.println( "Game has finished." );
+    }
     
     /**
      * Called teams are rotated. Announces the team whose turn
@@ -58,8 +66,25 @@ public class GameUI implements GameEvent {
      * 
      * Empty unimplemented body.
      */
-    //public void playerUp( Player player )
-    //{ throw new UnsupportedOperationException(); }
+    public void playerUp( Player player ) {
+        Scanner inputScanner= new Scanner( System.in );
+        System.out.println( statusWord );
+        System.out.println( "Make a guess:" );
+        String input= inputScanner.next();
+        if( input.length() > 1 )
+            System.out.println( "Only one letter please." );
+        else {
+            try{
+                boolean result= gameLogic.makeGuess( input.charAt( 0 ) );
+                if( result )
+                    System.out.println( "Good guess!" );
+                else
+                    System.out.println( "Sorry that was a bad guess!" );
+            } catch( Exception e ){
+                System.out.println( "Guess should be a letter." );
+            }
+        }        
+    }
     
     /**
      * Called when one team wins the game. Announces the winner.
@@ -68,6 +93,7 @@ public class GameUI implements GameEvent {
      * 
      * Empty unimplemented body.
      */
-    public void gameWinner( Manager team )
-    { throw new UnsupportedOperationException(); }
+    public void gameWinner( Manager team ) {
+        System.out.println( "Player won the game!" );
+    }
 }
