@@ -13,7 +13,7 @@ import java.util.Scanner;
  * @author Josh Gillham
  * @version 9-23-12
  */
-public class SetupUI {
+public class SetupUI extends SetupBase {
     /** Holds the default dictionary file. Should in the root of the project folder. */
     static public final String DICTIONARY_FILE= "smalldictionary.txt";
     /**
@@ -22,39 +22,43 @@ public class SetupUI {
      * @arg args command line arguments - not used.
      */
     static public void main( String[] args ){
+        SetupUI setup= null;
         try{
-            Dictionary.load( DICTIONARY_FILE );
-        } catch( Exception e ) {
+            setup= new SetupUI();
+        } catch( java.io.FileNotFoundException e ) {
             e.printStackTrace();
             System.exit( 1 );
         }
+        setup.inputSetupGame();
+        Logic game= setup.getGame( );
         
-        SetupUI setup= new SetupUI();
-        Logic game= setup.inputSetupGame();
-        setup.startGame();
+        setup.startGame( game );
         while( game.getGameState() == Logic.Statis.STARTED ){
             game.rotateTurn();
         }
         
     }
-    
-    /** Holds the teams for game setup. */
-    private List< Manager > teams= new LinkedList< Manager >();
-    /** Holds a copy of the Game Logic. */
-    private Logic game= null;
     /** Holds a copy of the player name. */
     private String name= null;
     /** Holds the word length. */
     private int wordLength= 0;
-    /** Holds the manager of the first team. */
-    private Manager man= null;
+    /** Holds the maximum guesses. */
+    private int maxAttempts= 0;
+    
     
     /**
      * Brings up the user interface.
+     * 
+     * @throws FileNotFoundException when dictionary could not be loaded.
      */
-    public SetupUI( ){
-        man= new Manager( "Default" );
-        teams.add( man );
+    public SetupUI( ) throws java.io.FileNotFoundException {
+        super.addManager( "Default" );
+    }
+    
+    public Logic getGame() {
+        Logic game= super.getGame( wordLength );
+        game.setMaxAttempts( maxAttempts );
+        return game;
     }
     
     /**
@@ -62,7 +66,7 @@ public class SetupUI {
      * 
      * @return the newly create GameUI.
      */
-    public GameUI startGame() {
+    public GameUI startGame( Logic game ) {
         GameUI UI= new GameUI( game );
         game.setGameEventsHandler(UI);
         return UI;
@@ -73,7 +77,7 @@ public class SetupUI {
      * 
      * @return a new game logic.
      */
-    public Logic inputSetupGame() {
+    public void inputSetupGame() {
         Scanner userInput= new Scanner(System.in);
         // Get their name
         int tries= 0;
@@ -85,7 +89,7 @@ public class SetupUI {
             System.exit( 1 );
         
         // Add him to the first team.
-        man.addPlayer( name );
+        super.addPlayer( name );
         
         // Get the word length
         tries= 0;
@@ -93,18 +97,10 @@ public class SetupUI {
         while( wordLength == 0 && tries++ < 3 )
             wordLength= inputGameWordLength( userInput );
         
-        // Now we have enough information to create the game.
-        game= new Logic( teams, wordLength );
-        
         // Get the maximum allowed guesses.
         tries= 0;
-        int maxAttempts= 0;
         while( maxAttempts == 0 && tries++ < 3 )
             maxAttempts= inputMaxAttempts( userInput );
-        
-        game.setMaxAttempts( maxAttempts );
-        
-        return game;
     }
     
     /**

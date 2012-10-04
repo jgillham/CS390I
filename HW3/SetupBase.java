@@ -6,18 +6,17 @@ import java.util.LinkedList;
  * @author Josh Gillham
  * @version 10-4-12
  */
-public class SetupBase {
-    
+public class SetupBase {    
     /** Hold the team setup. */
-    List< Manager > teams= new LinkedList< Manager >();
+    private List< Manager > teams= new LinkedList< Manager >();
     /** Has the default word length. */
-    int wordLength= Dictionary.MIN_WORDLENGTH;
+    private int wordLength= Dictionary.MIN_WORDLENGTH;
     /** Retains the first player to be added.*/
-    Player firstPlayer= null;
+    private Player firstPlayer= null;
     /** Retains the first team to be added.*/
-    Manager firstTeam= null;
+    private Manager firstTeam= null;
     /** Retains the last team to be added. */
-    Manager lastTeam= null;
+    private Manager lastTeam= null;
     
     public SetupBase() throws java.io.FileNotFoundException {
         Dictionary.load( SetupUI.DICTIONARY_FILE );
@@ -59,7 +58,17 @@ public class SetupBase {
      * 
      * @return a Logic instance
      */
-    public Logic getGame() {
+    public Logic getGame( ) {
+        return new Logic( teams, wordLength );
+    }
+    
+    /**
+     * Gets a new instance of the Logic.
+     * 
+     * @return a Logic instance
+     */
+    public Logic getGame( int wordLength ) {
+        this.wordLength= wordLength;
         return new Logic( teams, wordLength );
     }
     
@@ -71,6 +80,7 @@ public class SetupBase {
      * @return a Logic instance
      */
     public Logic getGame( String word) {
+        this.wordLength= word.length();
         return new Logic( teams, word );
     }
 }
