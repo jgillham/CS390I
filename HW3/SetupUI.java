@@ -93,7 +93,6 @@ public class SetupUI extends SetupBase {
         
         // Get the word length
         tries= 0;
-        int wordLength= 0;
         while( wordLength == 0 && tries++ < 3 )
             wordLength= inputGameWordLength( userInput );
         
