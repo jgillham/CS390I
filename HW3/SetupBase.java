@@ -1,16 +1,13 @@
 import java.util.List;
 import java.util.LinkedList;
 /**
- * This class provides a scaffolding tool for test units. The purpose is 
- *  to set defaults arguments for the constructor, simplify setup, and retain values for testing.
- *  
- * @author  Josh Gillham
- * @version 9-23-12
+ * Provides a basic setup for Logic.
+ * 
+ * @author Josh Gillham
+ * @version 10-4-12
  */
-class Test_InstrumentLogic implements GameEvent {
-    public Test_InstrumentLogic() throws java.io.FileNotFoundException {
-        Dictionary.load( SetupUI.DICTIONARY_FILE );
-    }
+public class SetupBase {
+    
     /** Hold the team setup. */
     List< Manager > teams= new LinkedList< Manager >();
     /** Has the default word length. */
@@ -22,12 +19,9 @@ class Test_InstrumentLogic implements GameEvent {
     /** Retains the last team to be added. */
     Manager lastTeam= null;
     
-    Player playerUp= null;
-    Manager teamUp= null;
-    String savedGameWord= null;        
-    Manager gameWinningTeam= null;        
-    boolean gameOver= false;        
-    int statusWordChanges= 0;
+    public SetupBase() throws java.io.FileNotFoundException {
+        Dictionary.load( SetupUI.DICTIONARY_FILE );
+    }
     
     /** 
      * Simplifies adding a manager and retains the first manager to be added.
@@ -65,7 +59,7 @@ class Test_InstrumentLogic implements GameEvent {
      * 
      * @return a Logic instance
      */
-    public Logic getInstance() {
+    public Logic getGame() {
         return new Logic( teams, wordLength );
     }
     
@@ -76,23 +70,7 @@ class Test_InstrumentLogic implements GameEvent {
      * 
      * @return a Logic instance
      */
-    public Logic getInstance( String word) {
+    public Logic getGame( String word) {
         return new Logic( teams, word );
-    }
-    
-    //public void teamUp( Manager team ){
-    //    teamUp= team;
-    //}
-    public void playerUp( Player player ){
-        playerUp= player;
-    }
-    public void gameWinner( Manager team ){
-        gameWinningTeam= team;
-    }
-    public void gameOver( String gameWord ) {
-        gameOver= true;
-    }
-    public void changedStatusWord( String statusWord ) {
-        ++statusWordChanges;
     }
 }
