@@ -112,8 +112,17 @@ public class Manager {
      * 
      * Empty unimplemented body.
      */
-    public void nextPlayer()
-    { throw new UnsupportedOperationException(); }
+    public void nextPlayer() {
+        int size= getRosterSize();
+        if( size == 0 )
+            throw new java.util.NoSuchElementException();
+        if( size > 1 ) {
+            if( playerUp >= size - 1 )
+                playerUp= 0;
+            else
+                ++playerUp;
+        }
+    }
     
     /**
      * Accesses the name of the team.
