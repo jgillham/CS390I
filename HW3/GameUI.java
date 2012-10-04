@@ -11,8 +11,11 @@ import java.util.Scanner;
  * @version 9-23-12
  */
 public class GameUI implements GameEvent {
-    Logic gameLogic;
-    String statusWord;
+    /** Holds a reference to the game. */
+    private Logic gameLogic;
+    /** Holds the game word but with masked letters where no player has guessed. */
+    private String statusWord;
+    
     /**
      * Displays the game interface to the players.
      * 
@@ -35,6 +38,8 @@ public class GameUI implements GameEvent {
      */
     public void changedStatusWord( String statusWord ) {
         this.statusWord= statusWord;
+        // Show the current progress on guessing.
+        System.out.println( statusWord );
     }
     
     /**
@@ -44,6 +49,7 @@ public class GameUI implements GameEvent {
      * Empty unimplemented body.
      */
     public void gameOver( String gameWord ) {
+        // Show the word nobody could guess.
         System.out.println( gameWord );
         System.out.println( "Game has finished." );
     }
@@ -69,7 +75,7 @@ public class GameUI implements GameEvent {
      */
     public void playerUp( Player player ) {
         Scanner inputScanner= new Scanner( System.in );
-        System.out.println( statusWord );
+        // Prompt the user.
         System.out.println( "Make a guess:" );
         String input= inputScanner.next();
         if( input.length() > 1 )
@@ -77,12 +83,14 @@ public class GameUI implements GameEvent {
         else {
             try{
                 boolean result= gameLogic.makeGuess( input.charAt( 0 ) );
+                // Display feedback.
                 if( result )
                     System.out.println( "Good guess!" );
                 else
                     System.out.println( "Sorry that was a bad guess!" );
-            } catch( Exception e ){
-                System.out.println( "Guess should be a letter." );
+            } catch( IllegalArgumentException e ){
+                // Bad input could be a symbol or maybe the letter is alread guessed.
+                System.out.println( e.getMessage() );
             }
         }        
     }
@@ -95,8 +103,7 @@ public class GameUI implements GameEvent {
      * Empty unimplemented body.
      */
     public void gameWinner( Manager team ) {
-        if( statusWord != null )
-            System.out.println( statusWord );
+        System.out.println( statusWord );
         System.out.println( "Player won the game!" );
     }
 }

@@ -44,13 +44,16 @@ public class Logic{
     private GameEvent eventHandler= null;
     /** Holds the maximum guess allowed during the game. */
     private int maxGuesses= DEFAULT_ATTEMPTS;
+    /** True if the player still needs to take a turn. */
+    private boolean playerInTurn= true;
     
+    /** Used to signal the game state. */
     static public enum Statis {
         STARTED,
         OVER,
         WINNER
     }
-    
+    /** Holds the game statis. */
     Statis gameState= Statis.STARTED;
     
     /**
@@ -99,15 +102,18 @@ public class Logic{
     }
     
     /**
-     * Submits a guess. The guess is game word. If the letter is contained in the word
-     *  then true is returned.
+     * Submits a guess. If the guess is not a letter an error is thrown. If
+     *  the letter has been guessed before an error is thrown. Else, the 
+     *  guess is noted and the game word is searched for the letter. For
+     *  ever letter that was found, the game updates the status word 
+     *  replacing the mask with the letter. If any letter is found the
+     *  function returns true and eventHandler.changedStatusWord is called,
+     *  otherwise the function returns false.
      * 
      * Postconditions:
-     *  rotateTurn() is called
-     *  letter is added to the history of guesses
-     *  If the guess was correct, the score is incremented.
-     *  If the entire word is guessed, GameEvent.gameWinner is called.
-     *  else if the max attempts have been used up, GameEvent.gameOver is called.
+     *  List of guesses grows.
+     *  Status word is updated for each letter found.
+     *  eventHandler.changedStatusWord is called if any letter is found.
      * 
      * @arg letter is the letter to guess
      * 
@@ -118,16 +124,17 @@ public class Logic{
      */
     public boolean makeGuess( char letter ){
         if( !Character.isLetter( letter ) )
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException( "Guesses should be letters only." );
         letter= Character.toLowerCase( letter );
         // Make sure this guess has never been guessed before.
         for( int i= 0; i < this.guesses.length(); ++i ) {
             char guess= this.guesses.charAt( i );
             if( guess == letter )
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException( "That letter has alread been guessed." );
         }
         // Add this guess to the list.
         this.guesses.append( letter );
+        this.playerInTurn= false;
         boolean found= false;
         // Try to find the letter in the game word and update the status word as we go.
         for( int i= 0; i < this.gameWord.length(); ++i ) {
@@ -138,6 +145,7 @@ public class Logic{
                 this.statusWord.setCharAt( i, letter );
             }
         }
+        // Show the UI the new found letters.
         if( this.eventHandler != null && found )
             this.eventHandler.changedStatusWord( statusWord.toString() );
         return found;
@@ -162,40 +170,50 @@ public class Logic{
     //public void resignTeam( Manager manager ) throws java.util.NoSuchElementException, java.lang.NullPointerException;
     
     /**
-     * Rotates teams. Moves the active team to the next team in the game to make a guess.
+     * Can be called as much as the caller would like. Should be called to rotate the turns and
+     *  prompt the UI to receive the next guess. If the word is completely guessed, the game is
+     *  over and one team is the winner. If there are no more guesses remaining, the game
+     *  is over and there is no winner. If the current player has not maid a guess, the call is
+     *  ignored. Else, the players and teams are rotated and the game signals the UI that the
+     *  next player can guess.
      *  
      * Postconditions:
-     *  active team is set to the next team
-     *  GameEvent.teamUp() is called
-     *  getActiveTeam().nextPlayer() is called
-     *  GameEvent.playerUp() is called
+     *  The current team's players are rotated.
+     *  The teams are rotated.
+     *  The play up on the active team is in-turn.
      *  
      */
-    public void rotateTurn() throws java.util.NoSuchElementException {
+    public void rotateTurn()  {
         // Check to see if all the letters are guessed.
-        if( statusWord.indexOf( "-" ) < 0 ){
-            gameState= Statis.WINNER;
-            if( this.eventHandler != null && gameTeams.size() == 1 )
-                this.eventHandler.gameWinner( gameTeams.get( 0 ) );
+        if( this.statusWord.indexOf( "-" ) < 0 ){
+            this.gameState= Statis.WINNER;
+            if( this.eventHandler != null && this.gameTeams.size() == 1 )
+                this.eventHandler.gameWinner( this.gameTeams.get( 0 ) );
             
             return;
         }
         // Check to see if there no guesses remaining
-        if( guesses.length() >= maxGuesses ){
-            gameState= Statis.OVER;
-            this.eventHandler.gameOver( gameWord );
+        if( this.guesses.length() >= this.maxGuesses ){
+            this.gameState= Statis.OVER;
+            if( this.eventHandler != null )
+                this.eventHandler.gameOver( this.gameWord );
             return;
         }
+        // Player still needs to make a guess.
+        if( this.playerInTurn )
+            return;
+        // Now its the next player's turn.
+        this.playerInTurn= true;
         // Rotate players
-        gameTeams.get( activeTeam ).nextPlayer();
+        this.gameTeams.get( activeTeam ).nextPlayer();
         // Rotate the teams
-        if( activeTeam == gameTeams.size() - 1 )
-            activeTeam= 0;
+        if( this.activeTeam == this.gameTeams.size() - 1 )
+            this.activeTeam= 0;
         else
-            ++activeTeam;
+            ++this.activeTeam;
         // Notify UI
         if( this.eventHandler != null )
-            this.eventHandler.playerUp( gameTeams.get( activeTeam ).getPlayerUp() );
+            this.eventHandler.playerUp( this.gameTeams.get( this.activeTeam ).getPlayerUp() );
     }
     
     /**
@@ -213,8 +231,10 @@ public class Logic{
      */
     public void setGameEventsHandler( GameEvent handler ) {
         this.eventHandler= handler;
-        this.eventHandler.playerUp( gameTeams.get( activeTeam ).getPlayerUp()  );
+        // Show the initial state of the status word.
         this.eventHandler.changedStatusWord( statusWord.toString() );
+        // First player to guess.
+        this.eventHandler.playerUp( gameTeams.get( activeTeam ).getPlayerUp()  );
     }
     
     /**
@@ -227,6 +247,8 @@ public class Logic{
     }
     
     /**
+     * Accesses the game state which tells whether the game is in progress, over ect.
+     * 
      * @return the game statis.
      */
     public Statis getGameState() {
