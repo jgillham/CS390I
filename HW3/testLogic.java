@@ -12,6 +12,7 @@ import java.util.LinkedList;
  *  testGetStatusWord_InGame()
  *  testMakeGuess_InGame()
  *  testGetAttempts()
+ *  -testRotateTurn()
  *
  * @author  Josh Gillham
  * @version 9-23-12

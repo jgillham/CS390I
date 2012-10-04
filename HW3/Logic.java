@@ -161,8 +161,31 @@ public class Logic{
      *  GameEvent.playerUp() is called
      *  
      */
-    //public void rotateTurn() throws java.util.NoSuchElementException
-    //{ throw new UnsupportedOperationException(); }
+    public void rotateTurn() throws java.util.NoSuchElementException {
+        // Check to see if all the letters are guessed.
+        if( statusWord.indexOf( "_" ) < 0 ){
+            if( this.eventHandler != null )
+                this.eventHandler.gameOver();
+            if( gameTeams.size() == 1 )
+                this.eventHandler.gameWinner( gameTeams.get( 0 ) );
+            return;
+        }
+        // Check to see if there no guesses remaining
+        if( guesses.length() >= maxGuesses ){
+            this.eventHandler.gameOver();
+            return;
+        }
+        // Rotate players
+        gameTeams.get( activeTeam ).nextPlayer();
+        // Rotate the teams
+        if( activeTeam == gameTeams.size() - 1 )
+            activeTeam= 0;
+        else
+            ++activeTeam;
+        // Notify UI
+        if( this.eventHandler != null )
+            this.eventHandler.playerUp( gameTeams.get( activeTeam ).getPlayerUp() );
+    }
     
     /**
      * Accesses the number of teams in the game. Returns 0 when Game is first created.
@@ -179,6 +202,7 @@ public class Logic{
      */
     public void setGameEventsHandler( GameEvent handler ) {
         this.eventHandler= handler;
+        this.eventHandler.playerUp( gameTeams.get( activeTeam ).getPlayerUp()  );
     }
     
     /**

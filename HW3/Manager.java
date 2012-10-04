@@ -112,8 +112,8 @@ public class Manager {
      * 
      * Empty unimplemented body.
      */
-    //public void nextPlayer()
-    //{ throw new UnsupportedOperationException(); }
+    public void nextPlayer()
+    { throw new UnsupportedOperationException(); }
     
     /**
      * Accesses the name of the team.
