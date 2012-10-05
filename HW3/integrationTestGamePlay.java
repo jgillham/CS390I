@@ -69,6 +69,17 @@ public class integrationTestGamePlay {
                 ++errorGuesses;
             }
         }
+        public void guess( Logic game, String guess ){
+            System.out.println( "guess: " + guess );
+            try {
+                if( !game.makeGuess( guess ) )
+                    ++badGuesses;
+            }catch( Logic.AmbiguousGuessException e ){
+                ++ambiguousGuesses;
+            }catch( IllegalArgumentException e ) {
+                ++errorGuesses;
+            }
+        }
     }
 
     
@@ -97,7 +108,10 @@ public class integrationTestGamePlay {
         while( counter++ < MAX_TURNS && game.getGameState() == Logic.Statis.STARTED ) {
             game.rotateTurn();
         }
+        assertTrue( counter < MAX_TURNS );
+        assertEquals( Logic.Statis.WINNER, game.getGameState() );
         tester.makeAssertions();
+        
     }
     
     @Test
@@ -127,6 +141,7 @@ public class integrationTestGamePlay {
             game.rotateTurn();
         }
         assertTrue( counter < MAX_TURNS );
+        assertEquals( Logic.Statis.OVER, game.getGameState() );
         tester.makeAssertions();
     }
     @Test
@@ -154,6 +169,7 @@ public class integrationTestGamePlay {
             game.rotateTurn();
         }
         assertTrue( counter < MAX_TURNS );
+        assertEquals( Logic.Statis.WINNER, game.getGameState() );
         tester.makeAssertions();
     }
     @Test
@@ -183,6 +199,7 @@ public class integrationTestGamePlay {
             game.rotateTurn();
         }
         assertTrue( counter < MAX_TURNS );
+        assertEquals( Logic.Statis.OVER, game.getGameState() );
         tester.makeAssertions();
     }
     @Test
@@ -212,6 +229,41 @@ public class integrationTestGamePlay {
             game.rotateTurn();
         }
         assertTrue( counter < MAX_TURNS );
+        assertEquals( Logic.Statis.OVER, game.getGameState() );
         tester.makeAssertions();
+    }
+    @Test
+    public void testMakesAFewGuessesThenKnowsTheWord(){
+        final String[] guesses= {
+            "f","u","l","fuel"
+        };
+        final int maxGuesses= gameWord.length()+1;
+        GameEventsBaseTester tester= new GameEventsBaseTester(){
+            
+            int i= 0;
+            public void playerUp( Player player ){
+                System.out.println( "playerUP: " + i );
+                if( i < guesses.length )
+                    this.guess( game, guesses[ i++ ] );
+            }
+            public void makeAssertions(){
+                assertFalse( gameOver );
+                assertNotNull( gameWinningTeam );
+                assertEquals( 0, badGuesses );
+                assertEquals( 0, errorGuesses );
+                assertEquals( 0, ambiguousGuesses );
+            }
+        };
+        game.setMaxAttempts( maxGuesses );
+        game.setGameEventsHandler( tester );
+        int counter= 0;
+        while( counter++ < MAX_TURNS && game.getGameState() == Logic.Statis.STARTED ) {
+            game.rotateTurn();
+        }
+        tester.makeAssertions();
+        assertEquals( Logic.Statis.WINNER, game.getGameState() );
+        assertTrue( counter < MAX_TURNS );
+        
+        
     }
 }
