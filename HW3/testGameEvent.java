@@ -70,6 +70,7 @@ public class testGameEvent
     /**
      * Test gameOver event.
      */
+    @Test
     public void testGameOver() throws java.io.FileNotFoundException {
         SetupBase wrapGame= new SetupBase( );
         GameEventsBase gameEvents= new GameEventsBase();
@@ -89,6 +90,7 @@ public class testGameEvent
     /**
      * Test gameWinningTeam event.
      */
+    @Test
     public void testGameWinner() throws java.io.FileNotFoundException {
         SetupBase wrapGame= new SetupBase();
         Manager firstTeam= wrapGame.addManager( "Default" );
@@ -112,6 +114,7 @@ public class testGameEvent
     /**
      * Test updates to the status word
      */
+    @Test
     public void testChangedStatusWord() throws java.io.FileNotFoundException {
         SetupBase wrapGame= new SetupBase( );
         Logic game= wrapGame.getGame( savedGameWord );
@@ -129,6 +132,7 @@ public class testGameEvent
     /**
      * Test updates to the status word with bad guesses.
      */
+    @Test
     public void testChangedStatusWord_wBadGuesses() throws java.io.FileNotFoundException {
         SetupBase wrapGame= new SetupBase( );
         Logic game= wrapGame.getGame( savedGameWord );
