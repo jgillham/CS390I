@@ -13,34 +13,7 @@ import org.junit.Test;
  * @author  Josh Gillham
  * @version 9-23-12
  */
-public class testPlayer
-{
-    /**
-     * Default constructor for test class testPlayer
-     */
-    public testPlayer()
-    {
-    }
-
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
-    @Before
-    public void setUp()
-    {
-    }
-
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
-    @After
-    public void tearDown()
-    {
-    }
+public class testPlayer {
     
     Player player;
     
