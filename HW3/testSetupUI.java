@@ -13,34 +13,7 @@ import org.junit.Test;
  * @author  Josh Gillham
  * @version 9-23-12
  */
-public class testSetupUI
-{
-    /**
-     * Default constructor for test class testSetupUI
-     */
-    public testSetupUI()
-    {
-    }
-
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
-    @Before
-    public void setUp()
-    {
-    }
-
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
-    @After
-    public void tearDown()
-    {
-    }
+public class testSetupUI{
     
     /**
      * Provides an input stream to pass to a Scanner class to simulate an input.
@@ -73,8 +46,68 @@ public class testSetupUI
      * Tests inputPlayerName.
      */
     @Test
-    public void testInputPlayerName() {
+    public void testInputPlayerName_NoInput() {
         String result= setup.inputPlayerName( new java.util.Scanner( new BadSetupUser( "" ) ) );
         assertNull( result );
+    }
+    /**
+     * Tests inputPlayerName.
+     */
+    @Test
+    public void testInputPlayerName() {
+        String result= setup.inputPlayerName( new java.util.Scanner( new BadSetupUser( "Test" ) ) );
+        assertNotNull( result );
+    }
+    
+    @Test
+    public void testInputGameWordLength_NoInput() {
+        int result= setup.inputGameWordLength( new java.util.Scanner( new BadSetupUser( "" ) ) );
+        assertEquals( 0, result );
+    }
+    
+    @Test
+    public void testInputGameWordLength_TooSmall() {
+        int result= setup.inputGameWordLength( new java.util.Scanner( new BadSetupUser( Integer.toString( Dictionary.MIN_WORDLENGTH - 1 ) ) ) );
+        assertEquals( 0, result );
+    }
+    
+    @Test
+    public void testInputGameWordLength_TooBig() {
+        int result= setup.inputGameWordLength( new java.util.Scanner( new BadSetupUser( Integer.toString( Dictionary.LARGEST_WORD + 1 ) ) ) );
+        assertEquals( 0, result );
+    }
+    
+    @Test
+    public void testInputGameWordLength() {
+        int result= setup.inputGameWordLength( new java.util.Scanner( new BadSetupUser( Integer.toString( Dictionary.LARGEST_WORD  ) ) ) );
+        assertEquals( Dictionary.LARGEST_WORD, result );
+    }
+    
+    @Test
+    public void testInputMaxAttempts_TooSmall() {
+        int result= setup.inputMaxAttempts( new java.util.Scanner( new BadSetupUser( Integer.toString( Logic.MIN_ATTEMPTS - 1  ) ) ) );
+        assertEquals( 0, result );
+    }
+    
+    @Test
+    public void testInputMaxAttempts() {
+        int result= setup.inputMaxAttempts( new java.util.Scanner( new BadSetupUser( Integer.toString( Logic.MIN_ATTEMPTS  ) ) ) );
+        assertEquals( Logic.MIN_ATTEMPTS, result );
+    }
+    
+    @Test
+    public void testStartGame() throws Exception {
+        SetupBase setupHelper= new SetupBase();
+        setupHelper.addManager( "D" );
+        setupHelper.addPlayer( "D" );
+        Logic game= setupHelper.getGame();
+        setup.startGame( game );
+    }
+    
+    @Test
+    public void testGetGame() {
+        setup.addManager( "D" );
+        setup.addPlayer( "D" );
+        Logic game= setup.getGame();
     }
 }

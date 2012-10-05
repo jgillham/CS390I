@@ -108,10 +108,6 @@ public class SetupUI extends SetupBase {
         
     }
     
-    public boolean inputExitGame( Scanner inputScanner ) {
-        return true;
-    }
-    
     /**
      * Listens for the player's name and throws out bad input.
      * 
