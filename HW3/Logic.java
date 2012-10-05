@@ -189,8 +189,13 @@ public class Logic{
         }
         this.guesses.add( word );
         this.playerInTurn= false;
-        if( word.equalsIgnoreCase( gameWord ) )
+        if( word.equalsIgnoreCase( gameWord ) ) {
+            statusWord= new StringBuilder( gameWord );
+            // Show the UI the new found letters.
+            if( this.eventHandler != null )
+                this.eventHandler.changedStatusWord( statusWord.toString() );
             return true;
+        }
         return false;
             
     }
