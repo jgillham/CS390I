@@ -57,7 +57,8 @@ public class SetupUI extends SetupBase {
     
     public Logic getGame() {
         Logic game= super.getGame( wordLength );
-        game.setMaxAttempts( maxAttempts );
+        if( maxAttempts != 0 )
+            game.setMaxAttempts( maxAttempts );
         return game;
     }
     
@@ -81,12 +82,13 @@ public class SetupUI extends SetupBase {
         Scanner userInput= new Scanner(System.in);
         // Get their name
         int tries= 0;
-        String name= null;
-        while( name == null && tries++ < 3 )
-            name= inputPlayerName( userInput );
-        // The player doesn't want to play?
-        if( name == null )
-            System.exit( 1 );
+//         String name= null;
+//         while( name == null && tries++ < 3 )
+//             name= inputPlayerName( userInput );
+//         // The player doesn't want to play?
+//         if( name == null )
+//             System.exit( 1 );
+        name= "Default";
         
         // Add him to the first team.
         super.addPlayer( name );
@@ -95,11 +97,19 @@ public class SetupUI extends SetupBase {
         tries= 0;
         while( wordLength == 0 && tries++ < 3 )
             wordLength= inputGameWordLength( userInput );
+
+        if( wordLength == 0 )
+            wordLength = Logic.DEFAULT_WORD_SIZE;
         
         // Get the maximum allowed guesses.
         tries= 0;
         while( maxAttempts == 0 && tries++ < 3 )
             maxAttempts= inputMaxAttempts( userInput );
+        
+    }
+    
+    public boolean inputExitGame( Scanner inputScanner ) {
+        return true;
     }
     
     /**

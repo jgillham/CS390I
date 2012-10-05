@@ -26,7 +26,6 @@ public class Dictionary{
     static private void staticConstructor(){
         if( !constructed ) {
             constructed= true;
-            System.out.println( "static constructor" );
             // Add one list for each length including 1
             for( int i= 0; i < LARGEST_WORD; ++i ) {
                 dataBank.add( new ArrayList<String>(1000) );
@@ -49,7 +48,6 @@ public class Dictionary{
         staticConstructor();
         if( word == null )
             throw new NullPointerException();
-        System.out.println( "Deposit: "+ word );
         if( word.isEmpty() )
             throw new IllegalArgumentException();
         if( checkWordLength( word.length() ) )

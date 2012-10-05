@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.LinkedList;
 import java.util.Iterator;
 
 /**
@@ -20,6 +21,9 @@ import java.util.Iterator;
  *  Game Word
  *  active team reference
  *  
+ * TODO:
+ *  -support history of word guesses.
+ *  
  * 
  * @author Josh Gillham
  * @version 9-23-12
@@ -29,6 +33,8 @@ public class Logic{
     static public final int DEFAULT_ATTEMPTS= 5;
     /** The least guesses allowed that make the game interesting. */
     static public final int MIN_ATTEMPTS= 2;
+    /** The default word size. */
+    static public final int DEFAULT_WORD_SIZE= 5;
     
     public class AmbiguousGuessException extends Exception {}
     
@@ -37,7 +43,7 @@ public class Logic{
     /** Holds the teams in the game. */
     private List< Manager > gameTeams;
     /** Holds the guess made. */
-    private StringBuilder guesses= new StringBuilder();
+    private List< String > guesses= new LinkedList< String >();
     /** Holds a string the same length of gameWord but with dashes in places where no player has guessed. */
     private StringBuilder statusWord= new StringBuilder();
     /** Refers to the team with the turn to guess. */
@@ -104,7 +110,7 @@ public class Logic{
     }
     
     /**
-     * Submits a guess. If the guess is not a letter an error is thrown. If
+     * Submits a guess. If the guess is not a letter, an error is thrown. If
      *  the letter has been guessed before an error is thrown. Else, the 
      *  guess is noted and the game word is searched for the letter. For
      *  ever letter that was found, the game updates the status word 
@@ -128,14 +134,15 @@ public class Logic{
         if( !Character.isLetter( letter ) )
             throw new IllegalArgumentException();
         letter= Character.toLowerCase( letter );
+        String guess= Character.toString( letter );
         // Make sure this guess has never been guessed before.
-        for( int i= 0; i < this.guesses.length(); ++i ) {
-            char guess= this.guesses.charAt( i );
-            if( guess == letter )
-                throw new AmbiguousGuessException( );
+        for( String oldGuess: guesses ) {
+            if( oldGuess.length() == guess.length() )
+                if( guess.equalsIgnoreCase( oldGuess ) )
+                    throw new AmbiguousGuessException( );
         }
         // Add this guess to the list.
-        this.guesses.append( letter );
+        this.guesses.add( guess );
         this.playerInTurn= false;
         boolean found= false;
         // Try to find the letter in the game word and update the status word as we go.
@@ -151,6 +158,41 @@ public class Logic{
         if( this.eventHandler != null && found )
             this.eventHandler.changedStatusWord( statusWord.toString() );
         return found;
+    }
+    
+    /**
+     * Submits a guess. If the guess length is only 1 characterIf the guess contains a non-letter, an error is thrown. If
+     *  the letter has been guessed before an error is thrown. Else, the 
+     *  guess is noted and the game word is compared to that word.
+     * 
+     * @arg word is a guess for the game word.
+     * 
+     * @return True if the guess is the game word.
+     * 
+     * @throws NullPointerException when word is null.
+     * @throws IllegalArgumentException when word is empty or not equal to the length of the game word.
+     * @throws IllegalArgumentException when the guess contains non-letters i.e. '?' or '9'
+     * @throws AmbiguousGuessException when the guess is already guessed.
+     */
+    public boolean makeGuess( String word ) throws AmbiguousGuessException {
+        if( word == null )
+            throw new NullPointerException();
+        if( word.length() == 1 ) {
+            return this.makeGuess( word.charAt( 0 ) );
+            
+        }else if( word.length() != gameWord.length() ) {
+            throw new IllegalArgumentException();
+        }
+        for( int i= 0; i < word.length(); ++i ) {
+            if( !Character.isLetter( word.charAt( i ) ) )
+                throw new IllegalArgumentException();
+        }
+        this.guesses.add( word );
+        this.playerInTurn= false;
+        if( word.equalsIgnoreCase( gameWord ) )
+            return true;
+        return false;
+            
     }
     
     /**
@@ -195,7 +237,7 @@ public class Logic{
             return;
         }
         // Check to see if there no guesses remaining
-        if( this.guesses.length() >= this.maxGuesses ){
+        if( this.guesses.size() >= this.maxGuesses ){
             this.gameState= Statis.OVER;
             if( this.eventHandler != null )
                 this.eventHandler.gameOver( this.gameWord );
@@ -245,12 +287,12 @@ public class Logic{
     }
     
     /**
-     * Gets the guesses remaining.
+     * Gets the total guesses made.
      * 
      * @return the number of attempts remaining.
      */
     public int getAttempts() {
-        return this.guesses.length();
+        return this.guesses.size();
     }
     
     /**
@@ -274,5 +316,13 @@ public class Logic{
         if( nMaxGuesses < MIN_ATTEMPTS )
             throw new IllegalArgumentException();
         this.maxGuesses= nMaxGuesses;
+    }
+    
+    public String[] getGuesses() {
+        String[] guessesList= new String[guesses.size()];
+        for( int i= 0; i < guesses.size(); ++i ) {
+            guessesList[ i ]= guesses.get( i );
+        }
+        return guessesList;
     }
 }

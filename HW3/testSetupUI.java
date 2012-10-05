@@ -8,6 +8,7 @@ import org.junit.Test;
  *
  * TODO:
  *  Fully test SetupUI
+ *  inputExitGame
  * 
  * @author  Josh Gillham
  * @version 9-23-12

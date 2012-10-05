@@ -13,6 +13,7 @@ import java.util.LinkedList;
  *  testMakeGuess_InGame()
  *  testGetAttempts()
  *  -testRotateTurn()
+ *  getGuesses
  *
  * @author  Josh Gillham
  * @version 9-23-12

@@ -39,7 +39,7 @@ public class GameUI implements GameEvent {
     public void changedStatusWord( String statusWord ) {
         this.statusWord= statusWord;
         // Show the current progress on guessing.
-        System.out.println( statusWord );
+        
     }
     
     /**
@@ -50,8 +50,8 @@ public class GameUI implements GameEvent {
      */
     public void gameOver( String gameWord ) {
         // Show the word nobody could guess.
-        System.out.println( gameWord );
-        System.out.println( "Game has finished." );
+        System.out.println( "Word: " + gameWord );
+        System.out.println( "Game over. Sorry!" );
     }
     
     /**
@@ -75,14 +75,26 @@ public class GameUI implements GameEvent {
      */
     public void playerUp( Player player ) {
         Scanner inputScanner= new Scanner( System.in );
+        System.out.println( "Word: " + statusWord );
+        String[] oldGuesses= gameLogic.getGuesses();
+        if( oldGuesses != null  ) {
+            boolean first= true;
+            System.out.print( "Guesses: " );
+            for( String guess: oldGuesses ) {
+                if( !first )
+                    System.out.print( ", " );
+                else
+                    first=false;
+                System.out.print( guess );
+            }
+            System.out.print( '\n' );
+        }
         // Prompt the user.
-        System.out.println( "Make a guess:" );
+        System.out.println( "Make a guess (a letter or the whole word):" );
         String input= inputScanner.next();
-        if( input.length() > 1 )
-            System.out.println( "Only one letter please." );
-        else {
+        if( input.length() == statusWord.length() || input.length() == 1 ) {
             try{
-                boolean result= gameLogic.makeGuess( input.charAt( 0 ) );
+                boolean result= gameLogic.makeGuess( input );
                 // Display feedback.
                 if( result )
                     System.out.println( "Good guess!" );
@@ -90,11 +102,12 @@ public class GameUI implements GameEvent {
                     System.out.println( "Sorry that was a bad guess!" );
             } catch( IllegalArgumentException e ){
                 // Bad input could be a symbol or maybe the letter is alread guessed.
-                System.out.println( "Guesses should be letters only." );
+                System.out.println( "Guesses should contain only letter(s)." );
             } catch( Logic.AmbiguousGuessException e ) {
                 System.out.println( "That letter has alread been guessed." );
             }
-        }        
+        } else
+            System.out.println( "A letter or the whole word please." );
     }
     
     /**
@@ -105,7 +118,7 @@ public class GameUI implements GameEvent {
      * Empty unimplemented body.
      */
     public void gameWinner( Manager team ) {
-        System.out.println( statusWord );
+        System.out.println( "Word: " + statusWord );
         System.out.println( "Player won the game!" );
     }
 }
