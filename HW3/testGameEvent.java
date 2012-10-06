@@ -49,20 +49,26 @@ public class testGameEvent{
         GameEventsBase gameEvents= new GameEventsBase();
         wrapGame.addManager( "D" );
         wrapGame.addPlayer( "D" );
+        String partialABCs= "abcdefghijklmnopqr";
         Logic game= wrapGame.getGame();
         game.setGameEventsHandler( gameEvents );
-        String partialABCs= "abcdefghijklmnopqr";
-        for( int i= 0; i < partialABCs.length() && i < game.getAttempts(); ++i ) {
-            char c= partialABCs.charAt( i );
+        game.setMaxAttempts( 5 );
+        System.out.println( "Hello");
+        int i= 0;
+        while( game.getGameState() == Logic.Statis.STARTED && i < partialABCs.length() ){
+            System.out.println( "Round  "+i);
+            char c= partialABCs.charAt( i++ );
             try{
                 game.makeGuess( c );
-            System.out.println( "Guesses Remaining: ");
+            System.out.println( "Guess accepted");
             }catch( Logic.AmbiguousGuessException e ) {}
             game.rotateTurn();
 
         }
+        System.out.println( "Goodby");
         assertTrue( gameEvents.gameOver );
         assertNull( gameEvents.gameWinningTeam );
+        assertEquals( Logic.Statis.OVER, game.getGameState() );
     }
     
     /**
@@ -76,6 +82,7 @@ public class testGameEvent{
         GameEventsBase gameEvents= new GameEventsBase();
         Logic game= wrapGame.getGame( savedGameWord );
         game.setGameEventsHandler( gameEvents );
+        game.setMaxAttempts( savedGameWord.length() );
         int i= 0;
         while( game.getGameState() == Logic.Statis.STARTED && i < savedGameWord.length() ){
             char c= savedGameWord.charAt( i++ );
@@ -87,6 +94,7 @@ public class testGameEvent{
         
         assertFalse( gameEvents.gameOver );
         assertNotNull( gameEvents.gameWinningTeam );
+        assertEquals( Logic.Statis.WINNER, game.getGameState() );
         assertEquals( firstTeam, gameEvents.gameWinningTeam );
     }
     
@@ -103,6 +111,7 @@ public class testGameEvent{
         Logic game= wrapGame.getGame( savedGameWord );
         GameEventsTester gameEvents= new GameEventsTester();
         game.setGameEventsHandler( gameEvents );
+        game.setMaxAttempts( savedGameWord.length() );
         int i= 0;
         while( game.getGameState() == Logic.Statis.STARTED && i < savedGameWord.length() - 1 ){
             char c= savedGameWord.charAt( i++ );
@@ -115,6 +124,15 @@ public class testGameEvent{
         assertNull( gameEvents.gameWinningTeam );
         assertEquals( Logic.Statis.STARTED, game.getGameState() );
         assertEquals( savedGameWord.length(), gameEvents.statusWordChanges );
+        char c= savedGameWord.charAt( i++ );
+        try{
+            game.makeGuess( c );
+        }catch( Logic.AmbiguousGuessException e ) {}
+        game.rotateTurn();
+        assertFalse( gameEvents.gameOver );
+        assertNotNull( gameEvents.gameWinningTeam );
+        assertEquals( Logic.Statis.WINNER, game.getGameState() );
+        assertEquals( savedGameWord.length() + 1, gameEvents.statusWordChanges );
     }
     
     /**
@@ -133,17 +151,23 @@ public class testGameEvent{
         wrd.insert( 1, 'u' );
         wrd.insert( 3, 'z' );
         wrd.insert( 5, 'y' );
+        game.setMaxAttempts( wrd.length() );
         int i= 0;
-        while( game.getGameState() == Logic.Statis.STARTED && i < savedGameWord.length() ){
+        System.out.println( "helo 111");
+        while( game.getGameState() == Logic.Statis.STARTED && i < wrd.length() ){
             char c= savedGameWord.charAt( i++ );
             try{ 
                 game.makeGuess( c );
             }catch( Logic.AmbiguousGuessException e ) {}
             game.rotateTurn();
         }
+        System.out.println( "gb 111");
+        assertFalse( gameEvents.gameOver );
+        assertNotNull( gameEvents.gameWinningTeam );
+        assertEquals( Logic.Statis.WINNER, game.getGameState() );
         // The status word changes should be the same
         // Remember it only changes for good guesses
-        assertEquals( savedGameWord.length(), gameEvents.statusWordChanges );
+        assertEquals( savedGameWord.length() + 1, gameEvents.statusWordChanges );
     }
     
     

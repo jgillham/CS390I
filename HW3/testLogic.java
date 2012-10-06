@@ -72,7 +72,7 @@ public class testLogic
     /**
      * Tests the constructor to ensure it fails when there are no teams.
      */
-    @Test( expected= java.util.NoSuchElementException.class )
+    @Test( expected= Logic.NoTeamsException.class )
     public void testConstructor_NoTeams() throws Exception{
         Logic g= new Logic( new LinkedList< Manager >(), Dictionary.MIN_WORDLENGTH );
     }
@@ -80,7 +80,7 @@ public class testLogic
     /**
      * Tests the constructor to ensure it fails when there are no players.
      */
-    @Test( expected= java.util.NoSuchElementException.class )
+    @Test( expected= Logic.EmptyTeamsException.class )
     public void testConstructor_NoPlayers() throws Exception{
         List< Manager > teams= new LinkedList< Manager >();
         teams.add( new Manager( "Alpha" ) );
@@ -90,7 +90,7 @@ public class testLogic
     /**
      * Tests the constructor to ensure it fails when there are empty teams.
      */
-    @Test( expected= java.util.NoSuchElementException.class )
+    @Test( expected= Logic.EmptyTeamsException.class )
     public void testConstructor_NoPlayers2() throws Exception{
         List< Manager > teams= new LinkedList< Manager >();
         Manager man= new Manager( "Alpha" );
