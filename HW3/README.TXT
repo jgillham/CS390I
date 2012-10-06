@@ -2,6 +2,8 @@
 PURPOSE OF PROJECT: To turn in as a class assignment
 VERSION or DATE: 9-17-12
 HOW TO START THIS PROJECT:
+In BlueJ, run SetupUI.main( null );
+
 AUTHORS: Josh Gillham
 ASSIGNMENT:
 
