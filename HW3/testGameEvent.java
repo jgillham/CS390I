@@ -17,12 +17,7 @@ import java.util.LinkedList;
 public class testGameEvent{
     
     public String savedGameWord= "flamingo";
-    class GameEventsTester extends GameEventsBase{
-        public int statusWordChanges= 0;
-        public void changedStatusWord( String statusWord ) {
-            ++statusWordChanges;
-        }
-    };
+    
     
     /**
      * Test the constructor to make sure it can successfully construct

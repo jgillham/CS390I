@@ -16,12 +16,6 @@ public class integrationTestGamePlay {
     SetupBase logicWrapper;
     Logic game;
     String gameWord= "Fuel";
-    /**
-     * Default constructor for test class integrationTestGamePlay
-     */
-    public integrationTestGamePlay()
-    {
-    }
 
     /**
      * Sets up the test fixture.
@@ -36,55 +30,7 @@ public class integrationTestGamePlay {
         game= logicWrapper.getGame( gameWord );
         
     }
-
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
-    @After
-    public void tearDown()
-    {
-    }
-    abstract class GameEventsBaseTester extends GameEventsBase {
-        int badGuesses= 0;
-        int errorGuesses= 0;
-        int ambiguousGuesses= 0;
-        
-        public abstract void makeAssertions(); // String guesses, int maxGuesses
-        //Calculate the results
-//         {
-//             for( int i= 0; i < guesses.length() && i < maxGuesses; ++i ) {
-//                 
-//             }
-//         }
-        public void guess( Logic game, char c ){
-            System.out.println( "guess: " + c );
-            try {
-                if( !game.makeGuess( c ) )
-                    ++badGuesses;
-            }catch( Logic.AmbiguousGuessException e ){
-                ++ambiguousGuesses;
-            }catch( IllegalArgumentException e ) {
-                ++errorGuesses;
-            }catch( Logic.PlayerOutOfTurnException e ) {
-                e.printStackTrace();
-            }
-        }
-        public void guess( Logic game, String guess ){
-            System.out.println( "guess: " + guess );
-            try {
-                if( !game.makeGuess( guess ) )
-                    ++badGuesses;
-            }catch( Logic.AmbiguousGuessException e ){
-                ++ambiguousGuesses;
-            }catch( IllegalArgumentException e ) {
-                ++errorGuesses;
-            }catch( Logic.PlayerOutOfTurnException e ) {
-                e.printStackTrace();
-            }
-        }
-    }
+    
 
     
     
