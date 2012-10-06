@@ -14,8 +14,6 @@ public class Dictionary{
     static public final int MIN_WORDLENGTH= 3;
     /** The largest allowed word in the dictionary. */
     static public final int LARGEST_WORD= 12;
-    /** Keeps the word data bank. */
-    //static List<String> words= new ArrayList<String>(5000);
     
     static List< ArrayList<String> > dataBank= new ArrayList< ArrayList<String> >(LARGEST_WORD);
     static public boolean constructed= false;

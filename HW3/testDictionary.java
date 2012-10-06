@@ -13,34 +13,7 @@ import java.lang.NullPointerException;
  * @author  Josh Gillham
  * @version 9-23-12
  */
-public class testDictionary
-{
-    /**
-     * Default constructor for test class testDictionary
-     */
-    public testDictionary()
-    {
-    }
-
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
-    @Before
-    public void setUp()
-    {
-    }
-
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
-    @After
-    public void tearDown()
-    {
-    }
+public class testDictionary {
     
     /**
      * Test the load with a null. The result should be an error
@@ -87,10 +60,10 @@ public class testDictionary
     }
     
     /**
-     * 
+     * I had a problem with it giving me the file name instead of a word.
      */
     @Test
-    public void testNotTheFileName() {
+    public void testGetWords_NotTheFileName() {
         String word= Dictionary.getWord( 3 );
         if( dictionaryFile.equalsIgnoreCase( word ) )
             fail( "Word is the file name." );
@@ -100,7 +73,7 @@ public class testDictionary
      * 
      */
     @Test
-    public void testCorrectWords() {
+    public void testGetWords_CorrectWords() {
         String[] words={
             "cat",
             "mouse",
@@ -116,6 +89,20 @@ public class testDictionary
             }
         }
         assertTrue( found );
+    }
+    
+    @Test
+    public void testDepositWord() {
+        Dictionary.depositWord( "maneater" );
+    }
+    
+    @Test( expected= IllegalArgumentException.class )
+    public void testDepositWord_Empty() {
+        Dictionary.depositWord( "" );
+    }
+    @Test( expected= NullPointerException.class )
+    public void testDepositWord_Null() {
+        Dictionary.depositWord( null );
     }
     
 }
