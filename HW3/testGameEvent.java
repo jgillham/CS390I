@@ -18,6 +18,10 @@ public class testGameEvent{
     
     public String savedGameWord= "flamingo";
     
+    class GameEventsTester extends GameEventsBaseTester {
+        public void makeAssertions(){}
+    }
+    
     
     /**
      * Test the constructor to make sure it can successfully construct
@@ -29,7 +33,7 @@ public class testGameEvent{
         Player firstPlayer= wrapGame.addPlayer( "Default" );
         
         Logic game= wrapGame.getGame();
-        GameEventsBase gameEvents= new GameEventsBase();
+        GameEventsTester gameEvents= new GameEventsTester();
         game.setGameEventsHandler( gameEvents );
         //assertEquals( firstTeam, gameEvents.teamUp );
         assertEquals( firstPlayer, gameEvents.playerUp );
@@ -41,7 +45,7 @@ public class testGameEvent{
     @Test
     public void testGameOver() throws Exception {
         SetupBase wrapGame= new SetupBase( );
-        GameEventsBase gameEvents= new GameEventsBase();
+        GameEventsTester gameEvents= new GameEventsTester();
         wrapGame.addManager( "D" );
         wrapGame.addPlayer( "D" );
         String partialABCs= "abcdefghijklmnopqr";
@@ -74,7 +78,7 @@ public class testGameEvent{
         SetupBase wrapGame= new SetupBase();
         Manager firstTeam= wrapGame.addManager( "Default" );
         Player firstPlayer= wrapGame.addPlayer( "Default" );
-        GameEventsBase gameEvents= new GameEventsBase();
+        GameEventsTester gameEvents= new GameEventsTester();
         Logic game= wrapGame.getGame( savedGameWord );
         game.setGameEventsHandler( gameEvents );
         game.setMaxAttempts( savedGameWord.length() );

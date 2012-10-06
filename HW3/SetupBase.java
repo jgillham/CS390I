@@ -1,7 +1,7 @@
 import java.util.List;
 import java.util.LinkedList;
 /**
- * Provides a basic setup for Logic.
+ * Provides a setup helper for the Logic class. Makes adding teams and players much easier.
  * 
  * @author Josh Gillham
  * @version 10-4-12
@@ -17,6 +17,10 @@ public class SetupBase {
     private Manager firstTeam= null;
     /** Retains the last team to be added. */
     private Manager lastTeam= null;
+    /**
+     * Load the dictionary file. If this fails, the entire game will fail because
+     *  there is no word to choose.
+     */
     {
         try {
             Dictionary.load( SetupUI.DICTIONARY_FILE );
@@ -59,6 +63,9 @@ public class SetupBase {
      * Gets a new instance of the Logic.
      * 
      * @return a Logic instance
+     * 
+     * @throws Logic.EmptyTeamsException when the teams have empty rosters.
+     * @throws Logic.NoTeamsException when there are no teams.
      */
     public Logic getGame( ) throws Logic.EmptyTeamsException, Logic.NoTeamsException{
         return new Logic( teams, wordLength );
@@ -67,7 +74,12 @@ public class SetupBase {
     /**
      * Gets a new instance of the Logic.
      * 
+     * @arg wordLength the length of the word to choose.
+     * 
      * @return a Logic instance
+     * 
+     * @throws Logic.EmptyTeamsException when the teams have empty rosters.
+     * @throws Logic.NoTeamsException when there are no teams.
      */
     public Logic getGame( int wordLength ) throws Logic.EmptyTeamsException, Logic.NoTeamsException {
         this.wordLength= wordLength;
@@ -80,6 +92,9 @@ public class SetupBase {
      * @arg word the game word
      * 
      * @return a Logic instance
+     * 
+     * @throws Logic.EmptyTeamsException when the teams have empty rosters.
+     * @throws Logic.NoTeamsException when there are no teams.
      */
     public Logic getGame( String word) throws Logic.EmptyTeamsException, Logic.NoTeamsException {
         this.wordLength= word.length();

@@ -25,6 +25,10 @@ public class testLogic {
     /** Keeps a Logic instance for other tests. */
     Logic game;
     
+    class GameEventsTester extends GameEventsBaseTester {
+        public void makeAssertions(){}
+    }
+    
     
     /**
      * Test the constructor to make sure it can successfully construct
@@ -262,7 +266,7 @@ public class testLogic {
      */
     @Test
     public void testSetGameEventsHandler() {
-        game.setGameEventsHandler( new GameEventsBase() );
+        game.setGameEventsHandler( new GameEventsTester() );
     }
     
     /**
