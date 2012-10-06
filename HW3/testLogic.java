@@ -232,21 +232,29 @@ public class testLogic {
     }
     
     /**
-     * Test makeGuess with a bad argument. Error expected.
+     * Test makeGuess.
      */
-    @Test( expected= Logic.PlayerOutOfTurnException.class )
+    @Test
     public void testMakeGuess_String_RotateTurn()throws Exception {
         game.makeGuess( "cat" );
         game.rotateTurn();
-        game.makeGuess( "mouse" );
+        game.makeGuess( "rat" );
     }
     
     /**
      * Test makeGuess with a bad argument. Error expected.
      */
-    @Test( expected= Logic.PlayerOutOfTurnException.class )
+    @Test( expected= IllegalArgumentException.class )
     public void testMakeGuess_String_Nonletters()throws Exception {
         game.makeGuess( "ca$t" );
+    }
+    
+    /**
+     * Test makeGuess with a bad argument. Error expected.
+     */
+    @Test( expected= IllegalArgumentException.class )
+    public void testMakeGuess_String_TooShort()throws Exception {
+        game.makeGuess( "sound" );
     }
     
     /**
