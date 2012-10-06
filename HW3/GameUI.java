@@ -105,6 +105,8 @@ public class GameUI implements GameEvent {
                 System.out.println( "Guesses should contain only letter(s)." );
             } catch( Logic.AmbiguousGuessException e ) {
                 System.out.println( "That letter has alread been guessed." );
+            } catch( Logic.PlayerOutOfTurnException e ) {
+                e.printStackTrace();
             }
         } else
             System.out.println( "A letter or the whole word please." );

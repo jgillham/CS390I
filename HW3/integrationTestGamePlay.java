@@ -67,8 +67,9 @@ public class integrationTestGamePlay {
                 ++ambiguousGuesses;
             }catch( IllegalArgumentException e ) {
                 ++errorGuesses;
-            }catch( PlayerOutOfTurnException e ) {
-                e.printStackTrace()
+            }catch( Logic.PlayerOutOfTurnException e ) {
+                e.printStackTrace();
+            }
         }
         public void guess( Logic game, String guess ){
             System.out.println( "guess: " + guess );
@@ -79,6 +80,8 @@ public class integrationTestGamePlay {
                 ++ambiguousGuesses;
             }catch( IllegalArgumentException e ) {
                 ++errorGuesses;
+            }catch( Logic.PlayerOutOfTurnException e ) {
+                e.printStackTrace();
             }
         }
     }
