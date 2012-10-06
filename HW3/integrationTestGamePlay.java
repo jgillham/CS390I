@@ -29,7 +29,7 @@ public class integrationTestGamePlay {
      * Called before every test case method.
      */
     @Before
-    public void setUp() throws java.io.FileNotFoundException {
+    public void setUp() throws Exception {
         logicWrapper= new SetupBase();
         logicWrapper.addManager( "Default" );
         logicWrapper.addPlayer( "Bob" );

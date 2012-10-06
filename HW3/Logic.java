@@ -37,6 +37,8 @@ public class Logic{
     static public final int DEFAULT_WORD_SIZE= 5;
     
     public class AmbiguousGuessException extends Exception {}
+    public class EmptyTeamsException extends Exception {}
+    public class NoTeamsException extends Exception {}
     
     /** The word every player in the game will try and guess. */
     private String gameWord;
@@ -75,7 +77,7 @@ public class Logic{
      * @throws IllegalArgumentException when gameWordLength is less than Dictionary.MIN_WORDLENGTH
      *  and greater than Dictionary.MAX_WORDLENGTH.
      */
-    public Logic( java.util.List< Manager > teams, int gameWordLength ) throws IllegalArgumentException {
+    public Logic( java.util.List< Manager > teams, int gameWordLength ) throws EmptyTeamsException, NoTeamsException  {
         this( teams, Dictionary.getWord( gameWordLength ) );
     }
     
@@ -86,13 +88,14 @@ public class Logic{
      * @arg teams the teams for the game.
      * @arg gameWordLength the length of the game word.
      * 
-     * @throws NoSuchElementException when teams is empty or any Manager.getRosterSize() returns 0.
+     * @throws EmptyTeamsException when any Manager.getRosterSize() returns 0.
+     * @throws NoTeamsException when teams is empty.
      * @throws IllegalArgumentException when gameWord is empty.
      * @throws NullPointerException when gameWord is null.
      */
-    public Logic( java.util.List< Manager > teams, String gameWord ) throws IllegalArgumentException {
+    public Logic( java.util.List< Manager > teams, String gameWord ) throws EmptyTeamsException, NoTeamsException  {
         if( teams.size() == 0 )
-            throw new java.util.NoSuchElementException();
+            throw new NoTeamsException();
         if( gameWord == null )
             throw new NullPointerException();
         if( gameWord.isEmpty() )
@@ -100,7 +103,7 @@ public class Logic{
         // Make sure all teams have at least one player.
         for( Manager team: teams ) {
             if( team.getRosterSize() == 0 )
-                throw new java.util.NoSuchElementException();
+                throw new EmptyTeamsException();
         }
         
         gameTeams= teams;

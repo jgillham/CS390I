@@ -17,10 +17,12 @@ public class SetupBase {
     private Manager firstTeam= null;
     /** Retains the last team to be added. */
     private Manager lastTeam= null;
-    
-    public SetupBase() throws java.io.FileNotFoundException {
-        Dictionary.load( SetupUI.DICTIONARY_FILE );
+    {
+        try {
+            Dictionary.load( SetupUI.DICTIONARY_FILE );
+        }catch( Exception e ) {}
     }
+    
     
     /** 
      * Simplifies adding a manager and retains the first manager to be added.
@@ -58,7 +60,7 @@ public class SetupBase {
      * 
      * @return a Logic instance
      */
-    public Logic getGame( ) {
+    public Logic getGame( ) throws Logic.EmptyTeamsException, Logic.NoTeamsException{
         return new Logic( teams, wordLength );
     }
     
@@ -67,7 +69,7 @@ public class SetupBase {
      * 
      * @return a Logic instance
      */
-    public Logic getGame( int wordLength ) {
+    public Logic getGame( int wordLength ) throws Logic.EmptyTeamsException, Logic.NoTeamsException {
         this.wordLength= wordLength;
         return new Logic( teams, wordLength );
     }
@@ -79,7 +81,7 @@ public class SetupBase {
      * 
      * @return a Logic instance
      */
-    public Logic getGame( String word) {
+    public Logic getGame( String word) throws Logic.EmptyTeamsException, Logic.NoTeamsException {
         this.wordLength= word.length();
         return new Logic( teams, word );
     }

@@ -84,6 +84,12 @@ public class testSetupUI{
     }
     
     @Test
+    public void testInputMaxAttempts_NoInput() {
+        int result= setup.inputMaxAttempts( new java.util.Scanner( new BadSetupUser( "" ) ) );
+        assertEquals( 0, result );
+    }
+    
+    @Test
     public void testInputMaxAttempts_TooSmall() {
         int result= setup.inputMaxAttempts( new java.util.Scanner( new BadSetupUser( Integer.toString( Logic.MIN_ATTEMPTS - 1  ) ) ) );
         assertEquals( 0, result );
@@ -95,19 +101,13 @@ public class testSetupUI{
         assertEquals( Logic.MIN_ATTEMPTS, result );
     }
     
-    @Test
-    public void testStartGame() throws Exception {
-        SetupBase setupHelper= new SetupBase();
-        setupHelper.addManager( "D" );
-        setupHelper.addPlayer( "D" );
-        Logic game= setupHelper.getGame();
-        setup.startGame( game );
-    }
+    
     
     @Test
-    public void testGetGame() {
-        setup.addManager( "D" );
-        setup.addPlayer( "D" );
-        Logic game= setup.getGame();
+    public void testGetGame()throws Exception {
+        SetupUI setup2= new SetupUI();
+        setup2.addManager( "D" );
+        setup2.addPlayer( "D" );
+        Logic game= setup2.getGame();
     }
 }

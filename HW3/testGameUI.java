@@ -42,7 +42,7 @@ public class testGameUI
      * Tests the constructor to make sure there are no errors.
      */
     @Test
-    public void testConstructor() throws java.io.FileNotFoundException {
+    public void testConstructor() throws Exception {
         SetupBase wrapGame= new SetupBase();
         wrapGame.addManager( "Default" );
         wrapGame.addPlayer( "Default" );

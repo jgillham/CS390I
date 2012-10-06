@@ -57,7 +57,7 @@ public class testLogic
      * Test the constructor to make sure it can successfully construct
      */
     @Before
-    public void testConstructor() throws java.io.FileNotFoundException {
+    public void testConstructor() throws Exception {
         wrapLogic= new SetupBase();
         wrapLogic.addManager( "Alpha" );
         wrapLogic.addPlayer( "bob" );
@@ -65,7 +65,7 @@ public class testLogic
     }
     
     @Test( expected= NullPointerException.class )
-    public void testConstructor_Null(){
+    public void testConstructor_Null() throws Exception{
         Logic g= new Logic( null, Dictionary.MIN_WORDLENGTH );
     }
     
@@ -73,7 +73,7 @@ public class testLogic
      * Tests the constructor to ensure it fails when there are no teams.
      */
     @Test( expected= java.util.NoSuchElementException.class )
-    public void testConstructor_NoTeams(){
+    public void testConstructor_NoTeams() throws Exception{
         Logic g= new Logic( new LinkedList< Manager >(), Dictionary.MIN_WORDLENGTH );
     }
     
@@ -81,7 +81,7 @@ public class testLogic
      * Tests the constructor to ensure it fails when there are no players.
      */
     @Test( expected= java.util.NoSuchElementException.class )
-    public void testConstructor_NoPlayers(){
+    public void testConstructor_NoPlayers() throws Exception{
         List< Manager > teams= new LinkedList< Manager >();
         teams.add( new Manager( "Alpha" ) );
         Logic g= new Logic( teams, Dictionary.MIN_WORDLENGTH );
@@ -91,7 +91,7 @@ public class testLogic
      * Tests the constructor to ensure it fails when there are empty teams.
      */
     @Test( expected= java.util.NoSuchElementException.class )
-    public void testConstructor_NoPlayers2(){
+    public void testConstructor_NoPlayers2() throws Exception{
         List< Manager > teams= new LinkedList< Manager >();
         Manager man= new Manager( "Alpha" );
         man.addPlayer( "bob" );
@@ -103,7 +103,7 @@ public class testLogic
      * Tests the constructor to ensure it fails when the wordLength is smaller than the dictionary limit.
      */
     @Test( expected= IllegalArgumentException.class )
-    public void testConstructor_WordTooSmall(){
+    public void testConstructor_WordTooSmall() throws Exception{
         wrapLogic.getGame( Dictionary.MIN_WORDLENGTH - 1 );
     }
     
@@ -111,7 +111,7 @@ public class testLogic
      * Tests the constructor to ensure it fails when the wordLength is larger than the dictionary limit.
      */
     @Test( expected= IllegalArgumentException.class )
-    public void testConstructor_WordTooLarge(){
+    public void testConstructor_WordTooLarge() throws Exception{
         wrapLogic.getGame( Dictionary.LARGEST_WORD + 1 );
     }
     
@@ -119,7 +119,7 @@ public class testLogic
      * Tests the constructor to ensure it fails when the gameWord is null.
      */
     @Test( expected= NullPointerException.class )
-    public void testConstructor_NullGameWord(){
+    public void testConstructor_NullGameWord() throws Exception{
         wrapLogic.getGame( null );
     }
     
@@ -127,7 +127,7 @@ public class testLogic
      * Tests the constructor to ensure it fails when the gameWord is empty.
      */
     @Test( expected= IllegalArgumentException.class )
-    public void testConstructor_EmptyGameWord(){
+    public void testConstructor_EmptyGameWord() throws Exception{
         wrapLogic.getGame( "" );
     }
     
@@ -243,7 +243,7 @@ public class testLogic
      * Test UI event setter to make sure null does not throw an error.
      */
     @Test( expected= IllegalArgumentException.class )
-    public void testSetMaxAttempts() {
+    public void testSetMaxAttempts() throws Exception {
         Logic newGame= wrapLogic.getGame( "Logic" );
         newGame.setMaxAttempts( Logic.MIN_ATTEMPTS - 1 );
     }

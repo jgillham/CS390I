@@ -55,7 +55,7 @@ public class testGameEvent
      * Test the constructor to make sure it can successfully construct
      */
     @Before
-    public void testConstructor() throws java.io.FileNotFoundException {
+    public void testConstructor() throws Exception {
         SetupBase wrapGame= new SetupBase( );
         Manager firstTeam= wrapGame.addManager( "Default" );
         Player firstPlayer= wrapGame.addPlayer( "Default" );
@@ -71,7 +71,7 @@ public class testGameEvent
      * Test gameOver event.
      */
     @Test
-    public void testGameOver() throws java.io.FileNotFoundException {
+    public void testGameOver() throws Exception {
         SetupBase wrapGame= new SetupBase( );
         GameEventsBase gameEvents= new GameEventsBase();
         Logic game= wrapGame.getGame();
@@ -91,7 +91,7 @@ public class testGameEvent
      * Test gameWinningTeam event.
      */
     @Test
-    public void testGameWinner() throws java.io.FileNotFoundException {
+    public void testGameWinner() throws Exception {
         SetupBase wrapGame= new SetupBase();
         Manager firstTeam= wrapGame.addManager( "Default" );
         Player firstPlayer= wrapGame.addPlayer( "Default" );
@@ -115,7 +115,7 @@ public class testGameEvent
      * Test updates to the status word
      */
     @Test
-    public void testChangedStatusWord() throws java.io.FileNotFoundException {
+    public void testChangedStatusWord() throws Exception {
         SetupBase wrapGame= new SetupBase( );
         Logic game= wrapGame.getGame( savedGameWord );
         GameEventsTester gameEvents= new GameEventsTester();
@@ -133,7 +133,7 @@ public class testGameEvent
      * Test updates to the status word with bad guesses.
      */
     @Test
-    public void testChangedStatusWord_wBadGuesses() throws java.io.FileNotFoundException {
+    public void testChangedStatusWord_wBadGuesses() throws Exception {
         SetupBase wrapGame= new SetupBase( );
         Logic game= wrapGame.getGame( savedGameWord );
         GameEventsTester gameEvents= new GameEventsTester();
