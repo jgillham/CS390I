@@ -1,10 +1,6 @@
 /**
  * With new features this may hold the player score and guesses.
  * 
- * Private Data:
- *  Guesses - a list of guesses
- *  Wrong Answers - a list of wrong guesses
- * 
  * @author Josh Gillham
  * @version 9-23-12
  */
@@ -19,8 +15,6 @@ public class Player {
      * 
      * @throws NullPointerException when the name is null.
      * @throws IllegalArgumentException when the name is empty.
-     * 
-     * Empty unimplemented body.
      */
     public Player( String name ) throws NullPointerException, IllegalArgumentException {
         if( name == null )
@@ -31,30 +25,4 @@ public class Player {
             
         this.name= name;
     }
-    
-    /**
-     * Accesses the name of the player.
-     * 
-     * @return the player name.
-     */
-    //public String getName()
-    //{ throw new UnsupportedOperationException(); }
-    
-    /**
-     * Accesses a list of the player's guesses. Returns an empty string when
-     *  there are no guesses otherwise the string contains letters.
-     * 
-     * @return the letters guessed
-     */
-    //public String getHistory()
-    //{ throw new UnsupportedOperationException(); }
-    
-    /**
-     * Accesses the player's score. Returns 0 at the beginning of the game
-     *  otherwise the number of letters found in the game word.
-     *  
-     * @return the score
-     */
-    //public int getScore()
-    //{ throw new UnsupportedOperationException(); }
 }

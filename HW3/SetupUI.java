@@ -6,9 +6,6 @@ import java.util.Scanner;
  * Provides the saffolding to get the game up and running. Prompts 
  *  the user for the word length and max attempts. Creates a new Logic 
  *  and GameUI instance when the user is ready to play.
- *  
- * The API will be generic so that this game can be run from the console
- *  or with a swing pane.
  * 
  * @author Josh Gillham
  * @version 9-23-12
@@ -16,6 +13,12 @@ import java.util.Scanner;
 public class SetupUI extends SetupBase {
     /** Holds the default dictionary file. Should in the root of the project folder. */
     static public final String DICTIONARY_FILE= "smalldictionary.txt";
+    
+    /** Holds the word length. */
+    private int wordLength= 0;
+    /** Holds the maximum guesses. */
+    private int maxAttempts= 0;
+    
     /**
      * Initializes the dictionary. Creates a new instance of SetupUI.
      * 
@@ -31,18 +34,10 @@ public class SetupUI extends SetupBase {
         while( game.getGameState() == Logic.Statis.STARTED ){
             game.rotateTurn();
         }
-        
     }
-    /** Holds the word length. */
-    private int wordLength= 0;
-    /** Holds the maximum guesses. */
-    private int maxAttempts= 0;
-    
     
     /**
-     * Brings up the user interface.
-     * 
-     * @throws FileNotFoundException when dictionary could not be loaded.
+     * Runs the default setup commands.
      */
     public SetupUI( ) {
         super.addManager( "Default" );
@@ -50,6 +45,12 @@ public class SetupUI extends SetupBase {
         super.addPlayer( "Default" );
     }
     
+    /**
+     * Gets a new instance of the Logic class.
+     * 
+     * @return Logic instance
+     * @return null on failure -- should never happen.
+     */
     public Logic getGame(){
         if( !Dictionary.checkWordLength( wordLength ) )
             wordLength= Logic.DEFAULT_WORD_SIZE;
@@ -69,6 +70,8 @@ public class SetupUI extends SetupBase {
     /**
      * Launches the Game UI.
      * 
+     * @arg game a reference to the game logic.
+     * 
      * @return the newly create GameUI.
      */
     public GameUI startGame( Logic game ) {
@@ -78,9 +81,8 @@ public class SetupUI extends SetupBase {
     }
     
     /**
-     * Walk through the setup steps with the user.
-     * 
-     * @return a new game logic.
+     * Walk through the setup steps with the user. Sets private fields as
+     *  the user does input.
      */
     public void inputSetupGame() {
         Scanner userInput= new Scanner(System.in);
@@ -127,6 +129,7 @@ public class SetupUI extends SetupBase {
      * @arg inputScanner gets the next input.
      * 
      * @return the word length.
+     * @return 0 if the input was bad.
      */
     public int inputGameWordLength( Scanner inputScanner ) {
         System.out.println( "Whats the word length:" );

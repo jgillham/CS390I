@@ -27,8 +27,6 @@ public class Manager {
      * 
      * @throws NullPointerException if is name is null.
      * @throws IllegalArgumentException if name is empty.
-     * 
-     * Empty unimplemented body.
      */
     public Manager( String name ) throws NullPointerException, IllegalArgumentException {
         if( name == null )
@@ -49,24 +47,12 @@ public class Manager {
      * 
      * @throws an IllegalArgumentException when the player's name is empty.
      * @throws an NullPointerException when the player's name is null.
-     * 
-     * Empty unimplemented body.
      */
     public Player addPlayer( String name ) throws IllegalArgumentException, NullPointerException  {
         Player newPlayer= new Player( name );
         roster.add( newPlayer );
         return newPlayer;
     }
-    
-    /**
-     * Gets the score of the team.
-     * 
-     * @return the score.
-     * 
-     * Empty unimplemented body.
-     */
-    //public int getScore()
-    //{ throw new UnsupportedOperationException(); }
     
     /**
      * Gets the players whose turn it is to guess.
@@ -77,8 +63,6 @@ public class Manager {
      * @return the player.
      * 
      * @throws NoSuchElementException when getRosterSize() == 0.
-     * 
-     * Empty unimplemented body.
      */
     public Player getPlayerUp() throws java.util.NoSuchElementException {
         // Cannot use this method when the roster is empty.
@@ -95,8 +79,6 @@ public class Manager {
      * Gets the roster size with List.size().
      * 
      * @return the number of players on the team.
-     * 
-     * Empty unimplemented body.
      */
     public int getRosterSize() {
         return roster.size();
@@ -109,8 +91,6 @@ public class Manager {
      *  addPlayer must have been successfully called at least once.
      * 
      * @throws NoSuchElementException when getRosterSize() == 0.
-     * 
-     * Empty unimplemented body.
      */
     public void nextPlayer() {
         int size= getRosterSize();
@@ -123,31 +103,4 @@ public class Manager {
                 ++playerUp;
         }
     }
-    
-    /**
-     * Accesses the name of the team.
-     * 
-     * @return the team name.
-     * 
-     * Empty unimplemented body.
-     */
-    //public String getName()
-    //{ throw new UnsupportedOperationException(); }
-    
-    /**
-     * Removes the player from the roster and changes the player up as needed.
-     * 
-     * Preconditions:
-     *  The player must have been created with addPlayer() successfully
-     * 
-     * Postconditions:
-     *  The player no longer exists on the roster.
-     *  
-     * @throws NoSuchElementException when getRosterSize() == 0 or the player is
-     *  not on the roster.
-     *  
-     *  Empty unimplemented body.
-     */
-    //public void resignPlayer( Player player ) throws java.util.NoSuchElementException
-    //{ throw new UnsupportedOperationException(); }
 }

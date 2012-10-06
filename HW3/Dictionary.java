@@ -14,13 +14,16 @@ public class Dictionary{
     static public final int MIN_WORDLENGTH= 3;
     /** The largest allowed word in the dictionary. */
     static public final int LARGEST_WORD= 12;
-    
+    /** Contains a list of array lists where there will be an inner list for each word length. */
     static List< ArrayList<String> > dataBank= new ArrayList< ArrayList<String> >(LARGEST_WORD);
+    /** I need the extra code because the Java static constructors were not working properly. */
     static public boolean constructed= false;
     {
         staticConstructor();
     }
-    
+    /**
+     * Adds one inner list for each word length.
+     */
     static private void staticConstructor(){
         if( !constructed ) {
             constructed= true;
@@ -31,11 +34,17 @@ public class Dictionary{
         }
     }
     
+    /**
+     * Used to ensure word lengths meet the proper size.
+     */
     static public boolean checkWordLength( int length ) {
         return length >= MIN_WORDLENGTH && length <= dataBank.size();
     }
     
     /**
+     * Adds a word into the dictionary data bank. Each word is sorted by
+     *  length into the databanks inner lists.
+     *  
      * @arg word is the new word to add.
      * 
      * @throws NullPointerException when word is null.
@@ -62,8 +71,6 @@ public class Dictionary{
      * @throws NullPointerException when file is null.
      * @throws IllegalArgumentException when file is empty.
      * @throws another error when file is bad.
-     * 
-     * Empty unimplemented body.
      */
     static public void load( String file ) throws NullPointerException, java.io.FileNotFoundException {
         if( file == null )

@@ -1,38 +1,49 @@
 
 /**
- * Provides a test intrument for GameEvent.
+ * Provides a test intrument for GameEvent. Used by the test classes.
  * 
  * @author Josh Gillham
  * @version 10-4-12
  */
 abstract class GameEventsBaseTester implements GameEvent {
-    int badGuesses= 0;
-    int errorGuesses= 0;
-    int ambiguousGuesses= 0;
-    
-    Player playerUp= null;
-    Manager teamUp= null;
-    //String savedGameWord= null;   
-    Manager gameWinningTeam= null;        
-    boolean gameOver= false;
-     //public void teamUp( Manager team ){
-    //    teamUp= team;
-    //}
+    /** Retains information as the callbacks take place. */
+    public int badGuesses= 0;
+    /** Retains information as the callbacks take place. */
+    public int errorGuesses= 0;
+    /** Retains information as the callbacks take place. */
+    public int ambiguousGuesses= 0;
+    /** Retains information as the callbacks take place. */
+    public Player playerUp= null;
+    /** Retains information as the callbacks take place. */
+    public Manager teamUp= null;
+    /** Retains information as the callbacks take place. */
+    public Manager gameWinningTeam= null;
+    /** Retains information as the callbacks take place. */
+    public boolean gameOver= false;
+    /** Retains information as the callbacks take place. */
     public int statusWordChanges= 0;
+    
+    /** Used for anomymous classes. */
+    public abstract void makeAssertions();
+    
+    /** Updates callback stats. */
     public void changedStatusWord( String statusWord ) {
         ++statusWordChanges;
     }
+    /** Updates callback stats. */
     public void playerUp( Player player ){
         playerUp= player;
     }
+    /** Updates callback stats. */
     public void gameWinner( Manager team ){
         gameWinningTeam= team;
     }
+    /** Updates callback stats. */
     public void gameOver( String gameWord ) {
         gameOver= true;
     }
         
-    public abstract void makeAssertions();
+    /** Makes a guess and keeps stats on the results. */
     public void guess( Logic game, char c ){
         System.out.println( "guess: " + c );
         try {
@@ -46,6 +57,7 @@ abstract class GameEventsBaseTester implements GameEvent {
             e.printStackTrace();
         }
     }
+    /** Makes a guess and keeps stats on the results. */
     public void guess( Logic game, String guess ){
         System.out.println( "guess: " + guess );
         try {

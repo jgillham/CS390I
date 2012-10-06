@@ -33,20 +33,14 @@ public class GameUI implements GameEvent {
      * Called after a guess is made. Displays the status word to the user.
      * 
      * @arg statusWord the word with some letters masked with underscores.
-     * 
-     * Empty unimplemented body.
      */
     public void changedStatusWord( String statusWord ) {
         this.statusWord= statusWord;
-        // Show the current progress on guessing.
-        
     }
     
     /**
      * Called when the game is finished. Announces the end of the game
      *  to the players.
-     * 
-     * Empty unimplemented body.
      */
     public void gameOver( String gameWord ) {
         // Show the word nobody could guess.
@@ -55,23 +49,10 @@ public class GameUI implements GameEvent {
     }
     
     /**
-     * Called teams are rotated. Announces the team whose turn
-     *  it is to guess.
-     * 
-     * @arg team the team to take a turn.
-     * 
-     * Empty unimplemented body.
-     */
-    //public void teamUp( Manager team )
-    //{ throw new UnsupportedOperationException(); }
-    
-    /**
      * Called when players are rotated. Announces the next 
      *  player with the turn to guess.
      * 
      * @arg player the player with the turn to guess.
-     * 
-     * Empty unimplemented body.
      */
     public void playerUp( Player player ) {
         Scanner inputScanner= new Scanner( System.in );
@@ -116,8 +97,6 @@ public class GameUI implements GameEvent {
      * Called when one team wins the game. Announces the winner.
      * 
      * @arg team the winner.
-     * 
-     * Empty unimplemented body.
      */
     public void gameWinner( Manager team ) {
         System.out.println( "Word: " + statusWord );

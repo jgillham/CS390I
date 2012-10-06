@@ -3,27 +3,7 @@ import java.util.LinkedList;
 import java.util.Iterator;
 
 /**
- * 
- * Allows other objects to take actions on the game logic.
- * 
- * When game is created, it will create a new instance of manger and retain the reference.
- * 
- * A team may have only one player or it may have many players. The game will know which 
- * team is up to bat. The manager should in-turn know which player is up to bat.
- * 
- * Constructor:
- *  Accepts the word length and the max attempts.
- * 
- * Private data summary:
- *  A list of teams (Manager classes)
- *  Guess list
- *  Total Wrong Guesses
- *  Game Word
- *  active team reference
- *  
- * TODO:
- *  -support history of word guesses.
- *  
+ * Controls the game. Updates the UI. Determines the outcome of the game. Allows player to take action on the game
  * 
  * @author Josh Gillham
  * @version 9-23-12
@@ -36,10 +16,20 @@ public class Logic{
     /** The default word size. */
     static public final int DEFAULT_WORD_SIZE= 5;
     
+    /** Thrown to signal when a guess has been repeated. */
     public class AmbiguousGuessException extends Exception {}
+    /** Thrown to signal bad constructor arguments where teams contain empty rosters. */
     public class EmptyTeamsException extends Exception {}
+    /** Thrown to signal bad constructor arguments when the team's list is empty. */
     public class NoTeamsException extends Exception {}
+    /** Thrown when makeGuess() is called twice in a row. */
     public class PlayerOutOfTurnException extends Exception {}
+    /** Used to show the game state. */
+    static public enum Statis {
+        STARTED,
+        OVER,
+        WINNER
+    }
     
     /** The word every player in the game will try and guess. */
     private String gameWord;
@@ -57,15 +47,8 @@ public class Logic{
     private int maxGuesses= DEFAULT_ATTEMPTS;
     /** True if the player still needs to take a turn. */
     private boolean playerInTurn= true;
-    
-    /** Used to signal the game state. */
-    static public enum Statis {
-        STARTED,
-        OVER,
-        WINNER
-    }
     /** Holds the game statis. */
-    Statis gameState= Statis.STARTED;
+    private Statis gameState= Statis.STARTED;
     
     /**
      * Checks to make sure teams has no teams with empty rosters. Makes sure there is at least one player
@@ -213,24 +196,6 @@ public class Logic{
     }
     
     /**
-     * Removes a team from the game. The team will automatically lose. If there is no teams
-     *  left in the game, there is no winner. If there is one team left, that team is the
-     *  winner. If there are two or more, the game resumes.
-     * 
-     * Preconditions:
-     *  manager's team must be in the game.
-     *  
-     * Postconditions:
-     *  The manager's team is no longer in the game.
-     * 
-     * @arg manager the manager of the team to remove.
-     * 
-     * @throws NoSuchElementException when the manager's team is not in the game.
-     * @throws NullPointerException when the manager is null
-     */
-    //public void resignTeam( Manager manager ) throws java.util.NoSuchElementException, java.lang.NullPointerException;
-    
-    /**
      * Can be called as much as the caller would like. Should be called to rotate the turns and
      *  prompt the UI to receive the next guess. If the word is completely guessed, the game is
      *  over and one team is the winner. If there are no more guesses remaining, the game
@@ -281,13 +246,6 @@ public class Logic{
     }
     
     /**
-     * Accesses the number of teams in the game. Returns 0 when Game is first created.
-     * 
-     * @return the number of teams
-     */
-    //public int getNumberOfTeams();
-    
-    /**
      * Sets the GameEvents handler. Used to pass messages back to the UI. Note a
      *  null handler will unset the event handler.
      *  
@@ -325,6 +283,7 @@ public class Logic{
      * Sets the max guesses.
      * 
      * @arg nMaxGuesses the new number of maximum guesses.
+     * 
      * @return the number of attempts remaining.
      * 
      * @throws IllegalArgumentException when nMaxGuesses < Logic.MIN_ATTEMPTS.
@@ -335,6 +294,11 @@ public class Logic{
         this.maxGuesses= nMaxGuesses;
     }
     
+    /**
+     * Used to access the history of guesses for all players and all teams.
+     * 
+     * @return an array of guesses.
+     */
     public String[] getGuesses() {
         String[] guessesList= new String[guesses.size()];
         for( int i= 0; i < guesses.size(); ++i ) {

@@ -11,13 +11,6 @@ public interface GameEvent {
     public void gameOver( String gameWord );
     
     /**
-     * Called when the teams are rotated.
-     * 
-     * @arg team is team who is ready to guess.
-     */
-    //public void teamUp( Manager team );
-    
-    /**
      * Called when the players are rotated.
      * 
      * @arg player the player with the turn to guess.
