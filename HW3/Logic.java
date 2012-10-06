@@ -75,8 +75,8 @@ public class Logic{
      * @arg gameWordLength the length of the game word.
      * 
      * @throws NoSuchElementException when teams is empty or any Manager.getRosterSize() returns 0.
-     * @throws IllegalArgumentException when gameWordLength is less than Dictionary.MIN_WORDLENGTH
-     *  and greater than Dictionary.MAX_WORDLENGTH.
+     * @throws IllegalArgumentException when gameWordLength is out of range
+     *  of the dictionary limits.
      */
     public Logic( java.util.List< Manager > teams, int gameWordLength ) throws EmptyTeamsException, NoTeamsException  {
         this( teams, Dictionary.getWord( gameWordLength ) );
@@ -126,6 +126,7 @@ public class Logic{
      *  List of guesses grows.
      *  Status word is updated for each letter found.
      *  eventHandler.changedStatusWord is called if any letter is found.
+     *  Player is now off turn.
      * 
      * @arg letter is the letter to guess
      * 
@@ -133,6 +134,9 @@ public class Logic{
      * 
      * @throws IllegalArgumentException when letter is not a letter i.e. '?' or '9'
      * @throws AmbiguousGuessException when the letter is already guessed.
+     * @throws PlayerOutOfTurnException when the player has already guessed. Called
+     *  should also call rotateTurn() after this method everytime unless an error
+     *  is thrown.
      */
     public boolean makeGuess( char letter ) throws AmbiguousGuessException, PlayerOutOfTurnException {
         if( !playerInTurn )

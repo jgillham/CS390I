@@ -18,34 +18,7 @@ import java.util.LinkedList;
  * @author  Josh Gillham
  * @version 9-23-12
  */
-public class testLogic
-{
-    /**
-     * Default constructor for test class testGame
-     */
-    public testLogic()
-    {
-    }
-
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
-    @Before
-    public void setUp()
-    {
-    }
-
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
-    @After
-    public void tearDown()
-    {
-    }
+public class testLogic {
     
     /** Keeps the Test_InstrumentLogic class for other tests. */
     SetupBase wrapLogic;
@@ -162,6 +135,27 @@ public class testLogic
     }
     
     /**
+     * Test makeGuess. Should throw an error.
+     */
+    @Test( expected= Logic.PlayerOutOfTurnException.class )
+    public void testMakeGuess_NoRotateTurn() throws Exception {
+        Logic newGame= wrapLogic.getGame();
+        newGame.makeGuess( 'a' );
+        newGame.makeGuess( 'b' );
+    }
+    
+    /**
+     * Test makeGuess. Should not throw an error.
+     */
+    @Test
+    public void testMakeGuess_RotateTurn() throws Exception {
+        Logic newGame= wrapLogic.getGame();
+        newGame.makeGuess( 'a' );
+        newGame.rotateTurn();
+        newGame.makeGuess( 'b' );
+    }
+    
+    /**
      * Tests makeGuess to make sure good guesses return true.
      */
     @Test
@@ -213,6 +207,49 @@ public class testLogic
     }
     
     /**
+     * Test makeGuess with a bad argument. Error expected.
+     */
+    @Test( expected= IllegalArgumentException.class )
+    public void testMakeGuess_String_wLength()throws Exception {
+        game.makeGuess( "op" );
+    }
+    
+    /**
+     * Test makeGuess with a bad argument. Error expected.
+     */
+    @Test( expected= NullPointerException.class )
+    public void testMakeGuess_String_wNull()throws Exception {
+        game.makeGuess( null );
+    }
+    
+    /**
+     * Test makeGuess with a bad argument. Error expected.
+     */
+    @Test( expected= Logic.PlayerOutOfTurnException.class )
+    public void testMakeGuess_String_NoRotateTurn()throws Exception {
+        game.makeGuess( "cat" );
+        game.makeGuess( "mouse" );
+    }
+    
+    /**
+     * Test makeGuess with a bad argument. Error expected.
+     */
+    @Test( expected= Logic.PlayerOutOfTurnException.class )
+    public void testMakeGuess_String_RotateTurn()throws Exception {
+        game.makeGuess( "cat" );
+        game.rotateTurn();
+        game.makeGuess( "mouse" );
+    }
+    
+    /**
+     * Test makeGuess with a bad argument. Error expected.
+     */
+    @Test( expected= Logic.PlayerOutOfTurnException.class )
+    public void testMakeGuess_String_Nonletters()throws Exception {
+        game.makeGuess( "ca$t" );
+    }
+    
+    /**
      * Test UI event setter to make sure this doesn't throw an error.
      */
     @Test
@@ -239,12 +276,29 @@ public class testLogic
         assertEquals( 1, newGame.getAttempts() );
     }
     
-    /**
-     * Test UI event setter to make sure null does not throw an error.
-     */
     @Test( expected= IllegalArgumentException.class )
     public void testSetMaxAttempts() throws Exception {
         Logic newGame= wrapLogic.getGame( "Logic" );
         newGame.setMaxAttempts( Logic.MIN_ATTEMPTS - 1 );
+    }
+    
+    @Test
+    public void testRotateTurn() throws Exception {
+        Logic newGame= wrapLogic.getGame( "Logic" );
+        newGame.rotateTurn();
+    }
+    
+    @Test
+    public void testGetGameState() throws Exception {
+        Logic newGame= wrapLogic.getGame( "Logic" );
+        assertEquals( Logic.Statis.STARTED, newGame.getGameState() );
+    }
+    
+    @Test
+    public void testGetGuesses() throws Exception {
+        Logic newGame= wrapLogic.getGame( "Logic" );
+        assertEquals( 0, newGame.getGuesses().length );
+        newGame.makeGuess( 'j' );
+        assertEquals( 1, newGame.getGuesses().length );
     }
 }
