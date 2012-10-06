@@ -39,6 +39,7 @@ public class Logic{
     public class AmbiguousGuessException extends Exception {}
     public class EmptyTeamsException extends Exception {}
     public class NoTeamsException extends Exception {}
+    public class PlayerOutOfTurnException extends Exception {}
     
     /** The word every player in the game will try and guess. */
     private String gameWord;
@@ -133,7 +134,9 @@ public class Logic{
      * @throws IllegalArgumentException when letter is not a letter i.e. '?' or '9'
      * @throws AmbiguousGuessException when the letter is already guessed.
      */
-    public boolean makeGuess( char letter ) throws AmbiguousGuessException {
+    public boolean makeGuess( char letter ) throws AmbiguousGuessException, PlayerOutOfTurnException {
+        if( !playerInTurn )
+            throw new PlayerOutOfTurnException();
         if( !Character.isLetter( letter ) )
             throw new IllegalArgumentException();
         letter= Character.toLowerCase( letter );
@@ -177,7 +180,9 @@ public class Logic{
      * @throws IllegalArgumentException when the guess contains non-letters i.e. '?' or '9'
      * @throws AmbiguousGuessException when the guess is already guessed.
      */
-    public boolean makeGuess( String word ) throws AmbiguousGuessException {
+    public boolean makeGuess( String word ) throws AmbiguousGuessException, PlayerOutOfTurnException {
+        if( !playerInTurn )
+            throw new PlayerOutOfTurnException();
         if( word == null )
             throw new NullPointerException();
         if( word.length() == 1 ) {
@@ -251,14 +256,14 @@ public class Logic{
                 this.eventHandler.gameOver( this.gameWord );
             return;
         }
+        // Make sure its the player's turn.
+        this.playerInTurn= true;
         // Player still needs to make a guess.
         if( this.playerInTurn ) {
             if( this.eventHandler != null )
                 this.eventHandler.playerUp( this.gameTeams.get( this.activeTeam ).getPlayerUp() );
             return;
         }
-        // Now its the next player's turn.
-        this.playerInTurn= true;
         // Rotate players
         this.gameTeams.get( activeTeam ).nextPlayer();
         // Rotate the teams

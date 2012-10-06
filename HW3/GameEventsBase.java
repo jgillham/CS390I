@@ -8,7 +8,7 @@
 public class GameEventsBase implements GameEvent {
     Player playerUp= null;
     Manager teamUp= null;
-    String savedGameWord= null;        
+    //String savedGameWord= null;   
     Manager gameWinningTeam= null;        
     boolean gameOver= false;
      //public void teamUp( Manager team ){

@@ -14,34 +14,7 @@ import java.util.LinkedList;
  * @author  Josh Gillham
  * @version 9-23-12
  */
-public class testGameEvent
-{
-    /**
-     * Default constructor for test class testGame
-     */
-    public testGameEvent()
-    {
-    }
-
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
-    @Before
-    public void setUp()
-    {
-    }
-
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
-    @After
-    public void tearDown()
-    {
-    }
+public class testGameEvent{
     
     public String savedGameWord= "flamingo";
     class GameEventsTester extends GameEventsBase{
@@ -63,7 +36,7 @@ public class testGameEvent
         Logic game= wrapGame.getGame();
         GameEventsBase gameEvents= new GameEventsBase();
         game.setGameEventsHandler( gameEvents );
-        assertEquals( firstTeam, gameEvents.teamUp );
+        //assertEquals( firstTeam, gameEvents.teamUp );
         assertEquals( firstPlayer, gameEvents.playerUp );
     }
     
@@ -74,6 +47,8 @@ public class testGameEvent
     public void testGameOver() throws Exception {
         SetupBase wrapGame= new SetupBase( );
         GameEventsBase gameEvents= new GameEventsBase();
+        wrapGame.addManager( "D" );
+        wrapGame.addPlayer( "D" );
         Logic game= wrapGame.getGame();
         game.setGameEventsHandler( gameEvents );
         String partialABCs= "abcdefghijklmnopqr";
@@ -81,7 +56,10 @@ public class testGameEvent
             char c= partialABCs.charAt( i );
             try{
                 game.makeGuess( c );
+            System.out.println( "Guesses Remaining: ");
             }catch( Logic.AmbiguousGuessException e ) {}
+            game.rotateTurn();
+
         }
         assertTrue( gameEvents.gameOver );
         assertNull( gameEvents.gameWinningTeam );
@@ -98,13 +76,16 @@ public class testGameEvent
         GameEventsBase gameEvents= new GameEventsBase();
         Logic game= wrapGame.getGame( savedGameWord );
         game.setGameEventsHandler( gameEvents );
-        for( int i= 0; i < savedGameWord.length(); ++i ) {
-            char c= savedGameWord.charAt( i );
+        int i= 0;
+        while( game.getGameState() == Logic.Statis.STARTED && i < savedGameWord.length() ){
+            char c= savedGameWord.charAt( i++ );
             try{
                 game.makeGuess( c );
             }catch( Logic.AmbiguousGuessException e ) {}
+            game.rotateTurn();
         }
-        assertTrue( gameEvents.gameOver );
+        
+        assertFalse( gameEvents.gameOver );
         assertNotNull( gameEvents.gameWinningTeam );
         assertEquals( firstTeam, gameEvents.gameWinningTeam );
     }
@@ -117,15 +98,22 @@ public class testGameEvent
     @Test
     public void testChangedStatusWord() throws Exception {
         SetupBase wrapGame= new SetupBase( );
+        wrapGame.addManager( "D" );
+        wrapGame.addPlayer( "D" );
         Logic game= wrapGame.getGame( savedGameWord );
         GameEventsTester gameEvents= new GameEventsTester();
         game.setGameEventsHandler( gameEvents );
-        for( int i= 0; i < savedGameWord.length(); ++i ) {
-            char c= savedGameWord.charAt( i );
+        int i= 0;
+        while( game.getGameState() == Logic.Statis.STARTED && i < savedGameWord.length() - 1 ){
+            char c= savedGameWord.charAt( i++ );
             try{
                 game.makeGuess( c );
             }catch( Logic.AmbiguousGuessException e ) {}
+            game.rotateTurn();
         }
+        assertFalse( gameEvents.gameOver );
+        assertNull( gameEvents.gameWinningTeam );
+        assertEquals( Logic.Statis.STARTED, game.getGameState() );
         assertEquals( savedGameWord.length(), gameEvents.statusWordChanges );
     }
     
@@ -135,19 +123,23 @@ public class testGameEvent
     @Test
     public void testChangedStatusWord_wBadGuesses() throws Exception {
         SetupBase wrapGame= new SetupBase( );
+        wrapGame.addManager( "D" );
+        wrapGame.addPlayer( "D" );
         Logic game= wrapGame.getGame( savedGameWord );
         GameEventsTester gameEvents= new GameEventsTester();
         game.setGameEventsHandler( gameEvents );
-        StringBuilder wrd= new StringBuilder( gameEvents.savedGameWord );
+        StringBuilder wrd= new StringBuilder( savedGameWord );
         // Insert crazy letters in between to simulate bad guesses
         wrd.insert( 1, 'u' );
         wrd.insert( 3, 'z' );
         wrd.insert( 5, 'y' );
-        for( int i= 0; i < savedGameWord.length(); ++i ) {
-            char c= savedGameWord.charAt( i );
+        int i= 0;
+        while( game.getGameState() == Logic.Statis.STARTED && i < savedGameWord.length() ){
+            char c= savedGameWord.charAt( i++ );
             try{ 
                 game.makeGuess( c );
             }catch( Logic.AmbiguousGuessException e ) {}
+            game.rotateTurn();
         }
         // The status word changes should be the same
         // Remember it only changes for good guesses

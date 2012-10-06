@@ -67,7 +67,8 @@ public class integrationTestGamePlay {
                 ++ambiguousGuesses;
             }catch( IllegalArgumentException e ) {
                 ++errorGuesses;
-            }
+            }catch( PlayerOutOfTurnException e ) {
+                e.printStackTrace()
         }
         public void guess( Logic game, String guess ){
             System.out.println( "guess: " + guess );
