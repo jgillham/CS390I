@@ -7,21 +7,19 @@ In BlueJ, run SetupUI.main( null );
 AUTHORS: Josh Gillham
 ASSIGNMENT:
 
-Submit a single file, whose name must be hangman.zip, that contains a zip-format archive of an entire BlueJ project folder with your implementation of the Hangman application.
+Add new features to the original game. The program will wait until later to decide the game word.
 
-Your project must include well-documented java source code files that implement the hangman application as well as unit test classes with tests for the non-void public methods.
+When the player makes a guess the program will divide the words into a set that contains the guess and ones that don't.
 
-Use the Notes section to provide your observations and insights regarding the learning associated with this experience. 
+The program will select the set with most words.
 
-API Outline
+When the next guess occurs the program repeats this process with the selected sets.
 
-Game - holds scores, stats, and accepts game actions.
+When the selected set only has one word left, then program choose it as the game word.
 
-Manager - tracks team scores, stats, and keeps a list of players.
 
-Player - tracks player stats, scores, and accepts player actions.
+This will cause the odds to always be stacked against the player at every guess.
 
-Dictionary - holds word data bank and has game-related methods.
 
 GOALS/TODO:
 
