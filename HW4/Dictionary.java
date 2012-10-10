@@ -1,3 +1,5 @@
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
@@ -115,6 +117,23 @@ public class Dictionary{
         // Get a random word
         int randomIndex= (int)( Math.random() * list.size() );
         return list.get( randomIndex );
+    }
+    
+    /**
+     * Accesses a set from the dictionary.
+     * 
+     * @arg length is the length of the word to find.
+     * 
+     * @return the set of words
+     * 
+     * @throw IllegalArgumentException when the length is less than MIN_WORDLENGTH 
+     *   or greater than MAX_WORDLENGTH
+     */
+    static public Set< String > getSet( int length )throws java.util.NoSuchElementException {
+        staticConstructor();
+        if( !checkWordLength( length ) )
+            throw new IllegalArgumentException();
+        return new TreeSet< String >( dataBank.get( length - 1 ) );
     }
         
 }

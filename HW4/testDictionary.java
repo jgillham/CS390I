@@ -10,6 +10,7 @@ import java.lang.NullPointerException;
  * TODO
  * -TEST checkWordLength
  * -test depositWord
+ * -test getSet
  * @author  Josh Gillham
  * @version 9-23-12
  */

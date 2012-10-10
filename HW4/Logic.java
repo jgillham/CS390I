@@ -32,7 +32,9 @@ public class Logic{
     }
     
     /** The word every player in the game will try and guess. */
-    private String gameWord;
+    private String gameWord= null;
+    /** Holds the potiential words. */
+    private WordCanidates wordCanidates;
     /** Holds the teams in the game. */
     private List< Manager > gameTeams;
     /** Holds the guess made. */
@@ -52,21 +54,6 @@ public class Logic{
     
     /**
      * Checks to make sure teams has no teams with empty rosters. Makes sure there is at least one player
-     *  and one team. Makes sure the word length is allowed in the dictionary.
-     *  
-     * @arg teams the teams for the game.
-     * @arg gameWordLength the length of the game word.
-     * 
-     * @throws NoSuchElementException when teams is empty or any Manager.getRosterSize() returns 0.
-     * @throws IllegalArgumentException when gameWordLength is out of range
-     *  of the dictionary limits.
-     */
-    public Logic( java.util.List< Manager > teams, int gameWordLength ) throws EmptyTeamsException, NoTeamsException  {
-        this( teams, Dictionary.getWord( gameWordLength ) );
-    }
-    
-    /**
-     * Checks to make sure teams has no teams with empty rosters. Makes sure there is at least one player
      *  and one team. The gameWord must not be empty or null.
      *  
      * @arg teams the teams for the game.
@@ -74,24 +61,94 @@ public class Logic{
      * 
      * @throws EmptyTeamsException when any Manager.getRosterSize() returns 0.
      * @throws NoTeamsException when teams is empty.
-     * @throws IllegalArgumentException when gameWord is empty.
+     * @throws IllegalArgumentException when gameWordLength is out of range
+     *  of the dictionary limits.
+     */
+    public Logic( List< Manager > teams, int gameWordLength ) throws EmptyTeamsException, NoTeamsException  {
+        if( !Dictionary.checkWordLength( gameWordLength ) )
+            throw new IllegalArgumentException();
+        
+        checkTeams( teams );
+        
+        wordCanidates= new WordCanidates( Dictionary.getSet( gameWordLength ) ){
+            public int chooseSet( int hasLetterSize, int doesntHaveLetterSize ){
+                int smaller, larger;
+                if( hasLetterSize > doesntHaveLetterSize ){
+                    smaller= doesntHaveLetterSize;
+                    larger= hasLetterSize;
+                }else {
+                    smaller= hasLetterSize;
+                    larger= doesntHaveLetterSize;
+                }
+                
+                
+                float ratio= smaller / larger;
+                if( ratio > .7 ){
+                    return doesntHaveLetterSize;
+                }else{
+                    return larger;
+                }
+            }
+        };
+        
+        gameTeams= teams;
+        initStatusWord( gameWordLength );
+    }
+    
+    /**
+     * Checks to make sure teams has no teams with empty rosters. Makes sure there is at least one player
+     *  and one team. The gameWord must not be empty or null.
+     *  
+     * @arg teams the teams for the game.
+     * @arg gameWord the word to guess
+     * 
+     * @throws EmptyTeamsException when any Manager.getRosterSize() returns 0.
+     * @throws NoTeamsException when teams is empty.
+     * @throws IllegalArgumentException when gameWord is empty
      * @throws NullPointerException when gameWord is null.
      */
-    public Logic( java.util.List< Manager > teams, String gameWord ) throws EmptyTeamsException, NoTeamsException  {
-        if( teams.size() == 0 )
-            throw new NoTeamsException();
+    public Logic( List< Manager > teams, String gameWord ) throws EmptyTeamsException, NoTeamsException  {
         if( gameWord == null )
             throw new NullPointerException();
         if( gameWord.isEmpty() )
             throw new IllegalArgumentException();
+        
+        checkTeams( teams );
+        
+        gameTeams= teams;
+        this.gameWord= gameWord;
+        initStatusWord( gameWord.length() );
+    }
+    
+    /**
+     * Checks the teams argument for a bad value.
+     * 
+     * @arg teams a list of teams.
+     * 
+     * @throws EmptyTeamsException when any Manager.getRosterSize() returns 0.
+     * @throws NoTeamsException when teams is empty.
+     */
+    private final void checkTeams( List< Manager > teams ) throws EmptyTeamsException, NoTeamsException {
+        if( teams.size() == 0 )
+            throw new NoTeamsException();
+        
         // Make sure all teams have at least one player.
         for( Manager team: teams ) {
             if( team.getRosterSize() == 0 )
                 throw new EmptyTeamsException();
         }
-        
-        gameTeams= teams;
-        this.gameWord= gameWord;
+    }
+    
+    /**
+     * Initializes the statusWord.
+     * 
+     * @arg wordLength the length of the word.
+     * 
+     * @throws IllegalArgumentException when word length is less than 1.
+     */
+    private final void initStatusWord( int wordLength ) {
+        if( wordLength < 1 )
+            throw new IllegalArgumentException();
         for( int i= 0; i < gameWord.length(); ++i )
             statusWord.append( '-' );
     }
