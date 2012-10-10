@@ -33,6 +33,33 @@ abstract public class WordCanidates  {
     public int count() {
         return wordCanidates.size();
     }
+    public void subDivide( char letter ) {
+        int length= wordCanidates.get( 0 ).length();
+        StringBuilder basePattern= new StringBuilder();
+        for( int i= 0; i < length; ++i ) {
+            basePattern.append( '-' );
+        }
+        java.util.Map< String, List< String > > subLists= new java.util.HashMap< String, List< String > >(24);
+        Iterator< String > i= wordCanidates.iterator();
+        while( i.hasNext() ) {
+            String word= i.next();
+            StringBuilder pattern= new StringBuilder( basePattern );
+            int start= -1;
+            while( ( start= word.indexOf( letter, start + 1 ) ) > -1 ){
+                pattern.setCharAt( start, letter );
+            }
+            if( start != -1 ) {
+                List< String > subList= subLists.get( pattern.toString() );
+                if( subList == null ) {
+                    subList= new java.util.ArrayList< String >(500);
+                    subLists.put( pattern.toString(), subList );
+                }
+                subList.add( word );
+            }
+            
+        }
+        
+    }
     
     /**
      * Narrows down the list.
@@ -122,3 +149,4 @@ abstract public class WordCanidates  {
         return wordCanidates.get( rand );
     }
 }
+
