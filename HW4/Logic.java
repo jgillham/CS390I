@@ -149,7 +149,7 @@ public class Logic{
     private final void initStatusWord( int wordLength ) {
         if( wordLength < 1 )
             throw new IllegalArgumentException();
-        for( int i= 0; i < gameWord.length(); ++i )
+        for( int i= 0; i < wordLength; ++i )
             statusWord.append( '-' );
     }
     
@@ -208,7 +208,9 @@ public class Logic{
         for( int i= 0; i < exampleWord.length(); ++i ) {
             char wordLetter= exampleWord.charAt( i );
             if( letter == Character.toLowerCase( wordLetter ) ) {
-                wordCanidates.mustHave( letter, i );
+                if( wordCanidates != null ){
+                    wordCanidates.mustHave( letter, i );
+                }
                 found= true;
                 // Replace the dash with the letter
                 this.statusWord.setCharAt( i, letter );
