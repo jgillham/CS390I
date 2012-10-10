@@ -15,7 +15,7 @@ public class Dictionary{
     /** The largest allowed word in the dictionary. */
     static public final int LARGEST_WORD= 12;
     /** Contains a list of array lists where there will be an inner list for each word length. */
-    static List< ArrayList<String> > dataBank= new ArrayList< ArrayList<String> >(LARGEST_WORD);
+    static List< List<String> > dataBank= new ArrayList< List<String> >(LARGEST_WORD);
     /** I need the extra code because the Java static constructors were not working properly. */
     static public boolean constructed= false;
     {
