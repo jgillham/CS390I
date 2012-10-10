@@ -129,11 +129,11 @@ public class Dictionary{
      * @throw IllegalArgumentException when the length is less than MIN_WORDLENGTH 
      *   or greater than MAX_WORDLENGTH
      */
-    static public Set< String > getSet( int length )throws java.util.NoSuchElementException {
+    static public List< String > getSet( int length )throws java.util.NoSuchElementException {
         staticConstructor();
         if( !checkWordLength( length ) )
             throw new IllegalArgumentException();
-        return new TreeSet< String >( dataBank.get( length - 1 ) );
+        return new ArrayList< String >( dataBank.get( length - 1 ) );
     }
         
 }

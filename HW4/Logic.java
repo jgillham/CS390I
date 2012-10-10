@@ -193,12 +193,22 @@ public class Logic{
         }
         // Add this guess to the list.
         this.guesses.add( guess );
+        
         this.playerInTurn= false;
         boolean found= false;
+        String exampleWord;
+
+        if( this.gameWord == null ){
+            exampleWord= wordCanidates.getRandomCanidate( );
+            wordCanidates.eliminate( letter );
+        }else{
+            exampleWord= this.gameWord;
+        }
         // Try to find the letter in the game word and update the status word as we go.
-        for( int i= 0; i < this.gameWord.length(); ++i ) {
-            char wordLetter= this.gameWord.charAt( i );
+        for( int i= 0; i < exampleWord.length(); ++i ) {
+            char wordLetter= exampleWord.charAt( i );
             if( letter == Character.toLowerCase( wordLetter ) ) {
+                wordCanidates.mustHave( letter, i );
                 found= true;
                 // Replace the dash with the letter
                 this.statusWord.setCharAt( i, letter );
@@ -241,15 +251,24 @@ public class Logic{
         }
         this.guesses.add( word );
         this.playerInTurn= false;
-        if( word.equalsIgnoreCase( gameWord ) ) {
-            statusWord= new StringBuilder( gameWord );
-            // Show the UI the new found letters.
-            if( this.eventHandler != null )
-                this.eventHandler.changedStatusWord( statusWord.toString() );
-            return true;
+        if( gameWord == null ) {
+            if( wordCanidates.count() == 1 ){
+                if( this.eventHandler != null )
+                    this.eventHandler.changedStatusWord( statusWord.toString() );
+                return true;
+            }else{
+                return false;
+            }
+        } else {
+            if( word.equalsIgnoreCase( gameWord ) ) {
+                statusWord= new StringBuilder( gameWord );
+                if( this.eventHandler != null )
+                    this.eventHandler.changedStatusWord( gameWord );
+                return true;
+            } else {
+                return false;
+            }
         }
-        return false;
-            
     }
     
     /**
