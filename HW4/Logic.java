@@ -35,6 +35,8 @@ public class Logic{
     private String gameWord= null;
     /** Holds the potiential words. */
     private WordCanidates wordCanidates;
+    /** Holds the game word length. */
+    private int gameWordLength;
     /** Holds the teams in the game. */
     private List< Manager > gameTeams;
     /** Holds the guess made. */
@@ -92,6 +94,7 @@ public class Logic{
         };
         
         gameTeams= teams;
+        this.gameWordLength=gameWordLength;
         initStatusWord( gameWordLength );
     }
     
@@ -113,11 +116,12 @@ public class Logic{
         if( gameWord.isEmpty() )
             throw new IllegalArgumentException();
         
-        checkTeams( teams );
+        this.checkTeams( teams );
         
-        gameTeams= teams;
+        this.gameTeams= teams;
         this.gameWord= gameWord;
-        initStatusWord( gameWord.length() );
+        this.gameWordLength=gameWord.length();
+        this.initStatusWord( gameWord.length() );
     }
     
     /**
@@ -199,8 +203,8 @@ public class Logic{
         String exampleWord;
 
         if( this.gameWord == null ){
-            exampleWord= wordCanidates.getRandomCanidate( );
             wordCanidates.eliminate( letter );
+            exampleWord= wordCanidates.getRandomCanidate( );
         }else{
             exampleWord= this.gameWord;
         }
@@ -208,7 +212,7 @@ public class Logic{
         for( int i= 0; i < exampleWord.length(); ++i ) {
             char wordLetter= exampleWord.charAt( i );
             if( letter == Character.toLowerCase( wordLetter ) ) {
-                if( wordCanidates != null ){
+                if( this.gameWord == null ){
                     wordCanidates.mustHave( letter, i );
                 }
                 found= true;
@@ -244,7 +248,7 @@ public class Logic{
         if( word.length() == 1 ) {
             return this.makeGuess( word.charAt( 0 ) );
             
-        }else if( word.length() != gameWord.length() ) {
+        }else if( word.length() != this.gameWordLength ) {
             throw new IllegalArgumentException();
         }
         for( int i= 0; i < word.length(); ++i ) {

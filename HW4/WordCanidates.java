@@ -56,15 +56,26 @@ abstract public class WordCanidates  {
             else
                 doesntHaveLetter.add( word );
         }
-        int choose= chooseSet( hasLetter.size(), doesntHaveLetter.size() );
+        int choose;
+        if( hasLetter.size() == 0 ){
+            choose= doesntHaveLetter.size();
+        }else if( doesntHaveLetter.size() == 0 ){
+            choose= hasLetter.size();
+        }else {
+            choose= chooseSet( hasLetter.size(), doesntHaveLetter.size() );
+        }
+        boolean result= false;
         if( choose == hasLetter.size() ) {
             wordCanidates= hasLetter;
-            return true;
+            result= true;
         }else if( choose == doesntHaveLetter.size() ) {
             wordCanidates= doesntHaveLetter;
-            return false;
         }else
             throw new java.util.NoSuchElementException( "Choose does not match any size." );
+        // This should never occur.
+        if( wordCanidates.size() == 0 )
+            throw new java.lang.AssertionError( "wordCanidates.size() is 0" );
+        return result;
     }
     
     /** Helps eliminate( char ) decide which set to choose. */
@@ -81,12 +92,22 @@ abstract public class WordCanidates  {
         while( i.hasNext() ) {
             String word= i.next();
             // Try to find a character at this position.
+            System.out.println( "word: " + word );
+            System.out.println( "letter: " + letter );
+            System.out.println( "position: " + position );
             int start= -1;
-            while( ( start= word.indexOf( letter, start + 1 ) ) != position && start > -1 ){}
+            System.out.println( "Start: " + start );
+            while( ( start= word.indexOf( letter, start + 1 ) ) != position && start > -1 ){
+                System.out.println( "Start: " + start );
+            }
+            System.out.println( "Start: " + start );
             if( start == -1 ) {
                 i.remove();
             }
         }
+        // This should never occur.
+        if( wordCanidates.size() == 0 )
+            throw new java.lang.AssertionError( "wordCanidates.size() is 0" );
     }
     
     /**
@@ -95,7 +116,9 @@ abstract public class WordCanidates  {
      * @return the word
      */
     public String getRandomCanidate() {
+        System.out.println( "wordCanidates.size(): " + wordCanidates.size() );
         int rand= (int)(Math.random() * wordCanidates.size());
+        System.out.println( "rand: " + rand );
         return wordCanidates.get( rand );
     }
 }
