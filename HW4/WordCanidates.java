@@ -33,7 +33,20 @@ abstract public class WordCanidates  {
     public int count() {
         return wordCanidates.size();
     }
-    public void subDivide( char letter ) {
+    /**
+     * Divides word canidates into smaller lists that correspond to status word
+     *  patterns i.e. --a---.
+     *  
+     * Example:
+     *  --a--- List1
+     *  -a--a- List2
+     *  ------ List3
+     *  
+     * @arg letter is the letter to divide the lists by.
+     * 
+     * @return maps status word patterns to lists of words with those patterns.
+     */
+    public java.util.Map< String, List< String > > subDivide( char letter ) {
         int length= wordCanidates.get( 0 ).length();
         StringBuilder basePattern= new StringBuilder();
         for( int i= 0; i < length; ++i ) {
@@ -56,9 +69,8 @@ abstract public class WordCanidates  {
                 }
                 subList.add( word );
             }
-            
         }
-        
+        return subLists;
     }
     
     /**
