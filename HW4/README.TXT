@@ -6,6 +6,13 @@ In BlueJ, run SetupUI.main( null );
 
 AUTHORS: Josh Gillham
 ASSIGNMENT:
+Extend the Hangman project with another version of the game in which the program delays selecting a single target word as long as possible. Instead of choosing a target word, the program should continually maintain a set of candidate words that match the previous guesses. When necessary, the program should choose a random entry from that set of words to reveal as the target word.
+
+Note that for this assignment you may choose to turn in the project as late as 11:55PM on October 21. However, be aware that scores for assignments turned in between 11:55PM on October 19 and 11:55PM on October 21 will be multiplied by 0.75 so this should be considered a tactic of last resort. Note also that any assignments turned in after 11:55PM on October 21 will receive a score of 0.
+
+Submit one file, named evilhangman.zip, that is a zipped archive of an entire BlueJ project directory. Ensure that your source code has proper javadoc comments (including @author tags for the classes) and at least some basic unit tests in associated test classes.
+
+Include a reflection about learning that occurred during the experience of completing this assignment in the Notes section.
 
 Add new features to the original game. The program will wait until later to decide the game word.
 
