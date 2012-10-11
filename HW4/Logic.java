@@ -200,26 +200,48 @@ public class Logic{
         
         this.playerInTurn= false;
         boolean found= false;
-        String exampleWord;
 
         if( this.gameWord == null ){
-            wordCanidates.eliminate( letter );
-            exampleWord= wordCanidates.getRandomCanidate( );
+            java.util.Map< String, List< String > > subLists= wordCanidates.subDivide( letter );
+            java.util.Set< String > keys= subLists.keySet();
+            String selectedKey= null;
+            if( keys.size() == 1 ) {
+                selectedKey= keys.iterator().next();
+            } else {
+                int max= 0;
+                Iterator< String > i= keys.iterator();
+                while( i.hasNext() ){
+                    String key= i.next();
+                    List< String > subList= subLists.get( key );
+                    if( max < subList.size() ) {
+                        max= subList.size();
+                        selectedKey= key;
+                    }
+                }                
+            }
+            if( selectedKey == null )
+                throw new java.lang.AssertionError( "Key was not selected." );
+            this.statusWord= new StringBuilder( selectedKey );
+            List< String > subList= subLists.get( selectedKey );
+            if( subList.size() == 1 ) {
+                this.gameWord= subList.get( 0 );
+            }else{
+                wordCanidates= new WordCanidates( subList );
+            }
+            found= selectedKey.indexOf( letter ) > -1;
+            
         }else{
-            exampleWord= this.gameWord;
-        }
-        // Try to find the letter in the game word and update the status word as we go.
-        for( int i= 0; i < exampleWord.length(); ++i ) {
-            char wordLetter= exampleWord.charAt( i );
-            if( letter == Character.toLowerCase( wordLetter ) ) {
-                if( this.gameWord == null ){
-                    wordCanidates.mustHave( letter, i );
+            // Try to find the letter in the game word and update the status word as we go.
+            for( int i= 0; i < this.gameWord.length(); ++i ) {
+                char wordLetter= this.gameWord.charAt( i );
+                if( letter == Character.toLowerCase( wordLetter ) ) {
+                    found= true;
+                    // Replace the dash with the letter
+                    this.statusWord.setCharAt( i, letter );
                 }
-                found= true;
-                // Replace the dash with the letter
-                this.statusWord.setCharAt( i, letter );
             }
         }
+        
         // Show the UI the new found letters.
         if( this.eventHandler != null && found )
             this.eventHandler.changedStatusWord( statusWord.toString() );
@@ -258,13 +280,9 @@ public class Logic{
         this.guesses.add( word );
         this.playerInTurn= false;
         if( gameWord == null ) {
-            if( wordCanidates.count() == 1 ){
-                if( this.eventHandler != null )
-                    this.eventHandler.changedStatusWord( statusWord.toString() );
-                return true;
-            }else{
-                return false;
-            }
+            if( wordCanidates.count() == 1 )
+                throw new java.lang.AssertionError( "Game word should have been selected." );
+            return false;
         } else {
             if( word.equalsIgnoreCase( gameWord ) ) {
                 statusWord= new StringBuilder( gameWord );
