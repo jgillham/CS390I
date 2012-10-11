@@ -60,7 +60,9 @@ public class WordCanidates  {
             String word= i.next();
             StringBuilder pattern= new StringBuilder( basePattern );
             int start= -1;
-            while( ( start= word.indexOf( letter, start + 1 ) ) > -1 ){
+            int temp;
+            while( ( temp= word.indexOf( letter, start + 1 ) ) > -1 ){
+                start= temp;
                 pattern.setCharAt( start, letter );
             }
             if( start != -1 ) {
