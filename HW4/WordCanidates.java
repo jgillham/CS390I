@@ -8,7 +8,7 @@ import java.util.Iterator;
  * @author Josh Gillham 
  * @version 10-9-12
  */
-abstract public class WordCanidates  {
+public class WordCanidates  {
     /** Holds a list of potiential word canidates. */
     private List< String > wordCanidates;
     
@@ -95,13 +95,13 @@ abstract public class WordCanidates  {
             else
                 doesntHaveLetter.add( word );
         }
-        int choose;
+        int choose= 0;
         if( hasLetter.size() == 0 ){
             choose= doesntHaveLetter.size();
         }else if( doesntHaveLetter.size() == 0 ){
             choose= hasLetter.size();
         }else {
-            choose= chooseSet( hasLetter.size(), doesntHaveLetter.size() );
+            //choose= chooseSet( hasLetter.size(), doesntHaveLetter.size() );
         }
         boolean result= false;
         if( choose == hasLetter.size() ) {
@@ -118,7 +118,7 @@ abstract public class WordCanidates  {
     }
     
     /** Helps eliminate( char ) decide which set to choose. */
-    abstract public int chooseSet( int hasLetterSize, int doesntHaveLetterSize );
+    //abstract public int chooseSet( int hasLetterSize, int doesntHaveLetterSize );
     
     /**
      * Narrows down the list.
