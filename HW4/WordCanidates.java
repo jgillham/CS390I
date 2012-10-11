@@ -54,6 +54,8 @@ public class WordCanidates  {
         }
         java.util.Map< String, List< String > > subLists= new java.util.HashMap< String, List< String > >(24);
         Iterator< String > i= wordCanidates.iterator();
+        List< String > othersList= new java.util.ArrayList< String >(500);
+        subLists.put( basePattern.toString(), othersList );
         while( i.hasNext() ) {
             String word= i.next();
             StringBuilder pattern= new StringBuilder( basePattern );
@@ -68,7 +70,9 @@ public class WordCanidates  {
                     subLists.put( pattern.toString(), subList );
                 }
                 subList.add( word );
-            }
+            } else 
+                othersList.add( word );
+                
         }
         return subLists;
     }
