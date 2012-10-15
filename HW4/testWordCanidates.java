@@ -29,6 +29,8 @@ public class testWordCanidates {
     }
     public void utilTestResults( java.util.Map< String, String[] > expectedResults, 
                                  java.util.Map< String, List< String > > actualResults ){
+        System.out.println( "actualResults: " + actualResults );
+        System.out.println( "expectedResults: " + expectedResults );
         assertEquals( expectedResults.size(), actualResults.size() );
         int j=0;
         List< String > subList;
@@ -39,12 +41,15 @@ public class testWordCanidates {
             assertNotNull( eArray );
             List< String > aArray= actualResults.get( key );
             assertNotNull( aArray );
+            
             assertEquals( eArray.length, aArray.size() );
             int e= 0;
             Iterator< String > a= aArray.iterator();
             while( a.hasNext() ){
                 String expected= eArray[ e++ ];
                 String actual= a.next();
+                System.out.println( "actual: "+actual );
+                System.out.println( "expected: "+expected );
                 assertEquals( expected, actual );
             }
             
@@ -82,5 +87,40 @@ public class testWordCanidates {
         java.util.Map< String, List< String > > mappedLists= instance.subDivide( 'a' );
         
         utilTestResults( expectedResult, mappedLists );
+    }
+    @Test
+    public void testsubDivide_Twice() {
+        System.out.println( "testsubDivide_Twice" );
+        List< String > wordList= new LinkedList< String >();
+        wordList.add( "casa" );
+        wordList.add( "went" );
+        wordList.add( "capa" );
+        wordList.add( "cata" );
+        java.util.Map< String, String[] > expectedResult= new java.util.TreeMap< String, String[] >();
+        expectedResult.put( "----", new String[]{ "went" } );
+        expectedResult.put( "-a-a", new String[]{ "casa", "capa", "cata" } );
+        
+        System.out.println( "testsubDivide_Twice first subDivide()" );
+        
+        WordCanidates instance= new WordCanidates( wordList );
+        java.util.Map< String, List< String > > mappedLists= instance.subDivide( 'a' );
+        
+        utilTestResults( expectedResult, mappedLists );
+        System.out.println( "testsubDivide_Twice second subDivide()" );
+        List< String > subList;
+        assertNotNull( (subList= mappedLists.get( "-a-a" ) ) );
+        
+        System.out.println( "testsubDivide_Twice second subList: " + subList );
+        
+        expectedResult= new java.util.TreeMap< String, String[] >();
+        expectedResult.put( "-a-a", new String[]{ "casa", "capa" } );
+        expectedResult.put( "-ata", new String[]{ "cata" } );
+        
+        
+        WordCanidates instance2= new WordCanidates( subList );
+        mappedLists= instance2.subDivide( 't' );
+        
+        utilTestResults( expectedResult, mappedLists );
+        
     }
 }
