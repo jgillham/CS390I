@@ -71,31 +71,11 @@ public class Logic{
             throw new IllegalArgumentException();
         
         checkTeams( teams );
-        
-        wordCanidates= new WordCanidates( Dictionary.getSet( gameWordLength ) ){
-            public int chooseSet( int hasLetterSize, int doesntHaveLetterSize ){
-                int smaller, larger;
-                if( hasLetterSize > doesntHaveLetterSize ){
-                    smaller= doesntHaveLetterSize;
-                    larger= hasLetterSize;
-                }else {
-                    smaller= hasLetterSize;
-                    larger= doesntHaveLetterSize;
-                }
-                
-                
-                float ratio= smaller / larger;
-                if( ratio > .7 ){
-                    return doesntHaveLetterSize;
-                }else{
-                    return larger;
-                }
-            }
-        };
+        initStatusWord( gameWordLength );
+        wordCanidates= new WordCanidates( this.statusWord.toString(), Dictionary.getSet( gameWordLength ) );
         
         gameTeams= teams;
         this.gameWordLength=gameWordLength;
-        initStatusWord( gameWordLength );
     }
     
     /**
@@ -225,8 +205,10 @@ public class Logic{
             List< String > subList= subLists.get( selectedKey );
             if( subList.size() == 1 ) {
                 this.gameWord= subList.get( 0 );
+                this.statusWord= new StringBuilder( selectedKey );
+                this.wordCanidates= null;
             }else{
-                wordCanidates= new WordCanidates( subList );
+                wordCanidates= new WordCanidates( selectedKey, subList );
             }
             found= selectedKey.indexOf( letter ) > -1;
             

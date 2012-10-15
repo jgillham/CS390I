@@ -11,6 +11,8 @@ import java.util.Iterator;
 public class WordCanidates  {
     /** Holds a list of potiential word canidates. */
     private List< String > wordCanidates;
+    /** Holds a string the same length of gameWord but with dashes in places where no player has guessed. */
+    private StringBuilder statusWord= new StringBuilder();
     
     /**
      * Initializes class variables.
@@ -18,11 +20,16 @@ public class WordCanidates  {
      * @arg wordList is the list to use.
      * 
      * @throws IllegalArgumentException when wordList.size() == 0.
+     * @throws IllegalArgumentException when the length of the status word does not equal the length of
+     *  the first word in the word list.
      */
-    public WordCanidates( List<String> wordList ) {
+    public WordCanidates( String statusWord, List<String> wordList ) {
         if( wordList.size() == 0 )
             throw new IllegalArgumentException();
+        if( statusWord.length() != wordList.get( 0 ).length() )
+            throw new IllegalArgumentException();
         wordCanidates= new LinkedList< String >( wordList );
+        this.statusWord= new StringBuilder( statusWord );
     }
     
     /**
@@ -48,10 +55,7 @@ public class WordCanidates  {
      */
     public java.util.Map< String, List< String > > subDivide( char letter ) {
         int length= wordCanidates.get( 0 ).length();
-        StringBuilder basePattern= new StringBuilder();
-        for( int i= 0; i < length; ++i ) {
-            basePattern.append( '-' );
-        }
+        StringBuilder basePattern= this.statusWord;
         java.util.Map< String, List< String > > subLists= new java.util.HashMap< String, List< String > >(24);
         Iterator< String > i= wordCanidates.iterator();
         List< String > othersList= new java.util.ArrayList< String >(500);

@@ -66,7 +66,7 @@ public class testWordCanidates {
         expectedResult.put( "----", new String[]{ "went" } );
         expectedResult.put( "-a--", new String[]{ "cant" } );
         expectedResult.put( "-a-a", new String[]{ "capa" } );
-        WordCanidates instance= new WordCanidates( wordList );
+        WordCanidates instance= new WordCanidates( "----", wordList );
         java.util.Map< String, List< String > > mappedLists= instance.subDivide( 'a' );
         
         utilTestResults( expectedResult, mappedLists );
@@ -83,7 +83,7 @@ public class testWordCanidates {
         expectedResult.put( "----", new String[]{ "went" } );
         expectedResult.put( "-a-a", new String[]{ "casa", "capa" } );
         
-        WordCanidates instance= new WordCanidates( wordList );
+        WordCanidates instance= new WordCanidates( "----", wordList );
         java.util.Map< String, List< String > > mappedLists= instance.subDivide( 'a' );
         
         utilTestResults( expectedResult, mappedLists );
@@ -102,7 +102,7 @@ public class testWordCanidates {
         
         System.out.println( "testsubDivide_Twice first subDivide()" );
         
-        WordCanidates instance= new WordCanidates( wordList );
+        WordCanidates instance= new WordCanidates( "----", wordList );
         java.util.Map< String, List< String > > mappedLists= instance.subDivide( 'a' );
         
         utilTestResults( expectedResult, mappedLists );
@@ -117,7 +117,7 @@ public class testWordCanidates {
         expectedResult.put( "-ata", new String[]{ "cata" } );
         
         
-        WordCanidates instance2= new WordCanidates( subList );
+        WordCanidates instance2= new WordCanidates( "-a-a", subList );
         mappedLists= instance2.subDivide( 't' );
         
         utilTestResults( expectedResult, mappedLists );
