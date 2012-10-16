@@ -1,0 +1,7 @@
+2012-10-15 10:10:47
+
+I noticed this today.
+
+When I guess 1 correct guess, I may get a clue like "--a--". However, when I get two correct guesses, I get something like "----d." I should get something like "--a-d."
+
+I think that because WordCanidates.subDivide() does not accumulate guess letters.

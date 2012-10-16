@@ -8,9 +8,11 @@ import java.util.Iterator;
  * @author Josh Gillham 
  * @version 10-9-12
  */
-abstract public class WordCanidates  {
+public class WordCanidates  {
     /** Holds a list of potiential word canidates. */
     private List< String > wordCanidates;
+    /** Holds a string the same length of gameWord but with dashes in places where no player has guessed. */
+    private StringBuilder statusWord= new StringBuilder();
     
     /**
      * Initializes class variables.
@@ -18,11 +20,16 @@ abstract public class WordCanidates  {
      * @arg wordList is the list to use.
      * 
      * @throws IllegalArgumentException when wordList.size() == 0.
+     * @throws IllegalArgumentException when the length of the status word does not equal the length of
+     *  the first word in the word list.
      */
-    public WordCanidates( List<String> wordList ) {
+    public WordCanidates( String statusWord, List<String> wordList ) {
         if( wordList.size() == 0 )
             throw new IllegalArgumentException();
+        if( statusWord.length() != wordList.get( 0 ).length() )
+            throw new IllegalArgumentException();
         wordCanidates= new LinkedList< String >( wordList );
+        this.statusWord= new StringBuilder( statusWord );
     }
     
     /**
@@ -33,60 +40,47 @@ abstract public class WordCanidates  {
     public int count() {
         return wordCanidates.size();
     }
-    
     /**
-     * Narrows down the list.
+     * Divides word canidates into smaller lists that correspond to status word
+     *  patterns i.e. --a---.
+     *  
+     * Example:
+     *  --a--- List1
+     *  -a--a- List2
+     *  ------ List3
+     *  
+     * @arg letter is the letter to divide the lists by.
      * 
-     * @arg letter is used to narrow down all words without that letter.
-     * 
-     * @return true if the word canidates contain the letter OR
-     *         false if they do not.
-     * 
-     * @throws NoSuchElementException when a class to the subclass returns a size
-     *  that does not match any of the chooses.
+     * @return maps status word patterns to lists of words with those patterns.
      */
-    public boolean eliminate( char letter ) throws java.util.NoSuchElementException {
+    public java.util.Map< String, List< String > > subDivide( char letter ) {
+        int length= wordCanidates.get( 0 ).length();
+        StringBuilder basePattern= this.statusWord;
+        java.util.Map< String, List< String > > subLists= new java.util.HashMap< String, List< String > >(24);
         Iterator< String > i= wordCanidates.iterator();
-        List< String > hasLetter= new LinkedList< String >();
-        List< String > doesntHaveLetter= new LinkedList< String >();
+        List< String > othersList= new java.util.ArrayList< String >(500);
+        subLists.put( basePattern.toString(), othersList );
         while( i.hasNext() ) {
             String word= i.next();
-            if( word.indexOf( letter ) > -1 )
-                hasLetter.add( word );
-            else
-                doesntHaveLetter.add( word );
-        }
-        int choose= chooseSet( hasLetter.size(), doesntHaveLetter.size() );
-        if( choose == hasLetter.size() ) {
-            wordCanidates= hasLetter;
-            return true;
-        }else if( choose == doesntHaveLetter.size() ) {
-            wordCanidates= doesntHaveLetter;
-            return false;
-        }else
-            throw new java.util.NoSuchElementException( "Choose does not match any size." );
-    }
-    
-    /** Helps eliminate( char ) decide which set to choose. */
-    abstract public int chooseSet( int hasLetterSize, int doesntHaveLetterSize );
-    
-    /**
-     * Narrows down the list.
-     * 
-     * @arg letter is used to narrow down all words without that letter.
-     * @arg position the index where the letter should be found.
-     */
-    public void mustHave( char letter, int position ) throws java.util.NoSuchElementException {
-        Iterator< String > i= wordCanidates.iterator();
-        while( i.hasNext() ) {
-            String word= i.next();
-            // Try to find a character at this position.
+            StringBuilder pattern= new StringBuilder( basePattern );
             int start= -1;
-            while( ( start= word.indexOf( letter, start + 1 ) ) != position && start > -1 ){}
-            if( start == -1 ) {
-                i.remove();
+            int temp;
+            while( ( temp= word.indexOf( letter, start + 1 ) ) > -1 ){
+                start= temp;
+                pattern.setCharAt( start, letter );
             }
+            if( start != -1 ) {
+                List< String > subList= subLists.get( pattern.toString() );
+                if( subList == null ) {
+                    subList= new java.util.ArrayList< String >(500);
+                    subLists.put( pattern.toString(), subList );
+                }
+                subList.add( word );
+            } else 
+                othersList.add( word );
+                
         }
+        return subLists;
     }
     
     /**
@@ -95,7 +89,10 @@ abstract public class WordCanidates  {
      * @return the word
      */
     public String getRandomCanidate() {
+        System.out.println( "wordCanidates.size(): " + wordCanidates.size() );
         int rand= (int)(Math.random() * wordCanidates.size());
+        System.out.println( "rand: " + rand );
         return wordCanidates.get( rand );
     }
 }
+

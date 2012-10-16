@@ -35,6 +35,8 @@ public class Logic{
     private String gameWord= null;
     /** Holds the potiential words. */
     private WordCanidates wordCanidates;
+    /** Holds the game word length. */
+    private int gameWordLength;
     /** Holds the teams in the game. */
     private List< Manager > gameTeams;
     /** Holds the guess made. */
@@ -69,30 +71,11 @@ public class Logic{
             throw new IllegalArgumentException();
         
         checkTeams( teams );
-        
-        wordCanidates= new WordCanidates( Dictionary.getSet( gameWordLength ) ){
-            public int chooseSet( int hasLetterSize, int doesntHaveLetterSize ){
-                int smaller, larger;
-                if( hasLetterSize > doesntHaveLetterSize ){
-                    smaller= doesntHaveLetterSize;
-                    larger= hasLetterSize;
-                }else {
-                    smaller= hasLetterSize;
-                    larger= doesntHaveLetterSize;
-                }
-                
-                
-                float ratio= smaller / larger;
-                if( ratio > .7 ){
-                    return doesntHaveLetterSize;
-                }else{
-                    return larger;
-                }
-            }
-        };
+        initStatusWord( gameWordLength );
+        wordCanidates= new WordCanidates( this.statusWord.toString(), Dictionary.getSet( gameWordLength ) );
         
         gameTeams= teams;
-        initStatusWord( gameWordLength );
+        this.gameWordLength=gameWordLength;
     }
     
     /**
@@ -113,11 +96,12 @@ public class Logic{
         if( gameWord.isEmpty() )
             throw new IllegalArgumentException();
         
-        checkTeams( teams );
+        this.checkTeams( teams );
         
-        gameTeams= teams;
+        this.gameTeams= teams;
         this.gameWord= gameWord;
-        initStatusWord( gameWord.length() );
+        this.gameWordLength=gameWord.length();
+        this.initStatusWord( gameWord.length() );
     }
     
     /**
@@ -149,7 +133,7 @@ public class Logic{
     private final void initStatusWord( int wordLength ) {
         if( wordLength < 1 )
             throw new IllegalArgumentException();
-        for( int i= 0; i < gameWord.length(); ++i )
+        for( int i= 0; i < wordLength; ++i )
             statusWord.append( '-' );
     }
     
@@ -196,24 +180,50 @@ public class Logic{
         
         this.playerInTurn= false;
         boolean found= false;
-        String exampleWord;
 
         if( this.gameWord == null ){
-            exampleWord= wordCanidates.getRandomCanidate( );
-            wordCanidates.eliminate( letter );
+            java.util.Map< String, List< String > > subLists= wordCanidates.subDivide( letter );
+            java.util.Set< String > keys= subLists.keySet();
+            String selectedKey= null;
+            if( keys.size() == 1 ) {
+                selectedKey= keys.iterator().next();
+            } else {
+                int max= 0;
+                Iterator< String > i= keys.iterator();
+                while( i.hasNext() ){
+                    String key= i.next();
+                    List< String > subList= subLists.get( key );
+                    if( max < subList.size() ) {
+                        max= subList.size();
+                        selectedKey= key;
+                    }
+                }                
+            }
+            if( selectedKey == null )
+                throw new java.lang.AssertionError( "Key was not selected." );
+            this.statusWord= new StringBuilder( selectedKey );
+            List< String > subList= subLists.get( selectedKey );
+            if( subList.size() == 1 ) {
+                this.gameWord= subList.get( 0 );
+                this.statusWord= new StringBuilder( selectedKey );
+                this.wordCanidates= null;
+            }else{
+                wordCanidates= new WordCanidates( selectedKey, subList );
+            }
+            found= selectedKey.indexOf( letter ) > -1;
+            
         }else{
-            exampleWord= this.gameWord;
-        }
-        // Try to find the letter in the game word and update the status word as we go.
-        for( int i= 0; i < exampleWord.length(); ++i ) {
-            char wordLetter= exampleWord.charAt( i );
-            if( letter == Character.toLowerCase( wordLetter ) ) {
-                wordCanidates.mustHave( letter, i );
-                found= true;
-                // Replace the dash with the letter
-                this.statusWord.setCharAt( i, letter );
+            // Try to find the letter in the game word and update the status word as we go.
+            for( int i= 0; i < this.gameWord.length(); ++i ) {
+                char wordLetter= this.gameWord.charAt( i );
+                if( letter == Character.toLowerCase( wordLetter ) ) {
+                    found= true;
+                    // Replace the dash with the letter
+                    this.statusWord.setCharAt( i, letter );
+                }
             }
         }
+        
         // Show the UI the new found letters.
         if( this.eventHandler != null && found )
             this.eventHandler.changedStatusWord( statusWord.toString() );
@@ -242,7 +252,7 @@ public class Logic{
         if( word.length() == 1 ) {
             return this.makeGuess( word.charAt( 0 ) );
             
-        }else if( word.length() != gameWord.length() ) {
+        }else if( word.length() != this.gameWordLength ) {
             throw new IllegalArgumentException();
         }
         for( int i= 0; i < word.length(); ++i ) {
@@ -252,13 +262,9 @@ public class Logic{
         this.guesses.add( word );
         this.playerInTurn= false;
         if( gameWord == null ) {
-            if( wordCanidates.count() == 1 ){
-                if( this.eventHandler != null )
-                    this.eventHandler.changedStatusWord( statusWord.toString() );
-                return true;
-            }else{
-                return false;
-            }
+            if( wordCanidates.count() == 1 )
+                throw new java.lang.AssertionError( "Game word should have been selected." );
+            return false;
         } else {
             if( word.equalsIgnoreCase( gameWord ) ) {
                 statusWord= new StringBuilder( gameWord );

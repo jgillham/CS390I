@@ -3,3 +3,4 @@
 *.ctxt
 *.zip
 */doc
+.DS_Store
