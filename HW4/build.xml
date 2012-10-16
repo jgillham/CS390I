@@ -1,0 +1,35 @@
+<project>
+<property name="target.base" location="build"/>
+<property name="target.dif" location="${target.base}/classes"/>
+<property name="target.zip" location="HW4_JoshGillham.zip"/>
+
+<target name="zip">
+<zip destfile="${target.zip}">
+<fileset dir="." includes="**/*.java"/>
+<fileset dir="." includes="**/*.bluej"/>
+<fileset dir="." includes="**/*.txt"/>
+</zip>
+</target>
+
+<target name="clean">
+  <delete dir="${target.base}"/>
+  <delete dir="doc"/>
+  <delete>
+    <fileset dir="." includes="**/*.zip"/>
+    <fileset dir="." includes="**/*.class"/>
+    <fileset dir="." includes="**/*.ctxt"/>
+  </delete>
+</target>
+
+<target name="compile">
+        <mkdir dir="${target.dif}"/>
+        <javac srcdir="." destdir="${target.dif}">
+</javac>
+</target>
+
+<target name="testAll" depends="compile">
+
+</target>
+
+
+</project>
