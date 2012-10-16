@@ -1,0 +1,12 @@
+<project>
+
+    <target name="compile">
+		<classpath>
+			<path refid="classpath"/>
+			<path location="${jar.dir}/${ant.project.name}.jar"/>
+		</classpath>
+        <mkdir dir="build/classes"/>
+        <javac srcdir="" destdir="build/classes"/>
+    </target>
+
+</project>
