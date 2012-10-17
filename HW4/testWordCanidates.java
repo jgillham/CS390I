@@ -16,16 +16,42 @@ import java.util.Map;
  * @version 10-10-12
  */
 public class testWordCanidates {
-    public void utilTestSizes( int[] sizes, java.util.Collection< List< String > > lists){
-        assertEquals( sizes.length, lists.size() );
-        int j=0;
-        List< String > subList;
-        for( Iterator< List< String > > i= lists.iterator(); i.hasNext(); ) {
-            subList= i.next();
-            System.out.println( "subList.size(): "+subList.size() );
-            System.out.println( "subList: "+subList );
-            assertEquals( sizes[j++], subList.size() );
-        }
+    List< String > testWordList;
+    String onlyWord= "cant";
+    @Before
+    public void setup() {
+        testWordList= new LinkedList< String >();
+        testWordList.add( onlyWord );
+    }
+    @Test( expected= IllegalArgumentException.class )
+    public void testConstructor_nullWord() {
+        new WordCanidates( null, testWordList );
+    }
+    @Test( expected= IllegalArgumentException.class )
+    public void testConstructor_nullList() {
+        new WordCanidates( "adfs", null );
+    }
+    @Test( expected= IllegalArgumentException.class )
+    public void testConstructor_emptyList() {
+        new WordCanidates( "adfs", new LinkedList< String >() );
+    }
+    @Test
+    public void testCount() {
+        WordCanidates instance= new WordCanidates( "adfs", testWordList );
+        assertEquals( testWordList.size(), instance.count() );
+        
+        testWordList.add( "tester" );
+        instance= new WordCanidates( "adfs", testWordList );
+        assertEquals( testWordList.size(), instance.count() );
+        
+        testWordList.add( "confidence" );
+        instance= new WordCanidates( "adfs", testWordList );
+        assertEquals( testWordList.size(), instance.count() );
+    }
+    @Test
+    public void testGetRandomCanidate() {
+        WordCanidates instance= new WordCanidates( "adfs", testWordList );
+        assertTrue( testWordList.contains( instance.getRandomCanidate() ) );
     }
     public void utilTestResults( java.util.Map< String, String[] > expectedResults, 
                                  java.util.Map< String, List< String > > actualResults ){
@@ -119,6 +145,57 @@ public class testWordCanidates {
         
         WordCanidates instance2= new WordCanidates( "-a-a", subList );
         mappedLists= instance2.subDivide( 't' );
+        
+        utilTestResults( expectedResult, mappedLists );
+        
+    }
+    @Test
+    public void testsubDivide_ThreeTimes() {
+        System.out.println( "testsubDivide_ThreeTimes" );
+        List< String > wordList= new LinkedList< String >();
+        wordList.add( "pasa" );
+        wordList.add( "went" );
+        wordList.add( "capa" );
+        wordList.add( "cata" );
+        java.util.Map< String, String[] > expectedResult= new java.util.TreeMap< String, String[] >();
+        expectedResult.put( "----", new String[]{ "went" } );
+        expectedResult.put( "-a-a", new String[]{ "pasa", "capa", "cata" } );
+        
+        System.out.println( "testsubDivide_ThreeTimes first subDivide()" );
+        
+        WordCanidates instance= new WordCanidates( "----", wordList );
+        java.util.Map< String, List< String > > mappedLists= instance.subDivide( 'a' );
+        
+        utilTestResults( expectedResult, mappedLists );
+        
+        System.out.println( "testsubDivide_ThreeTimes second subDivide()" );
+        List< String > subList;
+        assertNotNull( (subList= mappedLists.get( "-a-a" ) ) );
+        
+        System.out.println( "testsubDivide_ThreeTimes second subList: " + subList );
+        
+        expectedResult= new java.util.TreeMap< String, String[] >();
+        expectedResult.put( "-a-a", new String[]{ "pasa", "capa" } );
+        expectedResult.put( "-ata", new String[]{ "cata" } );
+        
+        
+        WordCanidates instance2= new WordCanidates( "-a-a", subList );
+        mappedLists= instance2.subDivide( 't' );
+        
+        utilTestResults( expectedResult, mappedLists );
+        
+        System.out.println( "testsubDivide_ThreeTimes third subDivide()" );
+        assertNotNull( (subList= mappedLists.get( "-a-a" ) ) );
+        
+        System.out.println( "testsubDivide_ThreeTimes third subList: " + subList );
+        
+        expectedResult= new java.util.TreeMap< String, String[] >();
+        expectedResult.put( "ca-a", new String[]{ "capa" } );
+        expectedResult.put( "-a-a", new String[]{ "pasa" } );
+        
+        
+        WordCanidates instance3= new WordCanidates( "-a-a", subList );
+        mappedLists= instance3.subDivide( 'c' );
         
         utilTestResults( expectedResult, mappedLists );
         
