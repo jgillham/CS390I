@@ -1,6 +1,8 @@
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Iterator;
+import java.util.Set;
+import java.util.Map;
 
 /**
  * Controls the game. Updates the UI. Determines the outcome of the game. Allows player to take action on the game
@@ -182,22 +184,13 @@ public class Logic{
         boolean found= false;
 
         if( this.gameWord == null ){
-            java.util.Map< String, List< String > > subLists= wordCanidates.subDivide( letter );
-            java.util.Set< String > keys= subLists.keySet();
+            Map< String, List< String > > subLists= wordCanidates.subDivide( letter );
+            Set< String > keys= subLists.keySet();
             String selectedKey= null;
             if( keys.size() == 1 ) {
                 selectedKey= keys.iterator().next();
             } else {
-                int max= 0;
-                Iterator< String > i= keys.iterator();
-                while( i.hasNext() ){
-                    String key= i.next();
-                    List< String > subList= subLists.get( key );
-                    if( max < subList.size() ) {
-                        max= subList.size();
-                        selectedKey= key;
-                    }
-                }                
+                evilChooseKey( keys, subLists );
             }
             if( selectedKey == null )
                 throw new java.lang.AssertionError( "Key was not selected." );
@@ -228,6 +221,43 @@ public class Logic{
         if( this.eventHandler != null && found )
             this.eventHandler.changedStatusWord( statusWord.toString() );
         return found;
+    }
+    
+    /**
+     * This is the evil way to choose the key. This will pick the key that is associated
+     *  with the largest set therefore making it harder for the player to win the game.
+     *  
+     * @param keys a set of keys.
+     * @param subLists the map with the keys and lists.
+     * 
+     * @return the key
+     */
+    static public String evilChooseKey( Set< String > keys, Map< String, List< String > > subLists ) {
+        String selectedKey= null;
+        int max= 0;
+        Iterator< String > i= keys.iterator();
+        while( i.hasNext() ){
+            String key= i.next();
+            List< String > subList= subLists.get( key );
+            if( max < subList.size() ) {
+                max= subList.size();
+                selectedKey= key;
+            }
+        }
+        return selectedKey;
+    }
+    
+    /**
+     * Chooses the key randomly.
+     * 
+     * @param keys the set of keys.
+     * 
+     * @return the key.
+     */
+    static public String randomChooseKey( Set< String > keys ) {
+        List< String > keyList= new LinkedList< String >( keys );
+        int index= (int)(Math.random() * keyList.size() );
+        return keyList.get( index );
     }
     
     /**
