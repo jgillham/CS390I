@@ -17,11 +17,13 @@ import java.util.Map;
  */
 public class testWordCanidates {
     List< String > testWordList;
-    String onlyWord= "cant";
+    String[] words= { "stat", "land", "meet", "find" };
     @Before
     public void setup() {
         testWordList= new LinkedList< String >();
-        testWordList.add( onlyWord );
+        for( String word: words ) {
+            testWordList.add( word );
+        }
     }
     @Test( expected= NullPointerException.class )
     public void testConstructor_nullWord() {
@@ -34,6 +36,14 @@ public class testWordCanidates {
     @Test( expected= IllegalArgumentException.class )
     public void testConstructor_emptyList() {
         new WordCanidates( "adfs", new LinkedList< String >() );
+    }
+    @Test( expected= IllegalArgumentException.class )
+    public void testConstructor_badWordLength() {
+        new WordCanidates( "adf", testWordList );
+    }
+    @Test( expected= IllegalArgumentException.class )
+    public void testConstructor_emptyWord() {
+        new WordCanidates( "", testWordList );
     }
     @Test
     public void testCount() {
