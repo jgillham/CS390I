@@ -67,7 +67,7 @@ public class testSetupUI{
     
     @Test
     public void testInputGameWordLength_TooSmall() {
-        int result= setup.inputGameWordLength( new java.util.Scanner( new BadSetupUser( Integer.toString( 2 ) ) ) );
+        int result= setup.inputGameWordLength( new java.util.Scanner( new BadSetupUser( Integer.toString( -2 ) ) ) );
         assertEquals( 0, result );
     }
     

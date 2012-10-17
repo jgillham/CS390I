@@ -107,8 +107,9 @@ public class testDictionary {
     @Test
     public void testGetWords_CorrectWords() {
         String word= dictionary.getWord( 3 );
+        assertNotNull( word );
         System.out.println( "testGetWords_CorrectWords word: "+ word );
-        assertTrue( testWords.contains( testWords ) );
+        assertTrue( testWords.contains( word ) );
     }
     
     @Test

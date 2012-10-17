@@ -27,9 +27,8 @@ public class Dictionary{
      */
     static public Dictionary getInstance( ) {
         if( instance == null )
-            return new Dictionary( );
-        else
-            return instance;
+            instance= new Dictionary( );
+        return instance;
     }
     
     /**
@@ -53,7 +52,6 @@ public class Dictionary{
      * @return true if the word length refers to a list words.
      */
     public boolean checkWordLength( int length ) {
-        System.out.println( "checkWordLength dataBank: " + dataBank );
         return dataBank.get( Integer.valueOf( length ) ) != null;
     }
     
@@ -82,7 +80,6 @@ public class Dictionary{
             set.add( word );
             dataBank.put( Integer.valueOf( word.length() ), set );
         }
-        System.out.println( "depositWord dataBank: " + dataBank );
     }
     
     /**
@@ -122,7 +119,6 @@ public class Dictionary{
      * @return the random word OR null if the length is not in the dictionary or the word list is empty.
      */
     public String getWord( int length ) {
-        System.out.println( "getWord dataBank: " + dataBank );
         List< String > set= this.getSet( length );
         if( set == null ||  set.size() == 0 ){
             return null;
@@ -141,7 +137,6 @@ public class Dictionary{
      * @return the set of words OR null if the length is not in the dictionary.
      */
     public List< String > getSet( int length ) {
-        System.out.println( "getSet dataBank: " + dataBank );
         return dataBank.get( Integer.valueOf( length ) );
     }
         
