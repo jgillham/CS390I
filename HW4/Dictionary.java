@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
 import java.util.Scanner;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Responsible for loading the word data bank and also for retrieving a random word.
@@ -12,63 +14,87 @@ import java.util.Scanner;
  * @version 9-23-12
  */
 public class Dictionary{
-    /** The smallest allowed word in the dictionary. */
-    static public final int MIN_WORDLENGTH= 3;
-    /** The largest allowed word in the dictionary. */
-    static public final int LARGEST_WORD= 12;
-    /** Contains a list of array lists where there will be an inner list for each word length. */
-    static List< List<String> > dataBank= new ArrayList< List<String> >(LARGEST_WORD);
-    /** I need the extra code because the Java static constructors were not working properly. */
-    static public boolean constructed= false;
-    {
-        staticConstructor();
-    }
+    /** Holds a copy of the Dictionary class. */
+    static private Dictionary instance= null;
+    
     /**
-     * Adds one inner list for each word length.
+     * Creates a new instance of Dictionary if it doesnot exist otherwise it returns the last copy.
+     * 
+     * Post Conditions:
+     *  -Ensures an instance of Dictionary exists
+     * 
+     * @return the new instance.
      */
-    static private void staticConstructor(){
-        if( !constructed ) {
-            constructed= true;
-            // Add one list for each length including 1
-            for( int i= 0; i < LARGEST_WORD; ++i ) {
-                dataBank.add( new ArrayList<String>(1000) );
-            }
-        }
+    static public Dictionary getInstance( ) {
+        if( instance == null )
+            return new Dictionary( );
+        else
+            return instance;
     }
     
     /**
-     * Used to ensure word lengths meet the proper size.
+     * Deletes the dictionary instance.
+     * 
+     * Post Conditions:
+     *  -Ensures an instance of Dictionary does NOT exist
      */
-    static public boolean checkWordLength( int length ) {
-        return length >= MIN_WORDLENGTH && length <= dataBank.size();
+    static public void dispose() {
+        instance= null;
+    }
+
+    /** The smallest allowed word in the dictionary. */
+    private int smallestWord= 0;
+    /** The largest allowed word in the dictionary. */
+    private int largestWord= 0;
+    /** Contains a list of array lists where there will be an inner list for each word length. */
+    Map< Integer, List<String> > dataBank= new TreeMap< Integer, List<String> >();
+    
+    /**
+     * Used to ensure word lengths meet the proper size.
+     * 
+     * @arg length the lenth of the word to check.
+     * 
+     * @return true if the word length refers to a list words.
+     */
+    public boolean checkWordLength( int length ) {
+        return dataBank.get( Integer.valueOf( length ) ) != null;
     }
     
     /**
      * Adds a word into the dictionary data bank. Each word is sorted by
      *  length into the databanks inner lists.
      *  
+     * Post Conditions:
+     *  -Dictionary has at least one word.
+     * 
      * @arg word is the new word to add.
      * 
      * @throws NullPointerException when word is null.
      * @throws IllegalArgumentException when word is empty.
-     * @throws IllegalArgumentException when word is smaller than MIN_WORDLENGTH or larger than MAX_WORDLENGTH.
      */
-    static public void depositWord( String word ) {
-        staticConstructor();
+    public void depositWord( String word ) {
         if( word == null )
             throw new NullPointerException();
         if( word.isEmpty() )
             throw new IllegalArgumentException();
-        if( checkWordLength( word.length() ) )
-            dataBank.get( word.length() - 1 ).add( word );
+        List< String > set= this.getSet( word.length() );
+        if( set != null ){
+            set.add( word );
+        } else {
+            set= new ArrayList< String >( 1000 );
+            set.add( word );
+            dataBank.put( Integer.valueOf( word.length() ), set );
+        }
     }
-    
-    
     
     /**
      * Loads the dictionary file.
      * 
      * @arg file the dictionary file to load.
+     * 
+     * Post Conditions:
+     *  -Ensures a instance of Dictionary exists.
+     *  -Dictionary now has a data bank of the words from file.
      * 
      * @throws NullPointerException when file is null.
      * @throws IllegalArgumentException when file is empty.
@@ -80,43 +106,32 @@ public class Dictionary{
             
         if( file.isEmpty() )
             throw new IllegalArgumentException();
-        
+        // Get a copy of dictionary.
+        Dictionary instance= getInstance();
         // Read in each word line by line
         File src= new File( file );
         Scanner input= new Scanner( src );
         while( input.hasNext() ) {
-            depositWord( input.next() );
+            instance.depositWord( input.next() );
         }
     }
     
     /**
      * Finds a random word from the dictionary.
      * 
-     * Preconditions:
-     *  Word data bank must have at least one word.
-     * 
      * @arg length is the length of the word to find.
      * 
-     * @return the random word.
-     * @return null if the length is not allowed in the dictionary.
-     * 
-     * @throw IllegalArgumentException when the length is less than MIN_WORDLENGTH 
-     *   or greater than MAX_WORDLENGTH
+     * @return the random word OR null if the length is not in the dictionary or the word list is empty.
      */
-    static public String getWord( int length )throws java.util.NoSuchElementException {
-        staticConstructor();
-        if( !checkWordLength( length ) )
-            throw new IllegalArgumentException();
-        List<String> list= dataBank.get( length - 1 );
-        if( list.size() == 0 )
-            throw new java.util.NoSuchElementException();
-        
-            
-        if( !checkWordLength( length ) )
+    public String getWord( int length )throws java.util.NoSuchElementException {
+        List< String > set= this.getSet( length );
+        if( set == null ||  set.size() == 0 ){
             return null;
-        // Get a random word
-        int randomIndex= (int)( Math.random() * list.size() );
-        return list.get( randomIndex );
+        } else {
+            // Get a random word
+            int randomIndex= (int)( Math.random() * set.size() );
+            return set.get( randomIndex );
+        }
     }
     
     /**
@@ -124,16 +139,10 @@ public class Dictionary{
      * 
      * @arg length is the length of the word to find.
      * 
-     * @return the set of words
-     * 
-     * @throw IllegalArgumentException when the length is less than MIN_WORDLENGTH 
-     *   or greater than MAX_WORDLENGTH
+     * @return the set of words OR null if the length is not in the dictionary.
      */
-    static public List< String > getSet( int length )throws java.util.NoSuchElementException {
-        staticConstructor();
-        if( !checkWordLength( length ) )
-            throw new IllegalArgumentException();
-        return new ArrayList< String >( dataBank.get( length - 1 ) );
+    public List< String > getSet( int length ) throws java.util.NoSuchElementException {
+        return dataBank.get( Integer.valueOf( length ) );
     }
         
 }
