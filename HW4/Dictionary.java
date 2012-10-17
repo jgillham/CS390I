@@ -41,13 +41,9 @@ public class Dictionary{
     static public void dispose() {
         instance= null;
     }
-
-    /** The smallest allowed word in the dictionary. */
-    private int smallestWord= 0;
-    /** The largest allowed word in the dictionary. */
-    private int largestWord= 0;
+    
     /** Contains a list of array lists where there will be an inner list for each word length. */
-    Map< Integer, List<String> > dataBank= new TreeMap< Integer, List<String> >();
+    private Map< Integer, List<String> > dataBank= new TreeMap< Integer, List<String> >();
     
     /**
      * Used to ensure word lengths meet the proper size.
@@ -57,6 +53,7 @@ public class Dictionary{
      * @return true if the word length refers to a list words.
      */
     public boolean checkWordLength( int length ) {
+        System.out.println( "checkWordLength dataBank: " + dataBank );
         return dataBank.get( Integer.valueOf( length ) ) != null;
     }
     
@@ -77,7 +74,7 @@ public class Dictionary{
             throw new NullPointerException();
         if( word.isEmpty() )
             throw new IllegalArgumentException();
-        List< String > set= this.getSet( word.length() );
+        List< String > set= this.getSet( Integer.valueOf( word.length() ) );
         if( set != null ){
             set.add( word );
         } else {
@@ -85,6 +82,7 @@ public class Dictionary{
             set.add( word );
             dataBank.put( Integer.valueOf( word.length() ), set );
         }
+        System.out.println( "depositWord dataBank: " + dataBank );
     }
     
     /**
@@ -123,7 +121,8 @@ public class Dictionary{
      * 
      * @return the random word OR null if the length is not in the dictionary or the word list is empty.
      */
-    public String getWord( int length )throws java.util.NoSuchElementException {
+    public String getWord( int length ) {
+        System.out.println( "getWord dataBank: " + dataBank );
         List< String > set= this.getSet( length );
         if( set == null ||  set.size() == 0 ){
             return null;
@@ -141,7 +140,8 @@ public class Dictionary{
      * 
      * @return the set of words OR null if the length is not in the dictionary.
      */
-    public List< String > getSet( int length ) throws java.util.NoSuchElementException {
+    public List< String > getSet( int length ) {
+        System.out.println( "getSet dataBank: " + dataBank );
         return dataBank.get( Integer.valueOf( length ) );
     }
         

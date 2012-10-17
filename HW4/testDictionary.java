@@ -7,14 +7,39 @@ import java.lang.NullPointerException;
 
 /**
  * This unit test will check the integrity of the Dictionary class.
- * TODO
- * -TEST checkWordLength
- * -test depositWord
- * -test getSet
+ * 
  * @author  Josh Gillham
- * @version 9-23-12
+ * @version 10-16-12
  */
 public class testDictionary {
+    /** Holds a list of test words. */
+    java.util.List< String > testWords= new java.util.LinkedList< String >();
+    /** Holds a copy of Dictionary. */
+    Dictionary dictionary= Dictionary.getInstance();
+    /** The file of the dictionary. */
+    String dictionaryFile= "testwords.txt";
+    
+    /**
+     * Setup word list.
+     */
+    public testDictionary () throws java.io.FileNotFoundException {
+        testWords.add( "cat" );
+        testWords.add( "hat" );
+        
+        loadDictionary();
+        
+    }
+    
+    private final void loadDictionary() {
+        try{
+            Dictionary.dispose();
+            Dictionary.load( dictionaryFile );
+            dictionary= Dictionary.getInstance();
+        } catch( Exception e ) {
+            e.printStackTrace();
+            dictionary= null;
+        }
+    }
     
     /**
      * Test the load with a null. The result should be an error
@@ -31,18 +56,14 @@ public class testDictionary {
     public void testLoad_Empty() throws java.io.FileNotFoundException {
         Dictionary.load( "" );
     }
-    /** The file of the dictionary. */
-    String dictionaryFile= "testwords.txt";
-    /** An instance of the dictionary. */
-    Dictionary dictionary;
+    
     /**
      * Test the load.
      */
-    @Before
+    @Test
     public void testLoad() throws java.io.FileNotFoundException {
-        Dictionary.dispose();
-        Dictionary.load( dictionaryFile );
-        dictionary= new Dictionary();
+        loadDictionary();
+        assertEquals( testWords, dictionary.getSet( 3 ) );
     }
     
     /**
@@ -66,7 +87,7 @@ public class testDictionary {
      */
     @Test
     public void testGetWords_NotTheFileName() {
-        String word= Dictionary.getInstance().getWord( 3 );
+        String word= dictionary.getWord( 3 );
         if( dictionaryFile.equalsIgnoreCase( word ) )
             fail( "Word is the file name." );
     }
@@ -75,27 +96,81 @@ public class testDictionary {
      * 
      */
     @Test
+    public void testGetWords() {
+        String word= dictionary.getWord( 3 );
+        assertNotNull( word );
+    }
+    
+    /**
+     * 
+     */
+    @Test
     public void testGetWords_CorrectWords() {
-        java.util.List< String > words= new java.util.LinkedList< String >();
-        words.add( "cat" );
-        words.add( "mouse" );
-        words.add( "hat" );
-        String word= Dictionary.getInstance().getWord( 3 );
-        assertTrue( words.contains( word ) );
+        String word= dictionary.getWord( 3 );
+        System.out.println( "testGetWords_CorrectWords word: "+ word );
+        assertTrue( testWords.contains( testWords ) );
     }
     
     @Test
     public void testDepositWord() {
-        Dictionary.getInstance().depositWord( "maneater" );
+        dictionary.depositWord( "maneater" );
+    }
+    
+    @Test
+    public void testDepositWord_Multiple() {
+        Dictionary.dispose();
+        dictionary= Dictionary.getInstance();
+        java.util.List< String > wordList= new java.util.LinkedList< String >();
+        wordList.add( "cat" );
+        dictionary.depositWord( "cat" );
+        assertEquals( wordList, dictionary.getSet( 3 ) );
+        wordList.add( "rat" );
+        dictionary.depositWord( "rat" );
+        assertEquals( wordList, dictionary.getSet( 3 ) );
+        wordList.add( "mat" );
+        dictionary.depositWord( "mat" );
+        assertEquals( wordList, dictionary.getSet( 3 ) );
+        wordList.add( "cow" );
+        dictionary.depositWord( "cow" );
+        assertEquals( wordList, dictionary.getSet( 3 ) );
+        Dictionary.dispose();
     }
     
     @Test( expected= IllegalArgumentException.class )
     public void testDepositWord_Empty() {
-        Dictionary.getInstance().depositWord( "" );
+        dictionary.depositWord( "" );
     }
     @Test( expected= NullPointerException.class )
     public void testDepositWord_Null() {
-        Dictionary.getInstance().depositWord( null );
+        dictionary.depositWord( null );
     }
     
+    @Test
+    public void testGetSet() {
+        System.out.println( "testGetSet" );
+        assertNotNull( dictionary.getSet( 3 ) );
+        assertNotNull( dictionary.getSet( 5 ) );
+    }
+    
+    @Test
+    public void testGetSet_NotThere() {
+        assertNull( dictionary.getSet( 1 ) );
+        assertNull( dictionary.getSet( 2 ) );
+        assertNull( dictionary.getSet( 4 ) );
+        assertNull( dictionary.getSet( 6 ) );
+    }
+    
+    @Test
+    public void testCheckWordLength_Bad() {
+        assertFalse( dictionary.checkWordLength( 1 ) );
+        assertFalse( dictionary.checkWordLength( 2 ) );
+        assertFalse( dictionary.checkWordLength( 4 ) );
+        assertFalse( dictionary.checkWordLength( 6 ) );
+    }
+    
+    @Test
+    public void testCheckWordLength() {
+        assertTrue( dictionary.checkWordLength( 3 ) );
+        assertTrue( dictionary.checkWordLength( 5 ) );
+    }
 }
