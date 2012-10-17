@@ -10,7 +10,7 @@ public class SetupBase {
     /** Hold the team setup. */
     private List< Manager > teams= new LinkedList< Manager >();
     /** Has the default word length. */
-    private int wordLength= Dictionary.MIN_WORDLENGTH;
+    private int wordLength= 5;
     /** Retains the first player to be added.*/
     private Player firstPlayer= null;
     /** Retains the first team to be added.*/

@@ -9,34 +9,7 @@ import org.junit.Test;
  * @author  Josh Gillham
  * @version 9-23-12
  */
-public class testGameUI
-{
-    /**
-     * Default constructor for test class testGameUI
-     */
-    public testGameUI()
-    {
-    }
-
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
-    @Before
-    public void setUp()
-    {
-    }
-
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
-    @After
-    public void tearDown()
-    {
-    }
+public class testGameUI {
     
     /**
      * Tests the constructor to make sure there are no errors.

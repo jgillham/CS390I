@@ -40,24 +40,25 @@ public class testDictionary {
      */
     @Before
     public void testLoad() throws java.io.FileNotFoundException {
+        Dictionary.dispose();
         Dictionary.load( dictionaryFile );
         dictionary= new Dictionary();
     }
     
     /**
-     * Test getWord with bad lengths. The result should be an error.
+     * Test getWord with bad lengths. The result should a null.
      */
-    @Test( expected= IllegalArgumentException.class )
+    @Test
     public void testGetWord_TooSmall() {
-        dictionary.getWord( Dictionary.MIN_WORDLENGTH - 1 );
+        assertNull( dictionary.getWord( 2 ) );
     }
     
     /**
-     * Test getWord with bad lengths. The result should be an error.
+     * Test getWord with bad lengths. The result should a null.
      */
-    @Test( expected= IllegalArgumentException.class )
+    @Test
     public void testGetWord_TooLarge() {
-        dictionary.getWord( Dictionary.LARGEST_WORD + 1 );
+        assertNull( dictionary.getWord( 6 ) );
     }
     
     /**
@@ -65,7 +66,7 @@ public class testDictionary {
      */
     @Test
     public void testGetWords_NotTheFileName() {
-        String word= Dictionary.getWord( 3 );
+        String word= Dictionary.getInstance().getWord( 3 );
         if( dictionaryFile.equalsIgnoreCase( word ) )
             fail( "Word is the file name." );
     }
@@ -75,35 +76,26 @@ public class testDictionary {
      */
     @Test
     public void testGetWords_CorrectWords() {
-        String[] words={
-            "cat",
-            "mouse",
-            "hat"
-        };
-        String word= Dictionary.getWord( 3 );
-        System.out.println( "word: " + word );
-        boolean found= false;
-        for( String listWord: words ) {
-            System.out.println( "listWord: " + listWord );
-            if( word.equalsIgnoreCase(listWord) ){
-                found= true; break;
-            }
-        }
-        assertTrue( found );
+        java.util.List< String > words= new java.util.LinkedList< String >();
+        words.add( "cat" );
+        words.add( "mouse" );
+        words.add( "hat" );
+        String word= Dictionary.getInstance().getWord( 3 );
+        assertTrue( words.contains( word ) );
     }
     
     @Test
     public void testDepositWord() {
-        Dictionary.depositWord( "maneater" );
+        Dictionary.getInstance().depositWord( "maneater" );
     }
     
     @Test( expected= IllegalArgumentException.class )
     public void testDepositWord_Empty() {
-        Dictionary.depositWord( "" );
+        Dictionary.getInstance().depositWord( "" );
     }
     @Test( expected= NullPointerException.class )
     public void testDepositWord_Null() {
-        Dictionary.depositWord( null );
+        Dictionary.getInstance().depositWord( null );
     }
     
 }

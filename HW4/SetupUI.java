@@ -52,7 +52,7 @@ public class SetupUI extends SetupBase {
      * @return null on failure -- should never happen.
      */
     public Logic getGame(){
-        if( !Dictionary.checkWordLength( wordLength ) )
+        if( !Dictionary.getInstance().checkWordLength( wordLength ) )
             wordLength= Logic.DEFAULT_WORD_SIZE;
         try{
             Logic game= super.getGame( wordLength );
@@ -136,8 +136,8 @@ public class SetupUI extends SetupBase {
         try{
             int wordLength= inputScanner.nextInt();
             
-            if( !Dictionary.checkWordLength( wordLength ) ) {
-                System.out.println( "Please enter a length between " + Dictionary.MIN_WORDLENGTH + " and " + Dictionary.LARGEST_WORD + "." );
+            if( !Dictionary.getInstance().checkWordLength( wordLength ) ) {
+                System.out.println( "We are sorry but the dictionary does not have words with that length." );
                 return 0;
             }
             return wordLength;

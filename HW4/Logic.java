@@ -67,12 +67,12 @@ public class Logic{
      *  of the dictionary limits.
      */
     public Logic( List< Manager > teams, int gameWordLength ) throws EmptyTeamsException, NoTeamsException  {
-        if( !Dictionary.checkWordLength( gameWordLength ) )
+        if( !Dictionary.getInstance().checkWordLength( gameWordLength ) )
             throw new IllegalArgumentException();
         
         checkTeams( teams );
         initStatusWord( gameWordLength );
-        wordCanidates= new WordCanidates( this.statusWord.toString(), Dictionary.getSet( gameWordLength ) );
+        wordCanidates= new WordCanidates( this.statusWord.toString(), Dictionary.getInstance().getSet( gameWordLength ) );
         
         gameTeams= teams;
         this.gameWordLength=gameWordLength;

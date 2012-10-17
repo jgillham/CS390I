@@ -43,7 +43,7 @@ public class testLogic {
     
     @Test( expected= NullPointerException.class )
     public void testConstructor_Null() throws Exception{
-        Logic g= new Logic( null, Dictionary.MIN_WORDLENGTH );
+        Logic g= new Logic( null, 5 );
     }
     
     /**
@@ -51,7 +51,7 @@ public class testLogic {
      */
     @Test( expected= Logic.NoTeamsException.class )
     public void testConstructor_NoTeams() throws Exception{
-        Logic g= new Logic( new LinkedList< Manager >(), Dictionary.MIN_WORDLENGTH );
+        Logic g= new Logic( new LinkedList< Manager >(), 5 );
     }
     
     /**
@@ -61,7 +61,7 @@ public class testLogic {
     public void testConstructor_NoPlayers() throws Exception{
         List< Manager > teams= new LinkedList< Manager >();
         teams.add( new Manager( "Alpha" ) );
-        Logic g= new Logic( teams, Dictionary.MIN_WORDLENGTH );
+        Logic g= new Logic( teams, 5 );
     }
     
     /**
@@ -73,7 +73,7 @@ public class testLogic {
         Manager man= new Manager( "Alpha" );
         man.addPlayer( "bob" );
         teams.add( new Manager( "Bravo" ) );
-        Logic g= new Logic( teams, Dictionary.MIN_WORDLENGTH );
+        Logic g= new Logic( teams, 5 );
     }
     
     /**
@@ -81,7 +81,7 @@ public class testLogic {
      */
     @Test( expected= IllegalArgumentException.class )
     public void testConstructor_WordTooSmall() throws Exception{
-        wrapLogic.getGame( Dictionary.MIN_WORDLENGTH - 1 );
+        wrapLogic.getGame( 2 );
     }
     
     /**
@@ -89,7 +89,7 @@ public class testLogic {
      */
     @Test( expected= IllegalArgumentException.class )
     public void testConstructor_WordTooLarge() throws Exception{
-        wrapLogic.getGame( Dictionary.LARGEST_WORD + 1 );
+        wrapLogic.getGame( 20 );
     }
     
     /**

@@ -67,20 +67,20 @@ public class testSetupUI{
     
     @Test
     public void testInputGameWordLength_TooSmall() {
-        int result= setup.inputGameWordLength( new java.util.Scanner( new BadSetupUser( Integer.toString( Dictionary.MIN_WORDLENGTH - 1 ) ) ) );
+        int result= setup.inputGameWordLength( new java.util.Scanner( new BadSetupUser( Integer.toString( 2 ) ) ) );
         assertEquals( 0, result );
     }
     
     @Test
     public void testInputGameWordLength_TooBig() {
-        int result= setup.inputGameWordLength( new java.util.Scanner( new BadSetupUser( Integer.toString( Dictionary.LARGEST_WORD + 1 ) ) ) );
+        int result= setup.inputGameWordLength( new java.util.Scanner( new BadSetupUser( Integer.toString( 20 ) ) ) );
         assertEquals( 0, result );
     }
     
     @Test
     public void testInputGameWordLength() {
-        int result= setup.inputGameWordLength( new java.util.Scanner( new BadSetupUser( Integer.toString( Dictionary.LARGEST_WORD  ) ) ) );
-        assertEquals( Dictionary.LARGEST_WORD, result );
+        int result= setup.inputGameWordLength( new java.util.Scanner( new BadSetupUser( Integer.toString( 5  ) ) ) );
+        assertEquals( 5, result );
     }
     
     @Test
@@ -91,7 +91,7 @@ public class testSetupUI{
     
     @Test
     public void testInputMaxAttempts_TooSmall() {
-        int result= setup.inputMaxAttempts( new java.util.Scanner( new BadSetupUser( Integer.toString( Logic.MIN_ATTEMPTS - 1  ) ) ) );
+        int result= setup.inputMaxAttempts( new java.util.Scanner( new BadSetupUser( Integer.toString( 1  ) ) ) );
         assertEquals( 0, result );
     }
     
