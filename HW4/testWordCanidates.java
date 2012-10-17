@@ -23,11 +23,11 @@ public class testWordCanidates {
         testWordList= new LinkedList< String >();
         testWordList.add( onlyWord );
     }
-    @Test( expected= IllegalArgumentException.class )
+    @Test( expected= NullPointerException.class )
     public void testConstructor_nullWord() {
         new WordCanidates( null, testWordList );
     }
-    @Test( expected= IllegalArgumentException.class )
+    @Test( expected= NullPointerException.class )
     public void testConstructor_nullList() {
         new WordCanidates( "adfs", null );
     }

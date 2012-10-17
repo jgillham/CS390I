@@ -22,8 +22,13 @@ public class WordCanidates  {
      * @throws IllegalArgumentException when wordList.size() == 0.
      * @throws IllegalArgumentException when the length of the status word does not equal the length of
      *  the first word in the word list.
+     * @throws NullPointerException when statusWord or wordList are null.
      */
     public WordCanidates( String statusWord, List<String> wordList ) {
+        if( wordList == null )
+            throw new NullPointerException();
+        if( wordList == null )
+            throw new NullPointerException();
         if( wordList.size() == 0 )
             throw new IllegalArgumentException();
         if( statusWord.length() != wordList.get( 0 ).length() )
