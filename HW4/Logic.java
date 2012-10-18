@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.Map;
 import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * Controls the game. Updates the UI. Determines the outcome of the game. Allows player to take action on the game
@@ -43,7 +44,7 @@ public class Logic{
     /** Holds the teams in the game. */
     private List< Manager > gameTeams;
     /** Holds the guess made. */
-    private List< String > guesses= new LinkedList< String >();
+    private SortedSet< String > guesses= new TreeSet< String >();
     /** Holds a string the same length of gameWord but with dashes in places where no player has guessed. */
     private StringBuilder statusWord= new StringBuilder();
     /** Refers to the team with the turn to guess. */
@@ -191,7 +192,7 @@ public class Logic{
             if( keys.size() == 1 ) {
                 selectedKey= keys.iterator().next();
             } else {
-                evilChooseKey( keys, subLists );
+                selectedKey= chooseKey( subLists );
             }
             if( selectedKey == null )
                 throw new java.lang.AssertionError( "Key was not selected." );
@@ -225,38 +226,14 @@ public class Logic{
     }
     
     /**
-     * This is the evil way to choose the key. This will pick the key that is associated
-     *  with the largest set therefore making it harder for the player to win the game.
-     *  
-     * @param keys a set of keys.
-     * @param subLists the map with the keys and lists.
-     * 
-     * @return the key
-     */
-    static public String evilChooseKey( Set< String > keys, Map< String, SortedSet< String > > subLists ) {
-        String selectedKey= null;
-        int max= 0;
-        Iterator< String > i= keys.iterator();
-        while( i.hasNext() ){
-            String key= i.next();
-            SortedSet< String > subList= subLists.get( key );
-            if( max < subList.size() ) {
-                max= subList.size();
-                selectedKey= key;
-            }
-        }
-        return selectedKey;
-    }
-    
-    /**
      * Chooses the key randomly.
      * 
      * @param keys the set of keys.
      * 
      * @return the key.
      */
-    static public String randomChooseKey( Set< String > keys ) {
-        List< String > keyList= new LinkedList< String >( keys );
+    public String chooseKey( Map< String, SortedSet< String > > subLists ) {
+        List< String > keyList= new LinkedList< String >( subLists.keySet() );
         int index= (int)(Math.random() * keyList.size() );
         return keyList.get( index );
     }
@@ -334,6 +311,8 @@ public class Logic{
         // Check to see if there no guesses remaining
         if( this.guesses.size() >= this.maxGuesses ){
             this.gameState= Statis.OVER;
+            if( this.gameWord== null )
+                this.gameWord= wordCanidates.getRandomCanidate();
             if( this.eventHandler != null )
                 this.eventHandler.gameOver( this.gameWord );
             return;
@@ -414,8 +393,9 @@ public class Logic{
      */
     public String[] getGuesses() {
         String[] guessesList= new String[guesses.size()];
-        for( int i= 0; i < guesses.size(); ++i ) {
-            guessesList[ i ]= guesses.get( i );
+        int i= 0;
+        for( String guess: guesses ) {
+            guessesList[ i++ ]= guess;
         }
         return guessesList;
     }

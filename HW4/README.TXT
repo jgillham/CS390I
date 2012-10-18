@@ -3,6 +3,10 @@ PURPOSE OF PROJECT: To turn in as a class assignment
 VERSION or DATE: 9-17-12
 HOW TO START THIS PROJECT:
 In BlueJ, run SetupUI.main( null );
+TODO:
+display guesses in order.
+display remaining guesses.
+first game is normal and next is evil.
 
 AUTHORS: Josh Gillham
 ASSIGNMENT:

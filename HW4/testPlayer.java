@@ -40,20 +40,4 @@ public class testPlayer {
     public void testConstructor_Empty() {
         Player d= new Player( "" );
     }
-    
-    /**
-     * Ensure that the initial score is 0.
-     */
-    /* @Test
-    public void testGetScore_Beginning() {
-        assertEquals( 0, player.getScore() );
-    } */
-    
-    /**
-     * Ensure that the initial history is "".
-     */
-    /* @Test
-    public void testGetHistory_Beginning() {
-        assertEquals( "", player.getHistory() );
-    } */
 }
