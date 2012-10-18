@@ -92,5 +92,19 @@ public class WordCanidates extends TreeSet< String >  {
         }
         return i.next();
     }
+    
+    /**
+     * Accesses the status word.
+     */
+    public String getStatusWord() {
+        return this.statusWord.toString();
+    }
+    
+    /**
+     * Accesses the word length.
+     */
+    public int getWordLength() {
+        return this.statusWord.length();
+    }
 }
 

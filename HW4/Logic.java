@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.lang.StringBuilder;
 
 /**
  * Controls the game. Updates the UI. Determines the outcome of the game. Allows player to take action on the game
@@ -38,14 +39,10 @@ public class Logic{
     /** Holds the potiential words. */
     protected WordCanidates wordCanidates;
     
-    /** Holds the game word length. */
-    private int gameWordLength;
     /** Holds the teams in the game. */
     private List< Manager > gameTeams;
     /** Holds the guess made. */
     private SortedSet< String > guesses= new TreeSet< String >();
-    /** Holds a string the same length of gameWord but with dashes in places where no player has guessed. */
-    private StringBuilder statusWord= new StringBuilder();
     /** Refers to the team with the turn to guess. */
     private int activeTeam= 0;
     /** Holds the call back for events during the game. Allows this class to send messages to the UI. */
@@ -74,11 +71,9 @@ public class Logic{
             throw new IllegalArgumentException();
         
         checkTeams( teams );
-        initStatusWord( gameWordLength );
-        wordCanidates= new WordCanidates( this.statusWord.toString(), Dictionary.getInstance().getSet( gameWordLength ) );
+        wordCanidates= new WordCanidates( makeStatusWord( gameWordLength ), Dictionary.getInstance().getSet( gameWordLength ) );
         
         gameTeams= teams;
-        this.gameWordLength=gameWordLength;
     }
     
     /**
@@ -102,11 +97,10 @@ public class Logic{
         this.checkTeams( teams );
         
         this.gameTeams= teams;
-        this.gameWordLength=gameWord.length();
-        this.initStatusWord( gameWord.length() );
+        
         SortedSet< String > temp= new TreeSet< String >();
         temp.add( gameWord );
-        this.wordCanidates= new WordCanidates( this.statusWord.toString(), temp );
+        this.wordCanidates= new WordCanidates( makeStatusWord( gameWord.length() ), temp );
     }
     
     /**
@@ -135,11 +129,13 @@ public class Logic{
      * 
      * @throws IllegalArgumentException when word length is less than 1.
      */
-    private final void initStatusWord( int wordLength ) {
+    public String makeStatusWord( int wordLength ) {
         if( wordLength < 1 )
             throw new IllegalArgumentException();
+        StringBuilder statusWord= new StringBuilder();
         for( int i= 0; i < wordLength; ++i )
             statusWord.append( '-' );
+        return statusWord.toString();
     }
     
     /**
@@ -197,11 +193,9 @@ public class Logic{
             }
             if( selectedKey == null )
                 throw new java.lang.AssertionError( "Key was not selected." );
-            this.statusWord= new StringBuilder( selectedKey );
+                
             SortedSet< String > subList= subLists.get( selectedKey );
             if( subList.size() == 1 ) {
-                //this.gameWord= subList.iterator().next();
-                this.statusWord= new StringBuilder( selectedKey );
                 this.wordCanidates= null;
             }else{
                 wordCanidates= new WordCanidates( selectedKey, subList );
@@ -222,7 +216,7 @@ public class Logic{
         
         // Show the UI the new found letters.
         if( this.eventHandler != null && found )
-            this.eventHandler.changedStatusWord( statusWord.toString() );
+            this.eventHandler.changedStatusWord( wordCanidates.getStatusWord() );
         return found;
     }
     
@@ -261,7 +255,7 @@ public class Logic{
         if( word.length() == 1 ) {
             return this.makeGuess( word.charAt( 0 ) );
             
-        }else if( word.length() != this.gameWordLength ) {
+        }else if( word.length() != this.wordCanidates.getWordLength() ) {
             throw new IllegalArgumentException();
         }
         for( int i= 0; i < word.length(); ++i ) {
@@ -272,8 +266,6 @@ public class Logic{
         this.playerInTurn= false;
         boolean wins= false;
         if( wins= chooseWord( word ) ) {
-            //this.gameWord= word;
-            statusWord= new StringBuilder( word );
             if( this.eventHandler != null )
                 this.eventHandler.changedStatusWord( word );
         }
@@ -313,7 +305,7 @@ public class Logic{
      */
     public void rotateTurn()  {
         // Check to see if all the letters are guessed.
-        if( this.statusWord.indexOf( "-" ) < 0 ){
+        if( this.wordCanidates.getStatusWord().indexOf( "-" ) < 0 ){
             this.gameState= Statis.WINNER;
             if( this.eventHandler != null && this.gameTeams.size() == 1 )
                 this.eventHandler.gameWinner( this.gameTeams.get( 0 ) );
@@ -359,7 +351,7 @@ public class Logic{
         this.eventHandler= handler;
         if( this.eventHandler != null ) {
             // Show the initial state of the status word.
-            this.eventHandler.changedStatusWord( statusWord.toString() );
+            this.eventHandler.changedStatusWord( wordCanidates.getStatusWord().toString() );
             // First player to guess.
             this.eventHandler.playerUp( gameTeams.get( activeTeam ).getPlayerUp()  );
         }
