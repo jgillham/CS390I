@@ -26,14 +26,24 @@ public class SetupUI extends SetupBase {
      */
     static public void main( String[] args ){
         SetupUI setup= null;
-        setup= new SetupUI();
-        setup.inputSetupGame();
-        Logic game= setup.getGame( );
-        
-        setup.startGame( game );
-        while( game.getGameState() == Logic.Statis.STARTED ){
-            game.rotateTurn();
-        }
+        boolean playing= true;
+        int count= 0;
+        do {
+            ++count;
+            if( count > 1 ) {
+                System.out.println( "Game #" + count );
+            }
+            setup= new SetupUI();
+            setup.inputSetupGame();
+            Logic game= setup.getGame( );
+            
+            
+            setup.startGame( game );
+            while( game.getGameState() == Logic.Statis.STARTED ){
+                game.rotateTurn();
+            }
+            playing= setup.inputPlayAgain();
+        } while( playing );
     }
     
     /**
@@ -55,7 +65,7 @@ public class SetupUI extends SetupBase {
         if( !Dictionary.getInstance().checkWordLength( wordLength ) )
             wordLength= Logic.DEFAULT_WORD_SIZE;
         try{
-            Logic game= super.getGame( wordLength );
+            Logic game= new Logic( super.getTeams(), wordLength );
             if( maxAttempts != 0 )
                 game.setMaxAttempts( maxAttempts );
             return game;
@@ -78,6 +88,21 @@ public class SetupUI extends SetupBase {
         GameUI UI= new GameUI( game );
         game.setGameEventsHandler(UI);
         return UI;
+    }
+    
+    /**
+     * Ask the player if they would like to play again.
+     */
+    public boolean inputPlayAgain() {
+        try {
+            Scanner userInput= new Scanner(System.in);
+            System.out.println( "Good effort! Would you like to play again (y = yes)?" );
+            String response= userInput.next();
+            if( response.equalsIgnoreCase( "y" ) ) {
+                return true;
+            }
+        } catch( Exception e ) {}
+        return false;
     }
     
     /**

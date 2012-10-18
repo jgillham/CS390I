@@ -9,6 +9,7 @@ import org.junit.Test;
  * TODO:
  *  Fully test SetupUI
  *  inputExitGame
+ *  test inputPlayAgain
  * 
  * @author  Josh Gillham
  * @version 9-23-12

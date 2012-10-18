@@ -32,7 +32,7 @@ public class testGameEvent{
         Manager firstTeam= wrapGame.addManager( "Default" );
         Player firstPlayer= wrapGame.addPlayer( "Default" );
         
-        Logic game= wrapGame.getGame();
+        Logic game= new Logic( wrapGame.getTeams(), 5 );
         GameEventsTester gameEvents= new GameEventsTester();
         game.setGameEventsHandler( gameEvents );
         //assertEquals( firstTeam, gameEvents.teamUp );
@@ -49,7 +49,7 @@ public class testGameEvent{
         wrapGame.addManager( "D" );
         wrapGame.addPlayer( "D" );
         String partialABCs= "abcdefghijklmnopqr";
-        Logic game= wrapGame.getGame();
+        Logic game= new Logic( wrapGame.getTeams(), 5 );
         game.setGameEventsHandler( gameEvents );
         game.setMaxAttempts( 5 );
         System.out.println( "Hello");
@@ -79,7 +79,7 @@ public class testGameEvent{
         Manager firstTeam= wrapGame.addManager( "Default" );
         Player firstPlayer= wrapGame.addPlayer( "Default" );
         GameEventsTester gameEvents= new GameEventsTester();
-        Logic game= wrapGame.getGame( savedGameWord );
+        Logic game= new Logic( wrapGame.getTeams(), savedGameWord );
         game.setGameEventsHandler( gameEvents );
         game.setMaxAttempts( savedGameWord.length() );
         int i= 0;
@@ -107,7 +107,7 @@ public class testGameEvent{
         SetupBase wrapGame= new SetupBase( );
         wrapGame.addManager( "D" );
         wrapGame.addPlayer( "D" );
-        Logic game= wrapGame.getGame( savedGameWord );
+        Logic game= new Logic( wrapGame.getTeams(), savedGameWord );
         GameEventsTester gameEvents= new GameEventsTester();
         game.setGameEventsHandler( gameEvents );
         game.setMaxAttempts( savedGameWord.length() );
@@ -142,7 +142,7 @@ public class testGameEvent{
         SetupBase wrapGame= new SetupBase( );
         wrapGame.addManager( "D" );
         wrapGame.addPlayer( "D" );
-        Logic game= wrapGame.getGame( savedGameWord );
+        Logic game= new Logic( wrapGame.getTeams(), savedGameWord );
         GameEventsTester gameEvents= new GameEventsTester();
         game.setGameEventsHandler( gameEvents );
         StringBuilder wrd= new StringBuilder( savedGameWord );

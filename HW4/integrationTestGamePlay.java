@@ -27,7 +27,7 @@ public class integrationTestGamePlay {
         logicWrapper= new SetupBase();
         logicWrapper.addManager( "Default" );
         logicWrapper.addPlayer( "Bob" );
-        game= logicWrapper.getGame( gameWord );
+        game= new Logic( logicWrapper.getTeams(), gameWord );
         
     }
     

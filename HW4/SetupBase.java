@@ -9,8 +9,6 @@ import java.util.LinkedList;
 public class SetupBase {    
     /** Hold the team setup. */
     private List< Manager > teams= new LinkedList< Manager >();
-    /** Has the default word length. */
-    private int wordLength= 5;
     /** Retains the first player to be added.*/
     private Player firstPlayer= null;
     /** Retains the first team to be added.*/
@@ -58,46 +56,12 @@ public class SetupBase {
             firstPlayer= player;
         return player;
     }
-    
     /**
-     * Gets a new instance of the Logic.
+     * Accesses teams.
      * 
-     * @return a Logic instance
-     * 
-     * @throws Logic.EmptyTeamsException when the teams have empty rosters.
-     * @throws Logic.NoTeamsException when there are no teams.
+     * @return the teams.
      */
-    public Logic getGame( ) throws Logic.EmptyTeamsException, Logic.NoTeamsException{
-        return new Logic( teams, wordLength );
-    }
-    
-    /**
-     * Gets a new instance of the Logic.
-     * 
-     * @arg wordLength the length of the word to choose.
-     * 
-     * @return a Logic instance
-     * 
-     * @throws Logic.EmptyTeamsException when the teams have empty rosters.
-     * @throws Logic.NoTeamsException when there are no teams.
-     */
-    public Logic getGame( int wordLength ) throws Logic.EmptyTeamsException, Logic.NoTeamsException {
-        this.wordLength= wordLength;
-        return new Logic( teams, wordLength );
-    }
-    
-    /**
-     * Gets a new instance of the Logic with a specific game word.
-     * 
-     * @arg word the game word
-     * 
-     * @return a Logic instance
-     * 
-     * @throws Logic.EmptyTeamsException when the teams have empty rosters.
-     * @throws Logic.NoTeamsException when there are no teams.
-     */
-    public Logic getGame( String word) throws Logic.EmptyTeamsException, Logic.NoTeamsException {
-        this.wordLength= word.length();
-        return new Logic( teams, word );
+    public List< Manager > getTeams() {
+        return teams;
     }
 }

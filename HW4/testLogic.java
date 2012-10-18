@@ -39,7 +39,7 @@ public class testLogic {
         wrapLogic= new SetupBase();
         wrapLogic.addManager( "Alpha" );
         wrapLogic.addPlayer( "bob" );
-        game= wrapLogic.getGame();
+        game= new Logic( wrapLogic.getTeams(), 5 );
     }
     
     @Test( expected= NullPointerException.class )
@@ -82,7 +82,7 @@ public class testLogic {
      */
     @Test( expected= IllegalArgumentException.class )
     public void testConstructor_WordTooSmall() throws Exception{
-        wrapLogic.getGame( 2 );
+        new Logic( wrapLogic.getTeams(), 2 );
     }
     
     /**
@@ -90,7 +90,7 @@ public class testLogic {
      */
     @Test( expected= IllegalArgumentException.class )
     public void testConstructor_WordTooLarge() throws Exception{
-        wrapLogic.getGame( 20 );
+        new Logic( wrapLogic.getTeams(), 2 );
     }
     
     /**
@@ -98,7 +98,7 @@ public class testLogic {
      */
     @Test( expected= NullPointerException.class )
     public void testConstructor_NullGameWord() throws Exception{
-        wrapLogic.getGame( null );
+        new Logic( wrapLogic.getTeams(), null );
     }
     
     /**
@@ -106,7 +106,7 @@ public class testLogic {
      */
     @Test( expected= IllegalArgumentException.class )
     public void testConstructor_EmptyGameWord() throws Exception{
-        wrapLogic.getGame( "" );
+        new Logic( wrapLogic.getTeams(), "" );
     }
     
     /**
@@ -135,7 +135,7 @@ public class testLogic {
      */
     @Test
     public void testMakeGuess() throws Exception {
-        Logic newGame= wrapLogic.getGame();
+        Logic newGame= new Logic( wrapLogic.getTeams(), 5 );
         newGame.makeGuess( 'a' );
     }
     
@@ -144,7 +144,7 @@ public class testLogic {
      */
     @Test( expected= Logic.PlayerOutOfTurnException.class )
     public void testMakeGuess_NoRotateTurn() throws Exception {
-        Logic newGame= wrapLogic.getGame();
+        Logic newGame= new Logic( wrapLogic.getTeams(), 5 );
         newGame.makeGuess( 'a' );
         newGame.makeGuess( 'b' );
     }
@@ -154,7 +154,7 @@ public class testLogic {
      */
     @Test
     public void testMakeGuess_RotateTurn() throws Exception {
-        Logic newGame= wrapLogic.getGame();
+        Logic newGame= new Logic( wrapLogic.getTeams(), 5 );
         newGame.makeGuess( 'a' );
         newGame.rotateTurn();
         newGame.makeGuess( 'b' );
@@ -166,17 +166,17 @@ public class testLogic {
     @Test
     public void testMakeGuess_GoodGuess() throws Exception{
         {
-            Logic newGame= wrapLogic.getGame( "logic" );
+            Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
             assertTrue( newGame.makeGuess( 'l' ) );
         }
         
         {
-            Logic newGame= wrapLogic.getGame( "logic" );
+            Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
             assertTrue( newGame.makeGuess( 'g' ) );
         }
         
         {
-            Logic newGame= wrapLogic.getGame( "logic" );
+            Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
             assertTrue( newGame.makeGuess( 'c' ) );
         }
     }
@@ -187,17 +187,17 @@ public class testLogic {
     @Test
     public void testMakeGuess_GoodGuess_Capital() throws Exception{
         {
-            Logic newGame= wrapLogic.getGame( "logic" );
+            Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
             assertTrue( newGame.makeGuess( 'L' ) );
         }
         
         {
-            Logic newGame= wrapLogic.getGame( "logic" );
+            Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
             assertTrue( newGame.makeGuess( 'G' ) );
         }
         
         {
-            Logic newGame= wrapLogic.getGame( "logic" );
+            Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
             assertTrue( newGame.makeGuess( 'C' ) );
         }
     }
@@ -207,7 +207,7 @@ public class testLogic {
      */
     @Test
     public void testMakeGuess_BadGuess() throws Exception{
-        Logic newGame= wrapLogic.getGame( "logic" );
+        Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
         assertFalse( newGame.makeGuess( 'a' ) );
     }
     
@@ -280,25 +280,25 @@ public class testLogic {
     
     @Test( expected= IllegalArgumentException.class )
     public void testSetMaxAttempts() throws Exception {
-        Logic newGame= wrapLogic.getGame( "Logic" );
+        Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
         newGame.setMaxAttempts( Logic.MIN_ATTEMPTS - 1 );
     }
     
     @Test
     public void testRotateTurn() throws Exception {
-        Logic newGame= wrapLogic.getGame( "Logic" );
+        Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
         newGame.rotateTurn();
     }
     
     @Test
     public void testGetGameState() throws Exception {
-        Logic newGame= wrapLogic.getGame( "Logic" );
+        Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
         assertEquals( Logic.Statis.STARTED, newGame.getGameState() );
     }
     
     @Test
     public void testGetGuesses() throws Exception {
-        Logic newGame= wrapLogic.getGame( "Logic" );
+        Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
         assertEquals( 0, newGame.getGuesses().length );
         newGame.makeGuess( 'j' );
         assertEquals( 1, newGame.getGuesses().length );

@@ -19,7 +19,7 @@ public class testGameUI {
         SetupBase wrapGame= new SetupBase();
         wrapGame.addManager( "Default" );
         wrapGame.addPlayer( "Default" );
-        Logic game= wrapGame.getGame();
+        Logic game= new Logic( wrapGame.getTeams(), 5 );
         new GameUI( game );
     }
 }
