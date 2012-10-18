@@ -93,6 +93,7 @@ public class GameUI implements GameEvent {
             }
         } else
             System.out.println( "A letter or the whole word please." );
+        System.out.println();
     }
     
     /**

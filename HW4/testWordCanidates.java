@@ -64,15 +64,15 @@ public class testWordCanidates {
     @Test
     public void testCount() {
         WordCanidates instance= new WordCanidates( "adfs", testWordList );
-        assertEquals( testWordList.size(), instance.count() );
+        assertEquals( testWordList.size(), instance.size() );
         
         testWordList.add( "test" );
         instance= new WordCanidates( "adfs", testWordList );
-        assertEquals( testWordList.size(), instance.count() );
+        assertEquals( testWordList.size(), instance.size() );
         
         testWordList.add( "conf" );
         instance= new WordCanidates( "adfs", testWordList );
-        assertEquals( testWordList.size(), instance.count() );
+        assertEquals( testWordList.size(), instance.size() );
     }
     
     @Test

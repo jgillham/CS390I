@@ -9,9 +9,8 @@ import java.util.Map;
  * @author Josh Gillham 
  * @version 10-9-12
  */
-public class WordCanidates  {
-    /** Holds a list of potiential word canidates. */
-    private SortedSet< String > wordCanidates;
+public class WordCanidates extends TreeSet< String >  {
+
     /** Holds a string the same length of gameWord but with dashes in places where no player has guessed. */
     private StringBuilder statusWord= new StringBuilder();
     
@@ -26,26 +25,17 @@ public class WordCanidates  {
      * @throws NullPointerException when statusWord or wordList are null.
      */
     public WordCanidates( String statusWord, SortedSet<String> wordList ) {
-        if( wordList == null )
-            throw new NullPointerException();
+        super( wordList );
         if( wordList == null )
             throw new NullPointerException();
         if( wordList.size() == 0 )
             throw new IllegalArgumentException();
         if( statusWord.length() != wordList.iterator().next().length() )
             throw new IllegalArgumentException();
-        wordCanidates= new TreeSet< String >( wordList );
+
         this.statusWord= new StringBuilder( statusWord );
     }
     
-    /**
-     * Accesses the remaining word canidates.
-     * 
-     * @return the number of canidates.
-     */
-    public int count() {
-        return wordCanidates.size();
-    }
     /**
      * Divides word canidates into smaller lists that correspond to status word
      *  patterns i.e. --a---.
@@ -60,10 +50,10 @@ public class WordCanidates  {
      * @return maps status word patterns to lists of words with those patterns.
      */
     public Map< String, SortedSet< String > > subDivide( char letter ) {
-        int length= wordCanidates.iterator().next().length();
+        int length= super.iterator().next().length();
         StringBuilder basePattern= this.statusWord;
         java.util.Map< String, SortedSet< String > > subLists= new java.util.HashMap< String, SortedSet< String > >(24);
-        Iterator< String > i= wordCanidates.iterator();
+        Iterator< String > i= super.iterator();
         SortedSet< String > othersList= new TreeSet< String >();
         subLists.put( basePattern.toString(), othersList );
         while( i.hasNext() ) {
@@ -95,10 +85,8 @@ public class WordCanidates  {
      * @return the word
      */
     public String getRandomCanidate() {
-        System.out.println( "wordCanidates.size(): " + wordCanidates.size() );
-        int rand= (int)(Math.random() * wordCanidates.size());
-        System.out.println( "rand: " + rand );
-        Iterator< String > i= wordCanidates.iterator();
+        int rand= (int)(Math.random() * super.size());
+        Iterator< String > i= super.iterator();
         for( int pos= 0; pos < rand; ++pos ) {
             i.next();
         }

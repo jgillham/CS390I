@@ -70,4 +70,22 @@ public class EvilLogic extends Logic{
         }
         return selectedKey;
     }
+    
+    /**
+     * Checks the set to see if word is contained in the list of words. If it is
+     *  the player is given a random chance out of the set to win the game.
+     * 
+     * @param word is the word to check.
+     * 
+     * @return true if guess wins the game.
+     */
+    @Override
+    public boolean chooseWord( String word ) {
+        if( wordCanidates.contains( word ) ) {
+            if( wordCanidates.size() == 1 )
+                return true;
+            wordCanidates.remove( word );
+        }
+        return false;
+    }
 }

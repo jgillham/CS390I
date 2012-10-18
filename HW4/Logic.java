@@ -35,10 +35,9 @@ public class Logic{
         WINNER
     }
     
-    /** The word every player in the game will try and guess. */
-    private String gameWord= null;
     /** Holds the potiential words. */
-    private WordCanidates wordCanidates;
+    protected WordCanidates wordCanidates;
+    
     /** Holds the game word length. */
     private int gameWordLength;
     /** Holds the teams in the game. */
@@ -103,9 +102,11 @@ public class Logic{
         this.checkTeams( teams );
         
         this.gameTeams= teams;
-        this.gameWord= gameWord;
         this.gameWordLength=gameWord.length();
         this.initStatusWord( gameWord.length() );
+        SortedSet< String > temp= new TreeSet< String >();
+        temp.add( gameWord );
+        this.wordCanidates= new WordCanidates( this.statusWord.toString(), temp );
     }
     
     /**
@@ -185,7 +186,7 @@ public class Logic{
         this.playerInTurn= false;
         boolean found= false;
 
-        if( this.gameWord == null ){
+//         if( this.gameWord == null ){
             Map< String, SortedSet< String > > subLists= wordCanidates.subDivide( letter );
             Set< String > keys= subLists.keySet();
             String selectedKey= null;
@@ -199,7 +200,7 @@ public class Logic{
             this.statusWord= new StringBuilder( selectedKey );
             SortedSet< String > subList= subLists.get( selectedKey );
             if( subList.size() == 1 ) {
-                this.gameWord= subList.iterator().next();
+                //this.gameWord= subList.iterator().next();
                 this.statusWord= new StringBuilder( selectedKey );
                 this.wordCanidates= null;
             }else{
@@ -207,17 +208,17 @@ public class Logic{
             }
             found= selectedKey.indexOf( letter ) > -1;
             
-        }else{
-            // Try to find the letter in the game word and update the status word as we go.
-            for( int i= 0; i < this.gameWord.length(); ++i ) {
-                char wordLetter= this.gameWord.charAt( i );
-                if( letter == Character.toLowerCase( wordLetter ) ) {
-                    found= true;
-                    // Replace the dash with the letter
-                    this.statusWord.setCharAt( i, letter );
-                }
-            }
-        }
+//         }else{
+//             // Try to find the letter in the game word and update the status word as we go.
+//             for( int i= 0; i < this.gameWord.length(); ++i ) {
+//                 char wordLetter= this.gameWord.charAt( i );
+//                 if( letter == Character.toLowerCase( wordLetter ) ) {
+//                     found= true;
+//                     // Replace the dash with the letter
+//                     this.statusWord.setCharAt( i, letter );
+//                 }
+//             }
+//         }
         
         // Show the UI the new found letters.
         if( this.eventHandler != null && found )
@@ -269,20 +270,31 @@ public class Logic{
         }
         this.guesses.add( word );
         this.playerInTurn= false;
-        if( gameWord == null ) {
-            if( wordCanidates.count() == 1 )
-                throw new java.lang.AssertionError( "Game word should have been selected." );
-            return false;
-        } else {
-            if( word.equalsIgnoreCase( gameWord ) ) {
-                statusWord= new StringBuilder( gameWord );
-                if( this.eventHandler != null )
-                    this.eventHandler.changedStatusWord( gameWord );
-                return true;
-            } else {
-                return false;
-            }
+        boolean wins= false;
+        if( wins= chooseWord( word ) ) {
+            //this.gameWord= word;
+            statusWord= new StringBuilder( word );
+            if( this.eventHandler != null )
+                this.eventHandler.changedStatusWord( word );
         }
+        return wins;
+    }
+    
+    /**
+     * Checks the set to see if word is contained in the list of words. If it is
+     *  the player is given a random chance out of the set to win the game.
+     * 
+     * @param word is the word to check.
+     * 
+     * @return true if guess wins the game.
+     */
+    public boolean chooseWord( String word ) {
+        if( wordCanidates.contains( word ) ) {
+            wordCanidates.remove( word );
+            int rand= (int)( Math.random() * wordCanidates.size() );
+            return rand == 0;
+        }
+        return false;
     }
     
     /**
@@ -311,10 +323,10 @@ public class Logic{
         // Check to see if there no guesses remaining
         if( this.guesses.size() >= this.maxGuesses ){
             this.gameState= Statis.OVER;
-            if( this.gameWord== null )
-                this.gameWord= wordCanidates.getRandomCanidate();
+//             if( this.gameWord== null )
+//                 this.gameWord= wordCanidates.getRandomCanidate();
             if( this.eventHandler != null )
-                this.eventHandler.gameOver( this.gameWord );
+                this.eventHandler.gameOver( wordCanidates.getRandomCanidate() );
             return;
         }
         // Make sure its the player's turn.

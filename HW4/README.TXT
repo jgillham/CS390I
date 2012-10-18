@@ -4,7 +4,7 @@ VERSION or DATE: 9-17-12
 HOW TO START THIS PROJECT:
 In BlueJ, run SetupUI.main( null );
 TODO:
-first game is normal and next is evil.
+remove extra println's
 
 AUTHORS: Josh Gillham
 ASSIGNMENT:
