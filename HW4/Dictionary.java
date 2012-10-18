@@ -1,7 +1,7 @@
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.io.File;
 import java.util.Scanner;
 import java.util.Map;
@@ -42,7 +42,7 @@ public class Dictionary{
     }
     
     /** Contains a list of array lists where there will be an inner list for each word length. */
-    private Map< Integer, List<String> > dataBank= new TreeMap< Integer, List<String> >();
+    private Map< Integer, SortedSet<String> > dataBank= new TreeMap< Integer, SortedSet<String> >();
     
     /**
      * Used to ensure word lengths meet the proper size.
@@ -72,11 +72,11 @@ public class Dictionary{
             throw new NullPointerException();
         if( word.isEmpty() )
             throw new IllegalArgumentException();
-        List< String > set= this.getSet( Integer.valueOf( word.length() ) );
+        SortedSet< String > set= this.getSet( Integer.valueOf( word.length() ) );
         if( set != null ){
             set.add( word );
         } else {
-            set= new ArrayList< String >( 1000 );
+            set= new TreeSet< String >( );
             set.add( word );
             dataBank.put( Integer.valueOf( word.length() ), set );
         }
@@ -111,23 +111,23 @@ public class Dictionary{
         }
     }
     
-    /**
-     * Finds a random word from the dictionary.
-     * 
-     * @arg length is the length of the word to find.
-     * 
-     * @return the random word OR null if the length is not in the dictionary or the word list is empty.
-     */
-    public String getWord( int length ) {
-        List< String > set= this.getSet( length );
-        if( set == null ||  set.size() == 0 ){
-            return null;
-        } else {
-            // Get a random word
-            int randomIndex= (int)( Math.random() * set.size() );
-            return set.get( randomIndex );
-        }
-    }
+//     /**
+//      * Finds a random word from the dictionary.
+//      * 
+//      * @arg length is the length of the word to find.
+//      * 
+//      * @return the random word OR null if the length is not in the dictionary or the word list is empty.
+//      */
+//     public String getWord( int length ) {
+//         SortedSet< String > set= this.getSet( length );
+//         if( set == null ||  set.size() == 0 ){
+//             return null;
+//         } else {
+//             // Get a random word
+//             int randomIndex= (int)( Math.random() * set.size() );
+//             return set.get( randomIndex );
+//         }
+//     }
     
     /**
      * Accesses a set from the dictionary.
@@ -136,7 +136,7 @@ public class Dictionary{
      * 
      * @return the set of words OR null if the length is not in the dictionary.
      */
-    public List< String > getSet( int length ) {
+    public SortedSet< String > getSet( int length ) {
         return dataBank.get( Integer.valueOf( length ) );
     }
         

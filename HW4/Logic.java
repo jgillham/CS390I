@@ -3,6 +3,7 @@ import java.util.LinkedList;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Map;
+import java.util.SortedSet;
 
 /**
  * Controls the game. Updates the UI. Determines the outcome of the game. Allows player to take action on the game
@@ -184,7 +185,7 @@ public class Logic{
         boolean found= false;
 
         if( this.gameWord == null ){
-            Map< String, List< String > > subLists= wordCanidates.subDivide( letter );
+            Map< String, SortedSet< String > > subLists= wordCanidates.subDivide( letter );
             Set< String > keys= subLists.keySet();
             String selectedKey= null;
             if( keys.size() == 1 ) {
@@ -195,9 +196,9 @@ public class Logic{
             if( selectedKey == null )
                 throw new java.lang.AssertionError( "Key was not selected." );
             this.statusWord= new StringBuilder( selectedKey );
-            List< String > subList= subLists.get( selectedKey );
+            SortedSet< String > subList= subLists.get( selectedKey );
             if( subList.size() == 1 ) {
-                this.gameWord= subList.get( 0 );
+                this.gameWord= subList.iterator().next();
                 this.statusWord= new StringBuilder( selectedKey );
                 this.wordCanidates= null;
             }else{
@@ -232,13 +233,13 @@ public class Logic{
      * 
      * @return the key
      */
-    static public String evilChooseKey( Set< String > keys, Map< String, List< String > > subLists ) {
+    static public String evilChooseKey( Set< String > keys, Map< String, SortedSet< String > > subLists ) {
         String selectedKey= null;
         int max= 0;
         Iterator< String > i= keys.iterator();
         while( i.hasNext() ){
             String key= i.next();
-            List< String > subList= subLists.get( key );
+            SortedSet< String > subList= subLists.get( key );
             if( max < subList.size() ) {
                 max= subList.size();
                 selectedKey= key;

@@ -1,6 +1,7 @@
-import java.util.List;
-import java.util.LinkedList;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Allows the game to have a partial set of words from the main dictionary.
@@ -10,7 +11,7 @@ import java.util.Iterator;
  */
 public class WordCanidates  {
     /** Holds a list of potiential word canidates. */
-    private List< String > wordCanidates;
+    private SortedSet< String > wordCanidates;
     /** Holds a string the same length of gameWord but with dashes in places where no player has guessed. */
     private StringBuilder statusWord= new StringBuilder();
     
@@ -24,16 +25,20 @@ public class WordCanidates  {
      *  the first word in the word list.
      * @throws NullPointerException when statusWord or wordList are null.
      */
-    public WordCanidates( String statusWord, List<String> wordList ) {
+    public WordCanidates( String statusWord, SortedSet<String> wordList ) {
         if( wordList == null )
             throw new NullPointerException();
         if( wordList == null )
             throw new NullPointerException();
         if( wordList.size() == 0 )
             throw new IllegalArgumentException();
-        if( statusWord.length() != wordList.get( 0 ).length() )
+        System.out.println( "statusWord: " + statusWord );
+        System.out.println( "wordList.iterator().next(): " + wordList.iterator().next() );
+        System.out.println( "statusWord.length(): " + statusWord.length() );
+        System.out.println( "wordList.iterator().next().length(): " + wordList.iterator().next().length() );
+        if( statusWord.length() != wordList.iterator().next().length() )
             throw new IllegalArgumentException();
-        wordCanidates= new LinkedList< String >( wordList );
+        wordCanidates= new TreeSet< String >( wordList );
         this.statusWord= new StringBuilder( statusWord );
     }
     
@@ -58,12 +63,12 @@ public class WordCanidates  {
      * 
      * @return maps status word patterns to lists of words with those patterns.
      */
-    public java.util.Map< String, List< String > > subDivide( char letter ) {
-        int length= wordCanidates.get( 0 ).length();
+    public Map< String, SortedSet< String > > subDivide( char letter ) {
+        int length= wordCanidates.iterator().next().length();
         StringBuilder basePattern= this.statusWord;
-        java.util.Map< String, List< String > > subLists= new java.util.HashMap< String, List< String > >(24);
+        java.util.Map< String, SortedSet< String > > subLists= new java.util.HashMap< String, SortedSet< String > >(24);
         Iterator< String > i= wordCanidates.iterator();
-        List< String > othersList= new java.util.ArrayList< String >(500);
+        SortedSet< String > othersList= new TreeSet< String >();
         subLists.put( basePattern.toString(), othersList );
         while( i.hasNext() ) {
             String word= i.next();
@@ -75,9 +80,9 @@ public class WordCanidates  {
                 pattern.setCharAt( start, letter );
             }
             if( start != -1 ) {
-                List< String > subList= subLists.get( pattern.toString() );
+                SortedSet< String > subList= subLists.get( pattern.toString() );
                 if( subList == null ) {
-                    subList= new java.util.ArrayList< String >(500);
+                    subList= new TreeSet< String >();
                     subLists.put( pattern.toString(), subList );
                 }
                 subList.add( word );
@@ -97,7 +102,11 @@ public class WordCanidates  {
         System.out.println( "wordCanidates.size(): " + wordCanidates.size() );
         int rand= (int)(Math.random() * wordCanidates.size());
         System.out.println( "rand: " + rand );
-        return wordCanidates.get( rand );
+        Iterator< String > i= wordCanidates.iterator();
+        for( int pos= 0; pos < rand; ++pos ) {
+            i.next();
+        }
+        return i.next();
     }
 }
 

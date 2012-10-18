@@ -66,51 +66,51 @@ public class testDictionary {
         assertEquals( testWords, dictionary.getSet( 3 ) );
     }
     
-    /**
-     * Test getWord with bad lengths. The result should a null.
-     */
-    @Test
-    public void testGetWord_TooSmall() {
-        assertNull( dictionary.getWord( 2 ) );
-    }
+//     /**
+//      * Test getWord with bad lengths. The result should a null.
+//      */
+//     @Test
+//     public void testGetWord_TooSmall() {
+//         assertNull( dictionary.getWord( 2 ) );
+//     }
+//     
+//     /**
+//      * Test getWord with bad lengths. The result should a null.
+//      */
+//     @Test
+//     public void testGetWord_TooLarge() {
+//         assertNull( dictionary.getWord( 6 ) );
+//     }
     
-    /**
-     * Test getWord with bad lengths. The result should a null.
-     */
-    @Test
-    public void testGetWord_TooLarge() {
-        assertNull( dictionary.getWord( 6 ) );
-    }
-    
-    /**
-     * I had a problem with it giving me the file name instead of a word.
-     */
-    @Test
-    public void testGetWords_NotTheFileName() {
-        String word= dictionary.getWord( 3 );
-        if( dictionaryFile.equalsIgnoreCase( word ) )
-            fail( "Word is the file name." );
-    }
-    
-    /**
-     * 
-     */
-    @Test
-    public void testGetWords() {
-        String word= dictionary.getWord( 3 );
-        assertNotNull( word );
-    }
-    
-    /**
-     * 
-     */
-    @Test
-    public void testGetWords_CorrectWords() {
-        String word= dictionary.getWord( 3 );
-        assertNotNull( word );
-        System.out.println( "testGetWords_CorrectWords word: "+ word );
-        assertTrue( testWords.contains( word ) );
-    }
+//     /**
+//      * I had a problem with it giving me the file name instead of a word.
+//      */
+//     @Test
+//     public void testGetWords_NotTheFileName() {
+//         String word= dictionary.getWord( 3 );
+//         if( dictionaryFile.equalsIgnoreCase( word ) )
+//             fail( "Word is the file name." );
+//     }
+//     
+//     /**
+//      * 
+//      */
+//     @Test
+//     public void testGetWords() {
+//         String word= dictionary.getWord( 3 );
+//         assertNotNull( word );
+//     }
+//     
+//     /**
+//      * 
+//      */
+//     @Test
+//     public void testGetWords_CorrectWords() {
+//         String word= dictionary.getWord( 3 );
+//         assertNotNull( word );
+//         System.out.println( "testGetWords_CorrectWords word: "+ word );
+//         assertTrue( testWords.contains( word ) );
+//     }
     
     @Test
     public void testDepositWord() {
