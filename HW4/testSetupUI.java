@@ -109,6 +109,6 @@ public class testSetupUI{
         SetupUI setup2= new SetupUI();
         setup2.addManager( "D" );
         setup2.addPlayer( "D" );
-        Logic game= setup2.getGame();
+        Logic game= new Logic( setup2.getTeams(), 5 );
     }
 }

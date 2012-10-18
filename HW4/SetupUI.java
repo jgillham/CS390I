@@ -15,9 +15,9 @@ public class SetupUI extends SetupBase {
     static public final String DICTIONARY_FILE= "smalldictionary.txt";
     
     /** Holds the word length. */
-    private int wordLength= 0;
+    private int wordLength= 5;
     /** Holds the maximum guesses. */
-    private int maxAttempts= 0;
+    private int maxAttempts= 10;
     
     /**
      * Initializes the dictionary. Creates a new instance of SetupUI.
@@ -34,9 +34,7 @@ public class SetupUI extends SetupBase {
                 System.out.println( "Game #" + count );
             }
             setup= new SetupUI();
-            setup.inputSetupGame();
-            Logic game= setup.getGame( );
-            
+            Logic game= setup.inputSetupGame( count > 1 );
             
             setup.startGame( game );
             while( game.getGameState() == Logic.Statis.STARTED ){
@@ -53,28 +51,6 @@ public class SetupUI extends SetupBase {
         super.addManager( "Default" );
         // Add him to the first team.
         super.addPlayer( "Default" );
-    }
-    
-    /**
-     * Gets a new instance of the Logic class.
-     * 
-     * @return Logic instance
-     * @return null on failure -- should never happen.
-     */
-    public Logic getGame(){
-        if( !Dictionary.getInstance().checkWordLength( wordLength ) )
-            wordLength= Logic.DEFAULT_WORD_SIZE;
-        try{
-            Logic game= new Logic( super.getTeams(), wordLength );
-            if( maxAttempts != 0 )
-                game.setMaxAttempts( maxAttempts );
-            return game;
-        }
-        // This Should never happen.
-        catch( Exception e ) {
-            e.printStackTrace();
-            return null;
-        }
     }
     
     /**
@@ -109,23 +85,42 @@ public class SetupUI extends SetupBase {
      * Walk through the setup steps with the user. Sets private fields as
      *  the user does input.
      */
-    public void inputSetupGame() {
+    public Logic inputSetupGame( boolean evilMode ) {
         Scanner userInput= new Scanner(System.in);
         int tries= 0;
         
         // Get the word length
         tries= 0;
-        while( wordLength == 0 && tries++ < 3 )
-            wordLength= inputGameWordLength( userInput );
-
-        if( wordLength == 0 )
-            wordLength = Logic.DEFAULT_WORD_SIZE;
+        int responseWordLength= 0;
+        while( responseWordLength == 0 && tries++ < 3 )
+            responseWordLength= inputGameWordLength( userInput );
+        
+        if( responseWordLength != 0 )
+            this.wordLength= responseWordLength;
         
         // Get the maximum allowed guesses.
         tries= 0;
-        while( maxAttempts == 0 && tries++ < 3 )
-            maxAttempts= inputMaxAttempts( userInput );
+        int responseMaxAttempts= 0;
+        while( responseMaxAttempts == 0 && tries++ < 3 )
+            responseMaxAttempts= inputMaxAttempts( userInput );
+            
+        if( responseMaxAttempts != 0 )
+            this.maxAttempts= responseMaxAttempts;
         
+        try {
+            Logic ret;
+            if( evilMode )
+                ret= new EvilLogic( super.getTeams(), wordLength );
+            else
+                ret= new Logic( super.getTeams(), wordLength );
+            ret.setMaxAttempts( this.maxAttempts );
+            return ret;
+        }
+        // This should never happen
+        catch( Exception e ) {
+            e.printStackTrace();
+        }
+        return null;
     }
     
     /**
