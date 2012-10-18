@@ -354,12 +354,12 @@ public class Logic{
     }
     
     /**
-     * Gets the total guesses made.
+     * Gets the remaining guesses.
      * 
-     * @return the number of attempts remaining.
+     * @return the number of guesses remaining.
      */
-    public int getAttempts() {
-        return this.guesses.size();
+    public int getRemainingGuesses() {
+        return maxGuesses - this.guesses.size();
     }
     
     /**

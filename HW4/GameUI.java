@@ -56,6 +56,8 @@ public class GameUI implements GameEvent {
      */
     public void playerUp( Player player ) {
         Scanner inputScanner= new Scanner( System.in );
+        // Show game status'
+        System.out.println( "Remaining Guesses: " + gameLogic.getRemainingGuesses() );
         System.out.println( "Word: " + statusWord );
         String[] oldGuesses= gameLogic.getGuesses();
         if( oldGuesses != null  ) {

@@ -32,10 +32,6 @@ public class WordCanidates  {
             throw new NullPointerException();
         if( wordList.size() == 0 )
             throw new IllegalArgumentException();
-        System.out.println( "statusWord: " + statusWord );
-        System.out.println( "wordList.iterator().next(): " + wordList.iterator().next() );
-        System.out.println( "statusWord.length(): " + statusWord.length() );
-        System.out.println( "wordList.iterator().next().length(): " + wordList.iterator().next().length() );
         if( statusWord.length() != wordList.iterator().next().length() )
             throw new IllegalArgumentException();
         wordCanidates= new TreeSet< String >( wordList );

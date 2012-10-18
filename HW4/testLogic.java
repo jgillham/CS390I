@@ -14,6 +14,7 @@ import java.util.LinkedList;
  *  testGetAttempts()
  *  -testRotateTurn()
  *  getGuesses
+ *  test getGuessesRemaining
  *
  * @author  Josh Gillham
  * @version 9-23-12
@@ -275,17 +276,6 @@ public class testLogic {
     @Test
     public void testSetGameEventsHandler_null() {
         game.setGameEventsHandler( null );
-    }
-    
-    /**
-     * Test UI event setter to make sure null does not throw an error.
-     */
-    @Test
-    public void testGetAttempts()throws Exception {
-        Logic newGame= wrapLogic.getGame( "Logic" );
-        assertEquals( 0, newGame.getAttempts() );
-        newGame.makeGuess( 'l' );
-        assertEquals( 1, newGame.getAttempts() );
     }
     
     @Test( expected= IllegalArgumentException.class )
