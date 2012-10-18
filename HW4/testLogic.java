@@ -165,7 +165,6 @@ public class testLogic {
      */
     @Test
     public void testMakeGuess_GoodGuess() throws Exception{
-        System.out.println( "testMakeGuess_GoodGuess" );
         {
             Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
             assertTrue( newGame.makeGuess( 'l' ) );
@@ -187,7 +186,6 @@ public class testLogic {
      */
     @Test
     public void testMakeGuess_GoodGuess_Capital() throws Exception{
-        System.out.println( "testMakeGuess_GoodGuess_Capital" );
         {
             Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
             assertTrue( newGame.makeGuess( 'L' ) );
@@ -261,7 +259,6 @@ public class testLogic {
      */
     @Test( expected= IllegalArgumentException.class )
     public void testMakeGuess_String_WrongLength()throws Exception {
-        System.out.println( "testMakeGuess_String_WrongLength" );
         game.makeGuess( "sound" );
     }
     

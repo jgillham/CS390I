@@ -184,7 +184,6 @@ public class Logic{
 
 //         if( this.gameWord == null ){
             Map< String, SortedSet< String > > subLists= wordCanidates.subDivide( letter );
-            System.out.println( "subLists: " + subLists );
             Set< String > keys= subLists.keySet();
             String selectedKey= null;
             if( keys.size() == 1 ) {
@@ -238,9 +237,7 @@ public class Logic{
             throw new PlayerOutOfTurnException();
         if( word == null )
             throw new NullPointerException();
-        System.out.println( "makeGuess: word" + word );
-        System.out.println( "makeGuess: this.wordCanidates.getWordLength()" + this.wordCanidates.getWordLength() );
-        System.out.println( "makeGuess: this.wordCanidates: " + this.wordCanidates );
+            
         if( word.length() == 1 ) {
             return this.makeGuess( word.charAt( 0 ) );
             
@@ -275,9 +272,7 @@ public class Logic{
     public boolean chooseWord( String word ) {
         if( wordCanidates.contains( word ) ) {
             wordCanidates.remove( word );
-            System.out.println( "wordCanidates: " + wordCanidates );
             int rand= (int)( Math.random() * wordCanidates.size() );
-            System.out.println( "Math.random() * wordCanidates.size(): " + (int)( Math.random() * wordCanidates.size() ) );
             return rand == 0;
         }
         return false;
@@ -301,8 +296,6 @@ public class Logic{
         // Check to see if all the letters are guessed.
         if( wordCanidates.getStatusWord().indexOf( '-' ) == -1 ){
             this.gameState= Statis.WINNER;
-            System.out.println( "this.gameState == Statis.WINNER activeTeam: " + activeTeam );
-            System.out.println( "this.gameState == Statis.WINNER this.gameTeams.get( activeTeam ): " + this.gameTeams.get( activeTeam ) );
             if( this.eventHandler != null )
                 this.eventHandler.gameWinner( this.gameTeams.get( activeTeam ) );
             return;

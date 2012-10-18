@@ -102,7 +102,6 @@ public class testDictionary {
     
     @Test
     public void testGetSet() {
-        System.out.println( "testGetSet" );
         assertNotNull( dictionary.getSet( 3 ) );
         assertNotNull( dictionary.getSet( 5 ) );
     }

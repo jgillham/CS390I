@@ -51,7 +51,6 @@ public class WordCanidates extends TreeSet< String >  {
      */
     public Map< String, SortedSet< String > > subDivide( char letter ) {
         letter= Character.toLowerCase( letter );
-        System.out.println( "subDivide letter: " + letter );
         int length= super.iterator().next().length();
         StringBuilder basePattern= this.statusWord;
         java.util.Map< String, SortedSet< String > > subLists= new java.util.HashMap< String, SortedSet< String > >(24);

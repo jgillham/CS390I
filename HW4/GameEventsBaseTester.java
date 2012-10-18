@@ -36,7 +36,6 @@ abstract class GameEventsBaseTester implements GameEvent {
     }
     /** Updates callback stats. */
     public void gameWinner( Manager team ){
-        System.out.println( "gameWinner  team: " + team );
         gameWinningTeam= team;
     }
     /** Updates callback stats. */
@@ -46,7 +45,6 @@ abstract class GameEventsBaseTester implements GameEvent {
         
     /** Makes a guess and keeps stats on the results. */
     public void guess( Logic game, char c ){
-        System.out.println( "guess: " + c );
         try {
             if( !game.makeGuess( c ) )
                 ++badGuesses;
@@ -60,7 +58,6 @@ abstract class GameEventsBaseTester implements GameEvent {
     }
     /** Makes a guess and keeps stats on the results. */
     public void guess( Logic game, String guess ){
-        System.out.println( "guess: " + guess );
         try {
             if( !game.makeGuess( guess ) )
                 ++badGuesses;

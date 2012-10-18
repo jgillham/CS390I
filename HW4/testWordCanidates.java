@@ -83,7 +83,6 @@ public class testWordCanidates {
     
     @Test
     public void testsubDivide() {
-        System.out.println( "testsubDivide" );
         SortedSet< String > wordList= new TreeSet< String >();
         wordList.add( "cant" );
         wordList.add( "went" );
@@ -115,7 +114,6 @@ public class testWordCanidates {
     }
     @Test
     public void testsubDivide2() {
-        System.out.println( "testsubDivide2" );
         int[] resultingSizes={ 2, 1 };
         SortedSet< String > wordList= new TreeSet< String >();
         wordList.add( "casa" );
@@ -137,7 +135,6 @@ public class testWordCanidates {
     
     @Test
     public void testsubDivide_noDefault() {
-        System.out.println( "testsubDivide" );
         SortedSet< String > wordList= new TreeSet< String >();
         wordList.add( "cant" );
         wordList.add( "weat" );
@@ -170,7 +167,6 @@ public class testWordCanidates {
     
     @Test
     public void testsubDivide_Twice() {
-        System.out.println( "testsubDivide_Twice" );
         SortedSet< String > wordList= new TreeSet< String >();
         wordList.add( "casa" );
         wordList.add( "went" );
@@ -187,18 +183,12 @@ public class testWordCanidates {
         temp.add( "cata" );
         expectedResult.put( "-a-a", temp );
         
-        System.out.println( "testsubDivide_Twice first subDivide()" );
-        
         WordCanidates instance= new WordCanidates( "----", wordList );
         SubDivideResult mappedLists= new SubDivideResult( instance.subDivide( 'a' ) );
         
         assertEquals(expectedResult, mappedLists );
-        
-        System.out.println( "testsubDivide_Twice second subDivide()" );
         SortedSet< String > subList;
         assertNotNull( (subList= mappedLists.get( "-a-a" ) ) );
-        
-        System.out.println( "testsubDivide_Twice second subList: " + subList );
         
         expectedResult= new SubDivideResult();
         temp= new TreeSet< String >();
@@ -218,7 +208,6 @@ public class testWordCanidates {
     }
     @Test
     public void testsubDivide_ThreeTimes() {
-        System.out.println( "testsubDivide_ThreeTimes" );
         SortedSet< String > wordList= new TreeSet< String >();
         wordList.add( "casa" );
         wordList.add( "went" );
@@ -237,19 +226,13 @@ public class testWordCanidates {
         temp.add( "went" );
         expectedResult.put( "----", temp );
         
-        
-        System.out.println( "testsubDivide_Twice first subDivide()" );
-        
         WordCanidates instance= new WordCanidates( "----", wordList );
         SubDivideResult mappedLists= new SubDivideResult( instance.subDivide( 'a' ) );
         
         assertEquals(expectedResult, mappedLists );
         
-        System.out.println( "testsubDivide_Twice second subDivide()" );
         SortedSet< String > subList;
         assertNotNull( (subList= mappedLists.get( "-a-a" ) ) );
-        
-        System.out.println( "testsubDivide_Twice second subList: " + subList );
         
         expectedResult= new SubDivideResult();
         temp= new TreeSet< String >();
@@ -267,11 +250,8 @@ public class testWordCanidates {
         
         assertEquals(expectedResult, mappedLists );
         
-        System.out.println( "testsubDivide_ThreeTimes third subDivide()" );
         assertNotNull( (subList= mappedLists.get( "-a-a" ) ) );
-        
-        System.out.println( "testsubDivide_ThreeTimes third subList: " + subList );
-        
+                
         expectedResult= new SubDivideResult();
         temp= new TreeSet< String >();
         temp.add( "capa" );

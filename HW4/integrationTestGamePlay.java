@@ -72,7 +72,6 @@ public class integrationTestGamePlay {
             
             int i= 0;
             public void playerUp( Player player ){
-                System.out.println( "guessplayerUp " + i );
                 if( i < maxGuesses )
                     this.guess( game, guesses.charAt( i++ ) );
             }
@@ -87,7 +86,6 @@ public class integrationTestGamePlay {
         game.setGameEventsHandler( tester );
         int counter= 0;
         while( counter++ < MAX_TURNS && game.getGameState() == Logic.Statis.STARTED ) {
-            System.out.println( "inloop " + counter );
             game.rotateTurn();
         }
         assertTrue( counter < MAX_TURNS );
@@ -130,7 +128,6 @@ public class integrationTestGamePlay {
             
             int i= 0;
             public void playerUp( Player player ){
-                System.out.println( "playerUP: " + i );
                 if( i < guesses.length() - 1 )
                     this.guess( game, guesses.charAt( i++ ) );
             }
@@ -160,7 +157,6 @@ public class integrationTestGamePlay {
             
             int i= 0;
             public void playerUp( Player player ){
-                System.out.println( "playerUP: " + i );
                 if( i < guesses.length() - 1 )
                     this.guess( game, guesses.charAt( i++ ) );
             }
@@ -192,13 +188,11 @@ public class integrationTestGamePlay {
             
             int i= 0;
             public void playerUp( Player player ){
-                System.out.println( "playerUP: " + i );
                 if( i < guesses.length )
                     this.guess( game, guesses[ i++ ] );
             }
             public void makeAssertions(){
                 assertFalse( gameOver );
-                System.out.println( "makeAssertions  gameWinningTeam: " + gameWinningTeam );
                 assertNotNull( gameWinningTeam );
                 assertEquals( 0, badGuesses );
                 assertEquals( 0, errorGuesses );
