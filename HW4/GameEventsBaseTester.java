@@ -36,6 +36,7 @@ abstract class GameEventsBaseTester implements GameEvent {
     }
     /** Updates callback stats. */
     public void gameWinner( Manager team ){
+        System.out.println( "gameWinner  team: " + team );
         gameWinningTeam= team;
     }
     /** Updates callback stats. */

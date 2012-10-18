@@ -13,7 +13,7 @@ import java.lang.NullPointerException;
  */
 public class testDictionary {
     /** Holds a list of test words. */
-    java.util.List< String > testWords= new java.util.LinkedList< String >();
+    java.util.SortedSet< String > testWords= new java.util.TreeSet< String >();
     /** Holds a copy of Dictionary. */
     Dictionary dictionary= Dictionary.getInstance();
     /** The file of the dictionary. */
@@ -75,7 +75,7 @@ public class testDictionary {
     public void testDepositWord_Multiple() {
         Dictionary.dispose();
         dictionary= Dictionary.getInstance();
-        java.util.List< String > wordList= new java.util.LinkedList< String >();
+        java.util.SortedSet< String > wordList= new java.util.TreeSet< String >();
         wordList.add( "cat" );
         dictionary.depositWord( "cat" );
         assertEquals( wordList, dictionary.getSet( 3 ) );

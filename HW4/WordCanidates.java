@@ -50,14 +50,16 @@ public class WordCanidates extends TreeSet< String >  {
      * @return maps status word patterns to lists of words with those patterns.
      */
     public Map< String, SortedSet< String > > subDivide( char letter ) {
+        letter= Character.toLowerCase( letter );
+        System.out.println( "subDivide letter: " + letter );
         int length= super.iterator().next().length();
         StringBuilder basePattern= this.statusWord;
         java.util.Map< String, SortedSet< String > > subLists= new java.util.HashMap< String, SortedSet< String > >(24);
         Iterator< String > i= super.iterator();
         SortedSet< String > othersList= new TreeSet< String >();
-        subLists.put( basePattern.toString(), othersList );
+        //subLists.put( basePattern.toString(), othersList );
         while( i.hasNext() ) {
-            String word= i.next();
+            String word= i.next().toLowerCase( );
             StringBuilder pattern= new StringBuilder( basePattern );
             int start= -1;
             int temp;
@@ -72,8 +74,14 @@ public class WordCanidates extends TreeSet< String >  {
                     subLists.put( pattern.toString(), subList );
                 }
                 subList.add( word );
-            } else 
-                othersList.add( word );
+            } else {
+                SortedSet< String > subList= subLists.get( basePattern.toString() );
+                if( subList == null ) {
+                    subList= new TreeSet< String >();
+                    subLists.put( basePattern.toString(), subList );
+                }
+                subList.add( word );
+            }
                 
         }
         return subLists;

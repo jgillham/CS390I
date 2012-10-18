@@ -184,6 +184,7 @@ public class Logic{
 
 //         if( this.gameWord == null ){
             Map< String, SortedSet< String > > subLists= wordCanidates.subDivide( letter );
+            System.out.println( "subLists: " + subLists );
             Set< String > keys= subLists.keySet();
             String selectedKey= null;
             if( keys.size() == 1 ) {
@@ -195,28 +196,13 @@ public class Logic{
                 throw new java.lang.AssertionError( "Key was not selected." );
                 
             SortedSet< String > subList= subLists.get( selectedKey );
-            if( subList.size() == 1 ) {
-                this.wordCanidates= null;
-            }else{
-                wordCanidates= new WordCanidates( selectedKey, subList );
-            }
-            found= selectedKey.indexOf( letter ) > -1;
-            
-//         }else{
-//             // Try to find the letter in the game word and update the status word as we go.
-//             for( int i= 0; i < this.gameWord.length(); ++i ) {
-//                 char wordLetter= this.gameWord.charAt( i );
-//                 if( letter == Character.toLowerCase( wordLetter ) ) {
-//                     found= true;
-//                     // Replace the dash with the letter
-//                     this.statusWord.setCharAt( i, letter );
-//                 }
-//             }
-//         }
-        
-        // Show the UI the new found letters.
-        if( this.eventHandler != null && found )
-            this.eventHandler.changedStatusWord( wordCanidates.getStatusWord() );
+            wordCanidates= new WordCanidates( selectedKey, subList );
+        if( selectedKey.indexOf( letter ) > -1 ) {
+            found= true;
+            // Show the UI the new found letters.
+            if( this.eventHandler != null && found )
+                this.eventHandler.changedStatusWord( wordCanidates.getStatusWord() );
+        }
         return found;
     }
     
@@ -252,6 +238,9 @@ public class Logic{
             throw new PlayerOutOfTurnException();
         if( word == null )
             throw new NullPointerException();
+        System.out.println( "makeGuess: word" + word );
+        System.out.println( "makeGuess: this.wordCanidates.getWordLength()" + this.wordCanidates.getWordLength() );
+        System.out.println( "makeGuess: this.wordCanidates: " + this.wordCanidates );
         if( word.length() == 1 ) {
             return this.makeGuess( word.charAt( 0 ) );
             
@@ -266,6 +255,9 @@ public class Logic{
         this.playerInTurn= false;
         boolean wins= false;
         if( wins= chooseWord( word ) ) {
+            SortedSet< String > temp= new TreeSet< String >();
+            temp.add( word );
+            wordCanidates= new WordCanidates( word, temp );
             if( this.eventHandler != null )
                 this.eventHandler.changedStatusWord( word );
         }
@@ -283,7 +275,9 @@ public class Logic{
     public boolean chooseWord( String word ) {
         if( wordCanidates.contains( word ) ) {
             wordCanidates.remove( word );
+            System.out.println( "wordCanidates: " + wordCanidates );
             int rand= (int)( Math.random() * wordCanidates.size() );
+            System.out.println( "Math.random() * wordCanidates.size(): " + (int)( Math.random() * wordCanidates.size() ) );
             return rand == 0;
         }
         return false;
@@ -305,11 +299,12 @@ public class Logic{
      */
     public void rotateTurn()  {
         // Check to see if all the letters are guessed.
-        if( this.wordCanidates.getStatusWord().indexOf( "-" ) < 0 ){
+        if( wordCanidates.getStatusWord().indexOf( '-' ) == -1 ){
             this.gameState= Statis.WINNER;
-            if( this.eventHandler != null && this.gameTeams.size() == 1 )
-                this.eventHandler.gameWinner( this.gameTeams.get( 0 ) );
-            
+            System.out.println( "this.gameState == Statis.WINNER activeTeam: " + activeTeam );
+            System.out.println( "this.gameState == Statis.WINNER this.gameTeams.get( activeTeam ): " + this.gameTeams.get( activeTeam ) );
+            if( this.eventHandler != null )
+                this.eventHandler.gameWinner( this.gameTeams.get( activeTeam ) );
             return;
         }
         // Check to see if there no guesses remaining

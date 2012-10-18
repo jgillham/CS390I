@@ -39,7 +39,7 @@ public class testLogic {
         wrapLogic= new SetupBase();
         wrapLogic.addManager( "Alpha" );
         wrapLogic.addPlayer( "bob" );
-        game= new Logic( wrapLogic.getTeams(), 5 );
+        game= new Logic( wrapLogic.getTeams(), 3 );
     }
     
     @Test( expected= NullPointerException.class )
@@ -82,7 +82,7 @@ public class testLogic {
      */
     @Test( expected= IllegalArgumentException.class )
     public void testConstructor_WordTooSmall() throws Exception{
-        new Logic( wrapLogic.getTeams(), 2 );
+        new Logic( wrapLogic.getTeams(), -2 );
     }
     
     /**
@@ -90,7 +90,7 @@ public class testLogic {
      */
     @Test( expected= IllegalArgumentException.class )
     public void testConstructor_WordTooLarge() throws Exception{
-        new Logic( wrapLogic.getTeams(), 2 );
+        new Logic( wrapLogic.getTeams(), 20 );
     }
     
     /**
@@ -165,6 +165,7 @@ public class testLogic {
      */
     @Test
     public void testMakeGuess_GoodGuess() throws Exception{
+        System.out.println( "testMakeGuess_GoodGuess" );
         {
             Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
             assertTrue( newGame.makeGuess( 'l' ) );
@@ -186,6 +187,7 @@ public class testLogic {
      */
     @Test
     public void testMakeGuess_GoodGuess_Capital() throws Exception{
+        System.out.println( "testMakeGuess_GoodGuess_Capital" );
         {
             Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
             assertTrue( newGame.makeGuess( 'L' ) );
@@ -258,7 +260,8 @@ public class testLogic {
      * Test makeGuess with a bad argument. Error expected.
      */
     @Test( expected= IllegalArgumentException.class )
-    public void testMakeGuess_String_TooShort()throws Exception {
+    public void testMakeGuess_String_WrongLength()throws Exception {
+        System.out.println( "testMakeGuess_String_WrongLength" );
         game.makeGuess( "sound" );
     }
     

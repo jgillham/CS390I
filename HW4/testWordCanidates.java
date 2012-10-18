@@ -103,6 +103,14 @@ public class testWordCanidates {
         WordCanidates instance= new WordCanidates( "----", wordList );
         SubDivideResult mappedLists= new SubDivideResult( instance.subDivide( 'a' ) );
         
+        java.util.Set< String > keys= mappedLists.keySet();
+        
+        for( String key: keys ) {
+            SortedSet< String > list= mappedLists.get( key );
+            assertNotNull( list );
+            assertTrue( list.size() > 0 );
+        }
+        
         assertEquals( expectedResult, mappedLists );
     }
     @Test
@@ -125,6 +133,39 @@ public class testWordCanidates {
         WordCanidates instance= new WordCanidates( "----", wordList );
         SubDivideResult mappedLists= new SubDivideResult( instance.subDivide( 'a' ) );
         assertEquals(expectedResult, mappedLists );
+    }
+    
+    @Test
+    public void testsubDivide_noDefault() {
+        System.out.println( "testsubDivide" );
+        SortedSet< String > wordList= new TreeSet< String >();
+        wordList.add( "cant" );
+        wordList.add( "weat" );
+        wordList.add( "capa" );
+        
+        
+        SubDivideResult expectedResult= new SubDivideResult();
+        SortedSet< String > temp= new TreeSet< String >();
+        temp.add( "weat" );
+        expectedResult.put( "--a-", temp );
+        temp= new TreeSet< String >();
+        temp.add( "cant" );
+        expectedResult.put( "-a--", temp );
+        temp= new TreeSet< String >();
+        temp.add( "capa" );
+        expectedResult.put( "-a-a", temp );
+        WordCanidates instance= new WordCanidates( "----", wordList );
+        SubDivideResult mappedLists= new SubDivideResult( instance.subDivide( 'a' ) );
+        
+        java.util.Set< String > keys= mappedLists.keySet();
+        
+        for( String key: keys ) {
+            SortedSet< String > list= mappedLists.get( key );
+            assertNotNull( list );
+            assertTrue( list.size() > 0 );
+        }
+        
+        assertEquals( expectedResult, mappedLists );
     }
     
     @Test

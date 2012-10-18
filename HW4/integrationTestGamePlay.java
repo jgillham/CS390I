@@ -198,6 +198,7 @@ public class integrationTestGamePlay {
             }
             public void makeAssertions(){
                 assertFalse( gameOver );
+                System.out.println( "makeAssertions  gameWinningTeam: " + gameWinningTeam );
                 assertNotNull( gameWinningTeam );
                 assertEquals( 0, badGuesses );
                 assertEquals( 0, errorGuesses );
