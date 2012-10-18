@@ -162,6 +162,7 @@ public class SetupUI extends SetupBase {
             }
             return wordLength;
         }catch( java.util.NoSuchElementException e ) {
+            inputScanner.next();
             return 0;
         }
     }
@@ -177,12 +178,13 @@ public class SetupUI extends SetupBase {
     public int inputMaxAttempts( Scanner inputScanner ) {
         System.out.println( "Whats is the max tries to win the game?" );
         try {
-        int attempts= inputScanner.nextInt();
-        if( attempts < Logic.MIN_ATTEMPTS )
-            return 0;
-        else
-            return attempts;
+            int attempts= inputScanner.nextInt();
+            if( attempts < Logic.MIN_ATTEMPTS )
+                return 0;
+            else
+                return attempts;
         } catch( java.util.NoSuchElementException e ) {
+            inputScanner.next();
             return 0;
         }
     }
