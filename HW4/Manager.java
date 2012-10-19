@@ -23,7 +23,7 @@ public class Manager {
     /**
      * Creates a new empty team.
      * 
-     * @arg name the team name.
+     * @param name the team name.
      * 
      * @throws NullPointerException if is name is null.
      * @throws IllegalArgumentException if name is empty.
@@ -41,7 +41,7 @@ public class Manager {
     /**
      * Creates a new player in the Manager class and adds him to the list.
      * 
-     * @arg name the player name.
+     * @param name the player name.
      * 
      * @return the new player.
      * 

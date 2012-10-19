@@ -17,8 +17,8 @@ public class EvilLogic extends Logic{
      * Checks to make sure teams has no teams with empty rosters. Makes sure there is at least one player
      *  and one team. The gameWord must not be empty or null.
      *  
-     * @arg teams the teams for the game.
-     * @arg gameWordLength the length of the game word.
+     * @param teams the teams for the game.
+     * @param gameWordLength the length of the game word.
      * 
      * @throws EmptyTeamsException when any Manager.getRosterSize() returns 0.
      * @throws NoTeamsException when teams is empty.
@@ -33,8 +33,8 @@ public class EvilLogic extends Logic{
      * Checks to make sure teams has no teams with empty rosters. Makes sure there is at least one player
      *  and one team. The gameWord must not be empty or null.
      *  
-     * @arg teams the teams for the game.
-     * @arg gameWord the word to guess
+     * @param teams the teams for the game.
+     * @param gameWord the word to guess
      * 
      * @throws EmptyTeamsException when any Manager.getRosterSize() returns 0.
      * @throws NoTeamsException when teams is empty.

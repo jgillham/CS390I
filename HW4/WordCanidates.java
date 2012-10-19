@@ -17,7 +17,7 @@ public class WordCanidates extends TreeSet< String >  {
     /**
      * Initializes class variables.
      * 
-     * @arg wordList is the list to use.
+     * @param wordList is the list to use.
      * 
      * @throws IllegalArgumentException when wordList.size() == 0.
      * @throws IllegalArgumentException when the length of the status word does not equal the length of
@@ -45,7 +45,7 @@ public class WordCanidates extends TreeSet< String >  {
      *  -a--a- List2
      *  ------ List3
      *  
-     * @arg letter is the letter to divide the lists by.
+     * @param letter is the letter to divide the lists by.
      * 
      * @return maps status word patterns to lists of words with those patterns.
      */

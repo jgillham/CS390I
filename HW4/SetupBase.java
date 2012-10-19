@@ -29,7 +29,7 @@ public class SetupBase {
     /** 
      * Simplifies adding a manager and retains the first manager to be added.
      * 
-     * @arg name the team name
+     * @param name the team name
      * 
      * @return the new manager
      */
@@ -44,7 +44,7 @@ public class SetupBase {
     /**
      * Simplifies adding a player to a team and retains the first player added.
      * 
-     * @arg name the player name
+     * @param name the player name
      * 
      * @return the new player
      */

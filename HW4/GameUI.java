@@ -19,7 +19,7 @@ public class GameUI implements GameEvent {
     /**
      * Displays the game interface to the players.
      * 
-     * @arg gameLogic the logic to take game actions on.
+     * @param gameLogic the logic to take game actions on.
      * 
      * @throw NullPointerException when gameLogic is null.
      */
@@ -32,7 +32,7 @@ public class GameUI implements GameEvent {
     /**
      * Called after a guess is made. Displays the status word to the user.
      * 
-     * @arg statusWord the word with some letters masked with underscores.
+     * @param statusWord the word with some letters masked with underscores.
      */
     public void changedStatusWord( String statusWord ) {
         this.statusWord= statusWord;
@@ -52,7 +52,7 @@ public class GameUI implements GameEvent {
      * Called when players are rotated. Announces the next 
      *  player with the turn to guess.
      * 
-     * @arg player the player with the turn to guess.
+     * @param player the player with the turn to guess.
      */
     public void playerUp( Player player ) {
         Scanner inputScanner= new Scanner( System.in );
@@ -99,7 +99,7 @@ public class GameUI implements GameEvent {
     /**
      * Called when one team wins the game. Announces the winner.
      * 
-     * @arg team the winner.
+     * @param team the winner.
      */
     public void gameWinner( Manager team ) {
         System.out.println( "Word: " + statusWord );

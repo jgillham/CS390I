@@ -22,7 +22,7 @@ public class SetupUI extends SetupBase {
     /**
      * Initializes the dictionary. Creates a new instance of SetupUI.
      * 
-     * @arg args command line arguments - not used.
+     * @param args command line arguments - not used.
      */
     static public void main( String[] args ){
         SetupUI setup= null;
@@ -56,7 +56,7 @@ public class SetupUI extends SetupBase {
     /**
      * Launches the Game UI.
      * 
-     * @arg game a reference to the game logic.
+     * @param game a reference to the game logic.
      * 
      * @return the newly create GameUI.
      */
@@ -126,7 +126,7 @@ public class SetupUI extends SetupBase {
     /**
      * Listens for the player's name and throws out bad input.
      * 
-     * @arg inputScanner gets the next input
+     * @param inputScanner gets the next input
      * 
      * @return the name 
      * @return null if the input was bad.
@@ -146,7 +146,7 @@ public class SetupUI extends SetupBase {
     /**
      * Listens for the game word length.
      * 
-     * @arg inputScanner gets the next input.
+     * @param inputScanner gets the next input.
      * 
      * @return the word length.
      * @return 0 if the input was bad.
@@ -170,7 +170,7 @@ public class SetupUI extends SetupBase {
     /**
      * Listens for the game word length.
      * 
-     * @arg inputScanner gets the next input.
+     * @param inputScanner gets the next input.
      * 
      * @return the word length.
      * @return 0 for errors and illegal input.

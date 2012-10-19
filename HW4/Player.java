@@ -11,7 +11,7 @@ public class Player {
     /**
      * Creates a new player.
      * 
-     * @arg name the name of the player.
+     * @param name the name of the player.
      * 
      * @throws NullPointerException when the name is null.
      * @throws IllegalArgumentException when the name is empty.

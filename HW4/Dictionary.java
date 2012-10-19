@@ -47,7 +47,7 @@ public class Dictionary{
     /**
      * Used to ensure word lengths meet the proper size.
      * 
-     * @arg length the lenth of the word to check.
+     * @param length the lenth of the word to check.
      * 
      * @return true if the word length refers to a list words.
      */
@@ -62,7 +62,7 @@ public class Dictionary{
      * Post Conditions:
      *  -Dictionary has at least one word.
      * 
-     * @arg word is the new word to add.
+     * @param word is the new word to add.
      * 
      * @throws NullPointerException when word is null.
      * @throws IllegalArgumentException when word is empty.
@@ -85,7 +85,7 @@ public class Dictionary{
     /**
      * Loads the dictionary file.
      * 
-     * @arg file the dictionary file to load.
+     * @param file the dictionary file to load.
      * 
      * Post Conditions:
      *  -Ensures a instance of Dictionary exists.
@@ -114,7 +114,7 @@ public class Dictionary{
 //     /**
 //      * Finds a random word from the dictionary.
 //      * 
-//      * @arg length is the length of the word to find.
+//      * @param length is the length of the word to find.
 //      * 
 //      * @return the random word OR null if the length is not in the dictionary or the word list is empty.
 //      */
@@ -132,7 +132,7 @@ public class Dictionary{
     /**
      * Accesses a set from the dictionary.
      * 
-     * @arg length is the length of the word to find.
+     * @param length is the length of the word to find.
      * 
      * @return the set of words OR null if the length is not in the dictionary.
      */

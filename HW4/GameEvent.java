@@ -13,14 +13,14 @@ public interface GameEvent {
     /**
      * Called when the players are rotated.
      * 
-     * @arg player the player with the turn to guess.
+     * @param player the player with the turn to guess.
      */
     public void playerUp( Player player );
     
     /**
      * Called when one team wins the game.
      * 
-     * @arg team the winning team
+     * @param team the winning team
      */
     public void gameWinner( Manager team );
     
@@ -28,7 +28,7 @@ public interface GameEvent {
      * Lets the UI know when an underscore is replaced
      *  with a letter.
      * 
-     * @arg statusWord the new status word.
+     * @param statusWord the new status word.
      */
     public void changedStatusWord( String statusWord );
 }

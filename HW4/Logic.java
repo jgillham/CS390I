@@ -58,8 +58,8 @@ public class Logic{
      * Checks to make sure teams has no teams with empty rosters. Makes sure there is at least one player
      *  and one team. The gameWord must not be empty or null.
      *  
-     * @arg teams the teams for the game.
-     * @arg gameWordLength the length of the game word.
+     * @param teams the teams for the game.
+     * @param gameWordLength the length of the game word.
      * 
      * @throws EmptyTeamsException when any Manager.getRosterSize() returns 0.
      * @throws NoTeamsException when teams is empty.
@@ -80,8 +80,8 @@ public class Logic{
      * Checks to make sure teams has no teams with empty rosters. Makes sure there is at least one player
      *  and one team. The gameWord must not be empty or null.
      *  
-     * @arg teams the teams for the game.
-     * @arg gameWord the word to guess
+     * @param teams the teams for the game.
+     * @param gameWord the word to guess
      * 
      * @throws EmptyTeamsException when any Manager.getRosterSize() returns 0.
      * @throws NoTeamsException when teams is empty.
@@ -106,7 +106,7 @@ public class Logic{
     /**
      * Checks the teams argument for a bad value.
      * 
-     * @arg teams a list of teams.
+     * @param teams a list of teams.
      * 
      * @throws EmptyTeamsException when any Manager.getRosterSize() returns 0.
      * @throws NoTeamsException when teams is empty.
@@ -125,7 +125,7 @@ public class Logic{
     /**
      * Initializes the statusWord.
      * 
-     * @arg wordLength the length of the word.
+     * @param wordLength the length of the word.
      * 
      * @throws IllegalArgumentException when word length is less than 1.
      */
@@ -153,7 +153,7 @@ public class Logic{
      *  eventHandler.changedStatusWord is called if any letter is found.
      *  Player is now off turn.
      * 
-     * @arg letter is the letter to guess
+     * @param letter is the letter to guess
      * 
      * @return True if the guess is found in the word
      * 
@@ -223,7 +223,7 @@ public class Logic{
      *  the letter has been guessed before an error is thrown. Else, the 
      *  guess is noted and the game word is compared to that word.
      * 
-     * @arg word is a guess for the game word.
+     * @param word is a guess for the game word.
      * 
      * @return True if the guess is the game word.
      * 
@@ -333,7 +333,7 @@ public class Logic{
      * Sets the GameEvents handler. Used to pass messages back to the UI. Note a
      *  null handler will unset the event handler.
      *  
-     * @arg handler the new event handler
+     * @param handler the new event handler
      */
     public void setGameEventsHandler( GameEvent handler ) {
         this.eventHandler= handler;
@@ -366,7 +366,7 @@ public class Logic{
     /**
      * Sets the max guesses.
      * 
-     * @arg nMaxGuesses the new number of maximum guesses.
+     * @param nMaxGuesses the new number of maximum guesses.
      * 
      * @return the number of attempts remaining.
      * 

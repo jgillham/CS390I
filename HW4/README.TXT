@@ -4,7 +4,8 @@ VERSION or DATE: 9-17-12
 HOW TO START THIS PROJECT:
 In BlueJ, run SetupUI.main( null );
 TODO:
-remove extra println's
+Documentation coverage.
+Testing Evil Logic
 
 AUTHORS: Josh Gillham
 ASSIGNMENT:
