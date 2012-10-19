@@ -9,8 +9,6 @@ import java.util.LinkedList;
  * This test unit will check the integrity of the Logic class.
  * 
  * TODO:
- *  testGetStatusWord_InGame()
- *  testMakeGuess_InGame()
  *  testGetAttempts()
  *  -testRotateTurn()
  *  getGuesses

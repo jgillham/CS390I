@@ -7,8 +7,6 @@ import org.junit.Test;
  * This test unit will test the behavior of SetupUI.
  *
  * TODO:
- *  Fully test SetupUI
- *  inputExitGame
  *  test inputPlayAgain
  * 
  * @author  Josh Gillham

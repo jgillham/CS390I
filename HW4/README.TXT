@@ -4,8 +4,6 @@ VERSION or DATE: 9-17-12
 HOW TO START THIS PROJECT:
 In BlueJ, run SetupUI.main( null );
 TODO:
-Documentation coverage.
-Testing Evil Logic
 
 AUTHORS: Josh Gillham
 ASSIGNMENT:

@@ -6,10 +6,6 @@ import org.junit.Test;
 /**
  * This unit test will check the integrity of the Player class.
  * 
- * TODO:
- *  testGetScore_InGame() - ensure the score gets incremented when the player guesses correctly
- *  testGetHistory_InGame() - ensure that correct guess get added to the list
- * 
  * @author  Josh Gillham
  * @version 9-23-12
  */
