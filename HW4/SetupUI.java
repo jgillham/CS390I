@@ -68,6 +68,8 @@ public class SetupUI extends SetupBase {
     
     /**
      * Ask the player if they would like to play again.
+     * 
+     * @return true if the user wants to play again.
      */
     public boolean inputPlayAgain() {
         try {
@@ -84,6 +86,10 @@ public class SetupUI extends SetupBase {
     /**
      * Walk through the setup steps with the user. Sets private fields as
      *  the user does input.
+     * 
+     * @param evilMode set to true to increase difficulty.
+     * 
+     * @return the game logic.
      */
     public Logic inputSetupGame( boolean evilMode ) {
         Scanner userInput= new Scanner(System.in);

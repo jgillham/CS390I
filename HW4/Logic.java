@@ -20,6 +20,12 @@ public class Logic{
     static public final int MIN_ATTEMPTS= 2;
     /** The default word size. */
     static public final int DEFAULT_WORD_SIZE= 5;
+    /** Used to show the game state. */
+    static public enum Statis {
+        STARTED,
+        OVER,
+        WINNER
+    }
     
     /** Thrown to signal when a guess has been repeated. */
     public class AmbiguousGuessException extends Exception {}
@@ -29,12 +35,6 @@ public class Logic{
     public class NoTeamsException extends Exception {}
     /** Thrown when makeGuess() is called twice in a row. */
     public class PlayerOutOfTurnException extends Exception {}
-    /** Used to show the game state. */
-    static public enum Statis {
-        STARTED,
-        OVER,
-        WINNER
-    }
     
     /** Holds the potiential words. */
     protected WordCanidates wordCanidates;
@@ -79,7 +79,10 @@ public class Logic{
     /**
      * Checks to make sure teams has no teams with empty rosters. Makes sure there is at least one player
      *  and one team. The gameWord must not be empty or null.
-     *  
+     * 
+     * PostConditions:
+     * -wordCanidates has at least one word.
+     * 
      * @param teams the teams for the game.
      * @param gameWord the word to guess
      * 
@@ -126,6 +129,8 @@ public class Logic{
      * Initializes the statusWord.
      * 
      * @param wordLength the length of the word.
+     * 
+     * @returns the status word.
      * 
      * @throws IllegalArgumentException when word length is less than 1.
      */
@@ -178,24 +183,21 @@ public class Logic{
         }
         // Add this guess to the list.
         this.guesses.add( guess );
-        
         this.playerInTurn= false;
         boolean found= false;
-
-//         if( this.gameWord == null ){
-            Map< String, SortedSet< String > > subLists= wordCanidates.subDivide( letter );
-            Set< String > keys= subLists.keySet();
-            String selectedKey= null;
-            if( keys.size() == 1 ) {
-                selectedKey= keys.iterator().next();
-            } else {
-                selectedKey= chooseKey( subLists );
-            }
-            if( selectedKey == null )
-                throw new java.lang.AssertionError( "Key was not selected." );
-                
-            SortedSet< String > subList= subLists.get( selectedKey );
-            wordCanidates= new WordCanidates( selectedKey, subList );
+        Map< String, SortedSet< String > > subLists= wordCanidates.subDivide( letter );
+        Set< String > keys= subLists.keySet();
+        String selectedKey= null;
+        if( keys.size() == 1 ) {
+            selectedKey= keys.iterator().next();
+        } else {
+            selectedKey= chooseKey( subLists );
+        }
+        if( selectedKey == null )
+            throw new java.lang.AssertionError( "Key was not selected." );
+            
+        SortedSet< String > subList= subLists.get( selectedKey );
+        wordCanidates= new WordCanidates( selectedKey, subList );
         if( selectedKey.indexOf( letter ) > -1 ) {
             found= true;
             // Show the UI the new found letters.
@@ -223,6 +225,12 @@ public class Logic{
      *  the letter has been guessed before an error is thrown. Else, the 
      *  guess is noted and the game word is compared to that word.
      * 
+     * Preconditions:
+     *  -rotate turn must have been called.
+     * 
+     * Post Conditions:
+     *  -Player is not in turn.
+     *  
      * @param word is a guess for the game word.
      * 
      * @return True if the guess is the game word.
@@ -265,15 +273,19 @@ public class Logic{
      * Checks the set to see if word is contained in the list of words. If it is
      *  the player is given a random chance out of the set to win the game.
      * 
+     * Post Conditions:
+     *  -Words from bad guesses are removed from the set.
+     * 
      * @param word is the word to check.
      * 
      * @return true if guess wins the game.
      */
     public boolean chooseWord( String word ) {
         if( wordCanidates.contains( word ) ) {
-            wordCanidates.remove( word );
             int rand= (int)( Math.random() * wordCanidates.size() );
-            return rand == 0;
+            if( rand == 0 )
+                return true;
+            wordCanidates.remove( word );
         }
         return false;
     }
@@ -333,6 +345,9 @@ public class Logic{
      * Sets the GameEvents handler. Used to pass messages back to the UI. Note a
      *  null handler will unset the event handler.
      *  
+     * Post Conditions:
+     *  -game event handler will now receive events.
+     *  
      * @param handler the new event handler
      */
     public void setGameEventsHandler( GameEvent handler ) {
@@ -365,6 +380,9 @@ public class Logic{
     
     /**
      * Sets the max guesses.
+     * 
+     * Post Conditions:
+     * -The max guesses is set.
      * 
      * @param nMaxGuesses the new number of maximum guesses.
      * 

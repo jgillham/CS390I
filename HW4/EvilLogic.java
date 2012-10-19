@@ -6,7 +6,9 @@ import java.util.Map;
 import java.util.SortedSet;
 
 /**
- * 
+ * Now the game logic will make playing the game harder by always stacking the odds against the player. After a
+ *  guess, by picking the guess letter combination with the largest group, the player will always get the worst
+ *  luck.
  * 
  * @author Josh Gillham
  * @version 10-18-12
@@ -53,16 +55,26 @@ public class EvilLogic extends Logic{
      * @param subLists the map with the keys and lists.
      * 
      * @return the key
+     * 
+     * @throws IllegalArgumentException when subLists.size() == 0.
+     * @throws NullPointerException when subLists is null.
      */
     @Override
     public String chooseKey( Map< String, SortedSet< String > > subLists ) {
+        if( subLists == null )
+            throw new NullPointerException();
+        if( subLists.size() == 0 )
+            throw new IllegalArgumentException();
         Set< String > keys= subLists.keySet( );
         String selectedKey= null;
         int max= 0;
         Iterator< String > i= keys.iterator();
+        // Go though each set and settle on the largest group.
         while( i.hasNext() ){
             String key= i.next();
+            // Get the associated list.
             SortedSet< String > subList= subLists.get( key );
+            // Default to largest.
             if( max < subList.size() ) {
                 max= subList.size();
                 selectedKey= key;
@@ -78,10 +90,18 @@ public class EvilLogic extends Logic{
      * @param word is the word to check.
      * 
      * @return true if guess wins the game.
+     * 
+     * @throws NullPointerException when word is null.
+     * @throws IllegalArgumentException when word is empty.
      */
     @Override
     public boolean chooseWord( String word ) {
+        if( word == null )
+            throw new NullPointerException();
+        if( word.isEmpty() )
+            throw new IllegalArgumentException();
         if( wordCanidates.contains( word ) ) {
+            // The player can only win when there is one word left in the set.
             if( wordCanidates.size() == 1 )
                 return true;
             wordCanidates.remove( word );

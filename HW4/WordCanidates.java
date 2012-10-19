@@ -18,6 +18,7 @@ public class WordCanidates extends TreeSet< String >  {
      * Initializes class variables.
      * 
      * @param wordList is the list to use.
+     * @param statusWord is the word clue for the set of words.
      * 
      * @throws IllegalArgumentException when wordList.size() == 0.
      * @throws IllegalArgumentException when the length of the status word does not equal the length of
@@ -51,12 +52,11 @@ public class WordCanidates extends TreeSet< String >  {
      */
     public Map< String, SortedSet< String > > subDivide( char letter ) {
         letter= Character.toLowerCase( letter );
-        int length= super.iterator().next().length();
+        int length= this.getWordLength();
         StringBuilder basePattern= this.statusWord;
         java.util.Map< String, SortedSet< String > > subLists= new java.util.HashMap< String, SortedSet< String > >(24);
         Iterator< String > i= super.iterator();
         SortedSet< String > othersList= new TreeSet< String >();
-        //subLists.put( basePattern.toString(), othersList );
         while( i.hasNext() ) {
             String word= i.next().toLowerCase( );
             StringBuilder pattern= new StringBuilder( basePattern );
@@ -102,6 +102,8 @@ public class WordCanidates extends TreeSet< String >  {
     
     /**
      * Accesses the status word.
+     * 
+     * @return the word clue.
      */
     public String getStatusWord() {
         return this.statusWord.toString();
@@ -109,6 +111,8 @@ public class WordCanidates extends TreeSet< String >  {
     
     /**
      * Accesses the word length.
+     * 
+     * @return the word length for this set.
      */
     public int getWordLength() {
         return this.statusWord.length();

@@ -7,6 +7,8 @@
 public interface GameEvent {
     /**
      * Called when the game is finished.
+     * 
+     * @param gameWord is the word goal for the game.
      */
     public void gameOver( String gameWord );
     

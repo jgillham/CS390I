@@ -41,6 +41,8 @@ public class GameUI implements GameEvent {
     /**
      * Called when the game is finished. Announces the end of the game
      *  to the players.
+     *  
+     * @param gameWord is the word goal for the game.
      */
     public void gameOver( String gameWord ) {
         // Show the word nobody could guess.
