@@ -4,15 +4,12 @@ import org.junit.Before;
 import org.junit.Test;
 import java.util.List;
 import java.util.LinkedList;
+import java.util.TreeMap;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * This test unit will check the integrity of the Logic class.
- * 
- * TODO:
- *  testGetAttempts()
- *  -testRotateTurn()
- *  getGuesses
- *  test getGuessesRemaining
  *
  * @author  Josh Gillham
  * @version 9-23-12
@@ -277,9 +274,20 @@ public class testLogic {
     }
     
     @Test( expected= IllegalArgumentException.class )
-    public void testSetMaxAttempts() throws Exception {
+    public void testSetMaxAttempts_badArgs() throws Exception {
         Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
         newGame.setMaxAttempts( Logic.MIN_ATTEMPTS - 1 );
+    }
+    
+    @Test
+    public void testSetMaxAttempts() throws Exception {
+        Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
+        newGame.setMaxAttempts( 5 );
+        assertEquals( 5, newGame.getRemainingGuesses() );
+        newGame.setMaxAttempts( 8 );
+        assertEquals( 8, newGame.getRemainingGuesses() );
+        newGame.setMaxAttempts( 15 );
+        assertEquals( 15, newGame.getRemainingGuesses() );
     }
     
     @Test
@@ -292,6 +300,25 @@ public class testLogic {
     public void testGetGameState() throws Exception {
         Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
         assertEquals( Logic.Statis.STARTED, newGame.getGameState() );
+        newGame.setMaxAttempts( 5 );
+        newGame.rotateTurn();
+        newGame.makeGuess( 'a' );
+        newGame.rotateTurn();
+        newGame.makeGuess( 'b' );
+        newGame.rotateTurn();
+        newGame.makeGuess( 'c' );
+        newGame.rotateTurn();
+        newGame.makeGuess( 'd' );
+        newGame.rotateTurn();
+        newGame.makeGuess( 'e' );
+        newGame.rotateTurn();
+        assertEquals( Logic.Statis.OVER, newGame.getGameState() );
+    }
+    
+    @Test
+    public void testGetGameState_GameOver() throws Exception {
+        Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
+        assertEquals( Logic.Statis.STARTED, newGame.getGameState() );
     }
     
     @Test
@@ -300,5 +327,117 @@ public class testLogic {
         assertEquals( 0, newGame.getGuesses().length );
         newGame.makeGuess( 'j' );
         assertEquals( 1, newGame.getGuesses().length );
+    }
+    
+    @Test
+    public void testGetRemainingGuesses() throws Exception {
+        Logic newGame= new Logic( wrapLogic.getTeams(), "logic" );
+        newGame.setMaxAttempts( 5 );
+        newGame.rotateTurn();
+        assertEquals( 5, newGame.getRemainingGuesses() );
+        newGame.makeGuess( 'j' );
+        newGame.rotateTurn();
+        assertEquals( 4, newGame.getRemainingGuesses() );
+        newGame.makeGuess( 'a' );
+        newGame.rotateTurn();
+        assertEquals( 3, newGame.getRemainingGuesses() );
+        newGame.makeGuess( 'b' );
+        newGame.rotateTurn();
+        assertEquals( 2, newGame.getRemainingGuesses() );
+        newGame.makeGuess( 'c' );
+        newGame.rotateTurn();
+        assertEquals( 1, newGame.getRemainingGuesses() );
+        newGame.makeGuess( 'd' );
+        assertEquals( 0, newGame.getRemainingGuesses() );
+    }
+    
+    /**
+     * Tests the chooseKey with a null.
+     */
+    @Test( expected= NullPointerException.class )
+    public void testChooseKey_null() throws Exception{
+        game.chooseKey( null );
+    }
+    
+    /**
+     * Tests chooseKey with an empty map.
+     */
+    @Test( expected= IllegalArgumentException.class )
+    public void testChooseKey_empty() throws Exception{
+        game.chooseKey( new TreeMap< String, SortedSet< String > >() );
+    }
+    
+    /**
+     * Prove that the logic will always go with the largest list
+     */
+    @Test
+    public void testChooseKey() throws Exception{
+        Logic instance= new Logic( wrapLogic.getTeams(), 3 );
+        
+        java.util.Map< String, SortedSet< String > > input= new java.util.TreeMap< String, SortedSet< String > >();
+        SortedSet< String > temp;
+        
+        temp= new TreeSet< String >();
+        temp.add( "casa" );
+        input.put( "-a-a", temp );
+        
+        temp= new TreeSet< String >();
+        temp.add( "cant" );
+        temp.add( "call" );
+        temp.add( "cars" );
+        input.put( "-a--", temp );
+        
+        temp= new TreeSet< String >();
+        temp.add( "acer" );
+        temp.add( "acts" );
+        input.put( "a---", temp );
+        
+        temp= new TreeSet< String >();
+        temp.add( "tens" );
+        input.put( "----", temp );
+        
+        temp= new TreeSet< String >();
+        temp.add( "eval" );
+        input.put( "--a-", temp );
+        
+        assertFalse( instance.chooseKey( input ).equalsIgnoreCase( "-a--" ) );
+        
+    }
+    
+    /**
+     * Tests the chooseWord with a null value.
+     */
+    @Test( expected= NullPointerException.class )
+    public void testChooseWord_null() throws Exception{
+        game.chooseWord( null );
+    }
+    
+    /**
+     * Tests the chooseWord with an empty word.
+     */
+    @Test( expected= IllegalArgumentException.class )
+    public void testChooseWord_empty() throws Exception{
+        game.chooseWord( "" );
+    }
+    
+    /**
+     * Prove that the player can never win unless there is one word left.
+     */
+    @Test
+    public void testChooseWord() throws Exception{
+        Dictionary.dispose();
+        Dictionary dictionary= Dictionary.getInstance();
+        dictionary.depositWord( "cat" );
+        dictionary.depositWord( "rat" );
+        dictionary.depositWord( "mat" );
+        EvilLogic instance= new EvilLogic( wrapLogic.getTeams(), 3 );
+        java.util.Set< String > words= dictionary.getSet( 3 );
+        java.util.Iterator< String > i= words.iterator();
+        int c= 0;
+        while( i.hasNext() && c++ < words.size() - 1 ) {
+            assertFalse( instance.chooseWord( i.next() ) );
+        }
+        assertTrue( instance.chooseWord( i.next() ) );
+        
     }
 }

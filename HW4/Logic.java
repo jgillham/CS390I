@@ -215,6 +215,10 @@ public class Logic{
      * @return the key.
      */
     public String chooseKey( Map< String, SortedSet< String > > subLists ) {
+        if( subLists == null )
+            throw new NullPointerException();
+        if( subLists.size() == 0 )
+            throw new IllegalArgumentException();
         List< String > keyList= new LinkedList< String >( subLists.keySet() );
         int index= (int)(Math.random() * keyList.size() );
         return keyList.get( index );
@@ -281,6 +285,10 @@ public class Logic{
      * @return true if guess wins the game.
      */
     public boolean chooseWord( String word ) {
+        if( word == null )
+            throw new NullPointerException();
+        if( word.isEmpty() )
+            throw new IllegalArgumentException();
         if( wordCanidates.contains( word ) ) {
             int rand= (int)( Math.random() * wordCanidates.size() );
             if( rand == 0 )
