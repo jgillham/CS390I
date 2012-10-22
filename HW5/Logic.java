@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
  * @author Josh Gillham
  * @version 10-18-12
  */
-public class Launch {
+public class Logic {
     static public void experiment( String[] args ) {
         int result= JOptionPane.showConfirmDialog( null, "Pick a object. I bet I can guess what you're thinking...",
         "Continue?", JOptionPane.YES_NO_OPTION );
@@ -19,14 +19,14 @@ public class Launch {
     }
     
     /**
-     * Launches the program.
+     * Logices the program.
      * 
      * @arg args not used.
      */
     static public void main( String[] args ) {
         DecisionTreeNode root= new ThingNode( "rose" );
         
-        Launch instance= new Launch( new UI(), root );
+        Logic instance= new Logic( new UI(), root );
         
         ThingNode unsureAnswer= instance.inputFindClosestAnswer();
         if( inputVerifyAnswer( unsureAnswer ) ) {
@@ -57,7 +57,7 @@ public class Launch {
      * 
      * @throws NullPointerException when root is null.
      */
-    public Launch( UI ui, DecisionTreeNode root ) { throw new UnsupportedOperationException(); }
+    public Logic( UI ui, DecisionTreeNode root ) { throw new UnsupportedOperationException(); }
     
     /**
      * Repeates a series of questions until the decision tree points to a specific thing.
