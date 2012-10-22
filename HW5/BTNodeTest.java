@@ -11,7 +11,7 @@ import org.junit.Test;
  * @author  Josh Gillham
  * @version 10-21-12
  */
-public class testBTNode {
+public class BTNodeTest {
     /**
      * Test default constructor. All private fields should be null.
      * 
