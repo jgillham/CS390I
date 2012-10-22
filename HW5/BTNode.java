@@ -22,6 +22,8 @@ public class BTNode< T > {
     public BTNode< T > getLeftChild(){ throw new UnsupportedOperationException(); }
     /** To be implemented later. */
     public BTNode< T > getRightChild(){ throw new UnsupportedOperationException(); }
+    /** To be implemented later. */
+    public T getValue( ){ throw new UnsupportedOperationException(); }
     
     /** To be implemented later. */
     public void setLeftChild( BTNode< T > left ){ throw new UnsupportedOperationException(); }

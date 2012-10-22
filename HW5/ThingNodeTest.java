@@ -6,37 +6,51 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The test class ThingNodeTest.
+ * Tests each method to prove that behavior is consistant throughout the class.
  *
- * @author  (your name)
- * @version (a version number or a date)
+ * @author  Josh Gillham
+ * @version 10-21-12
  */
-public class ThingNodeTest
-{
+public class ThingNodeTest {
     /**
-     * Default constructor for test class ThingNodeTest
+     * Test constructor with 1 parameter. Get methods should return the parameters.
+     * 
+     * Proves the constructor is setting private fields properly.
      */
-    public ThingNodeTest()
-    {
+    @Test
+    public void testConstructor_1param(){
+        String expectedValue= "test";
+        ThingNode instance= new ThingNode( expectedValue );
+        assertNull( instance.getLeftChild() );
+        assertNull( instance.getRightChild() );
+        assertEquals( expectedValue, instance.getValue() );
     }
-
+    
     /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
+     * Proves that the set function affects what the get function returns.
      */
-    @Before
-    public void setUp()
-    {
+    @Test
+    public void testGetThing() {
+        String expected= "test";
+        ThingNode instance= new ThingNode( expected );
+        assertEquals( expected, instance.getThing() );
+        instance.setValue( expected );
+        assertEquals( expected, instance.getThing() );
+        expected= "apple";
+        instance.setValue( expected );
+        assertEquals( expected, instance.getThing() );
+        expected= "orange";
+        instance.setValue( expected );
+        assertEquals( expected, instance.getThing() );
     }
-
+    
     /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
+     * Proves toString ...
+     * 
+     * TODO
      */
-    @After
-    public void tearDown()
-    {
+    @Test
+    public void testToString() {
+        throw new UnsupportedOperationException();
     }
 }

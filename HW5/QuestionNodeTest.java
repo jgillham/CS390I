@@ -6,37 +6,60 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The test class QuestionNodeTest.
+ * Tests each method to prove that behavior is consistant throughout the class.
  *
- * @author  (your name)
- * @version (a version number or a date)
+ * @author  Josh Gillham
+ * @version 10-21-12
  */
-public class QuestionNodeTest
-{
-    /**
-     * Default constructor for test class QuestionNodeTest
-     */
-    public QuestionNodeTest()
-    {
+public class QuestionNodeTest {
+    class InstrumentationDecisionTreeNode extends DecisionTreeNode {
+        
     }
-
     /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
+     * Test constructor with 3 parameter. Get methods should return the parameters.
+     * 
+     * Proves the constructor is setting private fields properly.
      */
-    @Before
-    public void setUp()
-    {
+    @Test
+    public void testConstructor_3param(){
+        String expectedValue= "test";
+        DecisionTreeNode expectedRightNode= new InstrumentationDecisionTreeNode();
+        DecisionTreeNode expectedLeftNode= new InstrumentationDecisionTreeNode();
+        QuestionNode instance= new QuestionNode( 
+            expectedValue, expectedLeftNode, expectedRightNode
+        );
+        assertEquals( expectedLeftNode, instance.getLeftChild() );
+        assertEquals( expectedRightNode, instance.getRightChild() );
+        assertEquals( expectedValue, instance.getValue() );
     }
-
+    
     /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
+     * Proves that the set function affects what the get function returns.
      */
-    @After
-    public void tearDown()
-    {
+    @Test
+    public void testGetQuestion() {
+        String expected= "test";
+        DecisionTreeNode expectedRightNode= new InstrumentationDecisionTreeNode();
+        DecisionTreeNode expectedLeftNode= new InstrumentationDecisionTreeNode();
+        QuestionNode instance= new QuestionNode( expected, expectedLeftNode, expectedRightNode);
+        assertEquals( expected, instance.getQuestion() );
+        instance.setValue( expected );
+        assertEquals( expected, instance.getQuestion() );
+        expected= "apple";
+        instance.setValue( expected );
+        assertEquals( expected, instance.getQuestion() );
+        expected= "orange";
+        instance.setValue( expected );
+        assertEquals( expected, instance.getQuestion() );
+    }
+    
+    /**
+     * Proves toString ...
+     * 
+     * TODO
+     */
+    @Test
+    public void testToString() {
+        throw new UnsupportedOperationException();
     }
 }
