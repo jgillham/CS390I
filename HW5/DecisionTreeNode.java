@@ -1,25 +1,52 @@
 
 /**
+ * Provides the basic structure for the decision tree.
  * 
  * @author Josh Gillham
  * @version 10-16-12
  */
 public abstract class DecisionTreeNode extends BTNode< String > {
-    /** To be implemented later. */
-    public DecisionTreeNode() { throw new UnsupportedOperationException(); }
-    /** To be implemented later. */
+    /**
+     * Creates a blank instance.
+     */
+    public DecisionTreeNode() { 
+        super();
+    }
+    
+    /**
+     * Creates a parent decision node.
+     */
     public DecisionTreeNode( String value, DecisionTreeNode no, DecisionTreeNode yes )
     {throw new UnsupportedOperationException(); }
     
-    /** To be implemented later. */
+    /**
+     * Gets a reference to the no node.
+     * 
+     * @return the "no" node.
+     */
     public DecisionTreeNode getNoLink() { throw new UnsupportedOperationException(); }
+    
+    /**
+     * Gets a reference to the yes node.
+     * 
+     * @return the "yes" node.
+     */
+    public DecisionTreeNode getYesLink() { throw new UnsupportedOperationException(); }
     /** To be implemented later. */
     public String getString() { throw new UnsupportedOperationException(); }
-    /** To be implemented later. */
-    public DecisionTreeNode getYesLink() { throw new UnsupportedOperationException(); }
     
-    /** To be implemented later. */
+    
+    /**
+     * Sets a new yes node.
+     * 
+     * @param link is the new "yes" node.
+     */
     public void setYesLink( DecisionTreeNode link ) { throw new UnsupportedOperationException(); }
-    /** To be implemented later. */
+    
+    /**
+     * Sets a new no node
+     * 
+     * @param link is the new "no" node.
+     */
     public void setNoLink( DecisionTreeNode link ) { throw new UnsupportedOperationException(); }
 }
