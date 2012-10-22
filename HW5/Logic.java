@@ -29,14 +29,9 @@ public class Logic {
         Logic instance= new Logic( new UI(), root );
         
         ThingNode unsureAnswer= instance.inputFindClosestAnswer();
-        if( inputVerifyAnswer( unsureAnswer ) ) {
+        if( instance.inputVerifyAnswer( unsureAnswer ) ) {
             //TODO what to do when the game wins.
         }
-    }
-    
-    /** Carries the answer to a yes or no question. */
-    enum YNAnswer {
-        Yes, No
     }
     
     /** Holds a reference to the base of the decision tree. */
