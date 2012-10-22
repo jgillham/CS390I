@@ -7,23 +7,26 @@
  */
 public class BTNode< T > {
     /** Holds a reference of the left child. */
-    private BTNode< T > left;
+    private BTNode< T > left= null;
     /** Holds a reference of the right child. */
-    private BTNode< T > right;
+    private BTNode< T > right= null;
     /** Holds a reference to the data. */
-    private T value;
+    private T value= null;
     
     /**
      * Constructs a blank instance.
      */
-    public BTNode( ) { throw new UnsupportedOperationException(); }
+    public BTNode( ) { }
     
     /**
      * Constructs an end node.
      * 
      * @param value is the data.
      */
-    public BTNode( T value ) { throw new UnsupportedOperationException(); }
+    public BTNode( T value ) { 
+        this.value= value;
+    }
+    
     /**
      * Constructs a parent node.
      * 
@@ -31,28 +34,38 @@ public class BTNode< T > {
      * @param left is a reference to the left node.
      * @param right is a reference to the right node.
      */
-    public BTNode( T value,  BTNode< T > left, BTNode< T > right ) { throw new UnsupportedOperationException(); }
+    public BTNode( T value,  BTNode< T > left, BTNode< T > right ) {
+        this.value= value;
+        this.left= left;
+        this.right= right;
+    }
     
     /**
      * Accesses the left node.
      * 
      * @return a reference to the left node.
      */
-    public BTNode< T > getLeftChild(){ throw new UnsupportedOperationException(); }
+    public BTNode< T > getLeftChild(){
+        return left;
+    }
     
     /**
      * Accesses the right node.
      * 
      * @return a reference to the right node.
      */
-    public BTNode< T > getRightChild(){ throw new UnsupportedOperationException(); }
+    public BTNode< T > getRightChild() {
+        return right;
+    }
     
     /**
      * Accesses the data.
      * 
      * @return a reference to the data.
      */
-    public T getValue( ){ throw new UnsupportedOperationException(); }
+    public T getValue( ) {
+        return value;
+    }
     
     /**
      * Sets the left child.
@@ -62,7 +75,9 @@ public class BTNode< T > {
      * 
      * @param left is the new left node.
      */
-    public void setLeftChild( BTNode< T > left ){ throw new UnsupportedOperationException(); }
+    public void setLeftChild( BTNode< T > left ) {
+        this.left= left;
+    }
     
     /**
      * Sets the right child.
@@ -72,7 +87,9 @@ public class BTNode< T > {
      * 
      * @param right is the new right node.
      */
-    public void setRightChild( BTNode< T > right ){ throw new UnsupportedOperationException(); }
+    public void setRightChild( BTNode< T > right ) {
+        this.right= right;
+    }
     
     /**
      * Sets the data.
@@ -82,7 +99,9 @@ public class BTNode< T > {
      * 
      * @param value is the new data.
      */
-    public void setValue( T value ){ throw new UnsupportedOperationException(); }
+    public void setValue( T value ) {
+        this.value= value;
+    }
     
     /** To be implemented later. */
     public String toString( ){ throw new UnsupportedOperationException(); }
