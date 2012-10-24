@@ -37,7 +37,7 @@ public class UITest {
         UI instance= new UI();
         assertEquals( "test", instance.inputQuestion( "For test purposes, please type \"test\" "
                 + "(no quotation marks) and click OK. Thank you." ) );
-        assertEquals( "test", instance.inputQuestion( "For test purposes, please type \"test\" "
+        assertNull( instance.inputQuestion( "For test purposes, please type \"test\" "
                 + "(no quotation marks) and click Cancel. Thank you." ) );
     }
     

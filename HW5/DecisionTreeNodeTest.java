@@ -66,7 +66,7 @@ public class DecisionTreeNodeTest {
     public void testGetAndSetNoLink() {
         InstrumentDecisionTreeNode expectedNoLink= new InstrumentDecisionTreeNode();
         InstrumentDecisionTreeNode instance=
-            new InstrumentDecisionTreeNode( "", new InstrumentDecisionTreeNode(), expectedNoLink ); 
+            new InstrumentDecisionTreeNode( "", expectedNoLink, new InstrumentDecisionTreeNode() ); 
         assertEquals( expectedNoLink, instance.getNoLink() );
         
         expectedNoLink= new InstrumentDecisionTreeNode();
@@ -76,5 +76,15 @@ public class DecisionTreeNodeTest {
         expectedNoLink= new InstrumentDecisionTreeNode();
         instance.setNoLink( expectedNoLink );
         assertEquals( expectedNoLink, instance.getNoLink() );
+    }
+    
+    /**
+     * Proves toString ...
+     * 
+     * TODO
+     */
+    @Test
+    public void testToString() {
+        throw new UnsupportedOperationException();
     }
 }

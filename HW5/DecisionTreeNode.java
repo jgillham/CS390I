@@ -16,24 +16,32 @@ public abstract class DecisionTreeNode extends BTNode< String > {
     /**
      * Creates a parent decision node.
      */
-    public DecisionTreeNode( String value, DecisionTreeNode no, DecisionTreeNode yes )
-    {throw new UnsupportedOperationException(); }
+    public DecisionTreeNode( String value, DecisionTreeNode no, DecisionTreeNode yes ) {
+        super( value, no, yes );
+    }
     
     /**
      * Gets a reference to the no node.
      * 
      * @return the "no" node.
      */
-    public DecisionTreeNode getNoLink() { throw new UnsupportedOperationException(); }
+    public DecisionTreeNode getNoLink() {
+        return (DecisionTreeNode)super.getLeftChild(); //TODO forced cast
+    }
     
     /**
      * Gets a reference to the yes node.
      * 
      * @return the "yes" node.
      */
-    public DecisionTreeNode getYesLink() { throw new UnsupportedOperationException(); }
+    public DecisionTreeNode getYesLink() {
+        return (DecisionTreeNode)super.getRightChild();
+    }
+    
     /** To be implemented later. */
-    public String getString() { throw new UnsupportedOperationException(); }
+    public String toString() { 
+        return super.toString();
+    }
     
     
     /**
@@ -41,12 +49,16 @@ public abstract class DecisionTreeNode extends BTNode< String > {
      * 
      * @param link is the new "yes" node.
      */
-    public void setYesLink( DecisionTreeNode link ) { throw new UnsupportedOperationException(); }
+    public void setYesLink( DecisionTreeNode link ) {
+        super.setRightChild( link );
+    }
     
     /**
      * Sets a new no node
      * 
      * @param link is the new "no" node.
      */
-    public void setNoLink( DecisionTreeNode link ) { throw new UnsupportedOperationException(); }
+    public void setNoLink( DecisionTreeNode link ) {
+        super.setLeftChild( link );
+    }
 }

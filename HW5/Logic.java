@@ -9,77 +9,210 @@ import javax.swing.JOptionPane;
  * @version 10-18-12
  */
 public class Logic {
+    /**
+     * For experimental purposes. Soon to be deleted.
+     * 
+     * @param args not used
+     */
     static public void experiment( String[] args ) {
-        int result= JOptionPane.showConfirmDialog( null, "Pick a object. I bet I can guess what you're thinking...",
-        "Continue?", JOptionPane.YES_NO_OPTION );
-        if( result == 1 ) // No
-            JOptionPane.showMessageDialog( null, "NO! Why you sir are no fun!" );
+        int result = JOptionPane.showConfirmDialog( null, 
+            "Pick a object. I bet I can guess what you're thinking...",
+            "Continue?", JOptionPane.YES_NO_OPTION );
+        if ( result == 1 ) // No
+            JOptionPane.showMessageDialog( null, 
+                "NO! Why you sir are no fun!" );
         else // Yes
-            JOptionPane.showMessageDialog( null, "Get ready to be amazed!" );
+            JOptionPane.showMessageDialog( null, 
+                "Get ready to be amazed!" );
+    }
+    
+    /** Holds the message which asks the player if they want to play. */
+    static private final String WANT_TO_PLAY_MESSAGE = 
+        "Pick a object. I bet I can guess what you're thinking...";
+    
+    /** Provides a return type for inputFindClosestAnswer. */
+    static public class Lineage {
+        /** Holds a reference to the parent node. */
+        public QuestionNode parent;
+        /** Holds a reference to the child node. */
+        public ThingNode child;
+        /**
+         * Initializes the class.
+         * 
+         * @param parent is the parent node.
+         * @param child is the child node.
+         */
+        public Lineage( QuestionNode parent, ThingNode child ) {
+            this.parent = parent;
+            this.child = child;
+        }
     }
     
     /**
-     * Logices the program.
+     * Starts up the program.
      * 
-     * @arg args not used.
+     * @param args not used.
      */
     static public void main( String[] args ) {
-        DecisionTreeNode root= new ThingNode( "rose" );
-        
-        Logic instance= new Logic( new UI(), root );
-        
-        ThingNode unsureAnswer= instance.inputFindClosestAnswer();
-        if( instance.inputVerifyAnswer( unsureAnswer ) ) {
-            //TODO what to do when the game wins.
+        DecisionTreeNode root = new ThingNode( "rose" );
+        UI ui = new UI();
+        Logic instance = new Logic( ui, root );
+        while ( ui.inputYNQuestion( WANT_TO_PLAY_MESSAGE ) 
+            == UI.YNAnswer.Yes ) {
+            ui.showMessage( "Get ready to be amazed!" );
+            Lineage unsureAnswer = instance.inputFindClosestAnswer();
+            if ( instance.inputVerifyAnswer( unsureAnswer.child ) ) {
+                ui.showMessage( "See? I am so smart!" );
+            }
+            else {
+                instance.inputExpandIntelligence( 
+                    unsureAnswer.parent, unsureAnswer.child );
+            }
         }
+        ui.showMessage( "Why you sir are no fun!" );
     }
     
     /** Holds a reference to the base of the decision tree. */
     private DecisionTreeNode root;
     /** Holds a reference to the user interface. */
     private UI ui;
-    /** Holds a copy to the parent of the last node specified by the user's answers. */
-    private DecisionTreeNode lastParent= null;
     
     /**
      * Initializes the class.
      * 
      * Post Conditions:
-     *  -ensures root is set.
+     *  -ensures root and ui are set.
      * 
-     * @arg ui is the user interface that handles interaction with the user.
-     * @arg root is the root of the decision tree.
+     * @param ui is the user interface that handles interaction with the user.
+     * @param root is the root of the decision tree.
      * 
-     * @throws NullPointerException when root is null.
+     * @throws NullPointerException when root or ui is null.
      */
-    public Logic( UI ui, DecisionTreeNode root ) { throw new UnsupportedOperationException(); }
+    public Logic( UI ui, DecisionTreeNode root ) {
+        if ( ui == null || root == null )
+            throw new NullPointerException();
+        
+        this.ui = ui;
+        this.root = root;
+    }
     
     /**
-     * Repeates a series of questions until the decision tree points to a specific thing.
-     *  
-     * Post Conditions:
-     *  -lastParent references the parent of the last node specified by the user's answers OR null when
-     *   the last node is the root.
+     * Provides a shortcut.
      * 
-     * 
-     * @returns The last node specified by the user's answers.
+     * @return the parent and child of the closest node.
      */
-    public ThingNode inputFindClosestAnswer( ) { throw new UnsupportedOperationException(); }
+    public Lineage inputFindClosestAnswer( ) {
+        return inputFindClosestAnswer( null, root );
+    }
     
     /**
-     * Asks the user if the guess was correct. If correct, returns. If not, asks the user 
-     *  for the correct answer and a question to differentiate the two.
+     * Repeates a series of questions until the decision tree points 
+     *  to a specific thing.
      *  
      * Post Conditions:
-     * -The decision tree will be modified when the answer is incorrect. The result will have the ThingNode
-     *  in the tree replaced with a question node where the question differentiates between the right and
-     *  wrong answer and yes and no child point to the correct answer.
+     *  -lastParent references the parent of the last node specified 
+     *   by the user's answers OR null when the last node is the root.
      * 
-     * @arg unsureAnswer the answer that we are verifying with the user.
+     * @param parent is the parent node.
+     * @param child is the child node.
+     * 
+     * @return The last node specified by the user's answers.
+     * 
+     * @throws NullPointerException when start is null.
+     */
+    public Lineage inputFindClosestAnswer( QuestionNode parent, 
+        DecisionTreeNode child ) {
+        if ( child == null )
+            throw new NullPointerException();
+            
+        if ( child.getClass() == ThingNode.class ) {
+            return new Lineage( parent, (ThingNode)child );
+        }
+        else if ( child.getClass() == QuestionNode.class ) {
+            QuestionNode question = (QuestionNode)child;
+            switch( ui.inputYNQuestion( question.getQuestion() ) ) {
+                case Yes:
+                    return inputFindClosestAnswer( question, 
+                        child.getYesLink() );
+                case No:
+                    return inputFindClosestAnswer( question,
+                        child.getNoLink() );
+                default:
+                    throw new UnsupportedOperationException();
+            }
+        }
+        else
+            throw new UnsupportedOperationException();
+    }
+            
+    
+    /**
+     * Asks the user if the guess was correct.
+     * 
+     * @param unsureAnswer the answer that we are verifying with the user.
      * 
      * @return true if the answer was correct OR false if it wasn't correct.
      * 
      * @throws NullPointerException when unsureAnswer is null.
      */
-    public boolean inputVerifyAnswer( ThingNode unsureAnswer ) { throw new UnsupportedOperationException(); }
+    public boolean inputVerifyAnswer( ThingNode unsureAnswer ) {
+        if ( unsureAnswer == null )
+            throw new NullPointerException();
+        if ( ui.inputYNQuestion( "Were you thinking of " + 
+            unsureAnswer.getValue() + "?" ) == UI.YNAnswer.Yes )
+            return true;
+        return false;
+    }
+    
+    /**
+     * Asks the user for the correct answer and a question to differentiate
+     *  the two.
+     * 
+     * Post Conditions:
+     * -The decision tree will be modified when the answer is incorrect. The 
+     *  result will have the ThingNode in the tree replaced with a question 
+     *  node where the question differentiates between the right and wrong 
+     *  answer and yes and no child point to the correct answer.
+     * 
+     * @param parent the parent node of incorrectAnswer.
+     * @param incorrectAnswer the node that needs to be replaced.
+     * 
+     * @return the question node that replaced the incorrectAnswer in the tree.
+     * 
+     * @throws NullPointerException when incorrectAnswer is null.
+     * 
+     * TODO:
+     * -What if the user cancels.
+     */
+    public QuestionNode inputExpandIntelligence( QuestionNode parent, 
+            ThingNode incorrectAnswer ) {
+        if ( incorrectAnswer == null )
+            throw new NullPointerException();
+        ThingNode correctAnswer = new ThingNode( 
+            ui.inputQuestion( "What were you thinking of?" )
+        );
+        String question = ui.inputQuestion( 
+            "Please enter a Yes/No question to differentiate between " 
+            + correctAnswer.getValue() + " and " +
+            incorrectAnswer.getValue() + "." );
+            
+        QuestionNode replacement;
+        if ( ui.inputYNQuestion( "Whats the answer for " + 
+            incorrectAnswer.getValue() + "." ) == UI.YNAnswer.Yes )
+            replacement = new QuestionNode( question, correctAnswer, 
+                incorrectAnswer );
+        else
+            replacement = new QuestionNode( question, incorrectAnswer, 
+                correctAnswer );
+            
+        if ( parent == null )
+            root = replacement;
+        else {
+            if ( parent.getNoLink() == incorrectAnswer )
+                parent.setNoLink( replacement );
+            else
+                parent.setYesLink( replacement );
+        }
+        return replacement;
+    }
 }

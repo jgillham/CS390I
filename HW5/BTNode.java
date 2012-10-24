@@ -104,5 +104,7 @@ public class BTNode< T > {
     }
     
     /** To be implemented later. */
-    public String toString( ){ throw new UnsupportedOperationException(); }
+    public String toString( ){ 
+        return super.toString();
+    }
 }

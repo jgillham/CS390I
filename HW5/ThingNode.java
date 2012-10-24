@@ -12,15 +12,22 @@ public class ThingNode extends DecisionTreeNode {
      * 
      * @param thing is the end object.
      */
-    public ThingNode( String thing ) { throw new UnsupportedOperationException(); }
+    public ThingNode( String thing ) {
+        super( );
+        super.setValue( thing );
+    }
     
     /**
      * Accesses the object.
      * 
      * @return the object.
      */
-    public String getThing( ) { throw new UnsupportedOperationException(); }
+    public String getThing( ) {
+        return super.getValue();
+    }
     
     /** To be implemented later. */
-    public String toString( ) { throw new UnsupportedOperationException(); }
+    public String toString( ) {
+        return super.toString();
+    }
 }
