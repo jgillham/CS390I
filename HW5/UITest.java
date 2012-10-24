@@ -13,6 +13,13 @@ import org.junit.Test;
  */
 public class UITest {
     /**
+     * Prove that the default constructor produces no errors.
+     */
+    @Test
+    public void testConstructor() {
+        new UI();
+    }
+    /**
      * Proves the user can see the correct buttons by the presentation of the dialog.
      */
     @Test
@@ -22,6 +29,9 @@ public class UITest {
         assertEquals( UI.YNAnswer.No, instance.inputYNQuestion( "For test purposes, click no. Thank you." ) );
     }
     
+    /**
+     * Prove the user can see how to type in a response by the presentation of the dialog.
+     */
     @Test
     public void testInputQuestion() {
         UI instance= new UI();
@@ -29,5 +39,14 @@ public class UITest {
                 + "(no quotation marks) and click OK. Thank you." ) );
         assertEquals( "test", instance.inputQuestion( "For test purposes, please type \"test\" "
                 + "(no quotation marks) and click Cancel. Thank you." ) );
+    }
+    
+    /**
+     * Prove that showMessage produces no errors.
+     */
+    @Test
+    public void testShowMessage() {
+        UI instance= new UI();
+        instance.showMessage( "Ignore this. Thank you." );
     }
 }
