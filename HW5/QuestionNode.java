@@ -13,16 +13,21 @@ public class QuestionNode/** To be implemented later. */ extends DecisionTreeNod
      * @param noAnswer is a reference to the no child.
      * @param yesAnswer is a reference to the yes child.
      */
-    public QuestionNode( String question, DecisionTreeNode noAnswer, DecisionTreeNode yesAnswer)
-    { throw new UnsupportedOperationException(); }
+    public QuestionNode( String question, DecisionTreeNode noAnswer, DecisionTreeNode yesAnswer) {
+        super( question, noAnswer, yesAnswer );
+    }
     
     /**
      * Accesses the question.
      * 
      * @return the question.
      */
-    public String getQuestion( ) { throw new UnsupportedOperationException(); }
+    public String getQuestion( ) {
+        return super.getValue();
+    }
 
     /** To be implemented later. */
-    public String toString( ) { throw new UnsupportedOperationException(); }
+    public String toString( ) {
+        return super.toString();
+    }
 }
