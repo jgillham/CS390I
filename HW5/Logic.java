@@ -6,6 +6,11 @@ import java.io.BufferedOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.ObjectOutput;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.BufferedInputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
 
 /**
  * Features
@@ -251,7 +256,23 @@ public class Logic {
      * 
      * @return the tree root.
      */
-    public DecisionTreeNode readDecisionTree( File inFile ) {
-        throw new UnsupportedOperationException();
+    static public DecisionTreeNode readDecisionTree( File inFile ) {
+        try {
+            ObjectInput input = new ObjectInputStream( new BufferedInputStream( new FileInputStream( inFile ) ) );
+            try {
+                @SuppressWarnings( "unchecked" )
+                DecisionTreeNode root = (DecisionTreeNode)input.readObject();
+                return root;
+            }finally {
+                input.close();
+            }
+        }catch (ClassNotFoundException ex) {
+            System.err.println(
+                "Unsuccessful deserialization: Class not found. " + ex);
+        }
+        catch (IOException ex) {
+            System.err.println("Unsuccessful deserialization: " + ex);
+        }
+        return null;
     }
 }
