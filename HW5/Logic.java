@@ -1,4 +1,12 @@
 import javax.swing.JOptionPane;
+import java.io.File;
+import java.io.OutputStream;
+import java.io.FileOutputStream;
+import java.io.BufferedOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectOutput;
+import java.io.IOException;
+
 /**
  * Features
  * -Starts the program.
@@ -214,5 +222,36 @@ public class Logic {
                 parent.setYesLink( replacement );
         }
         return replacement;
+    }
+    
+    /**
+     * Writes the data tree to a file.
+     * 
+     * @arg outFile the file to write to.
+     */
+    public void writeDecisionTree( File outFile ) {
+        try {
+            OutputStream out = new FileOutputStream( outFile );
+            OutputStream buffer = new BufferedOutputStream( out );
+            ObjectOutput oOutPut = new ObjectOutputStream( buffer );
+            try {
+                oOutPut.writeObject( this.root );
+            } finally {
+                oOutPut.close();
+            }
+            
+        } catch( IOException e ) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Reads the data tree from the file.
+     * 
+     * @arg inFile is the file to read from.
+     * 
+     * @return the tree root.
+     */
+    public DecisionTreeNode readDecisionTree( File inFile ) {
+        throw new UnsupportedOperationException();
     }
 }
