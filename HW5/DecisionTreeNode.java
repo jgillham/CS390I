@@ -5,7 +5,7 @@
  * @author Josh Gillham
  * @version 10-16-12
  */
-public abstract class DecisionTreeNode extends BTNode< String > implements java.io.Serializable {
+public abstract class DecisionTreeNode extends BTNode< String >  {
     /**
      * Creates a blank instance.
      */

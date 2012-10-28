@@ -116,7 +116,7 @@ public class LogicTest {
         Logic instance= new Logic( ui, root );
         instance.writeDecisionTree( new java.io.File( "temp" ) );
         DecisionTreeNode actual = instance.readDecisionTree( new java.io.File( "temp" ) );
-        assertEquals( root, actual );
+        assertEquals( root.getValue(), actual.getValue() );
         
     }
 }
