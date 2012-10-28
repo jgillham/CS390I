@@ -107,8 +107,16 @@ public class BTNode< T > implements java.io.Serializable {
     }
     
     /** To be implemented later. */
-    public String toString( ){ 
-        return super.toString();
+    public String toString( ) {
+        StringBuilder retValue = new StringBuilder();
+        retValue.append( '{' );
+        retValue.append( this.getValue() );
+        retValue.append( ", " );
+        retValue.append( this.getLeftChild().toString() );
+        retValue.append( ", " );
+        retValue.append( this.getRightChild().toString() );
+        retValue.append( '}' );
+        return retValue.toString();
     }
     
     /**
