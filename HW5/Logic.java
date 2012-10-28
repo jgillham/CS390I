@@ -1,4 +1,17 @@
 import javax.swing.JOptionPane;
+import java.io.File;
+import java.io.OutputStream;
+import java.io.FileOutputStream;
+import java.io.BufferedOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectOutput;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.BufferedInputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+
 /**
  * Features
  * -Starts the program.
@@ -214,5 +227,52 @@ public class Logic {
                 parent.setYesLink( replacement );
         }
         return replacement;
+    }
+    
+    /**
+     * Writes the data tree to a file.
+     * 
+     * @arg outFile the file to write to.
+     */
+    public void writeDecisionTree( File outFile ) {
+        try {
+            OutputStream out = new FileOutputStream( outFile );
+            OutputStream buffer = new BufferedOutputStream( out );
+            ObjectOutput oOutPut = new ObjectOutputStream( buffer );
+            try {
+                oOutPut.writeObject( this.root );
+            } finally {
+                oOutPut.close();
+            }
+            
+        } catch( IOException e ) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Reads the data tree from the file.
+     * 
+     * @arg inFile is the file to read from.
+     * 
+     * @return the tree root.
+     */
+    static public DecisionTreeNode readDecisionTree( File inFile ) {
+        try {
+            ObjectInput input = new ObjectInputStream( new BufferedInputStream( new FileInputStream( inFile ) ) );
+            try {
+                @SuppressWarnings( "unchecked" )
+                DecisionTreeNode root = (DecisionTreeNode)input.readObject();
+                return root;
+            }finally {
+                input.close();
+            }
+        }catch (ClassNotFoundException ex) {
+            System.err.println(
+                "Unsuccessful deserialization: Class not found. " + ex);
+        }
+        catch (IOException ex) {
+            System.err.println("Unsuccessful deserialization: " + ex);
+        }
+        return null;
     }
 }

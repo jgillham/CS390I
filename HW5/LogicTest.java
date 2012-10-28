@@ -105,4 +105,18 @@ public class LogicTest {
         assertEquals( expected.getValue(), result.getValue() );
         assertTrue( result == root.getNoLink() );
     }
+    
+    /**
+     * Proves the readDecisionTree can be used to recover the same object written with writeDecisionTree.
+     */
+    @Test
+    public void testReadAndWriteDecisionTree_OnlyRoot() {
+        DecisionTreeNode root= new ThingNode( "cat" );
+        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.No, null );
+        Logic instance= new Logic( ui, root );
+        instance.writeDecisionTree( new java.io.File( "temp" ) );
+        DecisionTreeNode actual = instance.readDecisionTree( new java.io.File( "temp" ) );
+        assertEquals( root.getValue(), actual.getValue() );
+        
+    }
 }

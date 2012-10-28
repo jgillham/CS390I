@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
 
 /**
  * Provides the base node structure.
@@ -5,7 +8,7 @@
  * @author Josh Gillham
  * @version 10-16-12
  */
-public class BTNode< T > {
+public class BTNode< T > implements java.io.Serializable {
     /** Holds a reference of the left child. */
     private BTNode< T > left= null;
     /** Holds a reference of the right child. */
@@ -106,5 +109,29 @@ public class BTNode< T > {
     /** To be implemented later. */
     public String toString( ){ 
         return super.toString();
+    }
+    
+    /**
+     * Write the non serializable fields.
+     * 
+     * @arg out is the output stream.
+     * 
+     * @throws IOException should never be thrown.
+     */
+    private void writeObject( ObjectOutputStream out) throws IOException{
+        out.writeObject( getValue() );
+    }
+    
+    /**
+     * Sets the refences to the objects of non serializable fields as they are read.
+     * 
+     * @param in is the input stream.
+     * 
+     * @throws IOException should never be thrown.
+     * @throws ClassNotFoundException should never be thrown.
+     */
+    @SuppressWarnings( "unchecked" ) // For the cast of type T
+    private void readObject( ObjectInputStream in ) throws IOException, ClassNotFoundException {
+        setValue( (T)in.readObject() );
     }
 }
