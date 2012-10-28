@@ -117,6 +117,33 @@ public class LogicTest {
         instance.writeDecisionTree( new java.io.File( "temp" ) );
         DecisionTreeNode actual = instance.readDecisionTree( new java.io.File( "temp" ) );
         assertEquals( root.getValue(), actual.getValue() );
+        assertEquals( ThingNode.class, actual.getClass() );
+    }
+    
+    /**
+     * Proves the readDecisionTree can be used to recover the same object written with writeDecisionTree.
+     *  This time with two levels.
+     */
+    @Test
+    public void testReadAndWriteDecisionTree_TwoLevels() {
+        DecisionTreeNode left = new ThingNode( "cat" );
+        DecisionTreeNode right = new ThingNode( "dog" );
+        DecisionTreeNode expected = new QuestionNode( "question", left, right );
+        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.No, null );
+        Logic instance = new Logic( ui, expected );
+        instance.writeDecisionTree( new java.io.File( "temp" ) );
+        DecisionTreeNode actual = instance.readDecisionTree( new java.io.File( "temp" ) );
+        assertNotNull( actual );
+        assertEquals( QuestionNode.class, actual.getClass() );
+        assertEquals( expected.getValue(), actual.getValue() );
+
+        assertNotNull( actual.getLeftChild() );
+        assertEquals( ThingNode.class, actual.getLeftChild().getClass() );        
+        assertEquals( expected.getLeftChild().getValue(), actual.getLeftChild().getValue() );
         
+        assertNotNull( actual.getRightChild() );
+        assertEquals( ThingNode.class, actual.getRightChild().getClass() );        
+        assertEquals( expected.getRightChild().getValue(), actual.getRightChild().getValue() );
+
     }
 }
