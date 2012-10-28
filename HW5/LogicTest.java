@@ -94,8 +94,8 @@ public class LogicTest {
         ThingNode noChild= new ThingNode( "cat" );
         QuestionNode root= new QuestionNode( "Is it a plant?", noChild, yesChild );
         String question =  "Does it say \"MEOW?\"";
-        String newThing = "Dog";
-        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.No, newThing );
+        String newThing = "dog";
+        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.Yes, newThing );
         Logic instance= new Logic( ui, root );
         ui.answers.add( question );
         QuestionNode result = instance.inputExpandIntelligence( root, noChild );
@@ -111,14 +111,13 @@ public class LogicTest {
      * Proves that the decision tree is being correctly built.
      */
     @Test
-    public void testInputExpandIntelligence2() {
+    public void testInputExpandIntelligence_1level() {
         String question = "Is it a plant?";
         String newThing = "cat";
         String oldThing = "rose";
         DecisionTreeNode root = new ThingNode( oldThing );
-        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.No, newThing );
+        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.Yes, newThing );
         ui.answers.add( question );
-        ui.answersYN.add( UI.YNAnswer.Yes );
         
         Logic instance= new Logic( ui, root );
         root = instance.inputExpandIntelligence( null, (ThingNode)root );
