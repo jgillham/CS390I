@@ -99,11 +99,34 @@ public class LogicTest {
         Logic instance= new Logic( ui, root );
         ui.answers.add( question );
         QuestionNode result = instance.inputExpandIntelligence( root, noChild );
-        QuestionNode expected = new QuestionNode( question, noChild, new ThingNode( newThing )  );
-        assertEquals( expected.getNoLink(), result.getNoLink() );
-        assertEquals( expected.getYesLink().getValue(), result.getYesLink().getValue() );
-        assertEquals( expected.getValue(), result.getValue() );
-        assertTrue( result == root.getNoLink() );
+        
+        assertTrue( root.getLeftChild() == result );
+        assertEquals( "rose", root.getYesLink().getValue() );
+        assertEquals( question, root.getNoLink().getValue() );
+        assertEquals( "cat", root.getNoLink().getYesLink().getValue() );
+        assertEquals( newThing, root.getNoLink().getNoLink().getValue() );
+    }
+    
+    /**
+     * Proves that the decision tree is being correctly built.
+     */
+    @Test
+    public void testInputExpandIntelligence2() {
+        String question = "Is it a plant?";
+        String newThing = "cat";
+        String oldThing = "rose";
+        DecisionTreeNode root = new ThingNode( oldThing );
+        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.No, newThing );
+        ui.answers.add( question );
+        ui.answersYN.add( UI.YNAnswer.Yes );
+        
+        Logic instance= new Logic( ui, root );
+        root = instance.inputExpandIntelligence( null, (ThingNode)root );
+        assertEquals( question, root.getValue() );
+        assertNotNull( root.getLeftChild() );
+        assertEquals( newThing, root.getLeftChild().getValue() );
+        assertNotNull( root.getRightChild() );
+        assertEquals( oldThing, root.getRightChild().getValue() );
     }
     
     /**

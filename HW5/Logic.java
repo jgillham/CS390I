@@ -70,17 +70,14 @@ public class Logic {
      */
     static public void main( String[] args ) {
         UI ui = new UI();
-        DecisionTreeNode root = null;
-        Logic instance = null;
+        DecisionTreeNode root = Logic.readDecisionTree( defaultFile );
+        if( root == null )
+            root = new ThingNode( "rose" );
+        Logic instance = new Logic( ui, root );
         while ( ui.inputYNQuestion( WANT_TO_PLAY_MESSAGE ) 
           == UI.YNAnswer.Yes ) {
             ui.showMessage( "Get ready to be amazed!" );
-            if( root == null )
-                root = Logic.readDecisionTree( defaultFile );
-            if( root == null )
-                root = new ThingNode( "rose" );
             
-            instance = new Logic( ui, root );
             
             Lineage unsureAnswer = instance.inputFindClosestAnswer();
             if ( instance.inputVerifyAnswer( unsureAnswer.child ) ) {
