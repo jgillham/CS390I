@@ -61,18 +61,27 @@ public class Logic {
         }
     }
     
+    static File defaultFile = new File( "data.ser" );
+    
     /**
      * Starts up the program.
      * 
      * @param args not used.
      */
     static public void main( String[] args ) {
-        DecisionTreeNode root = new ThingNode( "rose" );
         UI ui = new UI();
-        Logic instance = new Logic( ui, root );
+        DecisionTreeNode root = null;
+        Logic instance = null;
         while ( ui.inputYNQuestion( WANT_TO_PLAY_MESSAGE ) 
-            == UI.YNAnswer.Yes ) {
+          == UI.YNAnswer.Yes ) {
             ui.showMessage( "Get ready to be amazed!" );
+            if( root == null )
+                root = Logic.readDecisionTree( defaultFile );
+            if( root == null )
+                root = new ThingNode( "rose" );
+            
+            instance = new Logic( ui, root );
+            
             Lineage unsureAnswer = instance.inputFindClosestAnswer();
             if ( instance.inputVerifyAnswer( unsureAnswer.child ) ) {
                 ui.showMessage( "See? I am so smart!" );
@@ -82,6 +91,7 @@ public class Logic {
                     unsureAnswer.parent, unsureAnswer.child );
             }
         }
+        instance.writeDecisionTree( defaultFile );
         ui.showMessage( "Why you sir are no fun!" );
     }
     

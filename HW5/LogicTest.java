@@ -118,6 +118,8 @@ public class LogicTest {
         DecisionTreeNode actual = instance.readDecisionTree( new java.io.File( "temp" ) );
         assertEquals( root.getValue(), actual.getValue() );
         assertEquals( ThingNode.class, actual.getClass() );
+        assertNull( actual.getLeftChild() );
+        assertNull( actual.getRightChild() );
     }
     
     /**
@@ -140,10 +142,13 @@ public class LogicTest {
         assertNotNull( actual.getLeftChild() );
         assertEquals( ThingNode.class, actual.getLeftChild().getClass() );        
         assertEquals( expected.getLeftChild().getValue(), actual.getLeftChild().getValue() );
+        assertNull( actual.getLeftChild().getLeftChild() );
+        assertNull( actual.getLeftChild().getRightChild() );
         
         assertNotNull( actual.getRightChild() );
         assertEquals( ThingNode.class, actual.getRightChild().getClass() );        
         assertEquals( expected.getRightChild().getValue(), actual.getRightChild().getValue() );
-
+        assertNull( actual.getRightChild().getLeftChild() );
+        assertNull( actual.getRightChild().getRightChild() );
     }
 }
