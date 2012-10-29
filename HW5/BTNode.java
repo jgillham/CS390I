@@ -118,32 +118,4 @@ public class BTNode< T > implements java.io.Serializable {
         retValue.append( '}' );
         return retValue.toString();
     }
-    
-    /**
-     * Write the non serializable fields.
-     * 
-     * @arg out is the output stream.
-     * 
-     * @throws IOException should never be thrown.
-     */
-    private void writeObject( ObjectOutputStream out) throws IOException{
-        out.writeObject( this.getValue() );
-        out.writeObject( this.getLeftChild() );
-        out.writeObject( this.getRightChild() );
-    }
-    
-    /**
-     * Sets the refences to the objects of non serializable fields as they are read.
-     * 
-     * @param in is the input stream.
-     * 
-     * @throws IOException should never be thrown.
-     * @throws ClassNotFoundException should never be thrown.
-     */
-    @SuppressWarnings( "unchecked" ) // For the cast of type T
-    private void readObject( ObjectInputStream in ) throws IOException, ClassNotFoundException {
-        this.setValue( (T)in.readObject() );
-        this.setLeftChild( (BTNode< T >)in.readObject() );
-        this.setRightChild( (BTNode< T >)in.readObject() );
-    }
 }

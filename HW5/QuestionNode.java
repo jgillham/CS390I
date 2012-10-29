@@ -5,7 +5,7 @@
  * @author Josh Gillham
  * @version 10-16-12
  */
-public class QuestionNode/** To be implemented later. */ extends DecisionTreeNode {
+public class QuestionNode extends DecisionTreeNode {
     /**
      * Constructs a new question node.
      * 

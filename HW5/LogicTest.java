@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import java.util.Queue;
 import java.util.LinkedList;
+import java.io.File;
 
 /**
  *
@@ -204,15 +205,17 @@ public class LogicTest {
      */
     @Test
     public void testReadAndWriteDecisionTree_OnlyRoot() {
+        File tempFile = new File( "temp" );
         DecisionTreeNode root= new ThingNode( "cat" );
         InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.No, null );
         Logic instance= new Logic( ui, root );
-        instance.writeDecisionTree( new java.io.File( "temp" ) );
-        DecisionTreeNode actual = instance.readDecisionTree( new java.io.File( "temp" ) );
+        instance.writeDecisionTree( tempFile );
+        DecisionTreeNode actual = instance.readDecisionTree( tempFile );
         assertEquals( root.getValue(), actual.getValue() );
         assertEquals( ThingNode.class, actual.getClass() );
         assertNull( actual.getLeftChild() );
         assertNull( actual.getRightChild() );
+        tempFile.delete(); // Remove file as a curtisee
     }
     
     /**
@@ -221,13 +224,14 @@ public class LogicTest {
      */
     @Test
     public void testReadAndWriteDecisionTree_TwoLevels() {
+        File tempFile = new File( "temp" );
         DecisionTreeNode left = new ThingNode( "cat" );
         DecisionTreeNode right = new ThingNode( "dog" );
         DecisionTreeNode expected = new QuestionNode( "question", left, right );
         InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.No, null );
         Logic instance = new Logic( ui, expected );
-        instance.writeDecisionTree( new java.io.File( "temp" ) );
-        DecisionTreeNode actual = instance.readDecisionTree( new java.io.File( "temp" ) );
+        instance.writeDecisionTree( tempFile );
+        DecisionTreeNode actual = instance.readDecisionTree( tempFile );
         assertNotNull( actual );
         assertEquals( QuestionNode.class, actual.getClass() );
         assertEquals( expected.getValue(), actual.getValue() );
@@ -243,5 +247,6 @@ public class LogicTest {
         assertEquals( expected.getRightChild().getValue(), actual.getRightChild().getValue() );
         assertNull( actual.getRightChild().getLeftChild() );
         assertNull( actual.getRightChild().getRightChild() );
+        tempFile.delete(); // Remove file as a curtisee
     }
 }
