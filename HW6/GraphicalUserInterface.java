@@ -7,65 +7,40 @@ import javax.swing.JOptionPane;
 * @author Josh Gillham
 * @version 10-29-12
 */
-public class GraphicalUserInterface implements UserInterface {
+public class GraphicalUserInterface extends UserInterface {
     /**
-     * Accesses the choices.
+     * Creates a yes or no dialog displaying the message.
      * 
-     * @return the list of choices.
+     * @param message is the text to display.
+     * 
+     * @return is an enum showing the result OR null if the user clicks the X
      */
-    public List<Choice> getChoices() {
-        throw new UnsupportedOperationException();
-//         List<Choice> choices = new ArrayList<Choice>();
-//         return choices;
+    public YNAnswer inputYNQuestion( String message ) { 
+        int result= JOptionPane.showConfirmDialog( null, message, "", JOptionPane.YES_NO_OPTION );
+        if( result == 1 )
+            return YNAnswer.No;
+        else if( result == 0 )
+            return YNAnswer.Yes;
+        return null;
     }
     
     /**
-     * Accesses the list of characteristics.
+     * Creates an input dialog displaying the message.
      * 
-     * @return the list of characteristics.
+     * @param message is the text to display.
+     * 
+     * @return the user input OR null if the user clicked cancel or the X.
      */
-    public List<Characteristic> getCharacteristics() {
-        throw new UnsupportedOperationException();
-//         List<Characteristic> characteristics = 
-//            new ArrayList<Characteristic>();
-//         return characteristics;
+    public String inputQuestion( String message ) {
+        return JOptionPane.showInputDialog( message );
     }
     
     /**
-     * Accesses the list of characteristics rankings.
+     * Displays a dialog with the message.
      * 
-     * @param characteristics the list of characteristics.
-     * @param defaultValue hte default value for a ranking.
+     * @param message is the text to display.
      */
-    public void getCharacteristicRankings(List<Characteristic> characteristics,
-      int defaultValue) {
-        throw new UnsupportedOperationException();
-    }
-    
-    /**
-     * Accesses a table of the cross rankings.
-     * 
-     * @param choices a list of choices.
-     * @param characteristics a list of characteristics.
-     * @param defaultValue is the default ranking.
-     * 
-     * @return a table of the cross rankings.
-     */
-    public double[][] getCrossRankings(List<Choice> choices,
-      List<Characteristic> characteristics,
-      int defaultValue) {
-        throw new UnsupportedOperationException();
-//         double[][] crossRankings =
-//         new double[choices.size()][characteristics.size()];
-//         return crossRankings;
-    }
-    
-    /**
-     * Shows the results.
-     * 
-     * @param choices the list of choices.
-     */
-    public void showResults(List<Choice> choices) {
-        throw new UnsupportedOperationException();
+    public void showMessage( String message ) { 
+        JOptionPane.showMessageDialog( null, message );
     }
 }
