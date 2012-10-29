@@ -79,12 +79,15 @@ public class DecisionTreeNodeTest {
     }
     
     /**
-     * Proves toString ...
-     * 
-     * TODO
+     * Proves toString produces a non-null without an error.
      */
     @Test
     public void testToString() {
-        throw new UnsupportedOperationException();
+        try {
+            BTNode< String > instance= new BTNode< String >();
+            assertNotNull( instance.toString() );
+        } catch( Exception e ) {
+            fail( "Should not throw an error." );
+        }
     }
 }

@@ -50,6 +50,7 @@ public class LogicTest {
         InstrumentationUI ui= new InstrumentationUI( null, null );
         Logic instance= new Logic( ui, root );
         Logic.Lineage result = instance.inputFindClosestAnswer();
+        assertNotNull( result );
         assertEquals( root,  result.child );
         assertNull( result.parent );
     }
@@ -66,8 +67,37 @@ public class LogicTest {
         InstrumentationUI ui= new InstrumentationUI( UI.YNAnswer.Yes, "dog" );
         Logic instance= new Logic( ui, root );
         Logic.Lineage result = instance.inputFindClosestAnswer();
+        assertNotNull( result );
         assertEquals( yesChild, result.child );
         assertEquals( root, result.parent );
+    }
+    
+    /**
+     * Proves that a decision tree with multiple children produces the correct
+     *  ThingNode.
+     */
+    @Test
+    public void testInputFindClosestAnswer_userCancels2ndLevel() {
+        ThingNode yesChild= new ThingNode( "rose" );
+        ThingNode noChild= new ThingNode( "cat" );
+        DecisionTreeNode root= new QuestionNode( "", noChild, yesChild );
+        InstrumentationUI ui= new InstrumentationUI( null, null );
+        ui.answersYN.add( UI.YNAnswer.No );
+        Logic instance= new Logic( ui, root );
+        Logic.Lineage result = instance.inputFindClosestAnswer();
+        assertNull( result );
+    }
+    
+    /**
+     * Proves that the user can cancel the process.
+     */
+    @Test
+    public void testInputVerifyAnswer_userCancels() {
+        ThingNode yesChild= new ThingNode( "rose" );
+        ThingNode noChild= new ThingNode( "cat" );
+        DecisionTreeNode root= new QuestionNode( "", noChild, yesChild );
+        Logic instance= new Logic( new InstrumentationUI( null, null ), root );
+        assertNull( instance.inputVerifyAnswer( yesChild ) );
     }
     
     /**
@@ -79,32 +109,95 @@ public class LogicTest {
         ThingNode noChild= new ThingNode( "cat" );
         DecisionTreeNode root= new QuestionNode( "", noChild, yesChild );
         Logic instance= new Logic( new InstrumentationUI( UI.YNAnswer.No, "" ), root );
-        assertFalse( instance.inputVerifyAnswer( yesChild ) );
+        assertEquals( UI.YNAnswer.No, instance.inputVerifyAnswer( yesChild ) );
         
         instance= new Logic( new InstrumentationUI( UI.YNAnswer.Yes, "" ), root );
-        assertTrue( instance.inputVerifyAnswer( yesChild ) );
+        assertEquals( UI.YNAnswer.Yes, instance.inputVerifyAnswer( yesChild ) );
+    }
+    
+    /**
+     * Proves that the user can cancel the process.
+     */
+    @Test
+    public void testInputExpandIntelligence_userCancels1st() {
+        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.Yes, null );
+        ui.answers.add( "test3" );
+        DecisionTreeNode root = new ThingNode( "test" );
+        Logic instance= new Logic( ui, root );
+        QuestionNode result = instance.inputExpandIntelligence( null, (ThingNode)root );
+        assertNull( result );
+    }
+    
+    /**
+     * Proves that the user can cancel the process.
+     */
+    @Test
+    public void testInputExpandIntelligence_userCancels2nd() {
+        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.Yes, "test2" );
+        DecisionTreeNode root = new ThingNode( "test" );
+        Logic instance= new Logic( ui, root );
+        QuestionNode result = instance.inputExpandIntelligence( null, (ThingNode)root );
+        assertNull( result );
+    }
+    
+    /**
+     * Proves that the user can cancel the process.
+     */
+    @Test
+    public void testInputExpandIntelligence_userCancels3rd() {
+        InstrumentationUI ui = new InstrumentationUI( null, "test2" );
+        DecisionTreeNode root = new ThingNode( "test" );
+        ui.answers.add( "test3" );
+        Logic instance= new Logic( ui, root );
+        QuestionNode result = instance.inputExpandIntelligence( null, (ThingNode)root );
+        assertNull( result );
     }
     
     /**
      * Proves that the decision tree is being correctly built.
      */
     @Test
-    public void testInputExpandIntelligence() {
+    public void testInputExpandIntelligence_1level() {
+        String question = "Is it a plant?";
+        String newThing = "cat";
+        String oldThing = "rose";
+        DecisionTreeNode root = new ThingNode( oldThing );
+        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.Yes, newThing );
+        ui.answers.add( question );
+        
+        Logic instance= new Logic( ui, root );
+        root = instance.inputExpandIntelligence( null, (ThingNode)root );
+        assertNotNull( root );
+        assertEquals( question, root.getValue() );
+        assertNotNull( root.getLeftChild() );
+        assertEquals( newThing, root.getLeftChild().getValue() );
+        assertNotNull( root.getRightChild() );
+        assertEquals( oldThing, root.getRightChild().getValue() );
+    }
+    
+    /**
+     * Proves that the decision tree is being correctly built.
+     */
+    @Test
+    public void testInputExpandIntelligence_2levels() {
         ThingNode yesChild= new ThingNode( "rose" );
         ThingNode noChild= new ThingNode( "cat" );
         QuestionNode root= new QuestionNode( "Is it a plant?", noChild, yesChild );
         String question =  "Does it say \"MEOW?\"";
-        String newThing = "Dog";
-        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.No, newThing );
+        String newThing = "dog";
+        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.Yes, newThing );
         Logic instance= new Logic( ui, root );
         ui.answers.add( question );
         QuestionNode result = instance.inputExpandIntelligence( root, noChild );
-        QuestionNode expected = new QuestionNode( question, noChild, new ThingNode( newThing )  );
-        assertEquals( expected.getNoLink(), result.getNoLink() );
-        assertEquals( expected.getYesLink().getValue(), result.getYesLink().getValue() );
-        assertEquals( expected.getValue(), result.getValue() );
-        assertTrue( result == root.getNoLink() );
+        assertNotNull( result );
+        
+        assertTrue( root.getLeftChild() == result );
+        assertEquals( "rose", root.getYesLink().getValue() );
+        assertEquals( question, root.getNoLink().getValue() );
+        assertEquals( "cat", root.getNoLink().getYesLink().getValue() );
+        assertEquals( newThing, root.getNoLink().getNoLink().getValue() );
     }
+    
     
     /**
      * Proves the readDecisionTree can be used to recover the same object written with writeDecisionTree.
@@ -117,6 +210,38 @@ public class LogicTest {
         instance.writeDecisionTree( new java.io.File( "temp" ) );
         DecisionTreeNode actual = instance.readDecisionTree( new java.io.File( "temp" ) );
         assertEquals( root.getValue(), actual.getValue() );
+        assertEquals( ThingNode.class, actual.getClass() );
+        assertNull( actual.getLeftChild() );
+        assertNull( actual.getRightChild() );
+    }
+    
+    /**
+     * Proves the readDecisionTree can be used to recover the same object written with writeDecisionTree.
+     *  This time with two levels.
+     */
+    @Test
+    public void testReadAndWriteDecisionTree_TwoLevels() {
+        DecisionTreeNode left = new ThingNode( "cat" );
+        DecisionTreeNode right = new ThingNode( "dog" );
+        DecisionTreeNode expected = new QuestionNode( "question", left, right );
+        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.No, null );
+        Logic instance = new Logic( ui, expected );
+        instance.writeDecisionTree( new java.io.File( "temp" ) );
+        DecisionTreeNode actual = instance.readDecisionTree( new java.io.File( "temp" ) );
+        assertNotNull( actual );
+        assertEquals( QuestionNode.class, actual.getClass() );
+        assertEquals( expected.getValue(), actual.getValue() );
+
+        assertNotNull( actual.getLeftChild() );
+        assertEquals( ThingNode.class, actual.getLeftChild().getClass() );        
+        assertEquals( expected.getLeftChild().getValue(), actual.getLeftChild().getValue() );
+        assertNull( actual.getLeftChild().getLeftChild() );
+        assertNull( actual.getLeftChild().getRightChild() );
         
+        assertNotNull( actual.getRightChild() );
+        assertEquals( ThingNode.class, actual.getRightChild().getClass() );        
+        assertEquals( expected.getRightChild().getValue(), actual.getRightChild().getValue() );
+        assertNull( actual.getRightChild().getLeftChild() );
+        assertNull( actual.getRightChild().getRightChild() );
     }
 }

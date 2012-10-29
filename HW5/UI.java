@@ -16,13 +16,15 @@ class UI {
      * 
      * @param message is the text to display.
      * 
-     * @return is an enum showing the result.
+     * @return is an enum showing the result OR null if the user clicks the X
      */
     public YNAnswer inputYNQuestion( String message ) { 
         int result= JOptionPane.showConfirmDialog( null, message, "", JOptionPane.YES_NO_OPTION );
         if( result == 1 )
             return YNAnswer.No;
-        return YNAnswer.Yes;
+        else if( result == 0 )
+            return YNAnswer.Yes;
+        return null;
     }
     
     /**
@@ -30,7 +32,7 @@ class UI {
      * 
      * @param message is the text to display.
      * 
-     * @return the user input OR null if the user clicked cancel.
+     * @return the user input OR null if the user clicked cancel or the X.
      */
     public String inputQuestion( String message ) {
         return JOptionPane.showInputDialog( message );

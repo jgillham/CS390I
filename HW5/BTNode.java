@@ -107,8 +107,16 @@ public class BTNode< T > implements java.io.Serializable {
     }
     
     /** To be implemented later. */
-    public String toString( ){ 
-        return super.toString();
+    public String toString( ) {
+        StringBuilder retValue = new StringBuilder();
+        retValue.append( '{' );
+        retValue.append( this.getValue() );
+        retValue.append( ", " );
+        retValue.append( this.getLeftChild() );
+        retValue.append( ", " );
+        retValue.append( this.getRightChild() );
+        retValue.append( '}' );
+        return retValue.toString();
     }
     
     /**
@@ -119,7 +127,9 @@ public class BTNode< T > implements java.io.Serializable {
      * @throws IOException should never be thrown.
      */
     private void writeObject( ObjectOutputStream out) throws IOException{
-        out.writeObject( getValue() );
+        out.writeObject( this.getValue() );
+        out.writeObject( this.getLeftChild() );
+        out.writeObject( this.getRightChild() );
     }
     
     /**
@@ -132,6 +142,8 @@ public class BTNode< T > implements java.io.Serializable {
      */
     @SuppressWarnings( "unchecked" ) // For the cast of type T
     private void readObject( ObjectInputStream in ) throws IOException, ClassNotFoundException {
-        setValue( (T)in.readObject() );
+        this.setValue( (T)in.readObject() );
+        this.setLeftChild( (BTNode< T >)in.readObject() );
+        this.setRightChild( (BTNode< T >)in.readObject() );
     }
 }

@@ -61,27 +61,65 @@ public class Logic {
         }
     }
     
+    static File defaultFile = new File( "data.ser" );
+    
     /**
      * Starts up the program.
      * 
      * @param args not used.
      */
     static public void main( String[] args ) {
-        DecisionTreeNode root = new ThingNode( "rose" );
         UI ui = new UI();
+        DecisionTreeNode root = Logic.readDecisionTree( defaultFile );
+        if( root == null )
+            root = new ThingNode( "rose" );
         Logic instance = new Logic( ui, root );
         while ( ui.inputYNQuestion( WANT_TO_PLAY_MESSAGE ) 
-            == UI.YNAnswer.Yes ) {
+          == UI.YNAnswer.Yes ) {
             ui.showMessage( "Get ready to be amazed!" );
-            Lineage unsureAnswer = instance.inputFindClosestAnswer();
-            if ( instance.inputVerifyAnswer( unsureAnswer.child ) ) {
+            
+            
+            Lineage unsureAnswer;
+            do {
+                unsureAnswer = instance.inputFindClosestAnswer();
+            }
+            while( unsureAnswer == null &&
+            // The user clicked the X or cancel so maybe they want to quit.
+              ui.inputYNQuestion( "Do you want to quit the game?" )  == UI.YNAnswer.No );
+            // Exit the game early
+            if( unsureAnswer == null )
+                break;
+            
+            UI.YNAnswer response;
+            do {
+                response = instance.inputVerifyAnswer( unsureAnswer.child );
+            }
+            while( response == null &&
+            // The user clicked the X or cancel so maybe they want to quit.
+              ui.inputYNQuestion( "Do you want to quit the game?" )  == UI.YNAnswer.No );
+            // Exit the game early
+            if( response == null )
+                break;
+            // The game wins.
+            if ( response == UI.YNAnswer.Yes ) {
                 ui.showMessage( "See? I am so smart!" );
             }
+            // The game was wrong.
             else {
-                instance.inputExpandIntelligence( 
+                QuestionNode result;
+                do {
+                    result = instance.inputExpandIntelligence( 
                     unsureAnswer.parent, unsureAnswer.child );
+                } 
+                while( result == null && 
+                // The user clicked the X or cancel so maybe they want to quit.
+                  ui.inputYNQuestion( "Do you want to quit the game?" )  == UI.YNAnswer.No );
+                // Exit the game early
+                if( result == null )
+                    break;
             }
         }
+        instance.writeDecisionTree( defaultFile );
         ui.showMessage( "Why you sir are no fun!" );
     }
     
@@ -143,7 +181,10 @@ public class Logic {
         }
         else if ( child.getClass() == QuestionNode.class ) {
             QuestionNode question = (QuestionNode)child;
-            switch( ui.inputYNQuestion( question.getQuestion() ) ) {
+            UI.YNAnswer response = ui.inputYNQuestion( question.getQuestion() );
+            if( response == null )
+                return null;
+            switch( response  ) {
                 case Yes:
                     return inputFindClosestAnswer( question, 
                         child.getYesLink() );
@@ -168,13 +209,11 @@ public class Logic {
      * 
      * @throws NullPointerException when unsureAnswer is null.
      */
-    public boolean inputVerifyAnswer( ThingNode unsureAnswer ) {
+    public UI.YNAnswer inputVerifyAnswer( ThingNode unsureAnswer ) {
         if ( unsureAnswer == null )
             throw new NullPointerException();
-        if ( ui.inputYNQuestion( "Were you thinking of " + 
-            unsureAnswer.getValue() + "?" ) == UI.YNAnswer.Yes )
-            return true;
-        return false;
+        return ui.inputYNQuestion( "Were you thinking of " + 
+            unsureAnswer.getValue() + "?" ); 
     }
     
     /**
@@ -190,33 +229,36 @@ public class Logic {
      * @param parent the parent node of incorrectAnswer.
      * @param incorrectAnswer the node that needs to be replaced.
      * 
-     * @return the question node that replaced the incorrectAnswer in the tree.
+     * @return the question node that replaced the incorrectAnswer in the tree OR return null if
+     *  the user cancels any dialog box.
      * 
      * @throws NullPointerException when incorrectAnswer is null.
-     * 
-     * TODO:
-     * -What if the user cancels.
      */
     public QuestionNode inputExpandIntelligence( QuestionNode parent, 
             ThingNode incorrectAnswer ) {
         if ( incorrectAnswer == null )
             throw new NullPointerException();
-        ThingNode correctAnswer = new ThingNode( 
-            ui.inputQuestion( "What were you thinking of?" )
-        );
+        ThingNode correctAnswer = new ThingNode( ui.inputQuestion( "What were you thinking of?" ) );
+        if( correctAnswer.getValue() == null )
+            return null;
         String question = ui.inputQuestion( 
             "Please enter a Yes/No question to differentiate between " 
             + correctAnswer.getValue() + " and " +
             incorrectAnswer.getValue() + "." );
+        if( question == null )
+            return null;
             
         QuestionNode replacement;
-        if ( ui.inputYNQuestion( "Whats the answer for " + 
-            incorrectAnswer.getValue() + "." ) == UI.YNAnswer.Yes )
+        UI.YNAnswer response = ui.inputYNQuestion( "Whats the answer for " + 
+            incorrectAnswer.getValue() + "." );
+        if ( response == UI.YNAnswer.Yes )
             replacement = new QuestionNode( question, correctAnswer, 
                 incorrectAnswer );
-        else
+        else if ( response == UI.YNAnswer.No )
             replacement = new QuestionNode( question, incorrectAnswer, 
                 correctAnswer );
+        else
+            return null;
             
         if ( parent == null )
             root = replacement;
