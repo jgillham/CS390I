@@ -26,7 +26,8 @@ public class GraphicalUserInterface implements UserInterface {
      */
     public List<Characteristic> getCharacteristics() {
         throw new UnsupportedOperationException();
-//         List<Characteristic> characteristics = new ArrayList<Characteristic>();
+//         List<Characteristic> characteristics = 
+//            new ArrayList<Characteristic>();
 //         return characteristics;
     }
     
@@ -38,7 +39,7 @@ public class GraphicalUserInterface implements UserInterface {
      */
     public void getCharacteristicRankings(List<Characteristic> characteristics,
       int defaultValue) {
-          throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
     
     /**

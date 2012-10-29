@@ -25,7 +25,8 @@ public class ConsoleUserInterface implements UserInterface {
      */
     public List<Characteristic> getCharacteristics() {
         throw new UnsupportedOperationException();
-//         List<Characteristic> characteristics = new ArrayList<Characteristic>();
+//         List<Characteristic> characteristics = 
+//           new ArrayList<Characteristic>();
 //         return characteristics;
     }
     
