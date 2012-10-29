@@ -27,6 +27,7 @@ public class UITest {
         UI instance= new UI();
         assertEquals( UI.YNAnswer.Yes, instance.inputYNQuestion( "For test purposes, click yes. Thank you." ) );
         assertEquals( UI.YNAnswer.No, instance.inputYNQuestion( "For test purposes, click no. Thank you." ) );
+        assertNull( instance.inputYNQuestion( "For test purposes, click the X. Thank you." ) );
     }
     
     /**
@@ -39,6 +40,8 @@ public class UITest {
                 + "(no quotation marks) and click OK. Thank you." ) );
         assertNull( instance.inputQuestion( "For test purposes, please type \"test\" "
                 + "(no quotation marks) and click Cancel. Thank you." ) );
+        assertNull( instance.inputQuestion( "For test purposes, please type \"test\" "
+                + "(no quotation marks) and click the X. Thank you." ) );
     }
     
     /**
