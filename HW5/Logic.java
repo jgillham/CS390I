@@ -24,7 +24,7 @@ import java.io.ObjectInputStream;
 public class Logic {
     /** Holds the message which asks the player if they want to play. */
     static private final String WANT_TO_PLAY_MESSAGE = 
-        "Pick a object. I bet I can guess what you're thinking...";
+        "I bet I can guess what you're thinking. Would you like to play?";
     
     /** Provides a return type for inputFindClosestAnswer. */
     static public class Lineage {
@@ -59,8 +59,7 @@ public class Logic {
         Logic instance = new Logic( ui, root );
         while ( ui.inputYNQuestion( WANT_TO_PLAY_MESSAGE ) ==
                 UI.YNAnswer.Yes ) {
-            ui.showMessage( "Get ready to be amazed!" );
-            
+            ui.showMessage( "I would like you to think of a type of flower." );
             
             Lineage unsureAnswer;
             do {
@@ -87,7 +86,7 @@ public class Logic {
                 break;
             // The game wins.
             if ( response == UI.YNAnswer.Yes ) {
-                ui.showMessage( "See? I am so smart!" );
+                ui.showMessage( "I learn fast." );
             }
             // The game was wrong.
             else {
@@ -106,7 +105,7 @@ public class Logic {
             }
         }
         instance.writeDecisionTree( defaultFile );
-        ui.showMessage( "Why you sir are no fun!" );
+        ui.showMessage( "You have taught me well. Thank you!" );
     }
     
     /** Holds a reference to the base of the decision tree. */
