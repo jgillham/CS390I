@@ -24,7 +24,8 @@ public class Decider {
 //         choices = ui.getChoices();
 //         characteristics = ui.getCharacteristics();
 //         ui.getCharacteristicRankings(characteristics, STANDARD);
-//         crossRankings = ui.getCrossRankings(choices, characteristics, STANDARD);
+//         crossRankings = ui.getCrossRankings(choices, characteristics, 
+//           STANDARD);
 //         calculateFinalScores(choices, characteristics, crossRankings);
 //         ui.showResults(choices);
     }
@@ -38,6 +39,6 @@ public class Decider {
      */
     private static void calculateFinalScores(List<Choice> choices, 
       List<Characteristic> characs, double[][] crossRankings) {
-          throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 }
