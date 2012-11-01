@@ -15,8 +15,13 @@ public abstract class DecisionTreeNode extends BTNode< String >  {
     
     /**
      * Creates a parent decision node.
+     * 
+     * @param value the string.
+     * @param no is the no child.
+     * @param yes is the yes child.
      */
-    public DecisionTreeNode( String value, DecisionTreeNode no, DecisionTreeNode yes ) {
+    public DecisionTreeNode( String value, DecisionTreeNode no, 
+      DecisionTreeNode yes ) {
         super( value, no, yes );
     }
     
@@ -38,7 +43,11 @@ public abstract class DecisionTreeNode extends BTNode< String >  {
         return (DecisionTreeNode)super.getRightChild();
     }
     
-    /** To be implemented later. */
+    /**
+     * Calls the parent's method.
+     * 
+     * @return a string representing the node tree.
+     */
     public String toString() { 
         return super.toString();
     }

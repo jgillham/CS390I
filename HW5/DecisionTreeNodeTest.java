@@ -16,10 +16,19 @@ public class DecisionTreeNodeTest {
      * Provides an instrument to test DecisionTreeNode. 
      */
     class InstrumentDecisionTreeNode extends DecisionTreeNode {
+        /** Constructs the class from nothing. */
         public InstrumentDecisionTreeNode() { 
             super();
         }
-        public InstrumentDecisionTreeNode( String value, DecisionTreeNode no, DecisionTreeNode yes ) {
+        /**
+         * Constructs a parent node.
+         * 
+         * @param value is the data.
+         * @param no is the left node.
+         * @param yes is the right node.
+         */
+        public InstrumentDecisionTreeNode( String value, DecisionTreeNode no, 
+                DecisionTreeNode yes ) {
             super( value, no, yes );
         }
     }
@@ -28,7 +37,7 @@ public class DecisionTreeNodeTest {
      * Test default constructor. Should produce no errors.
      */
     @Test
-    public void testConstructor(){
+    public void testConstructor() {
         new InstrumentDecisionTreeNode(); 
     }
     
@@ -36,8 +45,12 @@ public class DecisionTreeNodeTest {
      * Test the 3 param constructor. Should produce no errors.
      */
     @Test
-    public void testConstructor_3param(){
-        new InstrumentDecisionTreeNode( "", new InstrumentDecisionTreeNode(), new InstrumentDecisionTreeNode() ); 
+    public void testConstructor_3param() {
+        new InstrumentDecisionTreeNode( 
+            "", 
+            new InstrumentDecisionTreeNode(), 
+            new InstrumentDecisionTreeNode()
+        ); 
     }
     
     /**
@@ -45,16 +58,18 @@ public class DecisionTreeNodeTest {
      */
     @Test
     public void testGetAndSetYesLink() {
-        InstrumentDecisionTreeNode expectedYesLink= new InstrumentDecisionTreeNode();
-        InstrumentDecisionTreeNode instance=
-            new InstrumentDecisionTreeNode( "", new InstrumentDecisionTreeNode(), expectedYesLink ); 
+        InstrumentDecisionTreeNode expectedYesLink = 
+            new InstrumentDecisionTreeNode();
+        InstrumentDecisionTreeNode instance = new InstrumentDecisionTreeNode( 
+            "", new InstrumentDecisionTreeNode(), expectedYesLink
+        ); 
         assertEquals( expectedYesLink, instance.getYesLink() );
         
-        expectedYesLink= new InstrumentDecisionTreeNode();
+        expectedYesLink = new InstrumentDecisionTreeNode();
         instance.setYesLink( expectedYesLink );
         assertEquals( expectedYesLink, instance.getYesLink() );
         
-        expectedYesLink= new InstrumentDecisionTreeNode();
+        expectedYesLink = new InstrumentDecisionTreeNode();
         instance.setYesLink( expectedYesLink );
         assertEquals( expectedYesLink, instance.getYesLink() );
     }
@@ -64,16 +79,18 @@ public class DecisionTreeNodeTest {
      */
     @Test
     public void testGetAndSetNoLink() {
-        InstrumentDecisionTreeNode expectedNoLink= new InstrumentDecisionTreeNode();
-        InstrumentDecisionTreeNode instance=
-            new InstrumentDecisionTreeNode( "", expectedNoLink, new InstrumentDecisionTreeNode() ); 
+        InstrumentDecisionTreeNode expectedNoLink = 
+            new InstrumentDecisionTreeNode();
+        InstrumentDecisionTreeNode instance = new InstrumentDecisionTreeNode( 
+                "", expectedNoLink, new InstrumentDecisionTreeNode() 
+        ); 
         assertEquals( expectedNoLink, instance.getNoLink() );
         
-        expectedNoLink= new InstrumentDecisionTreeNode();
+        expectedNoLink = new InstrumentDecisionTreeNode();
         instance.setNoLink( expectedNoLink );
         assertEquals( expectedNoLink, instance.getNoLink() );
         
-        expectedNoLink= new InstrumentDecisionTreeNode();
+        expectedNoLink = new InstrumentDecisionTreeNode();
         instance.setNoLink( expectedNoLink );
         assertEquals( expectedNoLink, instance.getNoLink() );
     }
@@ -84,9 +101,10 @@ public class DecisionTreeNodeTest {
     @Test
     public void testToString() {
         try {
-            BTNode< String > instance= new BTNode< String >();
+            BTNode< String > instance = new BTNode< String >();
             assertNotNull( instance.toString() );
-        } catch( Exception e ) {
+        }
+        catch ( Exception e ) {
             fail( "Should not throw an error." );
         }
     }

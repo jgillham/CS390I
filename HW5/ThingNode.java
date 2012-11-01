@@ -1,7 +1,7 @@
 
 /**
- * Represents the specific end object in the Decision tree. Forms the end of the tree. Has no
- *  children.
+ * Represents the specific end object in the Decision tree. Forms the end 
+ *  of the tree. Has no children.
  * 
  * @author Josh Gillham
  * @version 10-16-12
@@ -26,7 +26,11 @@ public class ThingNode extends DecisionTreeNode {
         return super.getValue();
     }
     
-    /** To be implemented later. */
+    /**
+     * Accesses the string representation of this thing.
+     * 
+     * @return the string representation.
+     */
     public String toString( ) {
         return super.toString();
     }

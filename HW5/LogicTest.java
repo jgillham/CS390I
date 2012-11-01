@@ -9,29 +9,51 @@ import java.util.LinkedList;
 import java.io.File;
 
 /**
+ * Tests Logic.
  *
  * @author  Josh Gillham
  * @version 10-21-12
  */
 public class LogicTest {
+    /** Provides mock input instrumentation for UI. */
     class InstrumentationUI extends UI {
+        /** Holds a list of yes or no answers. */
         public Queue< YNAnswer > answersYN = new LinkedList< YNAnswer >();
+        /** Holds a list of text answers. */
         public Queue< String > answers = new LinkedList< String >();
+        /**
+         * Constructs a new class with the first inputs.
+         * 
+         * @param nextYN is the first Yes or no answer.
+         * @param nextQuestion is the first text answer.
+         */
         public InstrumentationUI( YNAnswer nextYN, String nextQuestion ) {
             this.answersYN.add( nextYN );
             this.answers.add( nextQuestion );
         }
+        
+        /**
+         * Provides the first answer in the queue.
+         * 
+         * @param message is not used.
+         * 
+         * @return the next answer in the queue.
+         */
         public YNAnswer inputYNQuestion( String message ) {
             return this.answersYN.poll();
         }
+        
+        /**
+         * Provides the first text answer in the queue.
+         * 
+         * @param message is not used.
+         * 
+         * @return the next answer in the queue.
+         */
         public String inputQuestion( String message ) { 
             return this.answers.poll();
         }
         
-    }
-    DecisionTreeNode root;
-    public LogicTest() {
-        root= new ThingNode( "rose" );
     }
     
     /**
@@ -39,7 +61,7 @@ public class LogicTest {
      */
     @Test
     public void testConstructor() {
-        new Logic( new InstrumentationUI( null, "" ), root );
+        new Logic( new InstrumentationUI( null, "" ), new ThingNode( "rose" ) );
     }
     
     /**
@@ -48,8 +70,9 @@ public class LogicTest {
      */
     @Test
     public void testInputFindClosestAnswer() {
-        InstrumentationUI ui= new InstrumentationUI( null, null );
-        Logic instance= new Logic( ui, root );
+        InstrumentationUI ui = new InstrumentationUI( null, null );
+        ThingNode root = new ThingNode( "rose" );
+        Logic instance = new Logic( ui, root );
         Logic.Lineage result = instance.inputFindClosestAnswer();
         assertNotNull( result );
         assertEquals( root,  result.child );
@@ -62,11 +85,11 @@ public class LogicTest {
      */
     @Test
     public void testInputFindClosestAnswer_multi() {
-        ThingNode yesChild= new ThingNode( "rose" );
-        ThingNode noChild= new ThingNode( "cat" );
-        DecisionTreeNode root= new QuestionNode( "", noChild, yesChild );
-        InstrumentationUI ui= new InstrumentationUI( UI.YNAnswer.Yes, "dog" );
-        Logic instance= new Logic( ui, root );
+        ThingNode yesChild = new ThingNode( "rose" );
+        ThingNode noChild = new ThingNode( "cat" );
+        DecisionTreeNode root = new QuestionNode( "", noChild, yesChild );
+        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.Yes, "dog" );
+        Logic instance = new Logic( ui, root );
         Logic.Lineage result = instance.inputFindClosestAnswer();
         assertNotNull( result );
         assertEquals( yesChild, result.child );
@@ -79,12 +102,12 @@ public class LogicTest {
      */
     @Test
     public void testInputFindClosestAnswer_userCancels2ndLevel() {
-        ThingNode yesChild= new ThingNode( "rose" );
-        ThingNode noChild= new ThingNode( "cat" );
-        DecisionTreeNode root= new QuestionNode( "", noChild, yesChild );
-        InstrumentationUI ui= new InstrumentationUI( null, null );
+        ThingNode yesChild = new ThingNode( "rose" );
+        ThingNode noChild = new ThingNode( "cat" );
+        DecisionTreeNode root = new QuestionNode( "", noChild, yesChild );
+        InstrumentationUI ui = new InstrumentationUI( null, null );
         ui.answersYN.add( UI.YNAnswer.No );
-        Logic instance= new Logic( ui, root );
+        Logic instance = new Logic( ui, root );
         Logic.Lineage result = instance.inputFindClosestAnswer();
         assertNull( result );
     }
@@ -94,10 +117,10 @@ public class LogicTest {
      */
     @Test
     public void testInputVerifyAnswer_userCancels() {
-        ThingNode yesChild= new ThingNode( "rose" );
-        ThingNode noChild= new ThingNode( "cat" );
-        DecisionTreeNode root= new QuestionNode( "", noChild, yesChild );
-        Logic instance= new Logic( new InstrumentationUI( null, null ), root );
+        ThingNode yesChild = new ThingNode( "rose" );
+        ThingNode noChild = new ThingNode( "cat" );
+        DecisionTreeNode root = new QuestionNode( "", noChild, yesChild );
+        Logic instance = new Logic( new InstrumentationUI( null, null ), root );
         assertNull( instance.inputVerifyAnswer( yesChild ) );
     }
     
@@ -106,13 +129,17 @@ public class LogicTest {
      */
     @Test
     public void testInputVerifyAnswer() {
-        ThingNode yesChild= new ThingNode( "rose" );
-        ThingNode noChild= new ThingNode( "cat" );
-        DecisionTreeNode root= new QuestionNode( "", noChild, yesChild );
-        Logic instance= new Logic( new InstrumentationUI( UI.YNAnswer.No, "" ), root );
+        ThingNode yesChild = new ThingNode( "rose" );
+        ThingNode noChild = new ThingNode( "cat" );
+        DecisionTreeNode root = new QuestionNode( "", noChild, yesChild );
+        Logic instance = new Logic( 
+            new InstrumentationUI( UI.YNAnswer.No, "" ), root
+        );
         assertEquals( UI.YNAnswer.No, instance.inputVerifyAnswer( yesChild ) );
         
-        instance= new Logic( new InstrumentationUI( UI.YNAnswer.Yes, "" ), root );
+        instance = new Logic( 
+            new InstrumentationUI( UI.YNAnswer.Yes, "" ), root
+        );
         assertEquals( UI.YNAnswer.Yes, instance.inputVerifyAnswer( yesChild ) );
     }
     
@@ -124,8 +151,10 @@ public class LogicTest {
         InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.Yes, null );
         ui.answers.add( "test3" );
         DecisionTreeNode root = new ThingNode( "test" );
-        Logic instance= new Logic( ui, root );
-        QuestionNode result = instance.inputExpandIntelligence( null, (ThingNode)root );
+        Logic instance = new Logic( ui, root );
+        QuestionNode result = instance.inputExpandIntelligence( 
+            null, (ThingNode)root
+        );
         assertNull( result );
     }
     
@@ -134,10 +163,14 @@ public class LogicTest {
      */
     @Test
     public void testInputExpandIntelligence_userCancels2nd() {
-        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.Yes, "test2" );
+        InstrumentationUI ui = new InstrumentationUI( 
+            UI.YNAnswer.Yes, "test2"
+        );
         DecisionTreeNode root = new ThingNode( "test" );
-        Logic instance= new Logic( ui, root );
-        QuestionNode result = instance.inputExpandIntelligence( null, (ThingNode)root );
+        Logic instance = new Logic( ui, root );
+        QuestionNode result = instance.inputExpandIntelligence( 
+            null, (ThingNode)root
+        );
         assertNull( result );
     }
     
@@ -149,8 +182,10 @@ public class LogicTest {
         InstrumentationUI ui = new InstrumentationUI( null, "test2" );
         DecisionTreeNode root = new ThingNode( "test" );
         ui.answers.add( "test3" );
-        Logic instance= new Logic( ui, root );
-        QuestionNode result = instance.inputExpandIntelligence( null, (ThingNode)root );
+        Logic instance = new Logic( ui, root );
+        QuestionNode result = instance.inputExpandIntelligence( 
+            null, (ThingNode)root
+        );
         assertNull( result );
     }
     
@@ -163,10 +198,12 @@ public class LogicTest {
         String newThing = "cat";
         String oldThing = "rose";
         DecisionTreeNode root = new ThingNode( oldThing );
-        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.Yes, newThing );
+        InstrumentationUI ui = new InstrumentationUI( 
+            UI.YNAnswer.Yes, newThing
+        );
         ui.answers.add( question );
         
-        Logic instance= new Logic( ui, root );
+        Logic instance = new Logic( ui, root );
         root = instance.inputExpandIntelligence( null, (ThingNode)root );
         assertNotNull( root );
         assertEquals( question, root.getValue() );
@@ -181,13 +218,17 @@ public class LogicTest {
      */
     @Test
     public void testInputExpandIntelligence_2levels() {
-        ThingNode yesChild= new ThingNode( "rose" );
-        ThingNode noChild= new ThingNode( "cat" );
-        QuestionNode root= new QuestionNode( "Is it a plant?", noChild, yesChild );
+        ThingNode yesChild = new ThingNode( "rose" );
+        ThingNode noChild = new ThingNode( "cat" );
+        QuestionNode root = new QuestionNode( 
+            "Is it a plant?", noChild, yesChild
+        );
         String question =  "Does it say \"MEOW?\"";
         String newThing = "dog";
-        InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.Yes, newThing );
-        Logic instance= new Logic( ui, root );
+        InstrumentationUI ui = new InstrumentationUI( 
+            UI.YNAnswer.Yes, newThing
+        );
+        Logic instance = new Logic( ui, root );
         ui.answers.add( question );
         QuestionNode result = instance.inputExpandIntelligence( root, noChild );
         assertNotNull( result );
@@ -201,14 +242,15 @@ public class LogicTest {
     
     
     /**
-     * Proves the readDecisionTree can be used to recover the same object written with writeDecisionTree.
+     * Proves the readDecisionTree can be used to recover the same 
+     *  object written with writeDecisionTree.
      */
     @Test
     public void testReadAndWriteDecisionTree_OnlyRoot() {
         File tempFile = new File( "temp" );
-        DecisionTreeNode root= new ThingNode( "cat" );
+        DecisionTreeNode root = new ThingNode( "cat" );
         InstrumentationUI ui = new InstrumentationUI( UI.YNAnswer.No, null );
-        Logic instance= new Logic( ui, root );
+        Logic instance = new Logic( ui, root );
         instance.writeDecisionTree( tempFile );
         DecisionTreeNode actual = instance.readDecisionTree( tempFile );
         assertEquals( root.getValue(), actual.getValue() );
@@ -219,8 +261,8 @@ public class LogicTest {
     }
     
     /**
-     * Proves the readDecisionTree can be used to recover the same object written with writeDecisionTree.
-     *  This time with two levels.
+     * Proves the readDecisionTree can be used to recover the same 
+     *  object written with writeDecisionTree. This time with two levels.
      */
     @Test
     public void testReadAndWriteDecisionTree_TwoLevels() {
@@ -237,14 +279,26 @@ public class LogicTest {
         assertEquals( expected.getValue(), actual.getValue() );
 
         assertNotNull( actual.getLeftChild() );
-        assertEquals( ThingNode.class, actual.getLeftChild().getClass() );        
-        assertEquals( expected.getLeftChild().getValue(), actual.getLeftChild().getValue() );
+        assertEquals( 
+            ThingNode.class, 
+            actual.getLeftChild().getClass()
+        );        
+        assertEquals( 
+            expected.getLeftChild().getValue(), 
+            actual.getLeftChild().getValue()
+        );
         assertNull( actual.getLeftChild().getLeftChild() );
         assertNull( actual.getLeftChild().getRightChild() );
         
         assertNotNull( actual.getRightChild() );
-        assertEquals( ThingNode.class, actual.getRightChild().getClass() );        
-        assertEquals( expected.getRightChild().getValue(), actual.getRightChild().getValue() );
+        assertEquals( 
+            ThingNode.class,
+            actual.getRightChild().getClass()
+        );        
+        assertEquals( 
+            expected.getRightChild().getValue(), 
+            actual.getRightChild().getValue()
+        );
         assertNull( actual.getRightChild().getLeftChild() );
         assertNull( actual.getRightChild().getRightChild() );
         tempFile.delete(); // Remove file as a curtisee

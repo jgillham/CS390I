@@ -20,28 +20,42 @@ public class UITest {
         new UI();
     }
     /**
-     * Proves the user can see the correct buttons by the presentation of the dialog.
+     * Proves the user can see the correct buttons by the presentation
+     *  of the dialog.
      */
     @Test
     public void testInputYNQuestion() {
-        UI instance= new UI();
-        assertEquals( UI.YNAnswer.Yes, instance.inputYNQuestion( "For test purposes, click yes. Thank you." ) );
-        assertEquals( UI.YNAnswer.No, instance.inputYNQuestion( "For test purposes, click no. Thank you." ) );
-        assertNull( instance.inputYNQuestion( "For test purposes, click the X. Thank you." ) );
+        UI instance = new UI();
+        assertEquals( UI.YNAnswer.Yes, instance.inputYNQuestion( 
+            "For test purposes, click yes. Thank you." 
+        ) );
+        assertEquals( UI.YNAnswer.No, instance.inputYNQuestion( 
+            "For test purposes, click no. Thank you."
+        ) );
+        assertNull( instance.inputYNQuestion( 
+            "For test purposes, click the X. Thank you."
+        ) );
     }
     
     /**
-     * Prove the user can see how to type in a response by the presentation of the dialog.
+     * Prove the user can see how to type in a response by the presentation
+     *  of the dialog.
      */
     @Test
     public void testInputQuestion() {
-        UI instance= new UI();
-        assertEquals( "test", instance.inputQuestion( "For test purposes, please type \"test\" "
-                + "(no quotation marks) and click OK. Thank you." ) );
-        assertNull( instance.inputQuestion( "For test purposes, please type \"test\" "
-                + "(no quotation marks) and click Cancel. Thank you." ) );
-        assertNull( instance.inputQuestion( "For test purposes, please type \"test\" "
-                + "(no quotation marks) and click the X. Thank you." ) );
+        UI instance = new UI();
+        assertEquals( "test", instance.inputQuestion( 
+            "For test purposes, please type \"test\" " +
+            "(no quotation marks) and click OK. Thank you."
+        ) );
+        assertNull( instance.inputQuestion(
+            "For test purposes, please type \"test\" " +
+            "(no quotation marks) and click Cancel. Thank you."
+        ) );
+        assertNull( instance.inputQuestion( 
+            "For test purposes, please type \"test\" " +
+            "(no quotation marks) and click the X. Thank you."
+        ) );
     }
     
     /**
@@ -49,7 +63,7 @@ public class UITest {
      */
     @Test
     public void testShowMessage() {
-        UI instance= new UI();
+        UI instance = new UI();
         instance.showMessage( "Ignore this. Thank you." );
     }
 }

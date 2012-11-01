@@ -1,7 +1,7 @@
 import javax.swing.JOptionPane;
 /**
- * Handles the interaction with the user. This abstraction provides a functional method of testing
- *  the code in the Logic.
+ * Handles the interaction with the user. This abstraction provides 
+ *  a functional method of testing the code in the Logic.
  * 
  * @author Josh Gillham
  * @version 10-21-12
@@ -19,10 +19,12 @@ class UI {
      * @return is an enum showing the result OR null if the user clicks the X
      */
     public YNAnswer inputYNQuestion( String message ) { 
-        int result= JOptionPane.showConfirmDialog( null, message, "", JOptionPane.YES_NO_OPTION );
-        if( result == 1 )
+        int result = JOptionPane.showConfirmDialog( 
+            null, message, "", JOptionPane.YES_NO_OPTION
+        );
+        if ( result == 1 )
             return YNAnswer.No;
-        else if( result == 0 )
+        else if ( result == 0 )
             return YNAnswer.Yes;
         return null;
     }

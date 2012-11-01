@@ -1,20 +1,23 @@
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 
 /**
  * Provides the base node structure.
  * 
  * @author Josh Gillham
  * @version 10-16-12
+ * 
+ * @param <T> will be the data type.
  */
-public class BTNode< T > implements java.io.Serializable {
+public class BTNode< T > implements Serializable {
     /** Holds a reference of the left child. */
-    private BTNode< T > left= null;
+    private BTNode< T > left = null;
     /** Holds a reference of the right child. */
-    private BTNode< T > right= null;
+    private BTNode< T > right = null;
     /** Holds a reference to the data. */
-    private T value= null;
+    private T value = null;
     
     /**
      * Constructs a blank instance.
@@ -27,7 +30,7 @@ public class BTNode< T > implements java.io.Serializable {
      * @param value is the data.
      */
     public BTNode( T value ) { 
-        this.value= value;
+        this.value = value;
     }
     
     /**
@@ -38,9 +41,9 @@ public class BTNode< T > implements java.io.Serializable {
      * @param right is a reference to the right node.
      */
     public BTNode( T value,  BTNode< T > left, BTNode< T > right ) {
-        this.value= value;
-        this.left= left;
-        this.right= right;
+        this.value = value;
+        this.left = left;
+        this.right = right;
     }
     
     /**
@@ -48,7 +51,7 @@ public class BTNode< T > implements java.io.Serializable {
      * 
      * @return a reference to the left node.
      */
-    public BTNode< T > getLeftChild(){
+    public BTNode< T > getLeftChild( ) {
         return left;
     }
     
@@ -72,41 +75,49 @@ public class BTNode< T > implements java.io.Serializable {
     
     /**
      * Sets the left child.
-     * 
+     * <br>
      * Post Conditions:
+     * <br>
      * -the left child is set.
      * 
-     * @param left is the new left node.
+     * @param newLeft is the new left node.
      */
-    public void setLeftChild( BTNode< T > left ) {
-        this.left= left;
+    public void setLeftChild( BTNode< T > newLeft ) {
+        this.left = newLeft;
     }
     
     /**
      * Sets the right child.
-     * 
+     * <br>
      * Post Conditions:
+     * <br>
      * -the right child is set.
      * 
-     * @param right is the new right node.
+     * @param newRight is the new right node.
      */
-    public void setRightChild( BTNode< T > right ) {
-        this.right= right;
+    public void setRightChild( BTNode< T > newRight ) {
+        this.right = newRight;
     }
     
     /**
      * Sets the data.
-     * 
+     * <br>
      * Post Conditions:
+     * <br>
      * -the data is set.
      * 
      * @param value is the new data.
      */
     public void setValue( T value ) {
-        this.value= value;
+        this.value = value;
     }
     
-    /** To be implemented later. */
+    /**
+     * Gives a representation of this node along with the child nodes and
+     *  their children.
+     *  
+     * @return a string representation.
+     */
     public String toString( ) {
         StringBuilder retValue = new StringBuilder();
         retValue.append( '{' );

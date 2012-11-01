@@ -71,11 +71,11 @@ public class Logic {
     static public void main( String[] args ) {
         UI ui = new UI();
         DecisionTreeNode root = Logic.readDecisionTree( defaultFile );
-        if( root == null )
+        if ( root == null )
             root = new ThingNode( "rose" );
         Logic instance = new Logic( ui, root );
-        while ( ui.inputYNQuestion( WANT_TO_PLAY_MESSAGE ) 
-          == UI.YNAnswer.Yes ) {
+        while ( ui.inputYNQuestion( WANT_TO_PLAY_MESSAGE ) ==
+                UI.YNAnswer.Yes ) {
             ui.showMessage( "Get ready to be amazed!" );
             
             
@@ -83,22 +83,24 @@ public class Logic {
             do {
                 unsureAnswer = instance.inputFindClosestAnswer();
             }
-            while( unsureAnswer == null &&
+            while ( unsureAnswer == null &&
             // The user clicked the X or cancel so maybe they want to quit.
-              ui.inputYNQuestion( "Do you want to quit the game?" )  == UI.YNAnswer.No );
+                    ui.inputYNQuestion( "Do you want to quit the game?" )  == 
+                    UI.YNAnswer.No );
             // Exit the game early
-            if( unsureAnswer == null )
+            if ( unsureAnswer == null )
                 break;
             
             UI.YNAnswer response;
             do {
                 response = instance.inputVerifyAnswer( unsureAnswer.child );
             }
-            while( response == null &&
+            while ( response == null &&
             // The user clicked the X or cancel so maybe they want to quit.
-              ui.inputYNQuestion( "Do you want to quit the game?" )  == UI.YNAnswer.No );
+                ui.inputYNQuestion( "Do you want to quit the game?" )  == 
+                UI.YNAnswer.No );
             // Exit the game early
-            if( response == null )
+            if ( response == null )
                 break;
             // The game wins.
             if ( response == UI.YNAnswer.Yes ) {
@@ -109,13 +111,14 @@ public class Logic {
                 QuestionNode result;
                 do {
                     result = instance.inputExpandIntelligence( 
-                    unsureAnswer.parent, unsureAnswer.child );
+                        unsureAnswer.parent, unsureAnswer.child );
                 } 
-                while( result == null && 
+                while ( result == null && 
                 // The user clicked the X or cancel so maybe they want to quit.
-                  ui.inputYNQuestion( "Do you want to quit the game?" )  == UI.YNAnswer.No );
+                    ui.inputYNQuestion( "Do you want to quit the game?" )  == 
+                    UI.YNAnswer.No );
                 // Exit the game early
-                if( result == null )
+                if ( result == null )
                     break;
             }
         }
@@ -182,9 +185,9 @@ public class Logic {
         else if ( child.getClass() == QuestionNode.class ) {
             QuestionNode question = (QuestionNode)child;
             UI.YNAnswer response = ui.inputYNQuestion( question.getQuestion() );
-            if( response == null )
+            if ( response == null )
                 return null;
-            switch( response  ) {
+            switch ( response  ) {
                 case Yes:
                     return inputFindClosestAnswer( question, 
                         child.getYesLink() );
@@ -229,8 +232,8 @@ public class Logic {
      * @param parent the parent node of incorrectAnswer.
      * @param incorrectAnswer the node that needs to be replaced.
      * 
-     * @return the question node that replaced the incorrectAnswer in the tree OR return null if
-     *  the user cancels any dialog box.
+     * @return the question node that replaced the incorrectAnswer in the 
+     *  tree OR return null if the user cancels any dialog box.
      * 
      * @throws NullPointerException when incorrectAnswer is null.
      */
@@ -238,14 +241,16 @@ public class Logic {
             ThingNode incorrectAnswer ) {
         if ( incorrectAnswer == null )
             throw new NullPointerException();
-        ThingNode correctAnswer = new ThingNode( ui.inputQuestion( "What were you thinking of?" ) );
-        if( correctAnswer.getValue() == null )
+        ThingNode correctAnswer = new ThingNode( 
+            ui.inputQuestion( "What were you thinking of?" )
+        );
+        if ( correctAnswer.getValue() == null )
             return null;
         String question = ui.inputQuestion( 
             "Please enter a Yes/No question to differentiate between " 
             + correctAnswer.getValue() + " and " +
             incorrectAnswer.getValue() + "." );
-        if( question == null )
+        if ( question == null )
             return null;
             
         QuestionNode replacement;
@@ -274,7 +279,7 @@ public class Logic {
     /**
      * Writes the data tree to a file.
      * 
-     * @arg outFile the file to write to.
+     * @param outFile the file to write to.
      */
     public void writeDecisionTree( File outFile ) {
         try {
@@ -283,32 +288,37 @@ public class Logic {
             ObjectOutput oOutPut = new ObjectOutputStream( buffer );
             try {
                 oOutPut.writeObject( this.root );
-            } finally {
+            }
+            finally {
                 oOutPut.close();
             }
-            
-        } catch( IOException e ) {
+        } 
+        catch ( IOException e ) {
             e.printStackTrace();
         }
     }
     /**
      * Reads the data tree from the file.
      * 
-     * @arg inFile is the file to read from.
+     * @param inFile is the file to read from.
      * 
      * @return the tree root.
      */
     static public DecisionTreeNode readDecisionTree( File inFile ) {
         try {
-            ObjectInput input = new ObjectInputStream( new BufferedInputStream( new FileInputStream( inFile ) ) );
+            ObjectInput input = new ObjectInputStream( 
+                new BufferedInputStream( new FileInputStream( inFile ) ) 
+            );
             try {
                 @SuppressWarnings( "unchecked" )
                 DecisionTreeNode root = (DecisionTreeNode)input.readObject();
                 return root;
-            }finally {
+            }
+            finally {
                 input.close();
             }
-        }catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex) {
             System.err.println(
                 "Unsuccessful deserialization: Class not found. " + ex);
         }

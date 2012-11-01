@@ -13,7 +13,8 @@ public class QuestionNode extends DecisionTreeNode {
      * @param noAnswer is a reference to the no child.
      * @param yesAnswer is a reference to the yes child.
      */
-    public QuestionNode( String question, DecisionTreeNode noAnswer, DecisionTreeNode yesAnswer) {
+    public QuestionNode( String question, DecisionTreeNode noAnswer, 
+            DecisionTreeNode yesAnswer) {
         super( question, noAnswer, yesAnswer );
     }
     
@@ -25,8 +26,12 @@ public class QuestionNode extends DecisionTreeNode {
     public String getQuestion( ) {
         return super.getValue();
     }
-
-    /** To be implemented later. */
+    
+    /**
+     * Accesses the string representation of the tree.
+     * 
+     * @return the string representation.
+     */
     public String toString( ) {
         return super.toString();
     }

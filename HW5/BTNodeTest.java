@@ -18,39 +18,40 @@ public class BTNodeTest {
      * Proves the constructor is setting private fields properly.
      */
     @Test
-    public void testConstructor(){
-        BTNode instance= new BTNode();
+    public void testConstructor() {
+        BTNode instance = new BTNode();
         assertNull( instance.getLeftChild() );
         assertNull( instance.getRightChild() );
         assertNull( instance.getValue() );
     }
     
     /**
-     * Test constructor with 1 parameter. getValue() should be the same as the parameter.
-     *  Other fields will be null.
+     * Test constructor with 1 parameter. getValue() should be the
+     *  same as the parameter. Other fields will be null.
      *  
      * Proves the constructor is setting private fields properly.
      */
     @Test
-    public void testConstructor_1param(){
-        String expectedValue= "test";
-        BTNode< String > instance= new BTNode< String >( expectedValue);
+    public void testConstructor_1param() {
+        String expectedValue = "test";
+        BTNode< String > instance = new BTNode< String >( expectedValue);
         assertNull( instance.getLeftChild() );
         assertNull( instance.getRightChild() );
         assertEquals( expectedValue, instance.getValue() );
     }
     
     /**
-     * Test constructor with 3 parameter. Get methods should return the parameters.
+     * Test constructor with 3 parameter. Get methods should return 
+     *  the parameters.
      * 
      * Proves the constructor is setting private fields properly.
      */
     @Test
-    public void testConstructor_3param(){
-        String expectedValue= "test";
-        BTNode< String > expectedRightNode= new BTNode< String >();
-        BTNode< String > expectedLeftNode= new BTNode< String >();
-        BTNode< String > instance= new BTNode< String >( 
+    public void testConstructor_3param() {
+        String expectedValue = "test";
+        BTNode< String > expectedRightNode = new BTNode< String >();
+        BTNode< String > expectedLeftNode = new BTNode< String >();
+        BTNode< String > instance = new BTNode< String >( 
             expectedValue, expectedLeftNode, expectedRightNode
         );
         assertEquals( expectedLeftNode, instance.getLeftChild() );
@@ -63,14 +64,14 @@ public class BTNodeTest {
      */
     @Test
     public void testSetAndGetValue() {
-        String expected= "test";
-        BTNode< String > instance= new BTNode< String >();
+        String expected = "test";
+        BTNode< String > instance = new BTNode< String >();
         instance.setValue( expected );
         assertEquals( expected, instance.getValue() );
-        expected= "apple";
+        expected = "apple";
         instance.setValue( expected );
         assertEquals( expected, instance.getValue() );
-        expected= "orange";
+        expected = "orange";
         instance.setValue( expected );
         assertEquals( expected, instance.getValue() );
     }
@@ -80,14 +81,14 @@ public class BTNodeTest {
      */
     @Test
     public void testSetAndGetLeftChild() {
-        BTNode< String > expected= new BTNode< String >();
-        BTNode< String > instance= new BTNode< String >();
+        BTNode< String > expected = new BTNode< String >();
+        BTNode< String > instance = new BTNode< String >();
         instance.setLeftChild( expected );
         assertEquals( expected, instance.getLeftChild() );
-        expected= new BTNode< String >();
+        expected = new BTNode< String >();
         instance.setLeftChild( expected );
         assertEquals( expected, instance.getLeftChild() );
-        expected= new BTNode< String >();
+        expected = new BTNode< String >();
         instance.setLeftChild( expected );
         assertEquals( expected, instance.getLeftChild() );
     }
@@ -97,14 +98,14 @@ public class BTNodeTest {
      */
     @Test
     public void testSetAndGetRightChild() {
-        BTNode< String > expected= new BTNode< String >();
-        BTNode< String > instance= new BTNode< String >();
+        BTNode< String > expected = new BTNode< String >();
+        BTNode< String > instance = new BTNode< String >();
         instance.setRightChild( expected );
         assertEquals( expected, instance.getRightChild() );
-        expected= new BTNode< String >();
+        expected = new BTNode< String >();
         instance.setRightChild( expected );
         assertEquals( expected, instance.getRightChild() );
-        expected= new BTNode< String >();
+        expected = new BTNode< String >();
         instance.setRightChild( expected );
         assertEquals( expected, instance.getRightChild() );
     }
@@ -115,9 +116,10 @@ public class BTNodeTest {
     @Test
     public void testToString() {
         try {
-            BTNode< String > instance= new BTNode< String >();
+            BTNode< String > instance = new BTNode< String >();
             assertNotNull( instance.toString() );
-        } catch( Exception e ) {
+        }
+        catch ( Exception e ) {
             fail( "Should not throw an error." );
         }
     }

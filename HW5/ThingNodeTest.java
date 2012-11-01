@@ -13,14 +13,15 @@ import org.junit.Test;
  */
 public class ThingNodeTest {
     /**
-     * Test constructor with 1 parameter. Get methods should return the parameters.
+     * Test constructor with 1 parameter. Get methods should return
+     *  the parameters.
      * 
      * Proves the constructor is setting private fields properly.
      */
     @Test
-    public void testConstructor_1param(){
-        String expectedValue= "test";
-        ThingNode instance= new ThingNode( expectedValue );
+    public void testConstructor_1param() {
+        String expectedValue = "test";
+        ThingNode instance = new ThingNode( expectedValue );
         assertNull( instance.getLeftChild() );
         assertNull( instance.getRightChild() );
         assertEquals( expectedValue, instance.getValue() );
@@ -31,15 +32,15 @@ public class ThingNodeTest {
      */
     @Test
     public void testGetThing() {
-        String expected= "test";
-        ThingNode instance= new ThingNode( expected );
+        String expected = "test";
+        ThingNode instance = new ThingNode( expected );
         assertEquals( expected, instance.getThing() );
         instance.setValue( expected );
         assertEquals( expected, instance.getThing() );
-        expected= "apple";
+        expected = "apple";
         instance.setValue( expected );
         assertEquals( expected, instance.getThing() );
-        expected= "orange";
+        expected = "orange";
         instance.setValue( expected );
         assertEquals( expected, instance.getThing() );
     }
@@ -50,9 +51,10 @@ public class ThingNodeTest {
     @Test
     public void testToString() {
         try {
-            BTNode< String > instance= new BTNode< String >();
+            BTNode< String > instance = new BTNode< String >();
             assertNotNull( instance.toString() );
-        } catch( Exception e ) {
+        }
+        catch ( Exception e ) {
             fail( "Should not throw an error." );
         }
     }
