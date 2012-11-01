@@ -22,23 +22,6 @@ import java.io.ObjectInputStream;
  * @version 10-18-12
  */
 public class Logic {
-    /**
-     * For experimental purposes. Soon to be deleted.
-     * 
-     * @param args not used
-     */
-    static public void experiment( String[] args ) {
-        int result = JOptionPane.showConfirmDialog( null, 
-            "Pick a object. I bet I can guess what you're thinking...",
-            "Continue?", JOptionPane.YES_NO_OPTION );
-        if ( result == 1 ) // No
-            JOptionPane.showMessageDialog( null, 
-                "NO! Why you sir are no fun!" );
-        else // Yes
-            JOptionPane.showMessageDialog( null, 
-                "Get ready to be amazed!" );
-    }
-    
     /** Holds the message which asks the player if they want to play. */
     static private final String WANT_TO_PLAY_MESSAGE = 
         "Pick a object. I bet I can guess what you're thinking...";
@@ -318,6 +301,8 @@ public class Logic {
                 input.close();
             }
         }
+        // Don't care if the file is missing.
+        catch (java.io.FileNotFoundException ex ) { }
         catch (ClassNotFoundException ex) {
             System.err.println(
                 "Unsuccessful deserialization: Class not found. " + ex);
