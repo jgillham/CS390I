@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Iterator;
 
 /**
  * The test class UserInterfaceTest.
@@ -14,11 +16,21 @@ import java.util.LinkedList;
  * @version 10-29-12
  */
 public class UserInterfaceTest {
+    /** Provides a test instrument for UserInterface. */
     class InstrumentationUI extends UserInterface {
+        /** Holds a list of answers to yes or no questions. */
         public Queue< YNAnswer > answersYN = new LinkedList< YNAnswer >();
+        /** Holds a list of answers to text questions. */
         public Queue< String > answers = new LinkedList< String >();
+        /** Povides a empty constructor. */
         public InstrumentationUI( ) {
         }
+        /**
+         * Provides a constructor with the first answers. 
+         * 
+         * @param nextYN is the next answer to a yes or no question.
+         * @param nextQuestion is the next answer to a text question.
+         */
         public InstrumentationUI( YNAnswer nextYN, String nextQuestion ) {
             this.answersYN.add( nextYN );
             this.answers.add( nextQuestion );
@@ -35,15 +47,60 @@ public class UserInterfaceTest {
     
     @Test
     public void testGetChoices() {
-        List< Choices > expected = new List< Choices >();
+        List< String > expected = new LinkedList< String >();
+        expected.add( "hp" );
+        expected.add( "dell" );
+        expected.add( "sony" );
+        InstrumentationUI instance = new InstrumentationUI();
+        for( String choice: expected ) {
+            instance.answers.add( choice );
+        }
+        List< Choice > actualChoices = instance.getChoices();
+        Iterator< String > expI = expected.iterator();
+        for( Choice actualChoice: actualChoices ) {
+            assertTrue( expI.hasNext() );
+            assertEquals( expI.next(), actualChoice );
+        }
+    }
+    
+    @Test
+    public void testGetCharacteristics() {
+        List< String > expected = new LinkedList< String >();
         expected.add( "color" );
         expected.add( "price" );
         expected.add( "speed" );
         InstrumentationUI instance = new InstrumentationUI();
         for( String choice: expected ) {
-            instance.add( choice );
+            instance.answers.add( choice );
         }
-        List< Choice > actual = instance.getChoices();
-        assertEquals( expected, actual );
+        List< Choice > actualChoices = instance.getChoices();
+        Iterator< String > expI = expected.iterator();
+        for( Choice actualChoice: actualChoices ) {
+            assertTrue( expI.hasNext() );
+            assertEquals( expI.next(), actualChoice );
+        }
+    }
+    
+    
+    
+    @Test
+    public void testGetCharacteristicRankings() {
+        int[] expected = {
+            1, 2, 3, 4, 5, 6  
+        };
+        InstrumentationUI instance = new InstrumentationUI();
+        for( int val: expected ) {
+            instance.answers.add( Integer.toString( val ) );
+        }
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        chars.add( new Characteristic( "color" ) );
+        chars.add( new Characteristic( "price" ) );
+        chars.add( new Characteristic( "speed" ) );
+        instance.getCharacteristicRankings( chars, 1 );
+        int i = 0;
+        for( Characteristic chr: chars ) {
+            assertTrue( i < expected.length );
+            assertEquals( expected[ i ], chr.getRank() );
+        }
     }
 }
