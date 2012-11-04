@@ -6,10 +6,13 @@
 */
 public class Characteristic {
     /** Holds the default rank. */
-    private static final int DEFAULT_RANK = 1;
+    public static final int DEFAULT_RANK = 1;
     
     /**
     * Constructor that sets the name and default rank.
+    * 
+    * Post Conditions:
+    * -this.name is set to theName.
     * 
     * @param theName the name of this characteristic
     */

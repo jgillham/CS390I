@@ -16,10 +16,12 @@ public class GraphicalUserInterface extends UserInterface {
      * @return is an enum showing the result OR null if the user clicks the X
      */
     public YNAnswer inputYNQuestion( String message ) { 
-        int result= JOptionPane.showConfirmDialog( null, message, "", JOptionPane.YES_NO_OPTION );
-        if( result == 1 )
+        int result = JOptionPane.showConfirmDialog( 
+            null, message, "", JOptionPane.YES_NO_OPTION
+        );
+        if ( result == 1 )
             return YNAnswer.No;
-        else if( result == 0 )
+        else if ( result == 0 )
             return YNAnswer.Yes;
         return null;
     }

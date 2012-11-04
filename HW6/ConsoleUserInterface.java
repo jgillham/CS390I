@@ -6,6 +6,7 @@ import java.util.ArrayList;
 * @author Josh Gillham
 * @version 10-28-12
 */
-// public class ConsoleUserInterface extends UserInterface {
-// 
-// }
+public class ConsoleUserInterface //extends UserInterface
+{
+ 
+}

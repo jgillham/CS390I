@@ -16,11 +16,21 @@ import java.util.Iterator;
  * @version 10-29-12
  */
 public class UserInterfaceTest {
+    /** Provides a test instrument for UserInterface. */
     class InstrumentationUI extends UserInterface {
+        /** Holds a list of answers to yes or no questions. */
         public Queue< YNAnswer > answersYN = new LinkedList< YNAnswer >();
+        /** Holds a list of answers to text questions. */
         public Queue< String > answers = new LinkedList< String >();
+        /** Povides a empty constructor. */
         public InstrumentationUI( ) {
         }
+        /**
+         * Provides a constructor with the first answers. 
+         * 
+         * @param nextYN is the next answer to a yes or no question.
+         * @param nextQuestion is the next answer to a text question.
+         */
         public InstrumentationUI( YNAnswer nextYN, String nextQuestion ) {
             this.answersYN.add( nextYN );
             this.answers.add( nextQuestion );
