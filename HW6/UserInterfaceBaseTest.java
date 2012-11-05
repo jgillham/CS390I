@@ -140,23 +140,35 @@ public class UserInterfaceBaseTest {
     @Test
     public void testGetCrossRankings() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
-        chars.add( new Characteristic( "color" ) );
-        chars.add( new Characteristic( "price" ) );
-        chars.add( new Characteristic( "speed" ) );
-        chars.add( new Characteristic( "appearance" ) );
+        Characteristic chr = new Characteristic( "color" );
+        chr.setRank( 10 );
+        chars.add( chr );
+        chr = new Characteristic( "price" );
+        chr.setRank( 20 );
+        chars.add( chr );
+        chr = new Characteristic( "speed" );
+        chr.setRank( 30 );
+        chars.add( chr );
+        chr = new Characteristic( "appearance" );
+        chr.setRank( 40 );
+        chars.add( chr );
         List< Choice > choices = new LinkedList< Choice >();
         choices.add( new Choice( "hp" ) );
         choices.add( new Choice( "dell" ) );
-        double[][] expected = { 
+        double[][] input = { 
             { 1, 2, 3, 4 },
             { 5, 6, 7, 8 }
         };
         InstrumentationUI instance = new InstrumentationUI();
-        for( int r = 0; r < expected.length; ++r ) {
-            for( int c = 0; c < expected[r].length; ++c ) {
-                instance.answers.add( Double.toString( expected[r][c] ) );
+        for( int r = 0; r < input.length; ++r ) {
+            for( int c = 0; c < input[r].length; ++c ) {
+                instance.answers.add( Double.toString( input[r][c] ) );
             }
         }
+        double[][] expected = { 
+            { 1/6, 2/8, 3/10, 4/12 },
+            { 5/6, 6/8, 7/10, 8/12 }
+        };
         double[][] actual = instance.getCrossRankings( choices, chars, 1 );
         for( int r = 0; r < expected.length; ++r ) {
             for( int c = 0; c < expected[r].length; ++c ) {
