@@ -13,21 +13,20 @@ public class Decider {
      * @param args not used.
      */
     public static void main(String[] args) {
-        throw new UnsupportedOperationException();
-//         final int STANDARD = 10;
-//         List<Choice> choices;
-//         List<Characteristic> characteristics;
-//         double[][] crossRankings;
-//         UserInterface ui;
-//         // or ui = new GraphicalUserInterface();
-//         ui = new ConsoleUserInterface(); 
-//         choices = ui.getChoices();
-//         characteristics = ui.getCharacteristics();
-//         ui.getCharacteristicRankings(characteristics, STANDARD);
-//         crossRankings = ui.getCrossRankings(choices, characteristics, 
-//           STANDARD);
-//         calculateFinalScores(choices, characteristics, crossRankings);
-//         ui.showResults(choices);
+        final int STANDARD = 10;
+        List<Choice> choices;
+        List<Characteristic> characteristics;
+        double[][] crossRankings;
+        UserInterface ui;
+        ui = new GraphicalUserInterface();
+        //ui = new ConsoleUserInterface(); 
+        choices = ui.getChoices();
+        characteristics = ui.getCharacteristics();
+        ui.getCharacteristicRankings(characteristics, STANDARD);
+        crossRankings = ui.getCrossRankings(choices, characteristics, 
+        STANDARD);
+        calculateFinalScores(choices, characteristics, crossRankings);
+        ui.showResults(choices);
     }
     
     /**
@@ -40,6 +39,12 @@ public class Decider {
     //Changed to public
     public static void calculateFinalScores(List<Choice> choices, 
             List<Characteristic> characs, double[][] crossRankings) {
-        throw new UnsupportedOperationException();
+        for( int r = 0; r < choices.size(); ++r ) {
+            int choiceTotal = 0;
+            for( int c = 0; c < characs.size(); ++ c ) {
+                 choiceTotal += characs.get( c ).getRank() * crossRankings[r][c];
+            }
+            choices.get( r ).setFinalScore( choiceTotal );
+        }
     }
 }
