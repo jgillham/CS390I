@@ -15,9 +15,9 @@ import java.util.Iterator;
  * @author  Josh Gillham
  * @version 10-29-12
  */
-public class UserInterfaceTest {
+public class UserInterfaceBaseTest {
     /** Provides a test instrument for UserInterface. */
-    class InstrumentationUI extends UserInterface {
+    class InstrumentationUI extends UserInterfaceBase {
         /** Holds a list of answers to yes or no questions. */
         public Queue< YNAnswer > answersYN = new LinkedList< YNAnswer >();
         /** Holds a list of answers to text questions. */
@@ -37,17 +37,42 @@ public class UserInterfaceTest {
             this.answersYN.add( nextYN );
             this.answers.add( nextQuestion );
         }
+        
+        /**
+         * Gets the first preloaded answer off the queue.
+         * 
+         * @param message is not used.
+         * 
+         * @return the preloaded yes or no answer.
+         */
         public YNAnswer inputYNQuestion( String message ) {
             return this.answersYN.poll();
         }
+        
+        /**
+         * Gets the first preloaded text answer off the queue.
+         * 
+         * @param message is not used.
+         * 
+         * @return the preloaded text answer.
+         */
         public String inputQuestion( String message ) { 
             return this.answers.poll();
         }
+        
+        /**
+         * Counts the number of times this method is called.
+         * 
+         * @param message is not used.
+         */
         public void showMessage( String message ) { 
             ++messagesShown;
         }
     }
     
+    /**
+     * Proves the user can input the choices.
+     */
     @Test
     public void testGetChoices() {
         List< String > expected = new LinkedList< String >();
@@ -66,6 +91,9 @@ public class UserInterfaceTest {
         }
     }
     
+    /**
+     * Proves the user can input the characteristics.
+     */
     @Test
     public void testGetCharacteristics() {
         List< String > expected = new LinkedList< String >();
@@ -85,7 +113,9 @@ public class UserInterfaceTest {
     }
     
     
-    
+    /**
+     * Proves the user can rank each characteristic.
+     */
     @Test
     public void testGetCharacteristicRankings() {
         int[] expected = {

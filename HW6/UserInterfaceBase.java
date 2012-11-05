@@ -6,7 +6,7 @@ import java.util.ArrayList;
 * @author Josh Gillham
 * @version 10-29-12
 */
-public abstract class UserInterface {
+public abstract class UserInterfaceBase implements UserInterface {
     /** Carries the answer to a yes or no question. */
     enum YNAnswer {
         Yes, No
@@ -81,8 +81,8 @@ public abstract class UserInterface {
      * @return a table of the cross rankings.
      */
     public double[][] getCrossRankings(List<Choice> choices,
-      List<Characteristic> characteristics,
-      int defaultValue) {
+            List<Characteristic> characteristics,
+            int defaultValue) {
         throw new UnsupportedOperationException();
 //         double[][] crossRankings =
 //         new double[choices.size()][characteristics.size()];

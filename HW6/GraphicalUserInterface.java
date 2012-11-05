@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 * @author Josh Gillham
 * @version 10-29-12
 */
-public class GraphicalUserInterface extends UserInterface {
+public class GraphicalUserInterface extends UserInterfaceBase {
     /**
      * Creates a yes or no dialog displaying the message.
      * 
