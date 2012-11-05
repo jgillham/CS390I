@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Iterator;
 /**
 * User interface for decision support application.
 * 
@@ -43,9 +44,14 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @return the list of choices.
      */
     public List<Choice> getChoices() {
-        throw new UnsupportedOperationException();
-//         List<Choice> choices = new ArrayList<Choice>();
-//         return choices;
+         List<Choice> choices = new ArrayList<Choice>();
+         String chr = null;
+         do {
+             chr = inputQuestion( "Enter a canidate:" );
+             if( chr != null )
+                choices.add( new Choice( chr ) );
+         } while( chr != null );
+         return choices;
     }
     
     /**
@@ -54,10 +60,15 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @return the list of characteristics.
      */
     public List<Characteristic> getCharacteristics() {
-        throw new UnsupportedOperationException();
-//         List<Characteristic> characteristics = 
-//            new ArrayList<Characteristic>();
-//         return characteristics;
+         List<Characteristic> characteristics = 
+            new ArrayList<Characteristic>();
+         String chr = null;
+         do {
+             chr = inputQuestion( "Enter a characteristic:" );
+             if( chr != null )
+                characteristics.add( new Characteristic( chr ) );
+         } while( chr != null );
+         return characteristics;
     }
     
     /**
@@ -68,7 +79,16 @@ public abstract class UserInterfaceBase implements UserInterface {
      */
     public void getCharacteristicRankings(List<Characteristic> characteristics,
       int defaultValue) {
-        throw new UnsupportedOperationException();
+         String chr = null;
+         Iterator< Characteristic > i = characteristics.iterator();
+         while( i.hasNext() ) {
+             Characteristic aChar = i.next();
+             chr = inputQuestion( "Enter the ranking for" + aChar.getName() +":" );
+             if( chr != null ){
+                aChar.setRank( Integer.parseInt( chr ) );
+            }
+            else break;
+         } 
     }
     
     /**
@@ -83,10 +103,21 @@ public abstract class UserInterfaceBase implements UserInterface {
     public double[][] getCrossRankings(List<Choice> choices,
             List<Characteristic> characteristics,
             int defaultValue) {
-        throw new UnsupportedOperationException();
-//         double[][] crossRankings =
-//         new double[choices.size()][characteristics.size()];
-//         return crossRankings;
+         double[][] crossRankings =
+            new double[choices.size()][characteristics.size()];
+         String chr;
+         for( int c = 0; c < choices.size(); ++c ) {
+             for( int r = 0; r < characteristics.size(); ++r ) {
+                 chr = inputQuestion( "Rank " + choices.get( c) +
+                    " in terms of " + characteristics.get( r ) + "." );
+                 if( chr != null ) {
+                     double rank = Double.parseDouble( chr );
+                     crossRankings[c][r] = rank;
+                 }
+                 else break;
+             }
+         }
+         return crossRankings;
     }
     
     /**
@@ -95,6 +126,9 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @param choices the list of choices.
      */
     public void showResults(List<Choice> choices) {
-        throw new UnsupportedOperationException();
+        for( Choice choice: choices ) {
+            showMessage( "The final score of " + choice.getName() + 
+                " is " + choice.getFinalScore() + "." );
+        }
     }
 }
