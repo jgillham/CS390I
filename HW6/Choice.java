@@ -7,6 +7,10 @@
 public class Choice {
     /** Holds the default score. */
     public static final int DEFAULT_SCORE = 0;
+    /** Holds the final score. */
+    private int finalScore = DEFAULT_SCORE;
+    /** Holds the choice name. */
+    private String name;
     
     /**
     * Constructor that sets the choice name.
@@ -15,7 +19,7 @@ public class Choice {
     * @param theName the name of this choice
     */
     public Choice(String theName) {
-        throw new UnsupportedOperationException();
+        this.name = theName;
     }
     
     /**
@@ -24,7 +28,7 @@ public class Choice {
      * @param newScore the new score.
      */
     public void setFinalScore(int newScore) {
-        throw new UnsupportedOperationException();
+        this.finalScore = newScore;
     }
     
     /**
@@ -33,7 +37,7 @@ public class Choice {
      * @return the name.
      */
     public String getName() {
-        throw new UnsupportedOperationException();
+        return this.name;
     }
     
     /**
@@ -42,6 +46,6 @@ public class Choice {
      * @return the final score.
      */
     public int getFinalScore() {
-        throw new UnsupportedOperationException();
+        return this.finalScore;
     }
 }
