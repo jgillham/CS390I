@@ -7,6 +7,10 @@
 public class Characteristic {
     /** Holds the default rank. */
     public static final int DEFAULT_RANK = 1;
+    /** Holds the rank. */
+    private int rank = DEFAULT_RANK;
+    /** Holds the name. */
+    private String name;
     
     /**
     * Constructor that sets the name and default rank.
@@ -17,7 +21,7 @@ public class Characteristic {
     * @param theName the name of this characteristic
     */
     public Characteristic(String theName) {
-        throw new UnsupportedOperationException();
+        this.name = theName;
     }
     
     /**
@@ -26,7 +30,7 @@ public class Characteristic {
      * @param newRank is the new rank.
      */
     public void setRank(int newRank) {
-        throw new UnsupportedOperationException();
+        this.rank = newRank;
     }
     
     /**
@@ -35,7 +39,7 @@ public class Characteristic {
      * @return the name.
      */
     public String getName() {
-        throw new UnsupportedOperationException();
+        return this.name;
     }
     
     /**
@@ -44,6 +48,6 @@ public class Characteristic {
      * @return the rank.
      */
     public int getRank() {
-        throw new UnsupportedOperationException();
+        return this.rank;
     }
 }
