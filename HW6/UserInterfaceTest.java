@@ -22,6 +22,8 @@ public class UserInterfaceTest {
         public Queue< YNAnswer > answersYN = new LinkedList< YNAnswer >();
         /** Holds a list of answers to text questions. */
         public Queue< String > answers = new LinkedList< String >();
+        /** Counts the number of messages shown. */
+        public int messagesShown = 0;
         /** Povides a empty constructor. */
         public InstrumentationUI( ) {
         }
@@ -42,6 +44,7 @@ public class UserInterfaceTest {
             return this.answers.poll();
         }
         public void showMessage( String message ) { 
+            ++messagesShown;
         }
     }
     
@@ -102,5 +105,43 @@ public class UserInterfaceTest {
             assertTrue( i < expected.length );
             assertEquals( expected[ i ], chr.getRank() );
         }
+    }
+    
+    @Test
+    public void testGetCrossRankings() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        chars.add( new Characteristic( "color" ) );
+        chars.add( new Characteristic( "price" ) );
+        chars.add( new Characteristic( "speed" ) );
+        chars.add( new Characteristic( "appearance" ) );
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        double[][] expected = { 
+            { 1, 2, 3, 4 },
+            { 5, 6, 7, 8 }
+        };
+        InstrumentationUI instance = new InstrumentationUI();
+        for( int r = 0; r < expected.length; ++r ) {
+            for( int c = 0; c < expected[r].length; ++c ) {
+                instance.answers.add( Double.toString( expected[r][c] ) );
+            }
+        }
+        double[][] actual = instance.getCrossRankings( choices, chars, 1 );
+        for( int r = 0; r < expected.length; ++r ) {
+            for( int c = 0; c < expected[r].length; ++c ) {
+                assertEquals( expected[r][c], actual[r][c], 0.1 );
+            }
+        }
+    }
+    
+    @Test
+    public void testShowResults() {
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.showResults( choices );
+        assertEquals( choices.size(), instance.messagesShown );
     }
 }
