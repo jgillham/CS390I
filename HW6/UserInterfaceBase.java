@@ -106,17 +106,30 @@ public abstract class UserInterfaceBase implements UserInterface {
          double[][] crossRankings =
             new double[choices.size()][characteristics.size()];
          String chr;
-         for( int c = 0; c < choices.size(); ++c ) {
-             for( int r = 0; r < characteristics.size(); ++r ) {
-                 chr = inputQuestion( "Rank " + choices.get( c) +
-                    " in terms of " + characteristics.get( r ) + "." );
+         for( int r = 0; r < choices.size(); ++r ) {
+             for( int c = 0; c < characteristics.size(); ++c ) {
+                 chr = inputQuestion( "Rank " + choices.get( r ) +
+                    " in terms of " + characteristics.get( c ) + "." );
                  if( chr != null ) {
                      double rank = Double.parseDouble( chr );
-                     crossRankings[c][r] = rank;
+                     crossRankings[r][c] = rank;
                  }
                  else break;
              }
          }
+         double[] charTotals = new double[ characteristics.size() ];
+         for( int c = 0; c < characteristics.size(); ++c ) {
+             charTotals[c] = 0;
+             for( int r = 0; r < choices.size(); ++r ) {             
+                 charTotals[c] += crossRankings[r][c];
+             }
+         }
+         for( int r = 0; r < choices.size(); ++r ) {
+            for( int c = 0; c < characteristics.size(); ++c ) {
+                 crossRankings[r][c] /= charTotals[c];
+             }
+         }
+
          return crossRankings;
     }
     
