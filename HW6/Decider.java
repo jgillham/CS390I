@@ -37,7 +37,8 @@ public class Decider {
      * @param characs is the characterists per choice.
      * @param crossRankings is the importance rank.
      */
-    private static void calculateFinalScores(List<Choice> choices, 
+    //Changed to public
+    public static void calculateFinalScores(List<Choice> choices, 
             List<Characteristic> characs, double[][] crossRankings) {
         throw new UnsupportedOperationException();
     }
