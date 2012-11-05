@@ -87,7 +87,7 @@ public class UserInterfaceBaseTest {
         Iterator< String > expI = expected.iterator();
         for( Choice actualChoice: actualChoices ) {
             assertTrue( expI.hasNext() );
-            assertEquals( expI.next(), actualChoice );
+            assertEquals( expI.next(), actualChoice.getName() );
         }
     }
     
@@ -108,7 +108,7 @@ public class UserInterfaceBaseTest {
         Iterator< String > expI = expected.iterator();
         for( Choice actualChoice: actualChoices ) {
             assertTrue( expI.hasNext() );
-            assertEquals( expI.next(), actualChoice );
+            assertEquals( expI.next(), actualChoice.getName() );
         }
     }
     
@@ -119,7 +119,7 @@ public class UserInterfaceBaseTest {
     @Test
     public void testGetCharacteristicRankings() {
         int[] expected = {
-            1, 2, 3, 4, 5, 6  
+            9, 7, 3, 4, 5, 6  
         };
         InstrumentationUI instance = new InstrumentationUI();
         for( int val: expected ) {
@@ -134,6 +134,7 @@ public class UserInterfaceBaseTest {
         for( Characteristic chr: chars ) {
             assertTrue( i < expected.length );
             assertEquals( expected[ i ], chr.getRank() );
+            ++i;
         }
     }
     
@@ -158,6 +159,10 @@ public class UserInterfaceBaseTest {
         double[][] input = { 
             { 1, 2, 3, 4 },
             { 5, 6, 7, 8 }
+            //{ 1, 5 },
+            //{ 2, 6 },
+            //{ 3, 7 },
+            //{ 4, 8 }
         };
         InstrumentationUI instance = new InstrumentationUI();
         for( int r = 0; r < input.length; ++r ) {
@@ -166,10 +171,16 @@ public class UserInterfaceBaseTest {
             }
         }
         double[][] expected = { 
-            { 1/6, 2/8, 3/10, 4/12 },
-            { 5/6, 6/8, 7/10, 8/12 }
+            { 1D/6D, 2D/8D, 3D/10D, 4D/12D },
+            { 5D/6D, 6D/8D, 7D/10D, 8D/12D }
+            //{ 1D/6D, 5D/6D },
+            //{ 2D/8D, 6D/8D },
+            //{ 3D/10D, 7D/10D },
+            //{ 4D/12D, 8D/12D }
         };
         double[][] actual = instance.getCrossRankings( choices, chars, 1 );
+        assertEquals( expected.length, actual.length );
+        assertEquals( expected[0].length, actual[0].length );
         for( int r = 0; r < expected.length; ++r ) {
             for( int c = 0; c < expected[r].length; ++c ) {
                 assertEquals( expected[r][c], actual[r][c], 0.1 );
