@@ -39,19 +39,21 @@ public class Decider {
     //Changed to public
     public static void calculateFinalScores(List<Choice> choices, 
             List<Characteristic> characs, double[][] crossRankings) {
+        double[] finalScores = new double[choices.size()];
         double max = 0;
         for( int r = 0; r < choices.size(); ++r ) {
-            int choiceTotal = 0;
+            double choiceTotal = 0;
             for( int c = 0; c < characs.size(); ++ c ) {
                  choiceTotal += characs.get( c ).getRank() * crossRankings[r][c];
             }
-            choices.get( r ).setFinalScore( choiceTotal );
+            finalScores[ r ] = choiceTotal;
             if( choiceTotal > max ) {
                 max = choiceTotal;
             }
         }
+        int i = 0;
         for( Choice choice: choices ) {
-            choice.setFinalScore( (int)(choice.getFinalScore() * 100D / max) );
+            choice.setFinalScore( (int)( finalScores[ i++ ] * 100D / max) );
         }
     }
 }

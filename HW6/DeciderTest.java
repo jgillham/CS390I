@@ -76,7 +76,7 @@ public class DeciderTest {
         Decider.calculateFinalScores( choices, chars, crossRankings );
         assertEquals( expectedFinalScore.length, choices.size() );
         for( int i = 0; i < choices.size(); ++i ) {
-            assertEquals( expectedFinalScore[ i ], choices.get( i ).getFinalScore(), 0.01 );
+            assertEquals( (int)expectedFinalScore[ i ], choices.get( i ).getFinalScore() );
         }
     }
     
