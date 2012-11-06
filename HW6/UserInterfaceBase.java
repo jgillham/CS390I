@@ -83,7 +83,7 @@ public abstract class UserInterfaceBase implements UserInterface {
          Iterator< Characteristic > i = characteristics.iterator();
          while( i.hasNext() ) {
              Characteristic aChar = i.next();
-             chr = inputQuestion( "Enter the ranking for" + aChar.getName() +":" );
+             chr = inputQuestion( "Enter the ranking for " + aChar.getName() +":" );
              if( chr != null ){
                 aChar.setRank( Integer.parseInt( chr ) );
             }
@@ -108,8 +108,8 @@ public abstract class UserInterfaceBase implements UserInterface {
          String chr;
          for( int r = 0; r < choices.size(); ++r ) {
              for( int c = 0; c < characteristics.size(); ++c ) {
-                 chr = inputQuestion( "Rank " + choices.get( r ) +
-                    " in terms of " + characteristics.get( c ) + "." );
+                 chr = inputQuestion( "Rank " + choices.get( r ).getName() +
+                    " in terms of " + characteristics.get( c ).getName() + "." );
                  if( chr != null ) {
                      double rank = Double.parseDouble( chr );
                      crossRankings[r][c] = rank;
