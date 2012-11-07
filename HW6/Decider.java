@@ -62,7 +62,7 @@ public class Decider {
     static public int[] normalizeValues( double[] values, double max, double threshHold ) {
         int[] ret = new int[values.length];
         for( int i = 0; i < values.length; ++i ) {
-            ret[i] = (int)(values[ i++ ] * threshHold / max);
+            ret[i] = (int)(values[ i ] * threshHold / max);
         }
         return ret;
     }
