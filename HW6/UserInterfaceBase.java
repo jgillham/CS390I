@@ -103,7 +103,20 @@ public abstract class UserInterfaceBase implements UserInterface {
     public double[][] getCrossRankings(List<Choice> choices,
             List<Characteristic> characteristics,
             int defaultValue) {
-         double[][] crossRankings =
+         double[][] crossRankings = inputCrossRankings(
+            choices, characteristics, defaultValue
+         );
+         double[] charTotals = calculateColumnTotals(
+            crossRankings, choices, characteristics
+         );
+         normalizeCrossRankings( crossRankings, charTotals );
+         return crossRankings;
+    }
+    
+    public double[][] inputCrossRankings( List<Choice> choices,
+            List<Characteristic> characteristics,
+            int defaultValue ) {
+        double[][] crossRankings =
             new double[choices.size()][characteristics.size()];
          String chr;
          for( int r = 0; r < choices.size(); ++r ) {
@@ -114,23 +127,30 @@ public abstract class UserInterfaceBase implements UserInterface {
                      double rank = Double.parseDouble( chr );
                      crossRankings[r][c] = rank;
                  }
-                 else break;
+                 else return null;
              }
          }
-         double[] charTotals = new double[ characteristics.size() ];
-         for( int c = 0; c < characteristics.size(); ++c ) {
-             charTotals[c] = 0;
-             for( int r = 0; r < choices.size(); ++r ) {             
-                 charTotals[c] += crossRankings[r][c];
-             }
-         }
-         for( int r = 0; r < choices.size(); ++r ) {
-            for( int c = 0; c < characteristics.size(); ++c ) {
+         return crossRankings;
+    }
+    
+    public double[] calculateColumnTotals( double[][] crossRankings, List<Choice> choices,
+            List<Characteristic> characteristics ) {
+        double[] charTotals = new double[ characteristics.size() ];
+        for( int c = 0; c < characteristics.size(); ++c ) {
+            charTotals[c] = 0;
+            for( int r = 0; r < choices.size(); ++r ) {             
+                charTotals[c] += crossRankings[r][c];
+            }
+        }
+        return charTotals;
+    }
+    
+    public void normalizeCrossRankings( double[][] crossRankings, double[] charTotals ) {
+        for( int r = 0; r < crossRankings.length; ++r ) {
+            for( int c = 0; c < crossRankings[0].length; ++c ) {
                  crossRankings[r][c] /= charTotals[c];
              }
          }
-
-         return crossRankings;
     }
     
     /**
