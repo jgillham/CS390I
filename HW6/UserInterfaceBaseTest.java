@@ -119,17 +119,21 @@ public class UserInterfaceBaseTest {
     @Test
     public void testGetCharacteristicRankings() {
         int[] expected = {
-            9, 7, 3, 4, 5, 6  
+            10, 40, 30  
         };
         InstrumentationUI instance = new InstrumentationUI();
         for( int val: expected ) {
+            // Check for the default value.
+            if ( val == 10 )
+                // Skip the default value.
+                continue;
             instance.answers.add( Integer.toString( val ) );
         }
         List< Characteristic > chars = new LinkedList< Characteristic >();
         chars.add( new Characteristic( "color" ) );
         chars.add( new Characteristic( "price" ) );
         chars.add( new Characteristic( "speed" ) );
-        instance.getCharacteristicRankings( chars, 1 );
+        instance.getCharacteristicRankings( chars, 10 );
         int i = 0;
         for( Characteristic chr: chars ) {
             assertTrue( i < expected.length );
@@ -157,8 +161,7 @@ public class UserInterfaceBaseTest {
         choices.add( new Choice( "hp" ) );
         choices.add( new Choice( "dell" ) );
         double[][] input = { 
-            { 1, 2, 3, 4 },
-            { 5, 6, 7, 8 }
+            { 5, 15, 20, 7 }
             //{ 1, 5 },
             //{ 2, 6 },
             //{ 3, 7 },
@@ -171,14 +174,14 @@ public class UserInterfaceBaseTest {
             }
         }
         double[][] expected = { 
-            { 1D/6D, 2D/8D, 3D/10D, 4D/12D },
-            { 5D/6D, 6D/8D, 7D/10D, 8D/12D }
+            { 10D / 15D, 10D / 25D, 10D / 30D, 10D / 17D },
+            { 5D / 15D, 15D / 25D, 20D / 30D, 7D / 17D }
             //{ 1D/6D, 5D/6D },
             //{ 2D/8D, 6D/8D },
             //{ 3D/10D, 7D/10D },
             //{ 4D/12D, 8D/12D }
         };
-        double[][] actual = instance.getCrossRankings( choices, chars, 1 );
+        double[][] actual = instance.getCrossRankings( choices, chars, 10 );
         assertEquals( expected.length, actual.length );
         assertEquals( expected[0].length, actual[0].length );
         for( int r = 0; r < expected.length; ++r ) {
@@ -201,8 +204,7 @@ public class UserInterfaceBaseTest {
         choices.add( new Choice( "hp" ) );
         choices.add( new Choice( "dell" ) );
         double[][] input = { 
-            { 1, 2 },
-            { 5, 6 }
+            { 5, 15 }
             //{ 1, 5 },
             //{ 2, 6 },
             //{ 3, 7 },
@@ -215,14 +217,14 @@ public class UserInterfaceBaseTest {
             }
         }
         double[][] expected = { 
-            { 1D/6D, 2D/8D },
-            { 5D/6D, 6D/8D }
+            { 10D / 15D, 10D / 25D },
+            { 5D / 15D, 15D / 25D }
             //{ 1D/6D, 5D/6D },
             //{ 2D/8D, 6D/8D },
             //{ 3D/10D, 7D/10D },
             //{ 4D/12D, 8D/12D }
         };
-        double[][] actual = instance.getCrossRankings( choices, chars, 1 );
+        double[][] actual = instance.getCrossRankings( choices, chars, 10 );
         assertEquals( expected.length, actual.length );
         assertEquals( expected[0].length, actual[0].length );
         for( int r = 0; r < expected.length; ++r ) {
@@ -239,6 +241,6 @@ public class UserInterfaceBaseTest {
         choices.add( new Choice( "dell" ) );
         InstrumentationUI instance = new InstrumentationUI();
         instance.showResults( choices );
-        assertEquals( choices.size(), instance.messagesShown );
+        assertEquals( 1, instance.messagesShown );
     }
 }
