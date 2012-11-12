@@ -18,8 +18,9 @@ public class DeciderTest {
      * Proves calculateFinalScores works as expected.
      * 
      * I noticed:
-     * As long as the geometric relationship between the characteristic rankings is the same,
-     *  the rankings can be changed.
+     * As long as the geometric relationship between the 
+     *  characteristic rankings is the same, the rankings 
+     *  can be changed.
      */
     @Test
     public void testCalculateFinalScores() {
@@ -52,8 +53,10 @@ public class DeciderTest {
         expectedFinalScore[1] = expectedFinalScore[1] * 100 / max;
         Decider.calculateFinalScores( choices, chars, crossRankings );
         assertEquals( expectedFinalScore.length, choices.size() );
-        for( int i = 0; i < choices.size(); ++i ) {
-            assertEquals( (int)expectedFinalScore[ i ], choices.get( i ).getFinalScore() );
+        for ( int i = 0; i < choices.size(); ++i ) {
+            assertEquals( 
+                (int)expectedFinalScore[ i ], choices.get( i ).getFinalScore()
+            );
         }
         // Test smaller characteristic rankings
         chars.remove( 2 );
@@ -73,11 +76,18 @@ public class DeciderTest {
         expectedFinalScore[1] = expectedFinalScore[1] * 100 / max;
         Decider.calculateFinalScores( choices, chars, crossRankings );
         assertEquals( expectedFinalScore.length, choices.size() );
-        for( int i = 0; i < choices.size(); ++i ) {
-            assertEquals( (int)expectedFinalScore[ i ], choices.get( i ).getFinalScore() );
+        for ( int i = 0; i < choices.size(); ++i ) {
+            assertEquals(
+                (int)expectedFinalScore[ i ], choices.get( i ).getFinalScore()
+            );
         }
     }
     
+    /**
+     * Prove that for a choice canidate, the final score is the sum of 
+     *  each characteristic cross ranking multiplied by the 
+     *  characteristic rank.
+     */
     @Test
     public void testCalculateUnnormalizedFinalScores() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
@@ -104,10 +114,12 @@ public class DeciderTest {
             10D * 0.5D + 0.4D * 20D + 0.3D * 30D + 0.2D * 40D,
             10D * 0.5D + 0.6D * 20D + 0.7D * 30D + 0.8D * 40D
         };
-        double[] actual = Decider.calculateUnnormalizedFinalScores( choices, chars, crossRankings );
+        double[] actual = Decider.calculateUnnormalizedFinalScores(
+            choices, chars, crossRankings
+        );
         assertEquals( expectedFinalScore.length, choices.size() );
         assertEquals( expectedFinalScore.length, actual.length );
-        for( int i = 0; i < choices.size(); ++i ) {
+        for ( int i = 0; i < choices.size(); ++i ) {
             assertEquals( expectedFinalScore[ i ], actual[ i ], 0.001 );
         }
         
@@ -124,13 +136,19 @@ public class DeciderTest {
             1D * 0.25D + 0.25D * 2D,
             1D * 0.75D + 0.75D * 2D
         };
-        actual = Decider.calculateUnnormalizedFinalScores( choices, chars, crossRankings );
+        actual = Decider.calculateUnnormalizedFinalScores( 
+            choices, chars, crossRankings
+        );
         assertEquals( expectedFinalScore.length, choices.size() );
         assertEquals( expectedFinalScore.length, actual.length );
-        for( int i = 0; i < choices.size(); ++i ) {
+        for ( int i = 0; i < choices.size(); ++i ) {
             assertEquals( expectedFinalScore[ i ], actual[ i ], 0.001 );
         }
     }
+    
+    /**
+     * Prove that findMax() finds the max value of an array.
+     */
     @Test
     public void testFindMax() {
         double[] data = {
@@ -139,6 +157,10 @@ public class DeciderTest {
         assertEquals( 3, Decider.findMax( data ), 0.0001 );
     }
     
+    /**
+     * Prove that normalize values takes the data and divides each
+     *  by the max in the set.
+     */
     @Test
     public void testNormalizeValues() {
         double[] data = {
@@ -149,7 +171,7 @@ public class DeciderTest {
         };
         int[] actual = Decider.normalizeValues( data, 3D, 100D );
         assertEquals( expected.length, actual.length );
-        for( int i = 0; i < expected.length; ++i ) {
+        for ( int i = 0; i < expected.length; ++i ) {
             assertEquals( expected[ i ], actual[ i ] );
         }
         
