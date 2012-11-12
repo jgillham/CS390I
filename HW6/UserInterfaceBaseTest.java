@@ -80,12 +80,12 @@ public class UserInterfaceBaseTest {
         expected.add( "dell" );
         expected.add( "sony" );
         InstrumentationUI instance = new InstrumentationUI();
-        for( String choice: expected ) {
+        for ( String choice : expected ) {
             instance.answers.add( choice );
         }
         List< Choice > actualChoices = instance.getChoices();
         Iterator< String > expI = expected.iterator();
-        for( Choice actualChoice: actualChoices ) {
+        for ( Choice actualChoice : actualChoices ) {
             assertTrue( expI.hasNext() );
             assertEquals( expI.next(), actualChoice.getName() );
         }
@@ -101,12 +101,12 @@ public class UserInterfaceBaseTest {
         expected.add( "price" );
         expected.add( "speed" );
         InstrumentationUI instance = new InstrumentationUI();
-        for( String choice: expected ) {
+        for ( String choice : expected ) {
             instance.answers.add( choice );
         }
         List< Choice > actualChoices = instance.getChoices();
         Iterator< String > expI = expected.iterator();
-        for( Choice actualChoice: actualChoices ) {
+        for ( Choice actualChoice : actualChoices ) {
             assertTrue( expI.hasNext() );
             assertEquals( expI.next(), actualChoice.getName() );
         }
@@ -122,7 +122,7 @@ public class UserInterfaceBaseTest {
             10, 40, 30  
         };
         InstrumentationUI instance = new InstrumentationUI();
-        for( int val: expected ) {
+        for ( int val : expected ) {
             // Check for the default value.
             if ( val == 10 )
                 // Skip the default value.
@@ -135,13 +135,16 @@ public class UserInterfaceBaseTest {
         chars.add( new Characteristic( "speed" ) );
         instance.getCharacteristicRankings( chars, 10 );
         int i = 0;
-        for( Characteristic chr: chars ) {
+        for ( Characteristic chr : chars ) {
             assertTrue( i < expected.length );
             assertEquals( expected[ i ], chr.getRank() );
             ++i;
         }
     }
     
+    /**
+     * Prove that getCrossRankings() calculates the results correctly.
+     */
     @Test
     public void testGetCrossRankings() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
@@ -168,8 +171,8 @@ public class UserInterfaceBaseTest {
             //{ 4, 8 }
         };
         InstrumentationUI instance = new InstrumentationUI();
-        for( int r = 0; r < input.length; ++r ) {
-            for( int c = 0; c < input[r].length; ++c ) {
+        for ( int r = 0; r < input.length; ++r ) {
+            for ( int c = 0; c < input[r].length; ++c ) {
                 instance.answers.add( Double.toString( input[r][c] ) );
             }
         }
@@ -184,13 +187,16 @@ public class UserInterfaceBaseTest {
         double[][] actual = instance.getCrossRankings( choices, chars, 10 );
         assertEquals( expected.length, actual.length );
         assertEquals( expected[0].length, actual[0].length );
-        for( int r = 0; r < expected.length; ++r ) {
-            for( int c = 0; c < expected[r].length; ++c ) {
+        for ( int r = 0; r < expected.length; ++r ) {
+            for ( int c = 0; c < expected[r].length; ++c ) {
                 assertEquals( expected[r][c], actual[r][c], 0.1 );
             }
         }
     }
     
+    /**
+     * Prove that getCrossRankings() calculates the results correctly
+     */
     @Test
     public void testGetCrossRankings2() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
@@ -211,8 +217,8 @@ public class UserInterfaceBaseTest {
             //{ 4, 8 }
         };
         InstrumentationUI instance = new InstrumentationUI();
-        for( int r = 0; r < input.length; ++r ) {
-            for( int c = 0; c < input[r].length; ++c ) {
+        for ( int r = 0; r < input.length; ++r ) {
+            for ( int c = 0; c < input[r].length; ++c ) {
                 instance.answers.add( Double.toString( input[r][c] ) );
             }
         }
@@ -227,13 +233,16 @@ public class UserInterfaceBaseTest {
         double[][] actual = instance.getCrossRankings( choices, chars, 10 );
         assertEquals( expected.length, actual.length );
         assertEquals( expected[0].length, actual[0].length );
-        for( int r = 0; r < expected.length; ++r ) {
-            for( int c = 0; c < expected[r].length; ++c ) {
+        for ( int r = 0; r < expected.length; ++r ) {
+            for ( int c = 0; c < expected[r].length; ++c ) {
                 assertEquals( expected[r][c], actual[r][c], 0.1 );
             }
         }
     }
     
+    /**
+     * Prove that showResults displays one message box.
+     */
     @Test
     public void testShowResults() {
         List< Choice > choices = new LinkedList< Choice >();
