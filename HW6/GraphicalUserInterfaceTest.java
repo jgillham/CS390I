@@ -6,12 +6,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The test class GraphicalUserInterfaceTest.
+ * Tests GraphicalUserInterface.
  *
- * @author  (your name)
- * @version (a version number or a date)
+ * @author  Josh Gillham
+ * @version 11-12-12
  */
-public class GraphicalUserInterfaceTest{
+public class GraphicalUserInterfaceTest {
     /**
      * Prove that the default constructor produces no errors.
      */
@@ -26,12 +26,16 @@ public class GraphicalUserInterfaceTest{
     @Test
     public void testInputYNQuestion() {
         GraphicalUserInterface instance = new GraphicalUserInterface();
-        assertEquals( GraphicalUserInterface.YNAnswer.Yes, instance.inputYNQuestion( 
-            "For test purposes, click yes. Thank you." 
-        ) );
-        assertEquals( GraphicalUserInterface.YNAnswer.No, instance.inputYNQuestion( 
-            "For test purposes, click no. Thank you."
-        ) );
+        assertEquals( GraphicalUserInterface.YNAnswer.Yes, 
+            instance.inputYNQuestion( 
+                "For test purposes, click yes. Thank you." 
+            )
+        );
+        assertEquals( GraphicalUserInterface.YNAnswer.No, 
+            instance.inputYNQuestion( 
+                "For test purposes, click no. Thank you."
+            )
+        );
         assertNull( instance.inputYNQuestion( 
             "For test purposes, click the X. Thank you."
         ) );
