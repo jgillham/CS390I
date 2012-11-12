@@ -44,17 +44,17 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @return the list of choices.
      */
     public List<Choice> getChoices() {
-         List<Choice> choices = new ArrayList<Choice>();
-         String chr = null;
-         do {
+        List<Choice> choices = new ArrayList<Choice>();
+        String chr = null;
+        do {
             chr = inputQuestion( "Enter a decision canidate. " +
                 "Should be a noun, for example, daisy. Hit cancel after " +
                 "hitting Ok for the last canidate:"
             );
-             if( chr != null )
+            if ( chr != null )
                 choices.add( new Choice( chr ) );
-         } while( chr != null );
-         return choices;
+        } while( chr != null );
+        return choices;
     }
     
     /**
@@ -63,18 +63,18 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @return the list of characteristics.
      */
     public List<Characteristic> getCharacteristics() {
-         List<Characteristic> characteristics = 
+        List<Characteristic> characteristics = 
             new ArrayList<Characteristic>();
-         String chr = null;
-         do {
+        String chr = null;
+        do {
             chr = inputQuestion( "Enter a characteristic. Should " +
                 "be an adjective for example, flowers have a color. Hit " +
                 "cancel after hitting Ok for the last characteristic:"
             );
-             if( chr != null )
+            if ( chr != null )
                 characteristics.add( new Characteristic( chr ) );
-         } while( chr != null );
-         return characteristics;
+        } while( chr != null );
+        return characteristics;
     }
     
     /**
@@ -87,23 +87,23 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @param characteristics the list of characteristics.
      * @param defaultValue hte default value for a ranking.
      */
-    public void getCharacteristicRankings(List<Characteristic> characteristics,
+    public void getCharacteristicRankings( List<Characteristic> characteristics,
             int defaultValue) {
-         String chr = null;
+        String chr = null;
         String defaultChar = characteristics.get( 0 ).getName();
-         Iterator< Characteristic > i = characteristics.iterator();
+        Iterator< Characteristic > i = characteristics.iterator();
         Characteristic aChar = i.next();
         aChar.setRank( defaultValue );
-         while( i.hasNext() ) {
-             aChar = i.next();
+        while ( i.hasNext() ) {
+            aChar = i.next();
             chr = inputQuestion( "If importance of " + defaultChar + " was " +
                 defaultValue + ", how would you rate " + aChar.getName() + ":"
             );
-             if( chr != null ){
+            if ( chr != null ) {
                 aChar.setRank( Integer.parseInt( chr ) );
             }
             else break;
-         } 
+        } 
     }
     
     /**
@@ -118,14 +118,12 @@ public abstract class UserInterfaceBase implements UserInterface {
     public double[][] getCrossRankings(List<Choice> choices,
             List<Characteristic> characteristics,
             int defaultValue) {
-         double[][] crossRankings = inputCrossRankings(
+        double[][] crossRankings = inputCrossRankings(
             choices, characteristics, defaultValue
-         );
-         double[] charTotals = calculateColumnTotals(
-            crossRankings, choices, characteristics
-         );
-         normalizeCrossRankings( crossRankings, charTotals );
-         return crossRankings;
+        );
+        double[] charTotals = calculateColumnTotals( crossRankings );
+        normalizeCrossRankings( crossRankings, charTotals );
+        return crossRankings;
     }
     
     /**
@@ -144,8 +142,8 @@ public abstract class UserInterfaceBase implements UserInterface {
             int defaultValue ) {
         double[][] crossRankings =
             new double[choices.size()][characteristics.size()];
-         String defaultChoice = choices.get( 0 ).getName();
-         String chr;
+        String defaultChoice = choices.get( 0 ).getName();
+        String chr;
         for ( int c = 0; c < characteristics.size(); ++c ) {
             crossRankings[0][c] = defaultValue;
             for ( int r = 1; r < choices.size(); ++r ) {
@@ -153,14 +151,14 @@ public abstract class UserInterfaceBase implements UserInterface {
                     characteristics.get( c ).getName() +
                     ", if " + defaultChoice +  " was rated a " + defaultValue +
                     " how would you rate " + choices.get( r ).getName() + "." );
-                 if( chr != null ) {
-                     double rank = Double.parseDouble( chr );
-                     crossRankings[r][c] = rank;
-                 }
-                 else return null;
-             }
-         }
-         return crossRankings;
+                if ( chr != null ) {
+                    double rank = Double.parseDouble( chr );
+                    crossRankings[r][c] = rank;
+                }
+                else return null;
+            }
+        }
+        return crossRankings;
     }
     
     /**
@@ -171,12 +169,11 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @return an array with each element representing the
      *  column total.
      */
-    public double[] calculateColumnTotals( double[][] crossRankings, List<Choice> choices,
-            List<Characteristic> characteristics ) {
-        double[] charTotals = new double[ characteristics.size() ];
-        for( int c = 0; c < characteristics.size(); ++c ) {
+    public double[] calculateColumnTotals( double[][] crossRankings ) {
+        double[] charTotals = new double[ crossRankings[0].length ];
+        for ( int c = 0; c < crossRankings[0].length; ++c ) {
             charTotals[c] = 0;
-            for( int r = 0; r < choices.size(); ++r ) {             
+            for ( int r = 0; r < crossRankings.length; ++r ) {             
                 charTotals[c] += crossRankings[r][c];
             }
         }
@@ -190,12 +187,13 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @param crossRankings the table of data to normalize.
      * @param charTotals the array of column totals.
      */
-    public void normalizeCrossRankings( double[][] crossRankings, double[] charTotals ) {
-        for( int r = 0; r < crossRankings.length; ++r ) {
-            for( int c = 0; c < crossRankings[0].length; ++c ) {
-                 crossRankings[r][c] /= charTotals[c];
-             }
-         }
+    public void normalizeCrossRankings( double[][] crossRankings, 
+            double[] charTotals ) {
+        for ( int r = 0; r < crossRankings.length; ++r ) {
+            for ( int c = 0; c < crossRankings[0].length; ++c ) {
+                crossRankings[r][c] /= charTotals[c];
+            }
+        }
     }
     
     /**
@@ -205,7 +203,7 @@ public abstract class UserInterfaceBase implements UserInterface {
      */
     public void showResults(List<Choice> choices) {
         StringBuilder results = new StringBuilder();
-        for( Choice choice: choices ) {
+        for ( Choice choice : choices ) {
             results.append( "The final score of " );
             results.append( choice.getName() );
             results.append( " is " );
