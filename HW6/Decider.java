@@ -24,7 +24,7 @@ public class Decider {
         characteristics = ui.getCharacteristics();
         ui.getCharacteristicRankings(characteristics, STANDARD);
         crossRankings = ui.getCrossRankings(choices, characteristics, 
-        STANDARD);
+            STANDARD);
         calculateFinalScores(choices, characteristics, crossRankings);
         ui.showResults(choices);
     }
@@ -45,7 +45,7 @@ public class Decider {
         double max = findMax( finalScores );
         int[] normalized = normalizeValues( finalScores, max, 100D );
         int i = 0;
-        for( Choice choice: choices ) {
+        for ( Choice choice : choices ) {
             choice.setFinalScore( normalized[ i++ ] );
         }
     }
@@ -59,9 +59,10 @@ public class Decider {
      * 
      * @return the normalized array.
      */
-    static public int[] normalizeValues( double[] values, double max, double threshHold ) {
+    static public int[] normalizeValues( double[] values, double max,
+            double threshHold ) {
         int[] ret = new int[values.length];
-        for( int i = 0; i < values.length; ++i ) {
+        for ( int i = 0; i < values.length; ++i ) {
             ret[i] = (int)(values[ i ] * threshHold / max);
         }
         return ret;
@@ -70,22 +71,23 @@ public class Decider {
     /**
      * Finds the maximum value in an array.
      * 
-     * @values the array of values
+     * @param values the array of values
      * 
      * @return the max.
      */
     static public double findMax( double[] values ) {
         double max = 0;
-        for( double value: values ) {
-            if( max < value )
+        for ( double value : values ) {
+            if ( max < value )
                 max = value;
         }
         return max;
     }
     
     /**
-     * Calculates the unnormalized final score which is the the cross ranking of 
-     *  each characteristic per choice multiplied by the characteristic rank.
+     * Calculates the unnormalized final score which is the 
+     *  cross ranking of each characteristic per choice 
+     *  multiplied by the characteristic rank.
      * 
      * @param choices is the list of choices.
      * @param characs is the list of characteristics.
@@ -93,13 +95,15 @@ public class Decider {
      * 
      * @return the unnormalized final scores.
      */
-    static public double[] calculateUnnormalizedFinalScores( List<Choice> choices, 
-            List<Characteristic> characs, double[][] crossRankings ) {
+    static public double[] calculateUnnormalizedFinalScores( 
+            List<Choice> choices, List<Characteristic> characs, 
+            double[][] crossRankings ) {
         double[] finalScores = new double[choices.size()];
-        for( int r = 0; r < choices.size(); ++r ) {
+        for ( int r = 0; r < choices.size(); ++r ) {
             double choiceTotal = 0;
-            for( int c = 0; c < characs.size(); ++ c ) {
-                 choiceTotal += characs.get( c ).getRank() * crossRankings[r][c];
+            for ( int c = 0; c < characs.size(); ++c ) {
+                choiceTotal += 
+                    characs.get( c ).getRank() * crossRankings[r][c];
             }
             finalScores[ r ] = choiceTotal;
         }
