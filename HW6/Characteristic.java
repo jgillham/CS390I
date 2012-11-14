@@ -18,7 +18,9 @@ public class Characteristic {
     * Post Conditions:
     * -this.name is set to theName.
     * 
-    * @param theName the name of this characteristic
+    * @param theName the name of this characteristic.
+    * 
+    * @throws NullPointerException if theName is null.
     */
     public Characteristic(String theName) {
         this.name = theName;

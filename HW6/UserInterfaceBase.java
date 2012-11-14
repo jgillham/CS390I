@@ -82,10 +82,11 @@ public abstract class UserInterfaceBase implements UserInterface {
      * 
      * Preconditions:
      * -expects characteristics to have at least 1 element.
-     * -does not accept a null.
      * 
      * @param characteristics the list of characteristics.
      * @param defaultValue hte default value for a ranking.
+     * 
+     * @throws NullPointerException if characteristics is null.
      */
     public void getCharacteristicRankings( List<Characteristic> characteristics,
             int defaultValue) {
@@ -114,6 +115,8 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @param defaultValue is the default ranking.
      * 
      * @return a table of the cross rankings.
+     * 
+     * @throws NullPointerException if choices or characteristics is null.
      */
     public double[][] getCrossRankings(List<Choice> choices,
             List<Characteristic> characteristics,
@@ -135,7 +138,10 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @param defaultValue is the measuring stick.
      * 
      * @return a 2D array with the characteristics in the columns
-     *  and choices in the rows.
+     *  and choices in the rows OR null if the user cancels the 
+     *  process.
+     * 
+     * @throws NullPointerException if choices or characteristics is null.
      */
     public double[][] inputCrossRankings( List<Choice> choices,
             List<Characteristic> characteristics,
@@ -168,6 +174,8 @@ public abstract class UserInterfaceBase implements UserInterface {
      * 
      * @return an array with each element representing the
      *  column total.
+     *  
+     * @throws NullPointerException if crossRankings is null.
      */
     public double[] calculateColumnTotals( double[][] crossRankings ) {
         double[] charTotals = new double[ crossRankings[0].length ];
@@ -186,6 +194,8 @@ public abstract class UserInterfaceBase implements UserInterface {
      *  
      * @param crossRankings the table of data to normalize.
      * @param charTotals the array of column totals.
+     * 
+     * @throws NullPointerException if crossRankings or charTotals is null.
      */
     public void normalizeCrossRankings( double[][] crossRankings, 
             double[] charTotals ) {
@@ -200,6 +210,8 @@ public abstract class UserInterfaceBase implements UserInterface {
      * Shows the results.
      * 
      * @param choices the list of choices.
+     * 
+     * @throws NullPointerException if choices is null.
      */
     public void showResults(List<Choice> choices) {
         StringBuilder results = new StringBuilder();

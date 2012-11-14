@@ -35,6 +35,9 @@ public class Decider {
      * @param choices the choices under consideration.
      * @param characs is the characterists per choice.
      * @param crossRankings is the importance rank.
+     * 
+     * @throws NullPointerException if choices, characs, or 
+     *  crossRankings is null.
      */
     //Changed to public
     public static void calculateFinalScores(List<Choice> choices, 
@@ -58,6 +61,8 @@ public class Decider {
      * @param threshHold is the value that the maximum value maps to.
      * 
      * @return the normalized array.
+     * 
+     * @throws NullPointerException if values is null.
      */
     static public int[] normalizeValues( double[] values, double max,
             double threshHold ) {
@@ -74,6 +79,8 @@ public class Decider {
      * @param values the array of values
      * 
      * @return the max.
+     * 
+     * @throws NullPointerException if values is null.
      */
     static public double findMax( double[] values ) {
         double max = 0;
@@ -94,6 +101,9 @@ public class Decider {
      * @param crossRankings is the ranking of the choice x characteristics.
      * 
      * @return the unnormalized final scores.
+     * 
+     * @throws NullPointerException if choices, characs, or crossRankings 
+     *  is null
      */
     static public double[] calculateUnnormalizedFinalScores( 
             List<Choice> choices, List<Characteristic> characs, 

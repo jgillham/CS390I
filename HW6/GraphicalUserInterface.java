@@ -14,6 +14,8 @@ public class GraphicalUserInterface extends UserInterfaceBase {
      * @param message is the text to display.
      * 
      * @return is an enum showing the result OR null if the user clicks the X
+     * 
+     * @throws NullPointerException if message is null.
      */
     public YNAnswer inputYNQuestion( String message ) { 
         int result = JOptionPane.showConfirmDialog( 
@@ -32,6 +34,8 @@ public class GraphicalUserInterface extends UserInterfaceBase {
      * @param message is the text to display.
      * 
      * @return the user input OR null if the user clicked cancel or the X.
+     * 
+     * @throws NullPointerException if message is null.
      */
     public String inputQuestion( String message ) {
         return JOptionPane.showInputDialog( message );
@@ -41,6 +45,8 @@ public class GraphicalUserInterface extends UserInterfaceBase {
      * Displays a dialog with the message.
      * 
      * @param message is the text to display.
+     * 
+     * @throws NullPointerException if message is null.
      */
     public void showMessage( String message ) { 
         JOptionPane.showMessageDialog( null, message );

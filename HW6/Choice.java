@@ -16,7 +16,9 @@ public class Choice {
     * Constructor that sets the choice name.
     * Default finalScore is 0;
     * 
-    * @param theName the name of this choice
+    * @param theName the name of this choice.
+    * 
+    * @throws NullPointerException if theName is null.
     */
     public Choice(String theName) {
         this.name = theName;
