@@ -19,6 +19,8 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @param message is the text to display.
      * 
      * @return is an enum showing the result OR null if the user clicks the X
+     * 
+     * @throws NullPointerException if message is null.
      */
     public abstract YNAnswer inputYNQuestion( String message );
     
@@ -28,6 +30,8 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @param message is the text to display.
      * 
      * @return the user input OR null if the user clicked cancel or the X.
+     * 
+     * @throws NullPointerException if message is null.
      */
     public abstract String inputQuestion( String message );
     
@@ -35,13 +39,16 @@ public abstract class UserInterfaceBase implements UserInterface {
      * Displays a dialog with the message.
      * 
      * @param message is the text to display.
+     * 
+     * @throws NullPointerException if message is null.
      */
     public abstract void showMessage( String message );
     
     /**
-     * Accesses the choices.
+     * Asks the user for a list of choice canidates.
      * 
-     * @return the list of choices.
+     * @return the list of choices 
+     *  OR an empty list when the user cancels early.
      */
     public List<Choice> getChoices() {
         List<Choice> choices = new ArrayList<Choice>();
@@ -58,9 +65,10 @@ public abstract class UserInterfaceBase implements UserInterface {
     }
     
     /**
-     * Accesses the list of characteristics.
+     * Asks the user for a list of characteristics.
      * 
-     * @return the list of characteristics.
+     * @return the list of characteristics 
+     *  OR an empty list when the user cancels early.
      */
     public List<Characteristic> getCharacteristics() {
         List<Characteristic> characteristics = 
@@ -78,18 +86,26 @@ public abstract class UserInterfaceBase implements UserInterface {
     }
     
     /**
-     * Accesses the list of characteristics rankings.
+     * Asks the user to rank each characteristic using the
+     *  defaultValue as the measuring stick.
      * 
      * Preconditions:
      * -expects characteristics to have at least 1 element.
+     * 
+     * Post Conditions:
+     * -Each characteristic rank is set by the user input.
      * 
      * @param characteristics the list of characteristics.
      * @param defaultValue hte default value for a ranking.
      * 
      * @throws NullPointerException if characteristics is null.
+     * 
+     * @return true if the user completes the process 
+     *  OR false if the user cancels.
      */
-    public void getCharacteristicRankings( List<Characteristic> characteristics,
-            int defaultValue) {
+    public boolean getCharacteristicRankings( 
+            List<Characteristic> characteristics, int defaultValue) {
+        boolean userCompleted = true;
         String chr = null;
         String defaultChar = characteristics.get( 0 ).getName();
         Iterator< Characteristic > i = characteristics.iterator();
@@ -103,22 +119,34 @@ public abstract class UserInterfaceBase implements UserInterface {
             if ( chr != null ) {
                 aChar.setRank( Integer.parseInt( chr ) );
             }
-            else break;
+            else {
+                userCompleted = false;
+                break;
+            }
         } 
+        return userCompleted;
     }
     
     /**
-     * Accesses a table of the cross rankings.
+     * Ask the user to rank each choice canidate in the terms
+     *  of each characteristic. The user is asked to rank the
+     *  canidate in comparision to another canidate at the
+     *  defaultValue.
+     * 
+     * Preconditions:
+     * -expects choices and characteristics to have at least one entry.
      * 
      * @param choices a list of choices.
      * @param characteristics a list of characteristics.
      * @param defaultValue is the default ranking.
      * 
-     * @return a table of the cross rankings.
+     * @return the 2D array of cross rankings where the columns are 
+     *  characteristics and the rows are choices
+     *  OR null if the user cancels.
      * 
      * @throws NullPointerException if choices or characteristics is null.
      */
-    public double[][] getCrossRankings(List<Choice> choices,
+    public double[][] getCrossRankings( List<Choice> choices,
             List<Characteristic> characteristics,
             int defaultValue) {
         double[][] crossRankings = inputCrossRankings(
@@ -133,13 +161,16 @@ public abstract class UserInterfaceBase implements UserInterface {
      * Asks the user to rank each characteristic in terms of a
      *  choice canidate.
      * 
+     * Preconditions:
+     * -expects choices and characteristics to have at least one entry.
+     * 
      * @param choices the list canidates.
      * @param characteristics the list adjectives.
      * @param defaultValue is the measuring stick.
      * 
      * @return a 2D array with the characteristics in the columns
-     *  and choices in the rows OR null if the user cancels the 
-     *  process.
+     *  and choices in the rows 
+     *  OR null if the user cancels the process.
      * 
      * @throws NullPointerException if choices or characteristics is null.
      */
@@ -170,6 +201,9 @@ public abstract class UserInterfaceBase implements UserInterface {
     /**
      * Calculates the totals of each column in a 2D table.
      * 
+     * Preconditions:
+     * -expects crossRankings to have at least 1 column.
+     * 
      * @param crossRankings the table.
      * 
      * @return an array with each element representing the
@@ -191,6 +225,13 @@ public abstract class UserInterfaceBase implements UserInterface {
     /**
      * Normalizes data in a column of a 2D table with an array of column
      *  totals. The max value will be 1.0.
+     * 
+     * Preconditions:
+     * -expects the number of columns in crossRankings to be the length 
+     *  of charTotals.
+     * 
+     * Post Conditions:
+     * -crossRankings is normalized by the values in charTotals.
      *  
      * @param crossRankings the table of data to normalize.
      * @param charTotals the array of column totals.
@@ -207,13 +248,17 @@ public abstract class UserInterfaceBase implements UserInterface {
     }
     
     /**
-     * Shows the results.
+     * Displays to the user the final ranking of each choice
+     *  canidate.
+     * 
+     * Preconditions:
+     * -expects choices to have at least 1 entry.
      * 
      * @param choices the list of choices.
      * 
      * @throws NullPointerException if choices is null.
      */
-    public void showResults(List<Choice> choices) {
+    public void showResults( List<Choice> choices ) {
         StringBuilder results = new StringBuilder();
         for ( Choice choice : choices ) {
             results.append( "The final score of " );

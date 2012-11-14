@@ -134,7 +134,7 @@ public class UserInterfaceBaseTest {
         chars.add( new Characteristic( "color" ) );
         chars.add( new Characteristic( "price" ) );
         chars.add( new Characteristic( "speed" ) );
-        instance.getCharacteristicRankings( chars, 10 );
+        assertTrue( instance.getCharacteristicRankings( chars, 10 ) );
         int i = 0;
         for ( Characteristic chr : chars ) {
             assertTrue( i < expected.length );
