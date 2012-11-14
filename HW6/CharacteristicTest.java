@@ -12,6 +12,7 @@ import org.junit.Test;
  * @version 10-2-12
  */
 public class CharacteristicTest {
+    // BEGIN Good Behavioral Tests
     /**
      * Prove the constructor runs without errors and full fills
      *  the post conditions.
@@ -43,4 +44,14 @@ public class CharacteristicTest {
         instance.setRank( expectedRank );
         assertEquals( expectedRank, instance.getRank() );
     }
+    // END Good Behavioral Tests
+    // BEGIN Destructive Tests
+    /**
+     * Prove the constructor rejects null values.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testConstructor_wNull() {
+        new Characteristic( null );
+    }
+    // END Destructive Tests
 }

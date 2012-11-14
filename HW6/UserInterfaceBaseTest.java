@@ -70,6 +70,7 @@ public class UserInterfaceBaseTest {
         }
     }
     
+    // BEGIN Good Behavior Tests
     /**
      * Proves the user can input the choices.
      */
@@ -341,4 +342,125 @@ public class UserInterfaceBaseTest {
         instance.showResults( choices );
         assertEquals( 1, instance.messagesShown );
     }
+    // END Good Behavioral Tests
+    
+    // BEGIN Destructive Tests
+    /**
+     * Proves that getCharacteristicRankings() will reject
+     *  null values.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testGetCharacteristicRankings_wNull() {
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.getCharacteristicRankings( null, 10 );
+    }
+    
+    /**
+     * Proves that getCrossRankings() will reject
+     *  a null value in the 2nd argument.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testGetCrossRankings_w2ndNull() {
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.getCrossRankings( choices, null, 10 );
+    }
+    
+    /**
+     * Proves that getCrossRankings() will reject
+     *  a null value in the 1st argument.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testGetCrossRankings_w1stNull() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        Characteristic chr = new Characteristic( "color" );
+        chr.setRank( 10 );
+        chars.add( chr );
+        chr = new Characteristic( "price" );
+        chr.setRank( 20 );
+        chars.add( chr );
+        chr = new Characteristic( "speed" );
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.getCrossRankings( null, chars , 10 );
+    }
+    
+    /**
+     * Proves that inputCrossRankings() will reject
+     *  a null value in the 2nd argument.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testInputCrossRankings_w2ndNull() {
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.inputCrossRankings( choices, null, 10 );
+    }
+    
+    /**
+     * Proves that inputCrossRankings() will reject
+     *  a null value in the 1st argument.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testInputCrossRankings_w1stNull() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        Characteristic chr = new Characteristic( "color" );
+        chr.setRank( 10 );
+        chars.add( chr );
+        chr = new Characteristic( "price" );
+        chr.setRank( 20 );
+        chars.add( chr );
+        chr = new Characteristic( "speed" );
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.inputCrossRankings( null, chars , 10 );
+    }
+    
+    /**
+     * Proves that calculateColumnTotals() will reject null
+     *  values.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testCalculateColumnTotals_wNull() {
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.calculateColumnTotals( null );
+    }
+    
+    /**
+     * Proves that normalizeCrossRankings() will reject null
+     *  for the 1st argument.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testNormalizeCrossRankings_w1stNull() {
+        double[][] crossRankings = {
+            { 1, 2 },
+            { 2, 3 }
+        };
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.normalizeCrossRankings( crossRankings, null );
+    }
+    
+    /**
+     * Proves that normalizeCrossRankings() will reject null
+     *  for the 2nd argument.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testNormalizeCrossRankings_w2ndNull() {
+        double[] columnTotals = {
+            1, 2
+        };
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.normalizeCrossRankings( null, columnTotals );
+    }
+    
+    /**
+     * Proves that showResults() will reject null values.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testShowResults_wNull() {
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.showResults( null );
+    }
+    // END Destructive Tests
 }

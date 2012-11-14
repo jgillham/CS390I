@@ -12,6 +12,7 @@ import org.junit.Test;
  * @version 10-2-12
  */
 public class ChoiceTest {
+    // BEGIN Good Behavioral Tests
     /**
      * Proves that the constructor runs without errors and
      *  full fills the post conditions.
@@ -42,4 +43,14 @@ public class ChoiceTest {
         instance.setFinalScore( expected );
         assertEquals( expected, instance.getFinalScore() );
     }
+    // END Good Behavioral Tests
+    // BEGIN Destructive Tests
+    /**
+     * Proves the constructor rejects null values.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testConstructor_wNull() {
+        new Choice( null );
+    }
+    // END Destructive Tests
 }

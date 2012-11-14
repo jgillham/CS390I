@@ -12,6 +12,7 @@ import org.junit.Test;
  * @version 11-12-12
  */
 public class GraphicalUserInterfaceTest {
+    // BEGIN Good Behavioral Tests
     /**
      * Prove that the default constructor produces no errors.
      */
@@ -70,4 +71,33 @@ public class GraphicalUserInterfaceTest {
         GraphicalUserInterface instance = new GraphicalUserInterface();
         instance.showMessage( "Ignore this. Thank you." );
     }
+    // END Good Behavioral Tests
+    // BEGIN Destructive Tests
+    /**
+     * Prove that inputYNQuestion() rejects null values.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testInputYNQuestion_wNull() {
+        GraphicalUserInterface instance = new GraphicalUserInterface();
+        instance.inputYNQuestion( null );
+    }
+    
+    /**
+     * Prove that inputQuestion() rejects null values.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testInputQuestion_wNull() {
+        GraphicalUserInterface instance = new GraphicalUserInterface();
+        instance.inputQuestion( null );
+    }
+    
+    /**
+     * Prove that showMessage() rejects null values.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testShowMessage_wNull() {
+        GraphicalUserInterface instance = new GraphicalUserInterface();
+        instance.showMessage( null );
+    }
+    // END Destructive Tests
 }

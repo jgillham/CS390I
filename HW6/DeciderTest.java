@@ -14,6 +14,7 @@ import java.util.LinkedList;
  * @version 11-5-12
  */
 public class DeciderTest {
+    // BEGIN Good Behavioral Tests
     /**
      * Proves calculateFinalScores works as expected.
      * 
@@ -176,5 +177,61 @@ public class DeciderTest {
         }
         
     }
+    // END Good Behavioral Tests
+    // BEGIN Destructive Tests
+    /**
+     * Proves that calculateFinalScores() rejects null values
+     *  for the 1st argument.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testCalculateFinalScores_w1stNull() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        Characteristic chr = new Characteristic( "color" );
+        chr.setRank( 10 );
+        chars.add( chr );
+        chr = new Characteristic( "price" );
+        chr.setRank( 20 );
+        chars.add( chr );
+        double[][] crossRankings = { 
+            { 0.5D, 0.4D, 0.3D, 0.2D },
+            { 0.5D, 0.6D, 0.7D, 0.8D }
+        };
+        Decider.calculateFinalScores( null, chars, crossRankings );
+    }
     
+    /**
+     * Proves that calculateFinalScores() rejects null values
+     *  for the 2nd argument.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testCalculateFinalScores_w2ndNull() {
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        double[][] crossRankings = { 
+            { 0.5D, 0.4D, 0.3D, 0.2D },
+            { 0.5D, 0.6D, 0.7D, 0.8D }
+        };
+        Decider.calculateFinalScores( choices, null, crossRankings );
+    }
+    
+    /**
+     * Proves that calculateFinalScores() rejects null values
+     *  for the 3rd argument.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testCalculateFinalScores_w3rdNull() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        Characteristic chr = new Characteristic( "color" );
+        chr.setRank( 10 );
+        chars.add( chr );
+        chr = new Characteristic( "price" );
+        chr.setRank( 20 );
+        chars.add( chr );
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        Decider.calculateFinalScores( choices, chars, null );
+    }
+    // END Destructive Tests
 }
