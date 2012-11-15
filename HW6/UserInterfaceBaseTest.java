@@ -356,16 +356,14 @@ public class UserInterfaceBaseTest {
     }
     
     /**
-     * Proves that getCrossRankings() will reject
-     *  a null value in the 2nd argument.
+     * Proves that getCharacteristicRankings() will reject
+     *  an empty list.
      */
-    @Test( expected = NullPointerException.class )
-    public void testGetCrossRankings_w2ndNull() {
-        List< Choice > choices = new LinkedList< Choice >();
-        choices.add( new Choice( "hp" ) );
-        choices.add( new Choice( "dell" ) );
+    @Test( expected = IllegalArgumentException.class )
+    public void testgetCharacteristicRankings_wEmpty() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
         InstrumentationUI instance = new InstrumentationUI();
-        instance.getCrossRankings( choices, null, 10 );
+        instance.getCharacteristicRankings( chars, 10 );
     }
     
     /**
@@ -384,6 +382,52 @@ public class UserInterfaceBaseTest {
         chr = new Characteristic( "speed" );
         InstrumentationUI instance = new InstrumentationUI();
         instance.getCrossRankings( null, chars , 10 );
+    }
+    
+    /**
+     * Proves that getCrossRankings() will reject
+     *  a null value in the 2nd argument.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testGetCrossRankings_w2ndNull() {
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.getCrossRankings( choices, null, 10 );
+    }
+    
+    /**
+     * Proves that getCrossRankings() will reject
+     *  an empty list for the 1st parameter.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testGetCrossRankings_w1stEmpty() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        Characteristic chr = new Characteristic( "color" );
+        chr.setRank( 10 );
+        chars.add( chr );
+        chr = new Characteristic( "price" );
+        chr.setRank( 20 );
+        chars.add( chr );
+        chr = new Characteristic( "speed" );
+        List< Choice > choices = new LinkedList< Choice >();
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.getCrossRankings( choices, chars , 10 );
+    }
+    
+    /**
+     * Proves that getCrossRankings() will reject
+     *  an empty list for the 2nd parameter.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testGetCrossRankings_w2ndEmpty() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.getCrossRankings( choices, chars , 10 );
     }
     
     /**
@@ -418,6 +462,39 @@ public class UserInterfaceBaseTest {
     }
     
     /**
+     * Proves that inputCrossRankings() will reject
+     *  an empty list for the 1st parameter.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testInputCrossRankings_w1stEmpty() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        Characteristic chr = new Characteristic( "color" );
+        chr.setRank( 10 );
+        chars.add( chr );
+        chr = new Characteristic( "price" );
+        chr.setRank( 20 );
+        chars.add( chr );
+        chr = new Characteristic( "speed" );
+        List< Choice > choices = new LinkedList< Choice >();
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.inputCrossRankings( choices, chars , 10 );
+    }
+    
+    /**
+     * Proves that inputCrossRankings() will reject
+     *  an empty list for the 2nd parameter.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testInputCrossRankings_w2ndEmpty() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.inputCrossRankings( choices, chars , 10 );
+    }
+    
+    /**
      * Proves that calculateColumnTotals() will reject null
      *  values.
      */
@@ -425,6 +502,20 @@ public class UserInterfaceBaseTest {
     public void testCalculateColumnTotals_wNull() {
         InstrumentationUI instance = new InstrumentationUI();
         instance.calculateColumnTotals( null );
+    }
+    
+    /**
+     * Proves that calculateColumnTotals() will reject arrays
+     *  that have no columns.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testCalculateColumnTotals_wNoColumns() {
+        double[][] crossRankings = {
+            {},
+            {}
+        };
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.calculateColumnTotals( crossRankings );
     }
     
     /**
@@ -455,12 +546,42 @@ public class UserInterfaceBaseTest {
     }
     
     /**
+     * Proves that normalizeCrossRankings() will reject 
+     *  arguments where the inner array lengths are not
+     *  equal.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testNormalizeCrossRankings_wUnequalLengths() {
+        double[][] crossRankings = {
+            { 1, 2 },
+            { 3, 4 }
+        };
+        double[] charTotals = {
+            4
+        };
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.normalizeCrossRankings( crossRankings, charTotals );
+    }
+    
+    /**
      * Proves that showResults() will reject null values.
      */
     @Test( expected = NullPointerException.class )
     public void testShowResults_wNull() {
         InstrumentationUI instance = new InstrumentationUI();
         instance.showResults( null );
+    }
+    
+    /**
+     * Proves that showResults() rejects empty lists.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testShowResults_wEmpty() {
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        InstrumentationUI instance = new InstrumentationUI();
+        instance.showResults( choices );
     }
     // END Destructive Tests
 }
