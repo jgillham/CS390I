@@ -584,4 +584,125 @@ public class UserInterfaceBaseTest {
         instance.showResults( choices );
     }
     // END Destructive Tests
+    // BEGIN Branch Coverage
+    /**
+     * Proves that getChoices() returns an empty list when the user exits too.
+     */
+    @Test
+    public void testGetChoices_EarlyExit() {
+        InstrumentationUI instance = new InstrumentationUI();
+        List actualChoices = instance.getChoices();
+        assertTrue( actualChoices.isEmpty() );
+    }
+    
+    /**
+     * Proves that getCharacteristics() returns an empty list when the user exits too.
+     */
+    @Test
+    public void testgetCharacteristics_EarlyExit() {
+        InstrumentationUI instance = new InstrumentationUI();
+        List actualChoices = instance.getCharacteristics();
+        assertTrue( actualChoices.isEmpty() );
+    }
+    
+    /**
+     * Proves the method returns false when the user cancels early.
+     */
+    @Test
+    public void testGetCharacteristicRankings_EarlyExit() {
+        int[] expected = {
+            10, 40
+        };
+        InstrumentationUI instance = new InstrumentationUI();
+        for ( int val : expected ) {
+            // Check for the default value.
+            if ( val == 10 )
+                // Skip the default value.
+                continue;
+            instance.answers.add( Integer.toString( val ) );
+        }
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        chars.add( new Characteristic( "color" ) );
+        chars.add( new Characteristic( "price" ) );
+        chars.add( new Characteristic( "speed" ) );
+        assertFalse( instance.getCharacteristicRankings( chars, 10 ) );
+    }
+    
+    /**
+     * Prove that getCrossRankings() returns null when the user exits early.
+     */
+    @Test
+    public void testGetCrossRankings_EarlyExit() {
+        {
+            List< Characteristic > chars = new LinkedList< Characteristic >();
+            Characteristic chr = new Characteristic( "color" );
+            chr.setRank( 10 );
+            chars.add( chr );
+            chr = new Characteristic( "price" );
+            chr.setRank( 20 );
+            chars.add( chr );
+            chr = new Characteristic( "speed" );
+            chr.setRank( 30 );
+            chars.add( chr );
+            chr = new Characteristic( "appearance" );
+            chr.setRank( 40 );
+            chars.add( chr );
+            List< Choice > choices = new LinkedList< Choice >();
+            choices.add( new Choice( "hp" ) );
+            choices.add( new Choice( "dell" ) );
+            double[][] input = { 
+                { 5, 15, 20 }
+                //{ 1, 5 },
+                //{ 2, 6 },
+                //{ 3, 7 },
+                //{ 4, 8 }
+            };
+            InstrumentationUI instance = new InstrumentationUI();
+            for ( int r = 0; r < input.length; ++r ) {
+                for ( int c = 0; c < input[r].length; ++c ) {
+                    instance.answers.add( Double.toString( input[r][c] ) );
+                }
+            }
+            double[][] actual = instance.getCrossRankings( choices, chars, 10 );
+            assertNull( actual );
+        }
+    }
+    
+    /**
+     * Proves inputCrossRankings() returns null when the user exits early.
+     */
+    @Test
+    public void inputCrossRankings_EarlyExit() {
+        {
+            List< Characteristic > chars = new LinkedList< Characteristic >();
+            Characteristic chr = new Characteristic( "color" );
+            chr.setRank( 10 );
+            chars.add( chr );
+            chr = new Characteristic( "price" );
+            chr.setRank( 20 );
+            chars.add( chr );
+            chr = new Characteristic( "speed" );
+            chr.setRank( 30 );
+            chars.add( chr );
+            chr = new Characteristic( "appearance" );
+            chr.setRank( 40 );
+            chars.add( chr );
+            List< Choice > choices = new LinkedList< Choice >();
+            choices.add( new Choice( "hp" ) );
+            choices.add( new Choice( "dell" ) );
+            double[][] input = { 
+                { 5, 15, 20 }
+            };
+            InstrumentationUI instance = new InstrumentationUI();
+            for ( int r = 0; r < input.length; ++r ) {
+                for ( int c = 0; c < input[r].length; ++c ) {
+                    instance.answers.add( Double.toString( input[r][c] ) );
+                }
+            }
+            double[][] actual =
+                instance.inputCrossRankings( choices, chars, 10 );
+            assertNull( actual );
+        }
+    }
+    // END Branch Coverage
 }
