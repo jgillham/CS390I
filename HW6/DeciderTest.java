@@ -175,7 +175,6 @@ public class DeciderTest {
         for ( int i = 0; i < expected.length; ++i ) {
             assertEquals( expected[ i ], actual[ i ] );
         }
-        
     }
     // END Good Behavioral Tests
     // BEGIN Destructive Tests
@@ -232,6 +231,272 @@ public class DeciderTest {
         choices.add( new Choice( "hp" ) );
         choices.add( new Choice( "dell" ) );
         Decider.calculateFinalScores( choices, chars, null );
+    }
+    
+    /**
+     * Prove that calculateFinalScores() rejects parameters 
+     *  where the size of the characteristics is not the number of columns
+     *  in crossRankings.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testCalculateFinalScores_FewColumns() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        Characteristic chr = new Characteristic( "color" );
+        chr.setRank( 10 );
+        chars.add( chr );
+        chr = new Characteristic( "price" );
+        chr.setRank( 20 );
+        chars.add( chr );
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        double[][] crossRankings = { 
+            { 0.5D },
+            { 0.5D }
+        };
+        Decider.calculateFinalScores(
+            choices, chars, crossRankings
+        );
+    }
+    
+    /**
+     * Prove that calculateFinalScores() rejects parameters 
+     *  where the size of the choices is not the number of rows in 
+     *  crossRankings.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testCalculateFinalScores_FewRows() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        Characteristic chr = new Characteristic( "color" );
+        chr.setRank( 10 );
+        chars.add( chr );
+        chr = new Characteristic( "price" );
+        chr.setRank( 20 );
+        chars.add( chr );
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        double[][] crossRankings = { 
+            { 0.5D, 0.5D }
+        };
+        Decider.calculateFinalScores(
+            choices, chars, crossRankings
+        );
+    }
+    
+    /**
+     * Prove that calculateFinalScores() rejects parameters 
+     *  where choices is empty.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testCalculateFinalScores_EmptyChoices() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        Characteristic chr = new Characteristic( "color" );
+        chr.setRank( 10 );
+        chars.add( chr );
+        chr = new Characteristic( "price" );
+        chr.setRank( 20 );
+        chars.add( chr );
+        List< Choice > choices = new LinkedList< Choice >();
+        double[][] crossRankings = { 
+            { 0.5D, 0.5D },
+            { 0.5D, 0.5D },
+        };
+        Decider.calculateFinalScores(
+            choices, chars, crossRankings
+        );
+    }
+    
+    /**
+     * Prove that calculateFinalScores() rejects parameters 
+     *  where Characteristics is empty.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testCalculateFinalScores_EmptyCharacs() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        double[][] crossRankings = { 
+            { 0.5D, 0.5D },
+            { 0.5D, 0.5D }
+        };
+        Decider.calculateFinalScores(
+            choices, chars, crossRankings
+        );
+    }
+    
+    /**
+     * Proves that calculateUnnormalizedFinalScores() rejects null values
+     *  for the 1st argument.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testCalculateUnnormalizedFinalScores_w1stNull() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        Characteristic chr = new Characteristic( "color" );
+        chr.setRank( 10 );
+        chars.add( chr );
+        chr = new Characteristic( "price" );
+        chr.setRank( 20 );
+        chars.add( chr );
+        double[][] crossRankings = { 
+            { 0.5D, 0.4D, 0.3D, 0.2D },
+            { 0.5D, 0.6D, 0.7D, 0.8D }
+        };
+        Decider.calculateUnnormalizedFinalScores( null, chars, crossRankings );
+    }
+    
+    /**
+     * Proves that calculateUnnormalizedFinalScores() rejects null values
+     *  for the 2nd argument.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testCalculateUnnormalizedFinalScores_w2ndNull() {
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        double[][] crossRankings = { 
+            { 0.5D, 0.4D, 0.3D, 0.2D },
+            { 0.5D, 0.6D, 0.7D, 0.8D }
+        };
+        Decider.calculateUnnormalizedFinalScores( choices, null, crossRankings );
+    }
+    
+    /**
+     * Proves that calculateUnnormalizedFinalScores() rejects null values
+     *  for the 3rd argument.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testCalculateUnnormalizedFinalScores_w3rdNull() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        Characteristic chr = new Characteristic( "color" );
+        chr.setRank( 10 );
+        chars.add( chr );
+        chr = new Characteristic( "price" );
+        chr.setRank( 20 );
+        chars.add( chr );
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        Decider.calculateUnnormalizedFinalScores( choices, chars, null );
+    }
+    
+    /**
+     * Prove that calculateUnnormalizedFinalScores() rejects parameters 
+     *  where the size of the characteristics is not the number of columns
+     *  in crossRankings.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testCalculateUnnormalizedFinalScores_FewColumns() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        Characteristic chr = new Characteristic( "color" );
+        chr.setRank( 10 );
+        chars.add( chr );
+        chr = new Characteristic( "price" );
+        chr.setRank( 20 );
+        chars.add( chr );
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        double[][] crossRankings = { 
+            { 0.5D },
+            { 0.5D }
+        };
+        Decider.calculateUnnormalizedFinalScores(
+            choices, chars, crossRankings
+        );
+    }
+    
+    /**
+     * Prove that calculateUnnormalizedFinalScores() rejects parameters 
+     *  where the size of the choices is not the number of rows in 
+     *  crossRankings.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testCalculateUnnormalizedFinalScores_FewRows() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        Characteristic chr = new Characteristic( "color" );
+        chr.setRank( 10 );
+        chars.add( chr );
+        chr = new Characteristic( "price" );
+        chr.setRank( 20 );
+        chars.add( chr );
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        double[][] crossRankings = { 
+            { 0.5D, 0.5D }
+        };
+        Decider.calculateUnnormalizedFinalScores(
+            choices, chars, crossRankings
+        );
+    }
+    
+    /**
+     * Prove that calculateUnnormalizedFinalScores() rejects parameters 
+     *  where choices is empty.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testCalculateUnnormalizedFinalScores_EmptyChoices() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        Characteristic chr = new Characteristic( "color" );
+        chr.setRank( 10 );
+        chars.add( chr );
+        chr = new Characteristic( "price" );
+        chr.setRank( 20 );
+        chars.add( chr );
+        List< Choice > choices = new LinkedList< Choice >();
+        double[][] crossRankings = { 
+            { 0.5D, 0.5D },
+            { 0.5D, 0.5D },
+        };
+        Decider.calculateUnnormalizedFinalScores(
+            choices, chars, crossRankings
+        );
+    }
+    
+    /**
+     * Prove that calculateUnnormalizedFinalScores() rejects parameters 
+     *  where Characteristics is empty.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testCalculateUnnormalizedFinalScores_EmptyCharacs() {
+        List< Characteristic > chars = new LinkedList< Characteristic >();
+        List< Choice > choices = new LinkedList< Choice >();
+        choices.add( new Choice( "hp" ) );
+        choices.add( new Choice( "dell" ) );
+        double[][] crossRankings = { 
+            { 0.5D, 0.5D },
+            { 0.5D, 0.5D }
+        };
+        Decider.calculateUnnormalizedFinalScores(
+            choices, chars, crossRankings
+        );
+    }
+    
+    /**
+     * Prove that normalizeValues rejects empty arrays.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testNormalizeValues_Empty() {
+        double[] data = { };
+        Decider.normalizeValues( data, 3D, 100D );
+    }
+    
+    /**
+     * Prove that normalizeValues rejects empty arrays.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testNormalizeValues_wNull() {
+        Decider.normalizeValues( null, 3D, 100D );
+    }
+    
+    /**
+     * Prove that findMax() rejects null parameters.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testFindMax_wNull() {
+        Decider.findMax( null );
     }
     // END Destructive Tests
 }
