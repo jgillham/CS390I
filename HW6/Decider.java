@@ -32,12 +32,23 @@ public class Decider {
     /**
      * Fill in the finalScore attribute for every choice.
      * 
+     * Preconditions:
+     * -choices and characs is not empty.
+     * -The size of choices is the number of rows in crossRankings.
+     * -The size of characs is the number of columns in crossRankings.
+     * 
+     * Post Conditions:
+     * -final score is set for each Choice in choices.
+     * 
      * @param choices the choices under consideration.
      * @param characs is the characterists per choice.
      * @param crossRankings is the importance rank.
      * 
      * @throws NullPointerException if choices, characs, or 
      *  crossRankings is null.
+     * @throws IllegalArgumentException if choices or characs is empty
+     *  OR if choices.size() is not equal to crossRankings.length
+     *  OR if characs.size() is not equal to crossRankings[0].length
      */
     //Changed to public
     public static void calculateFinalScores(List<Choice> choices, 
@@ -56,6 +67,9 @@ public class Decider {
     /**
      * Normalizes the array of values with the max.
      * 
+     * Preconditions:
+     * -values should have at least 1 element.
+     * 
      * @param values the array of values.
      * @param max the maximum value to normalize by.
      * @param threshHold is the value that the maximum value maps to.
@@ -63,6 +77,7 @@ public class Decider {
      * @return the normalized array.
      * 
      * @throws NullPointerException if values is null.
+     * @throws IllegalArgumentException if values is empty.
      */
     static public int[] normalizeValues( double[] values, double max,
             double threshHold ) {
@@ -96,6 +111,11 @@ public class Decider {
      *  cross ranking of each characteristic per choice 
      *  multiplied by the characteristic rank.
      * 
+     * Preconditions:
+     * -Expects choices and characs to not be empty.
+     * -The size of choices must be the number of rows in crossRankings.
+     * -The size of characs must be the number of columns in crossRankings.
+     * 
      * @param choices is the list of choices.
      * @param characs is the list of characteristics.
      * @param crossRankings is the ranking of the choice x characteristics.
@@ -104,6 +124,9 @@ public class Decider {
      * 
      * @throws NullPointerException if choices, characs, or crossRankings 
      *  is null
+     * @throws IllegalArgumentException if choices or characs is empty
+     *  OR if choices.size() is not equal to crossRankings.length
+     *  OR if characs.size() is not equal to crossRankings[0].length
      */
     static public double[] calculateUnnormalizedFinalScores( 
             List<Choice> choices, List<Characteristic> characs, 
