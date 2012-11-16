@@ -99,12 +99,17 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @param defaultValue hte default value for a ranking.
      * 
      * @throws NullPointerException if characteristics is null.
+     * @throws IllegalArgumentException if characteristics is empty.
      * 
      * @return true if the user completes the process 
      *  OR false if the user cancels.
      */
     public boolean getCharacteristicRankings( 
             List<Characteristic> characteristics, int defaultValue) {
+        if( characteristics.isEmpty() )
+            throw new IllegalArgumentException(
+                "Characteristics cannot be empty."
+            );
         boolean userCompleted = true;
         String chr = null;
         String defaultChar = characteristics.get( 0 ).getName();
@@ -152,8 +157,10 @@ public abstract class UserInterfaceBase implements UserInterface {
         double[][] crossRankings = inputCrossRankings(
             choices, characteristics, defaultValue
         );
-        double[] charTotals = calculateColumnTotals( crossRankings );
-        normalizeCrossRankings( crossRankings, charTotals );
+        if( crossRankings != null ) {
+            double[] charTotals = calculateColumnTotals( crossRankings );
+            normalizeCrossRankings( crossRankings, charTotals );
+        }
         return crossRankings;
     }
     
@@ -173,10 +180,15 @@ public abstract class UserInterfaceBase implements UserInterface {
      *  OR null if the user cancels the process.
      * 
      * @throws NullPointerException if choices or characteristics is null.
+     * @throws IllegalArgumentException if choices or characteristics is empty.
      */
     public double[][] inputCrossRankings( List<Choice> choices,
             List<Characteristic> characteristics,
             int defaultValue ) {
+        if( choices.isEmpty() || characteristics.isEmpty() )
+            throw new IllegalArgumentException(
+                "Choices or characteristics cannot be empty."
+            );
         double[][] crossRankings =
             new double[choices.size()][characteristics.size()];
         String defaultChoice = choices.get( 0 ).getName();
@@ -210,8 +222,13 @@ public abstract class UserInterfaceBase implements UserInterface {
      *  column total.
      *  
      * @throws NullPointerException if crossRankings is null.
+     * @throws IllegalArgumentException if crossRankings has no columns.
      */
     public double[] calculateColumnTotals( double[][] crossRankings ) {
+        if( crossRankings[0].length == 0 )
+            throw new IllegalArgumentException(
+                "crossRankings cannot have only 1 column."
+            );
         double[] charTotals = new double[ crossRankings[0].length ];
         for ( int c = 0; c < crossRankings[0].length; ++c ) {
             charTotals[c] = 0;
@@ -237,9 +254,16 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @param charTotals the array of column totals.
      * 
      * @throws NullPointerException if crossRankings or charTotals is null.
+     * @throws IllegalArgumentException if the number of columns in 
+     *  crossRankings is not equal to the length in charTotals.
      */
     public void normalizeCrossRankings( double[][] crossRankings, 
             double[] charTotals ) {
+        if( crossRankings[0].length != charTotals.length )
+            throw new IllegalArgumentException(
+                "Columns in crossRankings is not the same length" +
+                " as charTotals"
+            );
         for ( int r = 0; r < crossRankings.length; ++r ) {
             for ( int c = 0; c < crossRankings[0].length; ++c ) {
                 crossRankings[r][c] /= charTotals[c];
@@ -257,8 +281,13 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @param choices the list of choices.
      * 
      * @throws NullPointerException if choices is null.
+     * @throws IllegalArgumentException if choices is empty.
      */
     public void showResults( List<Choice> choices ) {
+        if( choices.isEmpty() )
+            throw new IllegalArgumentException(
+                "Choices cannot be empty."
+            );
         StringBuilder results = new StringBuilder();
         for ( Choice choice : choices ) {
             results.append( "The final score of " );

@@ -578,8 +578,6 @@ public class UserInterfaceBaseTest {
     @Test( expected = IllegalArgumentException.class )
     public void testShowResults_wEmpty() {
         List< Choice > choices = new LinkedList< Choice >();
-        choices.add( new Choice( "hp" ) );
-        choices.add( new Choice( "dell" ) );
         InstrumentationUI instance = new InstrumentationUI();
         instance.showResults( choices );
     }
