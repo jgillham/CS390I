@@ -81,6 +81,8 @@ public class Decider {
      */
     static public int[] normalizeValues( double[] values, double max,
             double threshHold ) {
+        if ( values.length == 0 )
+            throw new IllegalArgumentException( "values was empty." );
         int[] ret = new int[values.length];
         for ( int i = 0; i < values.length; ++i ) {
             ret[i] = (int)(values[ i ] * threshHold / max);
@@ -131,6 +133,16 @@ public class Decider {
     static public double[] calculateUnnormalizedFinalScores( 
             List<Choice> choices, List<Characteristic> characs, 
             double[][] crossRankings ) {
+        if ( choices.isEmpty() || characs.isEmpty() )
+            throw new IllegalArgumentException( 
+                "Characs or choices cannot be empty."
+            );
+        if ( choices.size() != crossRankings.length || 
+                characs.size() != crossRankings[0].length )
+            throw new IllegalArgumentException( 
+                "There is not one column for each characteristic " +
+                "OR there is not one row for each chocie."
+            );
         double[] finalScores = new double[choices.size()];
         for ( int r = 0; r < choices.size(); ++r ) {
             double choiceTotal = 0;
