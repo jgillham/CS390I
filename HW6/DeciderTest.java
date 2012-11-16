@@ -16,12 +16,31 @@ import java.util.LinkedList;
 public class DeciderTest {
     // BEGIN Good Behavioral Tests
     /**
+     * Proves that performAssistance() works as expected.
+     */
+    @Test
+    public void testPerformAssistance() {
+        InstrumentationUI ui = new InstrumentationUI();
+        ui.answers.add( "dog" );
+        ui.answers.add( "cat" );
+        ui.answers.add( "bird" );
+        ui.answers.add( null );
+        ui.answers.add( "playfulness" );
+        ui.answers.add( "appearance" );
+        ui.answers.add( null );
+        ui.answers.add( "30" );
+        ui.answers.add( "4" );
+        
+        ui.answers.add( "7" );
+        ui.answers.add( "15" );
+        ui.answers.add( "5" );
+        ui.answers.add( "30" );
+        
+        List<Choice> choices = Decider.performAssistance( (UserInterface)ui );
+        
+    }
+    /**
      * Proves calculateFinalScores works as expected.
-     * 
-     * I noticed:
-     * As long as the geometric relationship between the 
-     *  characteristic rankings is the same, the rankings 
-     *  can be changed.
      */
     @Test
     public void testCalculateFinalScores() {

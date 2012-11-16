@@ -16,60 +16,6 @@ import java.util.Iterator;
  * @version 10-29-12
  */
 public class UserInterfaceBaseTest {
-    /** Provides a test instrument for UserInterface. */
-    class InstrumentationUI extends UserInterfaceBase {
-        /** Holds a list of answers to yes or no questions. */
-        public Queue< YNAnswer > answersYN = new LinkedList< YNAnswer >();
-        /** Holds a list of answers to text questions. */
-        public Queue< String > answers = new LinkedList< String >();
-        /** Counts the number of messages shown. */
-        public int messagesShown = 0;
-        /** Povides a empty constructor. */
-        public InstrumentationUI( ) {
-        }
-        /**
-         * Provides a constructor with the first answers. 
-         * 
-         * @param nextYN is the next answer to a yes or no question.
-         * @param nextQuestion is the next answer to a text question.
-         */
-        public InstrumentationUI( YNAnswer nextYN, String nextQuestion ) {
-            this.answersYN.add( nextYN );
-            this.answers.add( nextQuestion );
-        }
-        
-        /**
-         * Gets the first preloaded answer off the queue.
-         * 
-         * @param message is not used.
-         * 
-         * @return the preloaded yes or no answer.
-         */
-        public YNAnswer inputYNQuestion( String message ) {
-            return this.answersYN.poll();
-        }
-        
-        /**
-         * Gets the first preloaded text answer off the queue.
-         * 
-         * @param message is not used.
-         * 
-         * @return the preloaded text answer.
-         */
-        public String inputQuestion( String message ) { 
-            return this.answers.poll();
-        }
-        
-        /**
-         * Counts the number of times this method is called.
-         * 
-         * @param message is not used.
-         */
-        public void showMessage( String message ) { 
-            ++messagesShown;
-        }
-    }
-    
     // BEGIN Good Behavior Tests
     /**
      * Proves the user can input the choices.
@@ -185,6 +131,42 @@ public class UserInterfaceBaseTest {
                 //{ 2D/8D, 6D/8D },
                 //{ 3D/10D, 7D/10D },
                 //{ 4D/12D, 8D/12D }
+            };
+            double[][] actual = instance.getCrossRankings( choices, chars, 10 );
+            assertEquals( expected.length, actual.length );
+            assertEquals( expected[0].length, actual[0].length );
+            for ( int r = 0; r < expected.length; ++r ) {
+                for ( int c = 0; c < expected[r].length; ++c ) {
+                    assertEquals( expected[r][c], actual[r][c], 0.1 );
+                }
+            }
+        }
+        {
+            List< Characteristic > chars = new LinkedList< Characteristic >();
+            Characteristic chr = new Characteristic( "playfulness" );
+            chr.setRank( 10 );
+            chars.add( chr );
+            chr = new Characteristic( "appearance" );
+            chr.setRank( 20 );
+            chars.add( chr );
+            List< Choice > choices = new LinkedList< Choice >();
+            choices.add( new Choice( "dog" ) );
+            choices.add( new Choice( "cat" ) );
+            choices.add( new Choice( "bird" ) );
+            double[][] input = { 
+                { 7, 15, },
+                { 5, 30 }
+            };
+            InstrumentationUI instance = new InstrumentationUI();
+            for ( int r = 0; r < input.length; ++r ) {
+                for ( int c = 0; c < input[r].length; ++c ) {
+                    instance.answers.add( Double.toString( input[r][c] ) );
+                }
+            }
+            double[][] expected = { 
+                { 0.45D, 0.13D },
+                { 0.32D, 0.27D },
+                { 0.23D, 0.55D }
             };
             double[][] actual = instance.getCrossRankings( choices, chars, 10 );
             assertEquals( expected.length, actual.length );
