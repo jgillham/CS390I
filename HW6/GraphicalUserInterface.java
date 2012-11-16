@@ -18,6 +18,8 @@ public class GraphicalUserInterface extends UserInterfaceBase {
      * @throws NullPointerException if message is null.
      */
     public YNAnswer inputYNQuestion( String message ) { 
+        if( message == null )
+            throw new NullPointerException( "Message was null." );
         int result = JOptionPane.showConfirmDialog( 
             null, message, "", JOptionPane.YES_NO_OPTION
         );
@@ -38,6 +40,8 @@ public class GraphicalUserInterface extends UserInterfaceBase {
      * @throws NullPointerException if message is null.
      */
     public String inputQuestion( String message ) {
+        if( message == null )
+            throw new NullPointerException( "Message was null." );
         return JOptionPane.showInputDialog( message );
     }
     
@@ -49,6 +53,8 @@ public class GraphicalUserInterface extends UserInterfaceBase {
      * @throws NullPointerException if message is null.
      */
     public void showMessage( String message ) { 
+        if( message == null )
+            throw new NullPointerException( "Message was null." );
         JOptionPane.showMessageDialog( null, message );
     }
 }
