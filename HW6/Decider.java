@@ -7,28 +7,36 @@ import java.util.List;
  * @version 10-28-12
  */
 public class Decider {
+    static final int STANDARD = 10;
     /**
      * Bootstrappes the DSS.
      * 
      * @param args not used.
      */
     public static void main(String[] args) {
-        final int STANDARD = 10;
-        List<Choice> choices;
-        List<Characteristic> characteristics;
-        double[][] crossRankings;
-        UserInterface ui;
-        ui = new GraphicalUserInterface();
+        UserInterface ui = new GraphicalUserInterface();
         //ui = new ConsoleUserInterface(); 
-        choices = ui.getChoices();
-        characteristics = ui.getCharacteristics();
-        ui.getCharacteristicRankings(characteristics, STANDARD);
-        crossRankings = ui.getCrossRankings(choices, characteristics, 
-            STANDARD);
-        calculateFinalScores(choices, characteristics, crossRankings);
+        List<Choice> choices = performAssistance( ui );
         ui.showResults(choices);
     }
     
+    /**
+     * Walks through the decision making process with the
+     *  user.
+     * 
+     * @param ui is a reference to the user interface.
+     * 
+     * @return the list of choices with final scores.
+     */
+    public static List< Choice > performAssistance( UserInterface ui ) {
+        List<Choice> choices = ui.getChoices();
+        List<Characteristic> characteristics = ui.getCharacteristics();
+        ui.getCharacteristicRankings(characteristics, STANDARD);
+        double[][] crossRankings = ui.getCrossRankings(choices, characteristics, 
+            STANDARD);
+        calculateFinalScores(choices, characteristics, crossRankings);
+        return choices;
+    }
     /**
      * Fill in the finalScore attribute for every choice.
      * 
