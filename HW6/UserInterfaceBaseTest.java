@@ -158,8 +158,8 @@ public class UserInterfaceBaseTest {
                 { 5, 30 }
             };
             InstrumentationUI instance = new InstrumentationUI();
-            for ( int r = 0; r < input.length; ++r ) {
-                for ( int c = 0; c < input[r].length; ++c ) {
+            for ( int c = 0; c < input[0].length; ++c ) {
+                for ( int r = 0; r < input.length; ++r ) {
                     instance.answers.add( Double.toString( input[r][c] ) );
                 }
             }
@@ -177,43 +177,45 @@ public class UserInterfaceBaseTest {
                 }
             }
         }
-        List< Characteristic > chars = new LinkedList< Characteristic >();
-        Characteristic chr = new Characteristic( "color" );
-        chr.setRank( 10 );
-        chars.add( chr );
-        chr = new Characteristic( "price" );
-        chr.setRank( 20 );
-        chars.add( chr );
-        List< Choice > choices = new LinkedList< Choice >();
-        choices.add( new Choice( "hp" ) );
-        choices.add( new Choice( "dell" ) );
-        double[][] input = { 
-            { 5, 15 }
-            //{ 1, 5 },
-            //{ 2, 6 },
-            //{ 3, 7 },
-            //{ 4, 8 }
-        };
-        InstrumentationUI instance = new InstrumentationUI();
-        for ( int r = 0; r < input.length; ++r ) {
-            for ( int c = 0; c < input[r].length; ++c ) {
-                instance.answers.add( Double.toString( input[r][c] ) );
+        {
+            List< Characteristic > chars = new LinkedList< Characteristic >();
+            Characteristic chr = new Characteristic( "color" );
+            chr.setRank( 10 );
+            chars.add( chr );
+            chr = new Characteristic( "price" );
+            chr.setRank( 20 );
+            chars.add( chr );
+            List< Choice > choices = new LinkedList< Choice >();
+            choices.add( new Choice( "hp" ) );
+            choices.add( new Choice( "dell" ) );
+            double[][] input = { 
+                { 5, 15 }
+                //{ 1, 5 },
+                //{ 2, 6 },
+                //{ 3, 7 },
+                //{ 4, 8 }
+            };
+            InstrumentationUI instance = new InstrumentationUI();
+            for ( int r = 0; r < input.length; ++r ) {
+                for ( int c = 0; c < input[r].length; ++c ) {
+                    instance.answers.add( Double.toString( input[r][c] ) );
+                }
             }
-        }
-        double[][] expected = { 
-            { 10D / 15D, 10D / 25D },
-            { 5D / 15D, 15D / 25D }
-            //{ 1D/6D, 5D/6D },
-            //{ 2D/8D, 6D/8D },
-            //{ 3D/10D, 7D/10D },
-            //{ 4D/12D, 8D/12D }
-        };
-        double[][] actual = instance.getCrossRankings( choices, chars, 10 );
-        assertEquals( expected.length, actual.length );
-        assertEquals( expected[0].length, actual[0].length );
-        for ( int r = 0; r < expected.length; ++r ) {
-            for ( int c = 0; c < expected[r].length; ++c ) {
-                assertEquals( expected[r][c], actual[r][c], 0.1 );
+            double[][] expected = { 
+                { 10D / 15D, 10D / 25D },
+                { 5D / 15D, 15D / 25D }
+                //{ 1D/6D, 5D/6D },
+                //{ 2D/8D, 6D/8D },
+                //{ 3D/10D, 7D/10D },
+                //{ 4D/12D, 8D/12D }
+            };
+            double[][] actual = instance.getCrossRankings( choices, chars, 10 );
+            assertEquals( expected.length, actual.length );
+            assertEquals( expected[0].length, actual[0].length );
+            for ( int r = 0; r < expected.length; ++r ) {
+                for ( int c = 0; c < expected[r].length; ++c ) {
+                    assertEquals( expected[r][c], actual[r][c], 0.1 );
+                }
             }
         }
     }
