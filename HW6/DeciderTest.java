@@ -202,7 +202,7 @@ public class DeciderTest {
      *  for the 1st argument.
      */
     @Test( expected = NullPointerException.class )
-    public void testCalculateFinalScores_w1stNull() {
+    public void testCalculateFinalScoresFirstNull() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         Characteristic chr = new Characteristic( "color" );
         chr.setRank( 10 );
@@ -222,7 +222,7 @@ public class DeciderTest {
      *  for the 2nd argument.
      */
     @Test( expected = NullPointerException.class )
-    public void testCalculateFinalScores_w2ndNull() {
+    public void testCalculateFinalScoresSecondNull() {
         List< Choice > choices = new LinkedList< Choice >();
         choices.add( new Choice( "hp" ) );
         choices.add( new Choice( "dell" ) );
@@ -238,7 +238,7 @@ public class DeciderTest {
      *  for the 3rd argument.
      */
     @Test( expected = NullPointerException.class )
-    public void testCalculateFinalScores_w3rdNull() {
+    public void testCalculateFinalScoresThirdNull() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         Characteristic chr = new Characteristic( "color" );
         chr.setRank( 10 );
@@ -258,7 +258,7 @@ public class DeciderTest {
      *  in crossRankings.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testCalculateFinalScores_FewColumns() {
+    public void testCalculateFinalScoresFewColumns() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         Characteristic chr = new Characteristic( "color" );
         chr.setRank( 10 );
@@ -284,7 +284,7 @@ public class DeciderTest {
      *  crossRankings.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testCalculateFinalScores_FewRows() {
+    public void testCalculateFinalScoresFewRows() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         Characteristic chr = new Characteristic( "color" );
         chr.setRank( 10 );
@@ -308,7 +308,7 @@ public class DeciderTest {
      *  where choices is empty.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testCalculateFinalScores_EmptyChoices() {
+    public void testCalculateFinalScoresEmptyChoices() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         Characteristic chr = new Characteristic( "color" );
         chr.setRank( 10 );
@@ -331,7 +331,7 @@ public class DeciderTest {
      *  where Characteristics is empty.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testCalculateFinalScores_EmptyCharacs() {
+    public void testCalculateFinalScoresEmptyCharacs() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         List< Choice > choices = new LinkedList< Choice >();
         choices.add( new Choice( "hp" ) );
@@ -350,7 +350,7 @@ public class DeciderTest {
      *  for the 1st argument.
      */
     @Test( expected = NullPointerException.class )
-    public void testCalculateUnnormalizedFinalScores_w1stNull() {
+    public void testCalculateUnnormalizedFinalScoresFirstNull() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         Characteristic chr = new Characteristic( "color" );
         chr.setRank( 10 );
@@ -370,7 +370,7 @@ public class DeciderTest {
      *  for the 2nd argument.
      */
     @Test( expected = NullPointerException.class )
-    public void testCalculateUnnormalizedFinalScores_w2ndNull() {
+    public void testCalculateUnnormalizedFinalScoresSecondNull() {
         List< Choice > choices = new LinkedList< Choice >();
         choices.add( new Choice( "hp" ) );
         choices.add( new Choice( "dell" ) );
@@ -378,7 +378,9 @@ public class DeciderTest {
             { 0.5D, 0.4D, 0.3D, 0.2D },
             { 0.5D, 0.6D, 0.7D, 0.8D }
         };
-        Decider.calculateUnnormalizedFinalScores( choices, null, crossRankings );
+        Decider.calculateUnnormalizedFinalScores( 
+            choices, null, crossRankings
+        );
     }
     
     /**
@@ -386,7 +388,7 @@ public class DeciderTest {
      *  for the 3rd argument.
      */
     @Test( expected = NullPointerException.class )
-    public void testCalculateUnnormalizedFinalScores_w3rdNull() {
+    public void testCalculateUnnormalizedFinalScoresThirdNull() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         Characteristic chr = new Characteristic( "color" );
         chr.setRank( 10 );
@@ -406,7 +408,7 @@ public class DeciderTest {
      *  in crossRankings.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testCalculateUnnormalizedFinalScores_FewColumns() {
+    public void testCalculateUnnormalizedFinalScoresFewColumns() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         Characteristic chr = new Characteristic( "color" );
         chr.setRank( 10 );
@@ -432,7 +434,7 @@ public class DeciderTest {
      *  crossRankings.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testCalculateUnnormalizedFinalScores_FewRows() {
+    public void testCalculateUnnormalizedFinalScoresFewRows() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         Characteristic chr = new Characteristic( "color" );
         chr.setRank( 10 );
@@ -456,7 +458,7 @@ public class DeciderTest {
      *  where choices is empty.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testCalculateUnnormalizedFinalScores_EmptyChoices() {
+    public void testCalculateUnnormalizedFinalScoresEmptyChoices() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         Characteristic chr = new Characteristic( "color" );
         chr.setRank( 10 );
@@ -479,7 +481,7 @@ public class DeciderTest {
      *  where Characteristics is empty.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testCalculateUnnormalizedFinalScores_EmptyCharacs() {
+    public void testCalculateUnnormalizedFinalScoresEmptyCharacs() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         List< Choice > choices = new LinkedList< Choice >();
         choices.add( new Choice( "hp" ) );
@@ -497,7 +499,7 @@ public class DeciderTest {
      * Prove that normalizeValues rejects empty arrays.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testNormalizeValues_Empty() {
+    public void testNormalizeValuesEmpty() {
         double[] data = { };
         Decider.normalizeValues( data, 3D, 100D );
     }
@@ -506,7 +508,7 @@ public class DeciderTest {
      * Prove that normalizeValues rejects empty arrays.
      */
     @Test( expected = NullPointerException.class )
-    public void testNormalizeValues_wNull() {
+    public void testNormalizeValuesNull() {
         Decider.normalizeValues( null, 3D, 100D );
     }
     
@@ -514,7 +516,7 @@ public class DeciderTest {
      * Prove that findMax() rejects null parameters.
      */
     @Test( expected = NullPointerException.class )
-    public void testFindMax_wNull() {
+    public void testFindMaxNull() {
         Decider.findMax( null );
     }
     // END Destructive Tests

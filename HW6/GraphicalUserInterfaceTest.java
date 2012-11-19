@@ -77,7 +77,7 @@ public class GraphicalUserInterfaceTest {
      * Prove that inputYNQuestion() rejects null values.
      */
     @Test( expected = NullPointerException.class )
-    public void testInputYNQuestion_wNull() {
+    public void testInputYNQuestionNull() {
         GraphicalUserInterface instance = new GraphicalUserInterface();
         instance.inputYNQuestion( null );
     }
@@ -86,7 +86,7 @@ public class GraphicalUserInterfaceTest {
      * Prove that inputQuestion() rejects null values.
      */
     @Test( expected = NullPointerException.class )
-    public void testInputQuestion_wNull() {
+    public void testInputQuestionNull() {
         GraphicalUserInterface instance = new GraphicalUserInterface();
         instance.inputQuestion( null );
     }
@@ -95,7 +95,7 @@ public class GraphicalUserInterfaceTest {
      * Prove that showMessage() rejects null values.
      */
     @Test( expected = NullPointerException.class )
-    public void testShowMessage_wNull() {
+    public void testShowMessageNull() {
         GraphicalUserInterface instance = new GraphicalUserInterface();
         instance.showMessage( null );
     }

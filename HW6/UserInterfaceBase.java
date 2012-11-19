@@ -106,7 +106,7 @@ public abstract class UserInterfaceBase implements UserInterface {
      */
     public boolean getCharacteristicRankings( 
             List<Characteristic> characteristics, int defaultValue) {
-        if( characteristics.isEmpty() )
+        if ( characteristics.isEmpty() )
             throw new IllegalArgumentException(
                 "Characteristics cannot be empty."
             );
@@ -157,7 +157,7 @@ public abstract class UserInterfaceBase implements UserInterface {
         double[][] crossRankings = inputCrossRankings(
             choices, characteristics, defaultValue
         );
-        if( crossRankings != null ) {
+        if ( crossRankings != null ) {
             double[] charTotals = calculateColumnTotals( crossRankings );
             normalizeCrossRankings( crossRankings, charTotals );
         }
@@ -185,7 +185,7 @@ public abstract class UserInterfaceBase implements UserInterface {
     public double[][] inputCrossRankings( List<Choice> choices,
             List<Characteristic> characteristics,
             int defaultValue ) {
-        if( choices.isEmpty() || characteristics.isEmpty() )
+        if ( choices.isEmpty() || characteristics.isEmpty() )
             throw new IllegalArgumentException(
                 "Choices or characteristics cannot be empty."
             );
@@ -225,7 +225,7 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @throws IllegalArgumentException if crossRankings has no columns.
      */
     public double[] calculateColumnTotals( double[][] crossRankings ) {
-        if( crossRankings[0].length == 0 )
+        if ( crossRankings[0].length == 0 )
             throw new IllegalArgumentException(
                 "crossRankings cannot have only 1 column."
             );
@@ -259,7 +259,7 @@ public abstract class UserInterfaceBase implements UserInterface {
      */
     public void normalizeCrossRankings( double[][] crossRankings, 
             double[] charTotals ) {
-        if( crossRankings[0].length != charTotals.length )
+        if ( crossRankings[0].length != charTotals.length )
             throw new IllegalArgumentException(
                 "Columns in crossRankings is not the same length" +
                 " as charTotals"
@@ -284,7 +284,7 @@ public abstract class UserInterfaceBase implements UserInterface {
      * @throws IllegalArgumentException if choices is empty.
      */
     public void showResults( List<Choice> choices ) {
-        if( choices.isEmpty() )
+        if ( choices.isEmpty() )
             throw new IllegalArgumentException(
                 "Choices cannot be empty."
             );

@@ -32,8 +32,9 @@ public class Decider {
         List<Choice> choices = ui.getChoices();
         List<Characteristic> characteristics = ui.getCharacteristics();
         ui.getCharacteristicRankings(characteristics, STANDARD);
-        double[][] crossRankings = ui.getCrossRankings(choices, characteristics, 
-            STANDARD);
+        double[][] crossRankings = ui.getCrossRankings(
+            choices, characteristics, STANDARD
+        );
         calculateFinalScores(choices, characteristics, crossRankings);
         return choices;
     }

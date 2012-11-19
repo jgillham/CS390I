@@ -334,7 +334,7 @@ public class UserInterfaceBaseTest {
      *  null values.
      */
     @Test( expected = NullPointerException.class )
-    public void testGetCharacteristicRankings_wNull() {
+    public void testGetCharacteristicRankingsNull() {
         InstrumentationUI instance = new InstrumentationUI();
         instance.getCharacteristicRankings( null, 10 );
     }
@@ -344,7 +344,7 @@ public class UserInterfaceBaseTest {
      *  an empty list.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testgetCharacteristicRankings_wEmpty() {
+    public void testgetCharacteristicRankingsEmpty() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         InstrumentationUI instance = new InstrumentationUI();
         instance.getCharacteristicRankings( chars, 10 );
@@ -355,7 +355,7 @@ public class UserInterfaceBaseTest {
      *  a null value in the 1st argument.
      */
     @Test( expected = NullPointerException.class )
-    public void testGetCrossRankings_w1stNull() {
+    public void testGetCrossRankingsFirstNull() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         Characteristic chr = new Characteristic( "color" );
         chr.setRank( 10 );
@@ -373,7 +373,7 @@ public class UserInterfaceBaseTest {
      *  a null value in the 2nd argument.
      */
     @Test( expected = NullPointerException.class )
-    public void testGetCrossRankings_w2ndNull() {
+    public void testGetCrossRankingsSecondNull() {
         List< Choice > choices = new LinkedList< Choice >();
         choices.add( new Choice( "hp" ) );
         choices.add( new Choice( "dell" ) );
@@ -386,7 +386,7 @@ public class UserInterfaceBaseTest {
      *  an empty list for the 1st parameter.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testGetCrossRankings_w1stEmpty() {
+    public void testGetCrossRankingsFirstEmpty() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         Characteristic chr = new Characteristic( "color" );
         chr.setRank( 10 );
@@ -405,7 +405,7 @@ public class UserInterfaceBaseTest {
      *  an empty list for the 2nd parameter.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testGetCrossRankings_w2ndEmpty() {
+    public void testGetCrossRankingsSecondEmpty() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         List< Choice > choices = new LinkedList< Choice >();
         choices.add( new Choice( "hp" ) );
@@ -419,7 +419,7 @@ public class UserInterfaceBaseTest {
      *  a null value in the 2nd argument.
      */
     @Test( expected = NullPointerException.class )
-    public void testInputCrossRankings_w2ndNull() {
+    public void testInputCrossRankingsSecondNull() {
         List< Choice > choices = new LinkedList< Choice >();
         choices.add( new Choice( "hp" ) );
         choices.add( new Choice( "dell" ) );
@@ -432,7 +432,7 @@ public class UserInterfaceBaseTest {
      *  a null value in the 1st argument.
      */
     @Test( expected = NullPointerException.class )
-    public void testInputCrossRankings_w1stNull() {
+    public void testInputCrossRankingsFirstNull() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         Characteristic chr = new Characteristic( "color" );
         chr.setRank( 10 );
@@ -450,7 +450,7 @@ public class UserInterfaceBaseTest {
      *  an empty list for the 1st parameter.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testInputCrossRankings_w1stEmpty() {
+    public void testInputCrossRankingsFirstEmpty() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         Characteristic chr = new Characteristic( "color" );
         chr.setRank( 10 );
@@ -469,7 +469,7 @@ public class UserInterfaceBaseTest {
      *  an empty list for the 2nd parameter.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testInputCrossRankings_w2ndEmpty() {
+    public void testInputCrossRankingsSecondEmpty() {
         List< Characteristic > chars = new LinkedList< Characteristic >();
         List< Choice > choices = new LinkedList< Choice >();
         choices.add( new Choice( "hp" ) );
@@ -483,7 +483,7 @@ public class UserInterfaceBaseTest {
      *  values.
      */
     @Test( expected = NullPointerException.class )
-    public void testCalculateColumnTotals_wNull() {
+    public void testCalculateColumnTotalsNull() {
         InstrumentationUI instance = new InstrumentationUI();
         instance.calculateColumnTotals( null );
     }
@@ -493,7 +493,7 @@ public class UserInterfaceBaseTest {
      *  that have no columns.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testCalculateColumnTotals_wNoColumns() {
+    public void testCalculateColumnTotalsNoColumns() {
         double[][] crossRankings = {
             {},
             {}
@@ -507,7 +507,7 @@ public class UserInterfaceBaseTest {
      *  for the 1st argument.
      */
     @Test( expected = NullPointerException.class )
-    public void testNormalizeCrossRankings_w1stNull() {
+    public void testNormalizeCrossRankingsFirstNull() {
         double[][] crossRankings = {
             { 1, 2 },
             { 2, 3 }
@@ -521,7 +521,7 @@ public class UserInterfaceBaseTest {
      *  for the 2nd argument.
      */
     @Test( expected = NullPointerException.class )
-    public void testNormalizeCrossRankings_w2ndNull() {
+    public void testNormalizeCrossRankingsSecondNull() {
         double[] columnTotals = {
             1, 2
         };
@@ -535,7 +535,7 @@ public class UserInterfaceBaseTest {
      *  equal.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testNormalizeCrossRankings_wUnequalLengths() {
+    public void testNormalizeCrossRankingsUnequalLengths() {
         double[][] crossRankings = {
             { 1, 2 },
             { 3, 4 }
@@ -551,7 +551,7 @@ public class UserInterfaceBaseTest {
      * Proves that showResults() will reject null values.
      */
     @Test( expected = NullPointerException.class )
-    public void testShowResults_wNull() {
+    public void testShowResultsNull() {
         InstrumentationUI instance = new InstrumentationUI();
         instance.showResults( null );
     }
@@ -560,7 +560,7 @@ public class UserInterfaceBaseTest {
      * Proves that showResults() rejects empty lists.
      */
     @Test( expected = IllegalArgumentException.class )
-    public void testShowResults_wEmpty() {
+    public void testShowResultsEmpty() {
         List< Choice > choices = new LinkedList< Choice >();
         InstrumentationUI instance = new InstrumentationUI();
         instance.showResults( choices );
@@ -571,7 +571,7 @@ public class UserInterfaceBaseTest {
      * Proves that getChoices() returns an empty list when the user exits too.
      */
     @Test
-    public void testGetChoices_EarlyExit() {
+    public void testGetChoicesEarlyExit() {
         InstrumentationUI instance = new InstrumentationUI();
         List actualChoices = instance.getChoices();
         assertTrue( actualChoices.isEmpty() );
@@ -581,7 +581,7 @@ public class UserInterfaceBaseTest {
      * Proves that getCharacteristics() returns an empty list when the user exits too.
      */
     @Test
-    public void testgetCharacteristics_EarlyExit() {
+    public void testgetCharacteristicsEarlyExit() {
         InstrumentationUI instance = new InstrumentationUI();
         List actualChoices = instance.getCharacteristics();
         assertTrue( actualChoices.isEmpty() );
@@ -591,7 +591,7 @@ public class UserInterfaceBaseTest {
      * Proves the method returns false when the user cancels early.
      */
     @Test
-    public void testGetCharacteristicRankings_EarlyExit() {
+    public void testGetCharacteristicRankingsEarlyExit() {
         int[] expected = {
             10, 40
         };
@@ -614,7 +614,7 @@ public class UserInterfaceBaseTest {
      * Prove that getCrossRankings() returns null when the user exits early.
      */
     @Test
-    public void testGetCrossRankings_EarlyExit() {
+    public void testGetCrossRankingsEarlyExit() {
         {
             List< Characteristic > chars = new LinkedList< Characteristic >();
             Characteristic chr = new Characteristic( "color" );
@@ -654,7 +654,7 @@ public class UserInterfaceBaseTest {
      * Proves inputCrossRankings() returns null when the user exits early.
      */
     @Test
-    public void inputCrossRankings_EarlyExit() {
+    public void inputCrossRankingsEarlyExit() {
         {
             List< Characteristic > chars = new LinkedList< Characteristic >();
             Characteristic chr = new Characteristic( "color" );
@@ -678,7 +678,11 @@ public class UserInterfaceBaseTest {
             InstrumentationUI instance = new InstrumentationUI();
             for ( int r = 0; r < input.length; ++r ) {
                 for ( int c = 0; c < input[r].length; ++c ) {
-                    instance.answers.add( Double.toString( input[r][c] ) );
+                    instance.answers.add(
+                        Double.toString( 
+                            input[r][c] 
+                        )
+                    );
                 }
             }
             double[][] actual =

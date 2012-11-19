@@ -50,7 +50,7 @@ public class CharacteristicTest {
      * Prove the constructor rejects null values.
      */
     @Test( expected = NullPointerException.class )
-    public void testConstructor_wNull() {
+    public void testConstructorNull() {
         new Characteristic( null );
     }
     // END Destructive Tests

@@ -21,6 +21,8 @@ public class Choice {
     * @throws NullPointerException if theName is null.
     */
     public Choice(String theName) {
+        if ( theName == null )
+            throw new NullPointerException( "theName cannot be null." );
         this.name = theName;
     }
     

@@ -49,7 +49,7 @@ public class ChoiceTest {
      * Proves the constructor rejects null values.
      */
     @Test( expected = NullPointerException.class )
-    public void testConstructor_wNull() {
+    public void testConstructorNull() {
         new Choice( null );
     }
     // END Destructive Tests

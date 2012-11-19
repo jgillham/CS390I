@@ -23,6 +23,8 @@ public class Characteristic {
     * @throws NullPointerException if theName is null.
     */
     public Characteristic(String theName) {
+        if ( theName == null )
+            throw new NullPointerException( "theName cannot be null." );
         this.name = theName;
     }
     
