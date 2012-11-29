@@ -6,7 +6,7 @@
  * @author Josh Gillham
  * @version 11-28-12
  */
-public abstract class HNode extends BTNode< String > {
+public class HNode extends BTNode< String > {
     private int frequency = 0;
     
     /**
@@ -21,6 +21,17 @@ public abstract class HNode extends BTNode< String > {
      */
     public HNode( String binaryCode, HNode left, HNode right ) {
         super( binaryCode, left, right );
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Sets the frequency.
+     * 
+     * @param frequency the new frequency.
+     * 
+     * @throws IllegalArgumentException if frequency is less than 0.
+     */
+    public void setFrequency( int frequency ) {
         throw new UnsupportedOperationException();
     }
     
