@@ -18,9 +18,23 @@ public class Exercises {
      * @param values the list of integers to be added.
      * 
      * @return the sum of the integers.
+     * 
+     * @throws IllegalArgumentException when values is empty.
      */
     public static Integer sum(final List<Integer> values) {
-        throw new UnsupportedOperationException();
+        switch ( values.size() ) {
+            case 0:
+                throw new IllegalArgumentException( 
+                    "Taking the sum of an empty list is undefined."
+                );
+            case 1:
+                return values.get( 0 );
+            case 2:
+                return values.get( 0 ) + values.get( 1 );
+            default:
+                return values.get( 0 ) + 
+                    sum( values.subList( 1, values.size() ) );
+        }
     }
     
     /**
@@ -36,9 +50,23 @@ public class Exercises {
      * @param values the list of integers to be multiplied.
      * 
      * @return the product of the integers.
+     * 
+     * @throws IllegalArgumentException when values is empty.
      */
     public static Integer product(final List<Integer> values) {
-        throw new UnsupportedOperationException();
+        switch ( values.size() ) {
+            case 0:
+                throw new IllegalArgumentException(
+                    "Taking the sum of an empty list is undefined."
+                );
+            case 1:
+                return values.get( 0 );
+            case 2:
+                return values.get( 0 ) * values.get( 1 );
+            default:
+                return values.get( 0 ) *
+                    product( values.subList( 1, values.size() ) );
+        }
     }
     
     /**
@@ -55,10 +83,27 @@ public class Exercises {
      * 
      * @return the number of non-overlapping occurences of the substring
      *  in the string.
+     * 
+     * @throws NullPointerException when toExamine or sub is null.
+     * @throws IllegalArgumentException when toExamine or sub is empty.
      */
     public static Integer strCount(final String toExamine,
             final String sub) {
-        throw new UnsupportedOperationException();
+        if ( toExamine == null || sub == null )
+            throw new NullPointerException( "Parameters cannot be null." );
+        if ( toExamine.length() == 0 || sub.length() == 0 )
+            throw new IllegalArgumentException( 
+                "Parameters cannot be empty strings."
+            );
+        if ( toExamine.length() < sub.length() )
+            return 0;
+        boolean found = toExamine.startsWith( sub );
+        int counter = found ? 1 : 0;
+        if ( toExamine.length() > sub.length() )
+            counter += strCount( 
+                toExamine.substring( ( found ? sub.length() : 1 ) ), sub
+            );
+        return counter;
     }
     
     /**
@@ -86,6 +131,15 @@ public class Exercises {
      */
     public static boolean groupExists(final List<Integer> numbers,
             final int target) {
-        throw new UnsupportedOperationException();
+        if ( numbers.isEmpty() )
+            return false;
+        else {
+            if ( numbers.get( 0 ).intValue() == target )
+                return true;
+            else
+                return groupExists( 
+                    numbers.subList( 1, numbers.size() ), target
+                );
+        }
     }
 }
