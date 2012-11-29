@@ -13,15 +13,14 @@ public class HCode extends HNode {
     /**
      * Initializes the class. Calls the super constructor.
      * 
-     * @param binaryCode is the sequence of 1's and 0's that
-     *  corresponds to the sequence.
+     * @param frequency is the number of times this character occured.
      * @param symbol is the letter which corresponds to the 
      *  binary code.
      * 
      * @throws NullPointerException if binaryCode is null.
      */
-    public HCode( String binaryCode, char symbol ) {
-        super( binaryCode, null, null );
+    public HCode( int frequency, char symbol ) {
+        super( frequency, null, null );
         throw new UnsupportedOperationException();
     }
     

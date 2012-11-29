@@ -19,7 +19,7 @@ public class HCodeTest {
     @Test
     public void testConstructor( ) {
         try {
-            new HCode( "10", 'l' );
+            new HCode( 1, 'l' );
         }
         catch ( Throwable e ) {
             fail ( "Constructor should not throw an error." );
@@ -31,9 +31,9 @@ public class HCodeTest {
      */
     @Test
     public void testGetSymbol() {
-        HCode instance = new HCode( "10", 'l' );
+        HCode instance = new HCode( 2, 'l' );
         assertEquals( 'l', instance.getSymbol() );
-        instance = new HCode( "10", 'a' );
+        instance = new HCode( 3, 'a' );
         assertEquals( 'a', instance.getSymbol() );
     }
     
@@ -43,14 +43,14 @@ public class HCodeTest {
      */
     @Test
     public void testEquals() {
-        HCode instance1 = new HCode( "10", 'l' );
-        HCode instance2 = new HCode( "10", 'l' );
+        HCode instance1 = new HCode( 1, 'l' );
+        HCode instance2 = new HCode( 1, 'l' );
         assertTrue( instance1.equals( instance2 ) );
         instance1.setFrequency( 1 );
         instance2.setFrequency( 1 );
         assertTrue( instance1.equals( instance2 ) );
-        instance1 = new HCode( "1", 'a' );
-        instance2 = new HCode( "1", 'a' );
+        instance1 = new HCode( 2, 'a' );
+        instance2 = new HCode( 2, 'a' );
         instance1.setFrequency( 2 );
         instance2.setFrequency( 2 );
         assertTrue( instance1.equals( instance2 ) );

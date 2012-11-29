@@ -20,7 +20,7 @@ public class HNodeTest {
     @Test
     public void testConstructor( ) {
         try {
-            new HNode( "101", null, null );
+            new HNode( 1, null, null );
         }
         catch ( Throwable e ) {
             e.printStackTrace();
@@ -33,7 +33,7 @@ public class HNodeTest {
      */
     @Test
     public void testGetAndSetFrequency( ) {
-        HNode instance = new HNode( "101", null, null );
+        HNode instance = new HNode( 2, null, null );
         instance.setFrequency( 1 );
         assertEquals( 1, instance.getFrequency() );
         instance.setFrequency( 0 );
@@ -47,8 +47,8 @@ public class HNodeTest {
      */
     @Test
     public void testCompareTo( ) {
-        HNode instance = new HNode( "101", null, null );
-        HNode instance2 = new HNode( "101", null, null );
+        HNode instance = new HNode( 0, null, null );
+        HNode instance2 = new HNode( 0, null, null );
         assertEquals( 0, instance.compareTo( instance2 ) );
         instance.setFrequency( 1 );
         assertEquals( 1, instance.compareTo( instance2 ) );
@@ -67,26 +67,26 @@ public class HNodeTest {
      */
     @Test
     public void testEquals( ) {
-        HNode instance = new HNode( "101", null, null );
-        HNode instance2 = new HNode( "101", null, null );
+        HNode instance = new HNode( 0, null, null );
+        HNode instance2 = new HNode( 0, null, null );
         assertTrue( instance.equals( instance2 ) );
         instance.setFrequency( 1 );
         instance2.setFrequency( 1 );
         assertTrue( instance.equals( instance2 ) );
-        instance = new HNode( "101", new HNode( "101", null, null ), null );
-        instance2 = new HNode( "101", new HNode( "101", null, null ), null );
+        instance = new HNode( 1, new HNode( 2, null, null ), null );
+        instance2 = new HNode( 1, new HNode( 2, null, null ), null );
         instance.setFrequency( 2 );
         instance2.setFrequency( 2 );
         assertTrue( instance.equals( instance2 ) );
-        instance = new HNode( "101", null, new HNode( "101", null, null ) );
-        instance2 = new HNode( "101", null, new HNode( "101", null, null ) );
+        instance = new HNode( 3, null, new HNode( 4, null, null ) );
+        instance2 = new HNode( 3, null, new HNode( 4, null, null ) );
         instance.setFrequency( 3 );
         instance2.setFrequency( 3 );
         assertTrue( instance.equals( instance2 ) );
-        instance = new HNode( "101", new HNode( "101", null, null ),
-            new HNode( "101", null, null ) );
-        instance2 = new HNode( "101", new HNode( "101", null, null ),
-            new HNode( "101", null, null ) );
+        instance = new HNode( 5, new HNode( 6, null, null ),
+            new HNode( 7, null, null ) );
+        instance2 = new HNode( 5, new HNode( 6, null, null ),
+            new HNode( 7, null, null ) );
         instance.setFrequency( 4 );
         instance2.setFrequency( 4 );
         assertTrue( instance.equals( instance2 ) );
