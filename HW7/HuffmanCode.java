@@ -34,6 +34,13 @@ public class HuffmanCode {
         
          
     }
+    static public PriorityQueue< HCode > analyse( String text ) {
+        throw new UnsupportedOperationException( );
+    }
+    
+    static public HNode generateHTree( PriorityQueue< HCode > analysis ) {
+        throw new UnsupportedOperationException( );
+    }
     static public void main( String args ) {
         throw new UnsupportedOperationException();
     }
