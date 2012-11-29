@@ -6,21 +6,21 @@
  * @author Josh Gillham
  * @version 11-28-12
  */
-public class HNode extends BTNode< String > {
-    private int frequency = 0;
+public class HNode extends BTNode< Integer > {
+    private String binaryCode = null;
     
     /**
      * Initializes the class. Calls the base class.
      * 
-     * @param binaryCode is the sequency of 1's and 0's which corresponds
-     *  to this tree.
+     * @param frequency is the new frequency.
      * @param left is the left node.
      * @param right is the right node.
      * 
      * @throws NullPointerException if binaryCode is null.
+     * @throws IllegalArgumentException if frequency is less than 0.
      */
-    public HNode( String binaryCode, HNode left, HNode right ) {
-        super( binaryCode, left, right );
+    public HNode( int frequency, HNode left, HNode right ) {
+        super( Integer.valueOf( frequency ), left, right );
         throw new UnsupportedOperationException();
     }
     
@@ -41,6 +41,26 @@ public class HNode extends BTNode< String > {
      * @return the frequency.
      */
     public int getFrequency() {
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Sets the binary code.
+     * 
+     * @param binaryCode the new code.
+     * 
+     * @throws NullPointerException when binaryCode is null.
+     */
+    public void setBinaryCode( String binaryCode ) {
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Accesses the binary code.
+     * 
+     * @return the binary code.
+     */
+    public String getBinaryCode( ) {
         throw new UnsupportedOperationException();
     }
     
