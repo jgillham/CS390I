@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
+ * Tests the HCode class.
  *
  * @author  Josh Gillham
  * @version 11-28-12
