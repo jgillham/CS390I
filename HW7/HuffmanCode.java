@@ -1,6 +1,8 @@
 import java.lang.Character;
 import java.util.PriorityQueue;
 import java.util.Iterator;
+import java.util.Map;
+
 /**
  * Provides methods for encoding/decoding data in Huffman codes.
  * 
@@ -43,7 +45,7 @@ public class HuffmanCode {
      * 
      * @return the queue of letters with frequencies.
      */
-    static public PriorityQueue< HCode > analyse( String text ) {
+    static public Map< Character, Integer > analyse( String text ) {
         throw new UnsupportedOperationException( );
     }
     
