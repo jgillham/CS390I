@@ -57,7 +57,7 @@ public class HuffmanCode {
      * 
      * @return the Huffman code tree.
      */
-    static public HNode generateHTree( PriorityQueue< HCode > analysis ) {
+    static public HNode generateHTree( Map< Character, Integer > analysis ) {
         throw new UnsupportedOperationException( );
     }
     
@@ -67,6 +67,15 @@ public class HuffmanCode {
      * @param args is unused.
      */
     static public void main( String args ) {
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Initializes the class. Analyzes and creates a Huffman tree.
+     * 
+     * @param text is the text to analyze.
+     */
+    public HuffmanCode( String text ) {
         throw new UnsupportedOperationException();
     }
     
