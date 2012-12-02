@@ -43,6 +43,20 @@ public class HNodeTest {
     }
     
     /**
+     * Proves that set and get binary code have a working relationship.
+     */
+    @Test
+    public void testGetAndSetBinaryCode( ) {
+        HNode instance = new HNode( 2, null, null );
+        instance.setBinaryCode( "101" );
+        assertEquals( "101", instance.getBinaryCode() );
+        instance.setBinaryCode( "11" );
+        assertEquals( "11", instance.getBinaryCode() );
+        instance.setBinaryCode( "1011" );
+        assertEquals( "1011", instance.getBinaryCode() );
+    }
+    
+    /**
      * Proves that compareTo() returns the correct value.
      */
     @Test
