@@ -6,22 +6,88 @@
  * @author Josh Gillham
  * @version 11-28-12
  */
-public class HNode extends BTNode< Integer > {
-    private String binaryCode = null;
+public class HNode extends BTNode< HuffmanData > {
+    /**
+     * Simple constructor - set all fields to null or 0.
+     */
+    public HNode() {
+        super( null, null, null );
+        throw new UnsupportedOperationException();
+    }
     
     /**
-     * Initializes the class. Calls the base class.
+     * Constructor that sets the symbol only.
      * 
-     * @param frequency is the new frequency.
-     * @param left is the left node.
-     * @param right is the right node.
-     * 
-     * @throws NullPointerException if binaryCode is null.
-     * @throws IllegalArgumentException if frequency is less than 0.
+     * @param symbol the symbol.
      */
-    public HNode( int frequency, HNode left, HNode right ) {
-        super( Integer.valueOf( frequency ), left, right );
+    public HNode(Character symbol) {
+        super( new HuffmanData( symbol ), null, null );
         throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Constructor that sets the symbol and frequency. 
+     * 
+     * @param symbol the symbol.
+     * @param frequency the frequency of occurrence for the symbol.
+     */
+    public HNode(Character symbol, double frequency) {
+        super( new HuffmanData( symbol, frequency ), null, null );
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Constructor that sets symbol, frequency, and code. 
+     * 
+     * @param symbol the symbol.
+     * @param frequency the frequency of occurrence for the symbol.
+     * @param code the code for the symbol.
+     */
+    public HNode(Character symbol, double frequency, String code) {
+        super( new HuffmanData( symbol, frequency, code ), null, null );
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Fully parameterized constructor. 
+     * 
+     * @param symbol the symbol.
+     * @param frequency the frequency of occurrence for the symbol.
+     * @param code the code for the symbol.
+     * @param left link to the left child.
+     * @param right link to the right child
+     */
+    public HNode(Character symbol, double frequency, String code,
+            HNode left, HNode right) {
+        super( new HuffmanData( symbol, frequency, code ), left, right );
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Compares the HNodes by the frequency.
+     * 
+     * @param n object to be compared with this.
+     * 
+     * @return a negative integer, zero, or a positive integer as this 
+     *  object is less than, equal to, or greater than the specified object. 
+     * 
+     * @throws NullPointerException if the specified object is null.
+     */
+    public int compareTo(HNode n) {
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Equals predicate considers the symbol and frequency only. 
+     * 
+     * @param o the object to check for equality.
+     * 
+     * @return true if both the symbol and the frequency agree;
+     *  false otherwise
+     */
+    @Override
+    public boolean equals( Object o ) {
+        throw new UnsupportedOperationException( );
     }
     
     /**
@@ -36,6 +102,26 @@ public class HNode extends BTNode< Integer > {
     }
     
     /**
+     * Sets the binary code.
+     * 
+     * @param code the new code.
+     * 
+     * @throws NullPointerException when binaryCode is null.
+     */
+    public void setCode( String code ) {
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Modify the symbol.
+     * 
+     * @param symbol the new symbol.
+     */
+    public void setSymbol(Character symbol) {
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
      * Accesses the frequency.
      * 
      * @return the frequency.
@@ -45,51 +131,51 @@ public class HNode extends BTNode< Integer > {
     }
     
     /**
-     * Sets the binary code.
-     * 
-     * @param binaryCode the new code.
-     * 
-     * @throws NullPointerException when binaryCode is null.
-     */
-    public void setBinaryCode( String binaryCode ) {
-        throw new UnsupportedOperationException();
-    }
-    
-    /**
      * Accesses the binary code.
      * 
      * @return the binary code.
      */
-    public String getBinaryCode( ) {
+    public String getCode( ) {
         throw new UnsupportedOperationException();
     }
     
     /**
-     * Compares the HNodes by the frequency.
+     * Access the symbol.
      * 
-     * @param other is the other HNode to compare to.
-     * 
-     * @throws IllegalArgumentException if other is not a HNode.
-     * 
-     * @return 1 if this HNode has a higher priority 
-     *  OR -1 if the this HNode has a lower priority 
-     *  OR 0 otherwise.
+     * @return the symbol.
      */
-    public int compareTo( Object other ) {
+    public Character getSymbol() {
         throw new UnsupportedOperationException();
     }
     
     /**
-     * Tests if frequencies, data, and children are equal.
+     * Access the left child.
      * 
-     * @param other is the HNode to compare to.
-     * 
-     * @return true if the other object is a HNode, the data 
-     *  matches, and the children are equal.
-     *  OR false otherwise.
+     * @return the left child of this node.
      */
-    @Override
-    public boolean equals( Object other ) {
-        throw new UnsupportedOperationException( );
+    public HNode getLeftChild() {
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Access the right child.
+     * 
+     * @return the right child of this node.
+     */
+    public HNode getRightChild() {
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Define hashcode for HNode.
+     * 
+     * If two objects are equal according to the equals(Object)
+     *  method, then calling the hashCode method on each of the 
+     *  two objects produces the same integer result.
+     * 
+     * @return a hash code value for this object.
+     */
+    public int hashCode() {
+        throw new UnsupportedOperationException();
     }
 }
