@@ -4,110 +4,114 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Provides methods for encoding/decoding data in Huffman codes.
+ * Driver to create Huffman codes and encoded strings. 
  * 
  * @author  Josh Gillham
- * @version 11-18-12
+ * @version 12-3-12
  */
 public class HuffmanCode {
-    /** Only an experiment. */
-    static public void test() {
-        String input = "The cat jumped over the moon.";
-        PriorityQueue< PriorityPair< Character >  > analysis =
-            new PriorityQueue< PriorityPair< Character > >();
-        
-        // Goes through each character and the resulting data will have 
-        //  letters and corresponding frequencies.
-        for ( int i = 0; i < input.length(); ++i ) {
-            Character chr = new java.lang.Character( input.charAt( i ) );
-            Iterator< PriorityPair< Character > > iter = analysis.iterator();
-            boolean found = false;
-            while ( iter.hasNext() ) {
-                PriorityPair< Character > current = iter.next();
-                if ( current.equals( chr ) ) {
-                    current.setPriority( current.getPriority() + 1 );
-                    found = true;
-                }
-            }
-            if ( !found ) {
-                PriorityPair< Character > nw =
-                    new PriorityPair< Character >( 1, chr );
-                analysis.add( nw );
-            }
-        }
-    }
+    /** The Huffman code map created from the seed. */
+    private Map<Character,String> codeMap;
+    /** Root of the Huffman code tree created from the seed. */
+    private HNode codeTree;
+    /** The seed string used to create the Huffman code. */
+    private String seed;
     
     /**
-     * Analyses the text to create a priority queue of nodes showing each 
-     *  letter and the frequency which the symbol occured in the text.
+     * Establish this Huffman code based on an initial string.
      * 
-     * @param text the string to analyse.
-     * 
-     * @return the queue of letters with frequencies.
+     * @param initialString the initial string used to create the code
      */
-    static public Map< Character, Integer > analyse( String text ) {
-        throw new UnsupportedOperationException( );
-    }
-    
-    /**
-     * Creates a Huffman code tree with the analysis queue containing letters
-     *  and what frequency they occured in a text.
-     * 
-     * @param analysis is the queue with letters and their frequencies.
-     * 
-     * @return the Huffman code tree.
-     */
-    static public HNode generateHTree( Map< Character, Integer > analysis ) {
-        throw new UnsupportedOperationException( );
-    }
-    
-    /**
-     * Starts the program.
-     * 
-     * @param args is unused.
-     */
-    static public void main( String args ) {
+    HuffmanCode( String initialString ) {
         throw new UnsupportedOperationException();
     }
     
     /**
-     * Initializes the class. Analyzes and creates a Huffman tree.
+     * Establish the codeTree using the PriorityQueue provided. 
      * 
-     * @param text is the text to analyze.
+     * @param hh the priority queue with data for the Huffman Code.
      */
-    public HuffmanCode( String text ) {
+    private void createCodeTree(PriorityQueue<HNode> hh) {
         throw new UnsupportedOperationException();
     }
     
     /**
-     * Takes the text and replaces each letter with a sequence of ones and
-     *  zeros.
+     * Create a map of character -> frequency based on a string. 
      * 
-     * @param text the text to encode with ones and zeros.
-     * 
-     * @return the encoded text.
-     * 
-     * @throws NullPointerException when text is null.
+     * @param source the string of characters.
      */
-    public String encode( String text ) {
+    private Map<Character,Integer> createFrequencyMap(String source) {
         throw new UnsupportedOperationException();
     }
     
     /**
-     * Takes the encoded Huffman text and replaces it with the letters.
+     * Create a Priority Queue using data from a frequency map.
      * 
-     * @param text is the encoded text.
+     * @param fm frequency map.
      * 
-     * @return the decoded text.
+     * @return a priority queue with values from the frequency map.
      */
-    public String decode( String text ) {
+    private PriorityQueue<HNode> createPriorityQueue(Map<Character,Integer> fm) {
         throw new UnsupportedOperationException();
     }
     
-    public String getCode( String symbol ) {
+    /**
+     * Decode a string using this Huffman code.
+     * 
+     * @param encoded the string to decode.
+     * 
+     * @return the decoded string.
+     */
+    public String decode(String encoded) {
         throw new UnsupportedOperationException();
     }
-    public String getCode( ) {
+    
+    /**
+     * Encode a string using this Huffman code.
+     * 
+     * @param cleartext the string to encode.
+     * 
+     * @return the encoded string.
+     */
+    public String encode(String cleartext) {
         throw new UnsupportedOperationException();
     }
+    
+    /**
+     * Retrieve the internal Huffman Code Map.
+     * 
+     * @return the code map for this Huffman Code.
+     */
+    public Map<Character,String> getCodeMap() {
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Retrieve the internal Huffman Code Tree.
+     * 
+     * @return the root of the code tree for this Huffman Code.
+     */
+    public HNode getCodeTree() {
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Create codeMap from a code tree.
+     * 
+     * @param root the root of a Huffman Code subtree.
+     */
+    private void growCodeMap(HNode root) {
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Fill in the Huffman Codes in a tree.
+     * 
+     * @param root the root of the Huffman Code subtree.
+     * @param code the code to set at the root.
+     */
+    private void setCodes(HNode root, String code) {
+        throw new UnsupportedOperationException();
+    }
+
 }
