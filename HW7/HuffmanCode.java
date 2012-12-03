@@ -10,8 +10,42 @@ import java.util.Map;
  * @version 12-3-12
  */
 public class HuffmanCode {
+
+    /**
+     * Establish the codeTree using the PriorityQueue provided. 
+     * 
+     * @param hh the priority queue with data for the Huffman Code.
+     * 
+     * @return the root of the tree.
+     */
+    static public HNode buildTree(PriorityQueue<HNode> hh) {
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Create a map of character -> frequency based on a string. 
+     * 
+     * @param source the string of characters.
+     * 
+     * @return the frequency map.
+     */
+    static public Map<Character, Integer> analyse(String source) {
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Create a Priority Queue using data from a frequency map.
+     * 
+     * @param fm frequency map.
+     * 
+     * @return a priority queue with values from the frequency map.
+     */
+    static public PriorityQueue<HNode> convert(Map<Character, Integer> fm) {
+        throw new UnsupportedOperationException();
+    }
+    
     /** The Huffman code map created from the seed. */
-    private Map<Character,String> codeMap;
+    private Map<Character, String> codeMap;
     /** Root of the Huffman code tree created from the seed. */
     private HNode codeTree;
     /** The seed string used to create the Huffman code. */
@@ -40,7 +74,7 @@ public class HuffmanCode {
      * 
      * @param source the string of characters.
      */
-    private Map<Character,Integer> createFrequencyMap(String source) {
+    private Map<Character, Integer> createFrequencyMap(String source) {
         throw new UnsupportedOperationException();
     }
     
@@ -51,7 +85,8 @@ public class HuffmanCode {
      * 
      * @return a priority queue with values from the frequency map.
      */
-    private PriorityQueue<HNode> createPriorityQueue(Map<Character,Integer> fm) {
+    private PriorityQueue<HNode> createPriorityQueue(
+            Map<Character, Integer> fm) {
         throw new UnsupportedOperationException();
     }
     
@@ -82,7 +117,7 @@ public class HuffmanCode {
      * 
      * @return the code map for this Huffman Code.
      */
-    public Map<Character,String> getCodeMap() {
+    public Map<Character, String> getCodeMap() {
         throw new UnsupportedOperationException();
     }
     
