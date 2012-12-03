@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Method;
+
 /**
  *
  * @author  Josh Gillham
@@ -20,7 +22,7 @@ public class HuffmanCodeTest {
      *  and frequencies.
      */
     @Test
-    public void testAnalyse() {
+    public void testCreateFrequencyMap() {
         String input = "abcdead";
         Map< Character, Integer > expected =
             new HashMap< Character, Integer >();
@@ -31,6 +33,7 @@ public class HuffmanCodeTest {
         expected.put( Character.valueOf( 'e' ), Integer.valueOf( 1 ) );
         
         Map< Character, Integer > actual = HuffmanCode.analyse( input );
+        //HuffmanCode.createFrequencyMap( input );
         assertEquals( expected.size(), actual.size() );
         assertEquals( expected, actual );
         
@@ -66,63 +69,68 @@ public class HuffmanCodeTest {
     }
     
     @Test
-    public void testGenerateHTree() {
+    public void testCreateCodeTree() {
         // Easy
-        HashMap< Character, Integer > analysis = new HashMap< Character, Integer >();
-        analysis.put( Character.valueOf( 'c' ), Integer.valueOf( 1 ) );
-        analysis.put( Character.valueOf( 'a' ), Integer.valueOf( 1 ) );
-        analysis.put( Character.valueOf( 't' ), Integer.valueOf( 1 ) );
+        PriorityQueue< HNode > analysis = new PriorityQueue< HNode >();
+        analysis.add( new HNode( 'c', 1 ) );
+        analysis.add( new HNode( 'a', 1 ) );
+        analysis.add( new HNode( 't', 1 ) );
         
-        HNode expected = new HNode( 3, 
-            new HNode( 2, 
-                new HCode( 1, 'c' ), 
-                new HCode( 1, 'a' )
-            ), 
-            new HCode( 1, 't' )
+        HNode expected = new HNode( 'p', 3, "",
+            new HNode( 'p', 2, "", 
+                new HNode( 'c', 1 ), 
+                new HNode( 'a', 1 )
+            ),
+            new HNode( 't', 1 )
         );
-        HNode actual = HuffmanCode.generateHTree( analysis );
+        HNode actual = HuffmanCode.buildTree( analysis );
         assertEquals( expected, actual );
         
         // Reversed order.
-        analysis = new HashMap< Character, Integer >();
-        analysis.put( Character.valueOf( 'c' ), Integer.valueOf( 3 ) );
-        analysis.put( Character.valueOf( 'a' ), Integer.valueOf( 2 ) );
-        analysis.put( Character.valueOf( 't' ), Integer.valueOf( 1 ) );
+        analysis = new PriorityQueue< HNode >();
+        analysis.add( new HNode( 'c', 3 ) );
+        analysis.add( new HNode( 'a', 2 ) );
+        analysis.add( new HNode( 't', 1 ) );
         
-        expected = new HNode( 6, 
-            new HNode( 3, 
-                new HCode( 1, 't' ), 
-                new HCode( 2, 'a' )
+        expected = new HNode( 'p', 6, "", 
+            new HNode( 'p', 3, "", 
+                new HNode( 't', 1 ), 
+                new HNode( 'a', 2 )
             ), 
-            new HCode( 3, 'c' )
+            new HNode( 'c', 3 )
         );
-        actual = HuffmanCode.generateHTree( analysis );
+        actual = HuffmanCode.buildTree( analysis );
         assertEquals( expected, actual );
         
         // From his example.
-        analysis = new HashMap< Character, Integer >();
-        analysis.put( Character.valueOf( 'H' ), Integer.valueOf( 1 ) );
-        analysis.put( Character.valueOf( 'P' ), Integer.valueOf( 5 ) );
-        analysis.put( Character.valueOf( 'A' ), Integer.valueOf( 2 ) );
-        analysis.put( Character.valueOf( '-' ), Integer.valueOf( 1 ) );
-        analysis.put( Character.valueOf( 'Y' ), Integer.valueOf( 2 ) );
+        analysis = new PriorityQueue< HNode >();
+        analysis.add( new HNode( 'H', 1 ) );
+        analysis.add( new HNode( 'P', 5 ) );
+        analysis.add( new HNode( 'A', 2 ) );
+        analysis.add( new HNode( '-', 1 ) );
+        analysis.add( new HNode( 'Y', 2 ) );
 
-        expected = new HNode( 11,
-            new HNode( 6,
-                new HNode( 2, 
-                    new HCode( 1, 'H' ), 
-                    new HCode( 1, '-' )
+        expected = new HNode( ' ', 11, "",
+            new HNode( ' ', 6, "",
+                new HNode( ' ', 2, "", 
+                    new HNode( 'H', 1 ), 
+                    new HNode( '-', 1 )
                 ),
-                new HNode( 4, 
-                    new HCode( 2, 'A' ), 
-                    new HCode( 2, 'Y' )
+                new HNode( ' ', 4, "", 
+                    new HNode( 'A', 2 ), 
+                    new HNode( 'Y', 2 )
                 ) 
             ),
-            new HCode( 5, 'P' )
+            new HNode( 'P', 5 )
         );
         
-        actual = HuffmanCode.generateHTree( analysis );
+        actual = HuffmanCode.buildTree( analysis );
         assertEquals( expected, actual );
+    }
+    
+    @Test
+    public void createPriorityQueue( ) {
+        fail( "Test not implemented." );
     }
     
     /**
