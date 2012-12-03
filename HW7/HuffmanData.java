@@ -113,16 +113,29 @@ public class HuffmanData {
     }
     
     /**
-     * Modify the code.
+     * Modify the frequency.
+     * 
+     * @param frequency the new frequency.
      */
-    public void setFrequency() {
+    public void setFrequency( int frequency ) {
         throw new UnsupportedOperationException();
     }
     
     /**
      * Modify the symbol.
+     * 
+     * @param symbol the new symbol.
      */
-    public void setSymbol() {
+    public void setSymbol( Character symbol ) {
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Modify the code.
+     * 
+     * @param code the new code.
+     */
+    public void setCode( String code ) {
         throw new UnsupportedOperationException();
     }
     
