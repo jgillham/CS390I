@@ -4,7 +4,7 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 /**
- * Provides the base node structure.
+ * A node to be used for Binary Tree applications.
  * 
  * @author Josh Gillham
  * @version 10-16-12
@@ -128,5 +128,44 @@ public class BTNode< T > implements Serializable {
         retValue.append( this.getRightChild() );
         retValue.append( '}' );
         return retValue.toString();
+    }
+    
+    /**
+     * Define equality for BTNodes. Indicates whether some other object is
+     *  "equal to" this one. The equals method implements an equivalence 
+     *  relation on non-null object references:
+     * -It is reflexive: for any non-null reference value x, x.equals(x) should
+     *  return true.
+     * -It is symmetric: for any non-null reference values x and y, x.equals(y)
+     *  should return true if and only if y.equals(x) returns true.
+     * -It is transitive: for any non-null reference values x, y, and z, if 
+     *  x.equals(y) returns true and y.equals(z) returns true, then x.equals(z)
+     *  should return true.
+     * -It is consistent: for any non-null reference values x and y, multiple 
+     *  invocations of x.equals(y) consistently return true or consistently 
+     *  return false, provided no information used in equals comparisons on 
+     *  the objects is modified.
+     * -For any non-null reference value x, x.equals(null) should return false.
+     * 
+     * @param obj reference object with which to compare.
+     * 
+     * @return true if this object is the same as the obj argument;
+     *  false otherwise.
+     */
+    public boolean equals(Object obj) {
+        throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * Define hashcode for BTNodes.
+     * 
+     * If two objects are equal according to the equals(Object) method,
+     *  then calling the hashCode method on each of the two objects
+     *  produces the same integer result.
+     * 
+     * @return a hash code value for this object.
+     */
+    public int hashCode() {
+        throw new UnsupportedOperationException();
     }
 }
