@@ -11,8 +11,7 @@ public class HNode extends BTNode< HuffmanData > {
      * Simple constructor - set all fields to null or 0.
      */
     public HNode() {
-        super( null, null, null );
-        throw new UnsupportedOperationException();
+        super( new HuffmanData( ), null, null );
     }
     
     /**
@@ -22,7 +21,6 @@ public class HNode extends BTNode< HuffmanData > {
      */
     public HNode(Character symbol) {
         super( new HuffmanData( symbol ), null, null );
-        throw new UnsupportedOperationException();
     }
     
     /**
