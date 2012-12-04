@@ -124,7 +124,7 @@ public class HuffmanData {
      * @return the hash code.
      */
     public int hashCode() {
-        throw new UnsupportedOperationException();
+        return Character.valueOf( this.sym ).hashCode() + 256 * (int)this.frq;
     }
     
     /**
@@ -160,6 +160,6 @@ public class HuffmanData {
      * @return the string representing the object.
      */
     public String toString() {
-        throw new UnsupportedOperationException();
+        return "(" + this.sym + ", " + this.frq + ")";
     }
 }
