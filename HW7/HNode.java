@@ -6,7 +6,7 @@
  * @author Josh Gillham
  * @version 11-28-12
  */
-public class HNode extends BTNode< HuffmanData > {
+public class HNode extends BTNode< HuffmanData > implements Comparable<HNode> {
     /**
      * Simple constructor - set all fields to null or 0.
      */
@@ -162,7 +162,7 @@ public class HNode extends BTNode< HuffmanData > {
      * @return the left child of this node.
      */
     public HNode getLeftChild() {
-        return (HNode)this.getLeftChild();
+        return (HNode)super.getLeftChild();
     }
     
     /**
@@ -171,7 +171,7 @@ public class HNode extends BTNode< HuffmanData > {
      * @return the right child of this node.
      */
     public HNode getRightChild() {
-        return (HNode)this.getRightChild();
+        return (HNode)super.getRightChild();
     }
     
     /**
