@@ -119,7 +119,7 @@ public class HuffmanCode {
             setCodes( leftTree, code + "0" );
         }
         if ( rightTree != null ) {
-            setCodes( rightTree, code + "0" );
+            setCodes( rightTree, code + "1" );
         }
     }
     
@@ -132,14 +132,14 @@ public class HuffmanCode {
      * @return the match.
      */
     static public HNode find( HNode root, String code ) {
+        if ( root.getLeftChild() == null && 
+                root.getRightChild() == null )
+            return root;
+                
         if ( code.isEmpty() ) {
-            return null;
+            throw new IllegalArgumentException( "Empty code." );
         }
         else {
-            if ( root.getLeftChild() == null && 
-                    root.getRightChild() == null )
-                return root;
-            
             char choice = code.charAt( 0 );
             HNode child;
             if ( choice == '0' ) {
@@ -221,8 +221,9 @@ public class HuffmanCode {
     public String decode(String encoded) {
         StringBuilder decodedText = new StringBuilder();
         int i = 0;
+        
         while ( i < encoded.length() ) {
-            HNode match = this.find( this.codeTree, encoded );
+            HNode match = this.find( this.codeTree, encoded.substring( i ) );
             decodedText.append( match.getSymbol() );
             i += match.getCode().length();
         }
@@ -241,6 +242,7 @@ public class HuffmanCode {
         for ( int i = 0; i < cleartext.length(); ++i ) {
             char c = cleartext.charAt( i );
             String code = codeMap.get( c );
+
             if ( code == null ) 
                 throw new IllegalArgumentException( "Symbol not defined." );
             encodedText.append( code );
