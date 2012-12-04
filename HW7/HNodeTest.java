@@ -1,5 +1,5 @@
 
-
+import java.util.PriorityQueue;
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -20,12 +20,25 @@ public class HNodeTest {
     @Test
     public void testConstructor( ) {
         try {
-            new HNode( );
-            new HNode( 'a' );
-            new HNode( 'a', 1 );
-            new HNode( 'a', 1, "101" );
-            new HNode( 'a', 1, "101", new HNode( ), new HNode( ) );
-            
+            HNode instance = new HNode( );
+            instance = new HNode( 'a' );
+            assertEquals( 'a', instance.getSymbol().charValue() );
+            instance = new HNode( 'a', 1 );
+            assertEquals( 'a', instance.getSymbol().charValue() );
+            assertEquals( 1, instance.getFrequency() );
+            instance = new HNode( 'a', 1, "101" );
+            assertEquals( 'a', instance.getSymbol().charValue() );
+            assertEquals( 1, instance.getFrequency() );
+            assertEquals( "101", instance.getCode() );
+            HNode left = new HNode( );
+            HNode right = new HNode( );
+            instance = new HNode( 'a', 1, "101", left, right );
+            assertEquals( 'a', instance.getSymbol().charValue() );
+            assertEquals( 1, instance.getFrequency() );
+            assertEquals( "101", instance.getCode() );
+            assertEquals( "101", instance.getCode() );
+            assertTrue( left == instance.getLeftChild() );
+            assertTrue( right == instance.getRightChild() );
         }
         catch ( Throwable e ) {
             e.printStackTrace();
@@ -93,6 +106,22 @@ public class HNodeTest {
         assertEquals( -1, instance.compareTo( instance2 ) );
         instance.setFrequency( 4 );
         assertEquals( 0, instance.compareTo( instance2 ) );
+        
+        // Add random elements into a queue.
+        PriorityQueue< HNode > naturalOrdered = new PriorityQueue< HNode >();
+        naturalOrdered.add( new HNode( 'a', Integer.valueOf( 3 ) ) );
+        naturalOrdered.add( new HNode( 'b', Integer.valueOf( 1 ) ) );
+        naturalOrdered.add( new HNode( 'c', Integer.valueOf( 2 ) ) );
+        naturalOrdered.add( new HNode( 'e', Integer.valueOf( 5 ) ) );
+        naturalOrdered.add( new HNode( 'd', Integer.valueOf( 4 ) ) );
+        
+        // Frequencies hould be in numberical order.
+        int f = 1;
+        while ( !naturalOrdered.isEmpty() ) {
+            HNode first = naturalOrdered.poll();
+            assertEquals( f++, first.getFrequency() );
+        }
+        
     }
     
     /**
