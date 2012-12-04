@@ -7,19 +7,18 @@
  */
 public class HuffmanData {
     /** The Huffman code for this node; null if none. */
-    private String code;
+    private String code = null;
     /** Maximum difference to accept two double values as equal. */
     public static final double EPSILON = 0.001;
     /** The frequency stored at this node. */
-    private double frq;
+    private double frq = 0;
     /** The symbol stored at this node; null if none. */
-    private Character sym;
+    private Character sym = null;
     
     /**
      * Simple constructor - set all fields to null or 0.
      */
     public HuffmanData() {
-        throw new UnsupportedOperationException();
     }
     
     /**
@@ -28,7 +27,7 @@ public class HuffmanData {
      * @param symbol the symbol.
      */
     public HuffmanData( Character symbol ) {
-        throw new UnsupportedOperationException();
+        this.sym = symbol;
     }
     
     /**
@@ -38,7 +37,8 @@ public class HuffmanData {
      * @param frequency the frequency.
      */
     public HuffmanData( Character symbol, double frequency ) {
-        throw new UnsupportedOperationException();
+        this( symbol );
+        this.frq = frequency;
     }
     
     /**
@@ -49,7 +49,8 @@ public class HuffmanData {
      * @param code the binary code.
      */
     public HuffmanData( Character symbol, double frequency, String code ) {
-        throw new UnsupportedOperationException();
+        this( symbol, frequency );
+        this.code = code;
     }
     
     /**
@@ -62,7 +63,13 @@ public class HuffmanData {
      *  specified object.
      */
     public int compareTo( HuffmanData n ) {
-        throw new UnsupportedOperationException();
+        if ( this.frq > n.getFrequency() ) {
+            return 1;
+        }
+        if ( this.frq == n.getFrequency() ) {
+            return 0;
+        }
+        return -1;
     }
     
     /**
@@ -73,7 +80,15 @@ public class HuffmanData {
      * @return true if both the symbol and the frequency agree; false otherwise.
      */
     public boolean equals( Object o ) {
-        throw new UnsupportedOperationException();
+        if ( !(o instanceof HuffmanData) ) {
+            return false;
+        }
+        HuffmanData hdOther = (HuffmanData)o;
+        if ( this.frq != hdOther.getFrequency() ||
+                this.sym != hdOther.getSymbol() ) {
+            return false;
+        }
+        return true;
     }
     
     /**
@@ -82,7 +97,7 @@ public class HuffmanData {
      * @return the code associated with the symbol.
      */
     public String getCode() {
-        throw new UnsupportedOperationException();
+        return this.code;
     }
     
     /**
@@ -91,7 +106,7 @@ public class HuffmanData {
      * @return the frequency of occurrence.
      */
     public double getFrequency() {
-        throw new UnsupportedOperationException();
+        return this.frq;
     }
     
     /**
@@ -100,7 +115,7 @@ public class HuffmanData {
      * @return the symbol.
      */
     public Character getSymbol() {
-        throw new UnsupportedOperationException();
+        return this.sym;
     }
     
     /**
@@ -118,7 +133,7 @@ public class HuffmanData {
      * @param frequency the new frequency.
      */
     public void setFrequency( int frequency ) {
-        throw new UnsupportedOperationException();
+        this.frq = frequency;
     }
     
     /**
@@ -127,7 +142,7 @@ public class HuffmanData {
      * @param symbol the new symbol.
      */
     public void setSymbol( Character symbol ) {
-        throw new UnsupportedOperationException();
+        this.sym = symbol;
     }
     
     /**
@@ -136,7 +151,7 @@ public class HuffmanData {
      * @param code the new code.
      */
     public void setCode( String code ) {
-        throw new UnsupportedOperationException();
+        this.code = code;
     }
     
     /**
