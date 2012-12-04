@@ -33,7 +33,6 @@ public class HNode extends BTNode< HuffmanData > {
      */
     public HNode(Character symbol, double frequency) {
         super( new HuffmanData( symbol, frequency ), null, null );
-        throw new UnsupportedOperationException();
     }
     
     /**
@@ -45,7 +44,6 @@ public class HNode extends BTNode< HuffmanData > {
      */
     public HNode(Character symbol, double frequency, String code) {
         super( new HuffmanData( symbol, frequency, code ), null, null );
-        throw new UnsupportedOperationException();
     }
     
     /**
@@ -60,7 +58,6 @@ public class HNode extends BTNode< HuffmanData > {
     public HNode(Character symbol, double frequency, String code,
             HNode left, HNode right) {
         super( new HuffmanData( symbol, frequency, code ), left, right );
-        throw new UnsupportedOperationException();
     }
     
     /**
@@ -74,7 +71,12 @@ public class HNode extends BTNode< HuffmanData > {
      * @throws NullPointerException if the specified object is null.
      */
     public int compareTo(HNode n) {
-        throw new UnsupportedOperationException();
+        if ( this.getFrequency() < n.getFrequency() ) {
+            return -1;
+        } else if ( this.getFrequency() == n.getFrequency() ) {
+            return 0;
+        }
+        return 1;
     }
     
     /**
@@ -87,7 +89,15 @@ public class HNode extends BTNode< HuffmanData > {
      */
     @Override
     public boolean equals( Object o ) {
-        throw new UnsupportedOperationException( );
+        if ( !(o instanceof HNode) )
+            return false;
+        HNode node = (HNode)o;
+        
+        if ( this.getFrequency( ) == node.getFrequency( ) &&
+                this.getSymbol( ) == node.getSymbol( ) ) {
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -98,7 +108,7 @@ public class HNode extends BTNode< HuffmanData > {
      * @throws IllegalArgumentException if frequency is less than 0.
      */
     public void setFrequency( int frequency ) {
-        throw new UnsupportedOperationException();
+        ( (HuffmanData)this.getValue() ).setFrequency( frequency );
     }
     
     /**
@@ -109,7 +119,7 @@ public class HNode extends BTNode< HuffmanData > {
      * @throws NullPointerException when binaryCode is null.
      */
     public void setCode( String code ) {
-        throw new UnsupportedOperationException();
+        ( (HuffmanData)this.getValue() ).setCode( code );
     }
     
     /**
@@ -118,7 +128,7 @@ public class HNode extends BTNode< HuffmanData > {
      * @param symbol the new symbol.
      */
     public void setSymbol(Character symbol) {
-        throw new UnsupportedOperationException();
+        ( (HuffmanData)this.getValue() ).setSymbol( symbol );
     }
     
     /**
@@ -127,7 +137,7 @@ public class HNode extends BTNode< HuffmanData > {
      * @return the frequency.
      */
     public int getFrequency() {
-        throw new UnsupportedOperationException();
+        return (int)( (HuffmanData)this.getValue() ).getFrequency();
     }
     
     /**
@@ -136,7 +146,7 @@ public class HNode extends BTNode< HuffmanData > {
      * @return the binary code.
      */
     public String getCode( ) {
-        throw new UnsupportedOperationException();
+        return ( (HuffmanData)this.getValue() ).getCode();
     }
     
     /**
@@ -145,7 +155,7 @@ public class HNode extends BTNode< HuffmanData > {
      * @return the symbol.
      */
     public Character getSymbol() {
-        throw new UnsupportedOperationException();
+        return ( (HuffmanData)this.getValue() ).getSymbol();
     }
     
     /**
@@ -154,7 +164,7 @@ public class HNode extends BTNode< HuffmanData > {
      * @return the left child of this node.
      */
     public HNode getLeftChild() {
-        throw new UnsupportedOperationException();
+        return (HNode)this.getLeftChild();
     }
     
     /**
@@ -163,7 +173,7 @@ public class HNode extends BTNode< HuffmanData > {
      * @return the right child of this node.
      */
     public HNode getRightChild() {
-        throw new UnsupportedOperationException();
+        return (HNode)this.getRightChild();
     }
     
     /**
