@@ -12,20 +12,32 @@ import org.junit.Test;
  * @version 12-2-12
  */
 public class HuffmanDataTest {
+    /**
+     * Proves the constructors can initialize the object with the
+     *  fields correctly.
+     */
     @Test
     public void testConstructor() {
         try {
-            new HuffmanData();
-            new HuffmanData( 'a' );
-            new HuffmanData( 'a', 1 );
-            new HuffmanData( 'a', 1, "101" );
-            
+            HuffmanData instance = new HuffmanData( );
+            instance = new HuffmanData( 'a' );
+            assertEquals( 'a', instance.getSymbol().charValue() );
+            instance = new HuffmanData( 'a', 1 );
+            assertEquals( 'a', instance.getSymbol().charValue() );
+            assertEquals( 1, instance.getFrequency(), 0.001 );
+            instance = new HuffmanData( 'a', 1, "101" );
+            assertEquals( 'a', instance.getSymbol().charValue() );
+            assertEquals( 1, instance.getFrequency(), 0.001 );
+            assertEquals( "101", instance.getCode() );
         }
         catch ( Throwable e ) {
             e.printStackTrace();
         }
     }
     
+    /**
+     * Proves that compareTo responds to the frequency.
+     */
     @Test
     public void testCompareTo() {
         HuffmanData instance = new HuffmanData( );
