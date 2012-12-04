@@ -54,14 +54,11 @@ public class HuffmanCodeTest {
         
         input = "HAPPY–PAPPY";
         expected = new HashMap< Character, Integer >();
-        expected.put( Character.valueOf( 'c' ), Integer.valueOf( 1 ) );
-        expected.put( Character.valueOf( 'a' ), Integer.valueOf( 4 ) );
-        expected.put( Character.valueOf( 't' ), Integer.valueOf( 3 ) );
-        expected.put( Character.valueOf( ' ' ), Integer.valueOf( 3 ) );
-        expected.put( Character.valueOf( 'f' ), Integer.valueOf( 1 ) );
-        expected.put( Character.valueOf( 'h' ), Integer.valueOf( 2 ) );
-        expected.put( Character.valueOf( 'e' ), Integer.valueOf( 1 ) );
-        expected.put( Character.valueOf( 'd' ), Integer.valueOf( 1 ) );
+        expected.put( Character.valueOf( 'H' ), Integer.valueOf( 1 ) );
+        expected.put( Character.valueOf( 'A' ), Integer.valueOf( 2 ) );
+        expected.put( Character.valueOf( 'P' ), Integer.valueOf( 5 ) );
+        expected.put( Character.valueOf( 'Y' ), Integer.valueOf( 2 ) );
+        expected.put( Character.valueOf( '-' ), Integer.valueOf( 1 ) );
         
         actual = HuffmanCode.analyse( input );
         assertEquals( expected.size(), actual.size() );
@@ -76,8 +73,8 @@ public class HuffmanCodeTest {
         analysis.add( new HNode( 'a', 1 ) );
         analysis.add( new HNode( 't', 1 ) );
         
-        HNode expected = new HNode( 'p', 3, "",
-            new HNode( 'p', 2, "", 
+        HNode expected = new HNode( ' ', 3, "",
+            new HNode( ' ', 2, "", 
                 new HNode( 'c', 1 ), 
                 new HNode( 'a', 1 )
             ),
@@ -92,8 +89,8 @@ public class HuffmanCodeTest {
         analysis.add( new HNode( 'a', 2 ) );
         analysis.add( new HNode( 't', 1 ) );
         
-        expected = new HNode( 'p', 6, "", 
-            new HNode( 'p', 3, "", 
+        expected = new HNode( ' ', 6, "", 
+            new HNode( ' ', 3, "", 
                 new HNode( 't', 1 ), 
                 new HNode( 'a', 2 )
             ), 
