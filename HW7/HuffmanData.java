@@ -161,6 +161,6 @@ public class HuffmanData {
      * @return the string representing the object.
      */
     public String toString() {
-        return "(" + this.sym + ", " + this.frq + ")";
+        return "(" + this.sym + ", " + this.frq + ", " + this.code + ")";
     }
 }
