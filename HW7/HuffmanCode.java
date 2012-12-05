@@ -21,22 +21,15 @@ public class HuffmanCode {
      * @return the root of the tree.
      */
     static public HNode buildTree(PriorityQueue<HNode> hh) {
-        PriorityQueue<HNode> t = new PriorityQueue<HNode>();
-        if ( hh.isEmpty() )
+        PriorityQueue<HNode> t = new PriorityQueue<HNode>( hh );
+        if ( t.isEmpty() )
             return null;
-        t.add( hh.poll() );
-        while ( !hh.isEmpty() || t.size() > 1 ) {
-            HNode first = null;
-            if ( !hh.isEmpty() ) {
-                first = hh.poll();
-            }
-            else {
-                first = t.poll();
-            }
-            HNode second = t.poll();
+        while ( t.size() > 1 ) {
+            HNode smaller = t.poll();
+            HNode larger = t.poll();
             double combinedFrequencies = 
-                first.getFrequency() + second.getFrequency();
-            t.add( new HNode( ' ', combinedFrequencies, "", first, second ) );
+                larger.getFrequency() + smaller.getFrequency();
+            t.add( new HNode( ' ', combinedFrequencies, "", larger, smaller ) );
         }
         return t.poll();
     }
