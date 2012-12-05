@@ -89,13 +89,7 @@ public class HNode extends BTNode< HuffmanData > implements Comparable<HNode> {
     public boolean equals( Object o ) {
         if ( !(o instanceof HNode) )
             return false;
-        HNode node = (HNode)o;
-        
-        if ( this.getFrequency( ) == node.getFrequency( ) &&
-                this.getSymbol( ) == node.getSymbol( ) ) {
-            return true;
-        }
-        return false;
+        return super.equals( o );
     }
     
     /**
@@ -184,6 +178,6 @@ public class HNode extends BTNode< HuffmanData > implements Comparable<HNode> {
      * @return a hash code value for this object.
      */
     public int hashCode() {
-        throw new UnsupportedOperationException();
+        return super.hashCode();
     }
 }
