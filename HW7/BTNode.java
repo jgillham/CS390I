@@ -154,6 +154,9 @@ public class BTNode< T > implements Serializable {
      */
     public boolean equals(Object obj) {
         try {
+            if ( obj == null )
+                return false;
+            
             @SuppressWarnings( "unchecked" )
             BTNode<T> node = (BTNode<T>)obj;
             // Make sure they are both not nulls.
@@ -165,14 +168,16 @@ public class BTNode< T > implements Serializable {
             // Make sure they are both not nulls.    
             if ( node.getLeftChild() != this.getLeftChild() ) {
                 // Now even if one is null the exception will return false;
-                if ( !node.getLeftChild().equals( this.getLeftChild() ) )
+                if ( node.getLeftChild() == null ||
+                        !node.getLeftChild().equals( this.getLeftChild() ) )
                     return false;
             }
             
             // Make sure they are both not nulls.    
             if ( node.getRightChild() != this.getRightChild() ) {
                 // Now even if one is null the exception will return false;
-                if ( !node.getRightChild().equals( this.getRightChild() ) )
+                if ( node.getRightChild() == null ||
+                        !node.getRightChild().equals( this.getRightChild() ) )
                     return false;
             }
         }
