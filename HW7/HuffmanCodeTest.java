@@ -90,31 +90,31 @@ public class HuffmanCodeTest {
         // Easy
         PriorityQueue< HNode > analysis = new PriorityQueue< HNode >();
         analysis.add( new HNode( 'c', 1 ) );
-        analysis.add( new HNode( 'a', 1 ) );
-        analysis.add( new HNode( 't', 1 ) );
+        analysis.add( new HNode( 'a', 2 ) );
+        analysis.add( new HNode( 't', 4 ) );
         
-        HNode expected = new HNode( ' ', 3, "",
-            new HNode( ' ', 2, "", 
-                new HNode( 'c', 1 ), 
-                new HNode( 'a', 1 )
-            ),
-            new HNode( 't', 1 )
+        HNode expected = new HNode( ' ', 7, "",
+            new HNode( 't', 4 ),
+            new HNode( ' ', 3, "", 
+                new HNode( 'a', 2 ),
+                new HNode( 'c', 1 )
+            )
         );
         HNode actual = HuffmanCode.buildTree( analysis );
         assertEquals( expected, actual );
         
         // Reversed order.
         analysis = new PriorityQueue< HNode >();
-        analysis.add( new HNode( 'c', 3 ) );
+        analysis.add( new HNode( 'c', 4 ) );
         analysis.add( new HNode( 'a', 2 ) );
         analysis.add( new HNode( 't', 1 ) );
         
-        expected = new HNode( ' ', 6, "", 
+        expected = new HNode( ' ', 7, "", 
+            new HNode( 'c', 4 ),
             new HNode( ' ', 3, "", 
-                new HNode( 't', 1 ), 
-                new HNode( 'a', 2 )
-            ), 
-            new HNode( 'c', 3 )
+                new HNode( 'a', 2 ),
+                new HNode( 't', 1 )
+            )
         );
         actual = HuffmanCode.buildTree( analysis );
         assertEquals( expected, actual );
@@ -122,23 +122,23 @@ public class HuffmanCodeTest {
         // From his example.
         analysis = new PriorityQueue< HNode >();
         analysis.add( new HNode( 'H', 1 ) );
-        analysis.add( new HNode( 'P', 5 ) );
-        analysis.add( new HNode( 'A', 2 ) );
-        analysis.add( new HNode( '-', 1 ) );
-        analysis.add( new HNode( 'Y', 2 ) );
+        analysis.add( new HNode( 'P', 16 ) );
+        analysis.add( new HNode( 'A', 8 ) );
+        analysis.add( new HNode( '-', 2 ) );
+        analysis.add( new HNode( 'Y', 4 ) );
 
         expected = new HNode( ' ', 11, "",
-            new HNode( ' ', 6, "",
-                new HNode( ' ', 2, "", 
-                    new HNode( 'H', 1 ), 
-                    new HNode( '-', 1 )
-                ),
-                new HNode( ' ', 4, "", 
-                    new HNode( 'A', 2 ), 
-                    new HNode( 'Y', 2 )
-                ) 
-            ),
-            new HNode( 'P', 5 )
+            new HNode( 'P', 16 ),
+            new HNode( ' ', 15, "",
+                new HNode( 'A', 8 ),
+                new HNode( ' ', 7, "",
+                    new HNode( 'Y', 4 ),
+                    new HNode( ' ', 3, "", 
+                        new HNode( '-', 2 ), 
+                        new HNode( 'H', 1 )
+                    )
+                )
+            )
         );
         
         actual = HuffmanCode.buildTree( analysis );
