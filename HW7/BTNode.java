@@ -153,7 +153,34 @@ public class BTNode< T > implements Serializable {
      *  false otherwise.
      */
     public boolean equals(Object obj) {
-        throw new UnsupportedOperationException();
+        try {
+            @SuppressWarnings( "unchecked" )
+            BTNode<T> node = (BTNode<T>)obj;
+            // Make sure they are both not nulls.
+            if ( node.getValue() != node.getValue() ) {
+                // Now even if one is null the exception will return false;
+                if ( !node.getValue().equals( this.getValue() ) )
+                    return false;
+            }
+            // Make sure they are both not nulls.    
+            if ( node.getLeftChild() != this.getLeftChild() ) {
+                // Now even if one is null the exception will return false;
+                if ( !node.getLeftChild().equals( this.getLeftChild() ) )
+                    return false;
+            }
+            
+            // Make sure they are both not nulls.    
+            if ( node.getRightChild() != this.getRightChild() ) {
+                // Now even if one is null the exception will return false;
+                if ( !node.getRightChild().equals( this.getRightChild() ) )
+                    return false;
+            }
+        }
+        // Null casting exceptions.
+        catch ( ClassCastException e ) {
+            return false;
+        }
+        return true;
     }
     
     /**
@@ -166,6 +193,16 @@ public class BTNode< T > implements Serializable {
      * @return a hash code value for this object.
      */
     public int hashCode() {
-        throw new UnsupportedOperationException();
+        int valueHash = 0;
+        if ( this.getValue() != null ) {
+            valueHash = this.getValue().hashCode();
+        }
+        if ( this.getLeftChild() != null ) {
+            valueHash += this.getLeftChild().hashCode();
+        }
+        if ( this.getRightChild() != null ) {
+            valueHash += this.getRightChild().hashCode();
+        }
+        return valueHash;
     }
 }
