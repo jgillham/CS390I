@@ -358,5 +358,60 @@ public class HNodeTest {
         root2 = new HNode( 'g', frq, "100001", null, new HNode() );
         assertFalse( root1.hashCode() == root2.hashCode() );
     }
+    
+    @Test
+    public void testToString() {
+        Character sym = Character.valueOf( 'a' );
+        int frq = 1;
+        String code = "101";
+        
+        HNode root1 = new HNode( sym );
+        HNode root2 = new HNode( );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HNode( sym );
+        root2 = new HNode( 'g' );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HNode( sym, frq );
+        root2 = new HNode( sym );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HNode( sym, frq );
+        root2 = new HNode( sym, frq + 1 );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HNode( sym, frq, code );
+        root2 = new HNode( sym, frq + 1, "100001" );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HNode( sym, frq, code );
+        root2 = new HNode( 'g', frq, "100001" );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HNode( sym, frq, code, new HNode(), new HNode() );
+        root2 = new HNode( sym, frq + 1, "100001", new HNode(), new HNode() );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HNode( sym, frq, code, null, new HNode() );
+        root2 = new HNode( sym, frq + 1, "100001", new HNode(), new HNode() );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HNode( sym, frq, code, new HNode(), new HNode() );
+        root2 = new HNode( sym, frq + 1, "100001", null, new HNode() );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HNode( sym, frq, code, new HNode(), new HNode() );
+        root2 = new HNode( 'g', frq, "100001", new HNode(), new HNode() );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HNode( sym, frq, code, null, new HNode() );
+        root2 = new HNode( 'g', frq, "100001", new HNode(), new HNode() );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HNode( sym, frq, code, new HNode(), new HNode() );
+        root2 = new HNode( 'g', frq, "100001", null, new HNode() );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+    }
     // END Good Behavor Tests
 }

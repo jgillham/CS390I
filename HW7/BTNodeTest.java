@@ -118,7 +118,45 @@ public class BTNodeTest {
     public void testToString() {
         try {
             BTNode< String > instance = new BTNode< String >();
-            assertNotNull( instance.toString() );
+            String string1 = instance.toString();
+            assertNotNull( string1 );
+            
+            instance = new BTNode< String >( "test" );
+            String string2 = instance.toString();
+            assertNotNull( string2 );
+            assertFalse( string2.equals( string1 ) );
+            
+            instance = new BTNode< String >( "test2" );
+            String string3 = instance.toString();
+            assertNotNull( string3 );
+            System.out.println( string1 );
+            System.out.println( string3 );
+            assertFalse( string3.equals( string1 ) );
+            assertFalse( string3.equals( string2 ) );
+            
+            instance = new BTNode< String >( "test2", new BTNode< String >(), new BTNode< String >() );
+            String string4 = instance.toString();
+            assertNotNull( string4 );
+            assertFalse( string4.equals( string1 ) );
+            assertFalse( string4.equals( string2 ) );
+            assertFalse( string4.equals( string3 ) );
+            
+            instance = new BTNode< String >( "test2", null, new BTNode< String >() );
+            String string5 = instance.toString();
+            assertNotNull( string5 );
+            assertFalse( string5.equals( string1 ) );
+            assertFalse( string5.equals( string2 ) );
+            assertFalse( string5.equals( string3 ) );
+            assertFalse( string5.equals( string4 ) );
+            
+            instance = new BTNode< String >( "test2", new BTNode< String >(), null );
+            String string6 = instance.toString();
+            assertNotNull( string6 );
+            assertFalse( string6.equals( string1 ) );
+            assertFalse( string6.equals( string2 ) );
+            assertFalse( string6.equals( string3 ) );
+            assertFalse( string6.equals( string4 ) );
+            assertFalse( string6.equals( string5 ) );
         }
         catch ( Exception e ) {
             fail( "Should not throw an error." );

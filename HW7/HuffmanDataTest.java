@@ -19,12 +19,16 @@ public class HuffmanDataTest {
     @Test
     public void testConstructor() {
         try {
+            // Test with no arguments.
             HuffmanData instance = new HuffmanData( );
+            // Test with 1 argument and for the initialization of the field.
             instance = new HuffmanData( 'a' );
             assertEquals( 'a', instance.getSymbol().charValue() );
+            // Test with 2 arguments and for the initialization of the fields.
             instance = new HuffmanData( 'a', 1 );
             assertEquals( 'a', instance.getSymbol().charValue() );
             assertEquals( 1, instance.getFrequency(), 0.001 );
+            // Test with 3 argument and for the initialization of the fields.
             instance = new HuffmanData( 'a', 1, "101" );
             assertEquals( 'a', instance.getSymbol().charValue() );
             assertEquals( 1, instance.getFrequency(), 0.001 );
@@ -98,26 +102,176 @@ public class HuffmanDataTest {
     }
     
     /**
-     * Proves that equals() returns the true when frequencies and symbol
-     *  are the same.
+     * Proves that equals() returns the true when symbols and
+     *  frequencies are the same.
      */
     @Test
-    public void testEquals( ) {
-        HuffmanData instance = new HuffmanData( 'a', 1 );
-        HuffmanData instance2 = new HuffmanData( 'a', 1 );
+    public void testEquals_TrueReturns( ) {
+        // Test with no arguments.
+        HuffmanData instance = new HuffmanData( );
+        HuffmanData instance2 = new HuffmanData( );
         assertTrue( instance.equals( instance2 ) );
-        instance.setFrequency( 2 );
-        instance2.setFrequency( 2 );
+        assertTrue( instance2.equals( instance ) );
+        // Test with symbol.
+        instance = new HuffmanData( 'a' );
+        instance2 = new HuffmanData( 'a' );
         assertTrue( instance.equals( instance2 ) );
+        assertTrue( instance2.equals( instance ) );
+        // Test with symbol and frequency.
+        instance = new HuffmanData( 'a', 2 );
+        instance2 = new HuffmanData( 'a', 2 );
+        assertTrue( instance.equals( instance2 ) );
+        assertTrue( instance2.equals( instance ) );
+        // Test with symbol and frequency but different codes.
+        instance = new HuffmanData( 'a', 2, "101" );
+        instance2 = new HuffmanData( 'a', 2, "100" );
+        assertTrue( instance.equals( instance2 ) );
+        assertTrue( instance2.equals( instance ) );
     }
     
+    /**
+     * Proves that equals() returns the true when symbols and
+     *  frequencies are the same.
+     */
     @Test
-    public void testHashCode() {
-        fail( "Test not implemented." );
+    public void testEquals_FalseReturns( ) {
+        
+        HuffmanData instance = new HuffmanData( 'a' );
+        HuffmanData instance2 = new HuffmanData( );
+        assertFalse( instance.equals( null ) );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+        
+        instance = new HuffmanData( 'a' );
+        instance2 = new HuffmanData( 'b' );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+        
+        instance = new HuffmanData( 'a', 1 );
+        instance2 = new HuffmanData( 'a' );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+        
+        instance = new HuffmanData( 'a', 1 );
+        instance2 = new HuffmanData( 'a', 2 );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+        
+        instance = new HuffmanData( 'a', 1, "101" );
+        instance2 = new HuffmanData( 'a', 2, "100" );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+        
+        instance = new HuffmanData( 'a', 2, "101" );
+        instance2 = new HuffmanData( 'b', 2, "100" );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+    }
+    
+    /**
+     * Proves hashCode() returns the same values in all cases.
+     */
+    @Test
+    public void testHashCode_SameReturns() {
+        Character sym = Character.valueOf( 'a' );
+        int frq = 1;
+        String code = "101";
+        // No Arguments
+        HuffmanData root1 = new HuffmanData( );
+        HuffmanData root2 = new HuffmanData( );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+        // 1 Argument
+        root1 = new HuffmanData( sym );
+        root2 = new HuffmanData( sym );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+        // 2 Arguments
+        root1 = new HuffmanData( sym, frq );
+        root2 = new HuffmanData( sym, frq );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+        // 3 Arguments
+        root1 = new HuffmanData( sym, frq, code );
+        root2 = new HuffmanData( sym, frq, code );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+        
+        root1 = new HuffmanData( sym, frq, code );
+        root2 = new HuffmanData( sym, frq, null );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+        
+        root1 = new HuffmanData( sym, frq, code );
+        root2 = new HuffmanData( sym, frq, "10000" );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+    }
+    
+    /**
+     * Proves hashCode() returns the different values in all cases.
+     */
+    @Test
+    public void testHashCode_DifferentReturns() {
+        Character sym = Character.valueOf( 'a' );
+        int frq = 1;
+        String code = "101";
+        
+        HuffmanData root1 = new HuffmanData( sym );
+        HuffmanData root2 = new HuffmanData( );
+        assertFalse( root1.hashCode() == root2.hashCode() );
+        
+        root1 = new HuffmanData( sym );
+        root2 = new HuffmanData( 'g' );
+        assertFalse( root1.hashCode() == root2.hashCode() );
+        
+        root1 = new HuffmanData( sym, frq );
+        root2 = new HuffmanData( sym );
+        assertFalse( root1.hashCode() == root2.hashCode() );
+        
+        root1 = new HuffmanData( sym, frq );
+        root2 = new HuffmanData( sym, frq + 1 );
+        assertFalse( root1.hashCode() == root2.hashCode() );
+        
+        root1 = new HuffmanData( sym, frq, code );
+        root2 = new HuffmanData( sym, frq + 1, "100001" );
+        assertFalse( root1.hashCode() == root2.hashCode() );
+        
+        root1 = new HuffmanData( sym, frq, code );
+        root2 = new HuffmanData( 'g', frq, "100001" );
+        assertFalse( root1.hashCode() == root2.hashCode() );
     }
     
     @Test
     public void testToString() {
-        fail( "Test not implemented." );
+        Character sym = Character.valueOf( 'a' );
+        int frq = 1;
+        String code = "101";
+        
+        HuffmanData root1 = new HuffmanData( sym );
+        HuffmanData root2 = new HuffmanData( );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HuffmanData( sym );
+        root2 = new HuffmanData( 'g' );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HuffmanData( sym, frq );
+        root2 = new HuffmanData( sym );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HuffmanData( sym, frq );
+        root2 = new HuffmanData( sym, frq + 1 );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HuffmanData( sym, frq );
+        root2 = new HuffmanData( 'g', frq );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HuffmanData( sym, frq, code );
+        root2 = new HuffmanData( sym, frq + 1, code );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HuffmanData( sym, frq, code );
+        root2 = new HuffmanData( 'g', frq, code );
+        assertFalse( root1.toString().equals( root2.toString() ) );
+        
+        root1 = new HuffmanData( sym, frq, code );
+        root2 = new HuffmanData( sym, frq, "100001" );
+        assertFalse( root1.toString().equals( root2.toString() ) );
     }
 }
