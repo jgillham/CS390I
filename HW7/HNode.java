@@ -87,9 +87,22 @@ public class HNode extends BTNode< HuffmanData > implements Comparable<HNode> {
      */
     @Override
     public boolean equals( Object o ) {
+        if ( o == null )
+            return false;
+        
         if ( !(o instanceof HNode) )
             return false;
-        return super.equals( o );
+            
+        HNode node = (HNode)o;
+        
+        // Make sure they are both not nulls.
+        if ( node.getValue() != this.getValue() ) {
+            // Now even if one is null the exception will return false;
+            if ( node.getValue() == null ||
+                    !node.getValue().equals( this.getValue() ) )
+                return false;
+        }
+        return true;
     }
     
     /**
