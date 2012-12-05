@@ -159,10 +159,12 @@ public class BTNode< T > implements Serializable {
             
             @SuppressWarnings( "unchecked" )
             BTNode<T> node = (BTNode<T>)obj;
+            
             // Make sure they are both not nulls.
-            if ( node.getValue() != node.getValue() ) {
+            if ( node.getValue() != this.getValue() ) {
                 // Now even if one is null the exception will return false;
-                if ( !node.getValue().equals( this.getValue() ) )
+                if ( node.getValue() == null ||
+                        !node.getValue().equals( this.getValue() ) )
                     return false;
             }
             // Make sure they are both not nulls.    
@@ -198,7 +200,7 @@ public class BTNode< T > implements Serializable {
      * @return a hash code value for this object.
      */
     public int hashCode() {
-        int valueHash = 0;
+        int valueHash = 1;
         if ( this.getValue() != null ) {
             valueHash = this.getValue().hashCode();
         }
