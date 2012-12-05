@@ -21,6 +21,9 @@ public class HNodeTest {
     public void testConstructor( ) {
         try {
             HNode instance = new HNode( );
+            assertEquals( 0, instance.getFrequency() );
+            assertEquals( null, instance.getSymbol() );
+            assertEquals( null, instance.getCode() );
             instance = new HNode( 'a' );
             assertEquals( 'a', instance.getSymbol().charValue() );
             instance = new HNode( 'a', 1 );
@@ -131,7 +134,7 @@ public class HNodeTest {
     @Test
     public void testEquals( ) {
         HNode instance = new HNode( 'a', 1 );
-        HNode instance2 = new HNode( 'b', 2 );
+        HNode instance2 = new HNode( 'a', 2 );
         assertTrue( instance.equals( instance2 ) );
         instance.setFrequency( 1 );
         instance2.setFrequency( 1 );
@@ -153,6 +156,36 @@ public class HNodeTest {
         instance.setFrequency( 4 );
         instance2.setFrequency( 4 );
         assertTrue( instance.equals( instance2 ) );
+    }
+    
+    /**
+     * Proves hashCode() works.
+     */
+    @Test
+    public void testHashCode() {
+        Character sym = Character.valueOf( 'a' );
+        int frq = 1;
+        String code = "101";
+        // No Arguments
+        HNode root1 = new HNode( );
+        HNode root2 = new HNode( );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+        // 1 Argument
+        root1 = new HNode( sym );
+        root2 = new HNode( sym );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+        // 2 Arguments
+        root1 = new HNode( sym, frq );
+        root2 = new HNode( sym, frq );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+        // 3 Arguments
+        root1 = new HNode( sym, frq, code );
+        root2 = new HNode( sym, frq, code );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+        // All Arguments
+        root1 = new HNode( sym, frq, code, new HNode(), new HNode() );
+        root2 = new HNode( sym, frq, code, new HNode(), new HNode() );
+        assertEquals( root1.hashCode(), root2.hashCode() );
     }
     // END Good Behavor Tests
 }
