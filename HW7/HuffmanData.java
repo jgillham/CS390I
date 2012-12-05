@@ -124,7 +124,8 @@ public class HuffmanData {
      * @return the hash code.
      */
     public int hashCode() {
-        return Character.valueOf( this.sym ).hashCode() + 256 * (int)this.frq;
+        int symHash = this.sym != null? this.sym.hashCode() : 0;
+        return symHash + 256 * (int)this.frq;
     }
     
     /**
