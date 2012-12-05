@@ -123,4 +123,51 @@ public class BTNodeTest {
             fail( "Should not throw an error." );
         }
     }
+    
+    /**
+     * Proves hashCode() works.
+     */
+    @Test
+    public void testHashCode() {
+        String value = "this is a test.";
+        BTNode< String > root1 = new BTNode< String >( );
+        BTNode< String > root2 = new BTNode< String >( );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+        
+        root1 = new BTNode< String >(value );
+        root2 = new BTNode< String >(value );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+        
+        root1 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+        
+        root1 = new BTNode< String >(null, new BTNode< String >(), new BTNode< String >() );
+        root2 = new BTNode< String >(null, new BTNode< String >(), new BTNode< String >() );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+    }
+    
+    /**
+     * Proves hashCode() works.
+     */
+    @Test
+    public void testEquals() {
+        String value = "this is a test.";
+        BTNode< String > root1 = new BTNode< String >( );
+        BTNode< String > root2 = new BTNode< String >( );
+        assertEquals( root1, root2 );
+        
+        root1 = new BTNode< String >(value );
+        root2 = new BTNode< String >(value );
+        assertEquals( root1, root2 );
+        
+        root1 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        assertEquals( root1, root2 );
+        
+        root1 = new BTNode< String >(null, new BTNode< String >(), new BTNode< String >() );
+        root2 = new BTNode< String >(null, new BTNode< String >(), new BTNode< String >() );
+        assertEquals( root1, root2 );
+        
+    }
 }
