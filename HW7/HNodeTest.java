@@ -20,19 +20,24 @@ public class HNodeTest {
     @Test
     public void testConstructor( ) {
         try {
+            // Test with no arguments and for field initialization.
             HNode instance = new HNode( );
             assertEquals( 0, instance.getFrequency() );
             assertEquals( null, instance.getSymbol() );
             assertEquals( null, instance.getCode() );
+            // Test with a symbol and for field initialization.
             instance = new HNode( 'a' );
             assertEquals( 'a', instance.getSymbol().charValue() );
+            // Test with a symbol, frequency, and for field initialization.
             instance = new HNode( 'a', 1 );
             assertEquals( 'a', instance.getSymbol().charValue() );
             assertEquals( 1, instance.getFrequency() );
+            // Test with a symbol, frequency, code, and for field initialization.
             instance = new HNode( 'a', 1, "101" );
             assertEquals( 'a', instance.getSymbol().charValue() );
             assertEquals( 1, instance.getFrequency() );
             assertEquals( "101", instance.getCode() );
+            // Test with all arguments and for field initialization.
             HNode left = new HNode( );
             HNode right = new HNode( );
             instance = new HNode( 'a', 1, "101", left, right );
@@ -99,14 +104,24 @@ public class HNodeTest {
         HNode instance = new HNode( );
         HNode instance2 = new HNode( );
         assertEquals( 0, instance.compareTo( instance2 ) );
+        instance.setSymbol( 'a' );
+        instance.setCode( "101" );
         instance.setFrequency( 1 );
         assertEquals( 1, instance.compareTo( instance2 ) );
+        instance.setSymbol( 'b' );
+        instance.setCode( "100" );
         instance2.setFrequency( 2 );
         assertEquals( -1, instance.compareTo( instance2 ) );
+        instance.setSymbol( 'c' );
+        instance.setCode( "1" );
         instance.setFrequency( 3 );
         assertEquals( 1, instance.compareTo( instance2 ) );
+        instance.setSymbol( 'd' );
+        instance.setCode( "1010" );
         instance2.setFrequency( 4 );
         assertEquals( -1, instance.compareTo( instance2 ) );
+        instance.setSymbol( 'e' );
+        instance.setCode( "1011010" );
         instance.setFrequency( 4 );
         assertEquals( 0, instance.compareTo( instance2 ) );
         
@@ -128,41 +143,122 @@ public class HNodeTest {
     }
     
     /**
-     * Proves that equals() returns the true when the data, frequencies,
-     *  and children are all the same.
+     * Proves that equals() returns the true when symbols and
+     *  frequencies are the same.
      */
     @Test
-    public void testEquals( ) {
-        HNode instance = new HNode( 'a', 1 );
-        HNode instance2 = new HNode( 'a', 2 );
+    public void testEquals_TrueReturns( ) {
+        // Test with no arguments.
+        HNode instance = new HNode( );
+        HNode instance2 = new HNode( );
         assertTrue( instance.equals( instance2 ) );
-        instance.setFrequency( 1 );
-        instance2.setFrequency( 1 );
+        assertTrue( instance2.equals( instance ) );
+        // Test with symbol.
+        instance = new HNode( 'a' );
+        instance2 = new HNode( 'a' );
         assertTrue( instance.equals( instance2 ) );
-        instance = new HNode( ' ', 2, "", new HNode( 't', 2), null );
-        instance2 = new HNode( ' ', 2, "", new HNode( 'c', 3 ), null );
-        instance.setFrequency( 2 );
-        instance2.setFrequency( 2 );
+        assertTrue( instance2.equals( instance ) );
+        // Test with symbol and frequency.
+        instance = new HNode( 'a', 2 );
+        instance2 = new HNode( 'a', 2 );
         assertTrue( instance.equals( instance2 ) );
-        instance = new HNode( ' ', 6, "", null, new HNode( 'v', 6 ) );
-        instance2 = new HNode( ' ', 7, "", null, new HNode( 'g', 6 ) );
-        instance.setFrequency( 3 );
-        instance2.setFrequency( 3 );
+        assertTrue( instance2.equals( instance ) );
+        // Test with symbol and frequency but different codes.
+        instance = new HNode( 'a', 2, "101" );
+        instance2 = new HNode( 'a', 2, "100" );
         assertTrue( instance.equals( instance2 ) );
-        instance = new HNode( ' ', 9, "", new HNode( 'r', 3 ),
-            new HNode( 'h', 6 ) );
-        instance2 = new HNode( ' ', 9, "", new HNode( 'r', 3 ),
-            new HNode( 'h', 6 ) );
-        instance.setFrequency( 4 );
-        instance2.setFrequency( 4 );
+        assertTrue( instance2.equals( instance ) );
+        // Test with symbol, frequency, and children but different codes.
+        instance = new HNode( 'a', 2, "101", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        instance2 = new HNode( 'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
         assertTrue( instance.equals( instance2 ) );
+        assertTrue( instance2.equals( instance ) );
+        // Test with symbol and frequency but different codes and children.
+        instance = new HNode( 'a', 2, "101", new HNode( 't', 2 ), null );
+        instance2 = new HNode( 'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        assertTrue( instance.equals( instance2 ) );
+        assertTrue( instance2.equals( instance ) );
+        // Test with symbol and frequency but different codes and children.
+        instance = new HNode( 'a', 2, "101", null, new HNode( 'c', 1 ) );
+        instance2 = new HNode( 'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        assertTrue( instance.equals( instance2 ) );
+        assertTrue( instance2.equals( instance ) );
     }
     
     /**
-     * Proves hashCode() works.
+     * Proves that equals() returns the true when symbols and
+     *  frequencies are the same.
      */
     @Test
-    public void testHashCode() {
+    public void testEquals_FalseReturns( ) {
+        
+        HNode instance = new HNode( 'a' );
+        HNode instance2 = new HNode( );
+        assertFalse( instance.equals( null ) );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+        
+        instance = new HNode( 'a' );
+        instance2 = new HNode( 'b' );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+        
+        instance = new HNode( 'a', 1 );
+        instance2 = new HNode( 'a' );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+        
+        instance = new HNode( 'a', 1 );
+        instance2 = new HNode( 'a', 2 );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+        
+        instance = new HNode( 'a', 1, "101" );
+        instance2 = new HNode( 'a', 2, "100" );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+        
+        instance = new HNode( 'a', 2, "101" );
+        instance2 = new HNode( 'b', 2, "100" );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+        
+        instance = new HNode( 'a', 1, "101", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        instance2 = new HNode( 'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+        
+        instance = new HNode( 'a', 2, "101", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        instance2 = new HNode( 'b', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+        
+        instance = new HNode( 'a', 1, "101", new HNode( 't', 2 ), null );
+        instance2 = new HNode( 'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+        
+        instance = new HNode( 'b', 2, "101", new HNode( 't', 2 ), null );
+        instance2 = new HNode( 'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+        
+        instance = new HNode( 'b', 2, "101", null, new HNode( 'c', 1 ) );
+        instance2 = new HNode( 'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+        
+        instance = new HNode( 'a', 1, "101", null, new HNode( 'c', 1 ) );
+        instance2 = new HNode( 'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        assertFalse( instance.equals( instance2 ) );
+        assertFalse( instance2.equals( instance ) );
+    }
+    
+    /**
+     * Proves hashCode() returns the same values in all cases.
+     */
+    @Test
+    public void testHashCode_SameReturns() {
         Character sym = Character.valueOf( 'a' );
         int frq = 1;
         String code = "101";
@@ -182,10 +278,85 @@ public class HNodeTest {
         root1 = new HNode( sym, frq, code );
         root2 = new HNode( sym, frq, code );
         assertEquals( root1.hashCode(), root2.hashCode() );
+        
+        root1 = new HNode( sym, frq, code );
+        root2 = new HNode( sym, frq, null );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+        
+        root1 = new HNode( sym, frq, code );
+        root2 = new HNode( sym, frq, "10000" );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+        
         // All Arguments
         root1 = new HNode( sym, frq, code, new HNode(), new HNode() );
-        root2 = new HNode( sym, frq, code, new HNode(), new HNode() );
+        root2 = new HNode( sym, frq, "1000", new HNode(), new HNode() );
         assertEquals( root1.hashCode(), root2.hashCode() );
+        
+        root1 = new HNode( sym, frq, code, null, new HNode() );
+        root2 = new HNode( sym, frq, "1000", new HNode(), new HNode() );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+        
+        root1 = new HNode( sym, frq, code, new HNode(), new HNode() );
+        root2 = new HNode( sym, frq, "1000", null, new HNode() );
+        assertEquals( root1.hashCode(), root2.hashCode() );
+    }
+    
+    /**
+     * Proves hashCode() returns the different values in all cases.
+     */
+    @Test
+    public void testHashCode_DifferentReturns() {
+        Character sym = Character.valueOf( 'a' );
+        int frq = 1;
+        String code = "101";
+        
+        HNode root1 = new HNode( sym );
+        HNode root2 = new HNode( );
+        assertFalse( root1.hashCode() == root2.hashCode() );
+        
+        root1 = new HNode( sym );
+        root2 = new HNode( 'g' );
+        assertFalse( root1.hashCode() == root2.hashCode() );
+        
+        root1 = new HNode( sym, frq );
+        root2 = new HNode( sym );
+        assertFalse( root1.hashCode() == root2.hashCode() );
+        
+        root1 = new HNode( sym, frq );
+        root2 = new HNode( sym, frq + 1 );
+        assertFalse( root1.hashCode() == root2.hashCode() );
+        
+        root1 = new HNode( sym, frq, code );
+        root2 = new HNode( sym, frq + 1, "100001" );
+        assertFalse( root1.hashCode() == root2.hashCode() );
+        
+        root1 = new HNode( sym, frq, code );
+        root2 = new HNode( 'g', frq, "100001" );
+        assertFalse( root1.hashCode() == root2.hashCode() );
+        
+        root1 = new HNode( sym, frq, code, new HNode(), new HNode() );
+        root2 = new HNode( sym, frq + 1, "100001", new HNode(), new HNode() );
+        assertFalse( root1.hashCode() == root2.hashCode() );
+        
+        root1 = new HNode( sym, frq, code, null, new HNode() );
+        root2 = new HNode( sym, frq + 1, "100001", new HNode(), new HNode() );
+        assertFalse( root1.hashCode() == root2.hashCode() );
+        
+        root1 = new HNode( sym, frq, code, new HNode(), new HNode() );
+        root2 = new HNode( sym, frq + 1, "100001", null, new HNode() );
+        assertFalse( root1.hashCode() == root2.hashCode() );
+        
+        root1 = new HNode( sym, frq, code, new HNode(), new HNode() );
+        root2 = new HNode( 'g', frq, "100001", new HNode(), new HNode() );
+        assertFalse( root1.hashCode() == root2.hashCode() );
+        
+        root1 = new HNode( sym, frq, code, null, new HNode() );
+        root2 = new HNode( 'g', frq, "100001", new HNode(), new HNode() );
+        assertFalse( root1.hashCode() == root2.hashCode() );
+        
+        root1 = new HNode( sym, frq, code, new HNode(), new HNode() );
+        root2 = new HNode( 'g', frq, "100001", null, new HNode() );
+        assertFalse( root1.hashCode() == root2.hashCode() );
     }
     // END Good Behavor Tests
 }
