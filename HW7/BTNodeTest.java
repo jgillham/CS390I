@@ -12,6 +12,7 @@ import org.junit.Test;
  * @version 10-21-12
  */
 public class BTNodeTest {
+    // BEGIN Good Behavior Tests
     /**
      * Test default constructor. All private fields should be null.
      * 
@@ -125,49 +126,118 @@ public class BTNodeTest {
     }
     
     /**
-     * Proves hashCode() works.
+     * Proves hashCode() returns the same values in all cases.
      */
     @Test
-    public void testHashCode() {
+    public void testHashCode_SameReturn() {
         String value = "this is a test.";
         BTNode< String > root1 = new BTNode< String >( );
         BTNode< String > root2 = new BTNode< String >( );
-        assertEquals( root1.hashCode(), root2.hashCode() );
+        assertEquals( root1.hashCode(), root2.hashCode( ) );
         
         root1 = new BTNode< String >(value );
         root2 = new BTNode< String >(value );
-        assertEquals( root1.hashCode(), root2.hashCode() );
+        assertEquals( root1.hashCode(), root2.hashCode( ) );
         
         root1 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
         root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
-        assertEquals( root1.hashCode(), root2.hashCode() );
+        assertEquals( root1.hashCode(), root2.hashCode( ) );
         
         root1 = new BTNode< String >(null, new BTNode< String >(), new BTNode< String >() );
         root2 = new BTNode< String >(null, new BTNode< String >(), new BTNode< String >() );
-        assertEquals( root1.hashCode(), root2.hashCode() );
+        assertEquals( root1.hashCode(), root2.hashCode( ) );
     }
     
     /**
-     * Proves hashCode() works.
+     * Proves hashCode() returns different values in all cases.
      */
     @Test
-    public void testEquals() {
+    public void testHashCode_DifferentReturns() {
+        String value = "this is a test.";
+        
+        BTNode< String > root1 = new BTNode< String >( );
+        BTNode< String > root2 = new BTNode< String >( value );
+        assertFalse( root1.hashCode() == root2.hashCode( ) );
+        
+        root1 = new BTNode< String >( value );
+        root2 = new BTNode< String >( value + "b" );
+        assertFalse( root1.hashCode() == root2.hashCode( ) );
+        
+        root1 = new BTNode< String >(value, null, new BTNode< String >() );
+        root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        assertFalse( root1.hashCode() == root2.hashCode( ) );
+        
+        root1 = new BTNode< String >(value, new BTNode< String >(), null );
+        root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        assertFalse( root1.hashCode() == root2.hashCode( ) );
+        
+        root1 = new BTNode< String >(null, new BTNode< String >(), new BTNode< String >() );
+        root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        assertFalse( root1.hashCode() == root2.hashCode( ) );
+    }
+    
+    /**
+     * Proves equals() returns true for all possible true conditions.
+     */
+    @Test
+    public void testEquals_TrueReturns() {
         String value = "this is a test.";
         BTNode< String > root1 = new BTNode< String >( );
         BTNode< String > root2 = new BTNode< String >( );
-        assertEquals( root1, root2 );
+        assertTrue( root1.equals( root2 ) );
+        assertTrue( root2.equals( root1 ) );
         
         root1 = new BTNode< String >(value );
         root2 = new BTNode< String >(value );
-        assertEquals( root1, root2 );
+        assertTrue( root1.equals( root2 ) );
+        assertTrue( root2.equals( root1 ) );
         
         root1 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
         root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
-        assertEquals( root1, root2 );
+        assertTrue( root1.equals( root2 ) );
+        assertTrue( root2.equals( root1 ) );
         
         root1 = new BTNode< String >(null, new BTNode< String >(), new BTNode< String >() );
         root2 = new BTNode< String >(null, new BTNode< String >(), new BTNode< String >() );
-        assertEquals( root1, root2 );
-        
+        assertTrue( root1.equals( root2 ) );
+        assertTrue( root2.equals( root1 ) );
     }
+    
+    /**
+     * Proves equals() returns false for all false cases.
+     */
+    @Test
+    public void testEquals_FalseReturns() {
+        String value = "this is a test.";
+        
+        BTNode< String > root1 = new BTNode< String >( );
+        BTNode< String > root2 = new BTNode< String >( value );
+        assertFalse( root1.equals( "different object" ) );
+        assertFalse( root1.equals( null ) );
+        assertFalse( root1.equals( root2 ) );
+        assertFalse( root2.equals( root1 ) );
+        
+        root1 = new BTNode< String >( value );
+        root2 = new BTNode< String >( value + "b" );
+        assertFalse( root1.equals( root2 ) );
+        assertFalse( root2.equals( root1 ) );
+        
+        root1 = new BTNode< String >(value, null, new BTNode< String >() );
+        root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        assertFalse( root1.equals( root2 ) );
+        assertFalse( root2.equals( root1 ) );
+        
+        root1 = new BTNode< String >(value, new BTNode< String >(), null );
+        root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        assertFalse( root1.equals( root2 ) );
+        assertFalse( root2.equals( root1 ) );
+        
+        root1 = new BTNode< String >(null, new BTNode< String >(), new BTNode< String >() );
+        root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        assertFalse( root1.equals( root2 ) );
+        assertFalse( root2.equals( root1 ) );
+    }
+    // END Good Behavior Tests
+    // BEGIN Destructive Tests
+    // END Destructive Tests
 }
