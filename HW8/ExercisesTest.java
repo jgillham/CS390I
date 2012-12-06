@@ -100,10 +100,12 @@ public class ExercisesTest {
     @Test
     public void testGroupExists_TrueReturn() {
         List< Integer > numbers = new LinkedList< Integer >();
+        assertTrue( Exercises.groupExists( numbers, 0 ) );
         numbers.add( 1 );
         numbers.add( 3 );
         numbers.add( 5 );
         numbers.add( 12 );
+        assertTrue( Exercises.groupExists( numbers, 0 ) );
             // Find the number of combinations.
         int combinationCount = (int)Math.pow( 2D, numbers.size() );
             // Iterate through each combination.
@@ -136,6 +138,9 @@ public class ExercisesTest {
     @Test
     public void testGroupExists_FalseReturn() {
         List< Integer > numbers = new LinkedList< Integer >();
+        assertFalse( Exercises.groupExists( numbers, 1 ) );
+        assertFalse( Exercises.groupExists( numbers, 2 ) );
+        assertFalse( Exercises.groupExists( numbers, 3 ) );
         numbers.add( 1 );
         numbers.add( 3 );
         numbers.add( 5 );
@@ -150,5 +155,76 @@ public class ExercisesTest {
     }
     // END Good Behavior Tests
     // BEGIN Destructive Tests
+    /**
+     * Prove that sum() throws an exception for null paramters.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testSum_Null() {
+        Exercises.sum( null );
+    }
+    
+    /**
+     * Prove that sum() throws an exception for empty lists.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testSum_Empty() {
+        Exercises.sum( new LinkedList< Integer >() );
+    }
+    
+    /**
+     * Prove that product() throws an exception for null paramters.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testProduct_Null() {
+        Exercises.product( null );
+    }
+    
+    /**
+     * Prove that product() throws an exception for empty lists.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testProduct_Empty() {
+        Exercises.product( new LinkedList< Integer >() );
+    }
+    
+    /**
+     * Prove that strCount() throws an exception for null paramters.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testStrCount_Null() {
+        Exercises.strCount( null, "test" );
+    }
+    
+    /**
+     * Prove that strCount() throws an exception for null paramters.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testStrCount_Null2() {
+        Exercises.strCount( "test", null );
+    }
+    
+    /**
+     * Prove that strCount() throws an exception for empty lists.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testStrCount_Empty() {
+        Exercises.strCount( "test", "" );
+    }
+    
+    /**
+     * Prove that strCount() throws an exception for empty lists.
+     */
+    @Test( expected = IllegalArgumentException.class )
+    public void testStrCount_Empty2() {
+        Exercises.strCount( "", "test" );
+    }
+    
+    /**
+     * Prove that groupExists() throws an exception for null paramters.
+     */
+    @Test( expected = NullPointerException.class )
+    public void testGroupExists_Null() {
+        Exercises.groupExists( null, 0 );
+    }
     // BEGIN Destructive Tests
 }
