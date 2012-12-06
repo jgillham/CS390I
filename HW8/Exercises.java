@@ -53,6 +53,7 @@ public class Exercises {
      * @return the product of the integers.
      * 
      * @throws IllegalArgumentException when values is empty.
+     * @throws NullPointerException when values is null.
      */
     public static Integer product(final List<Integer> values) {
         switch ( values.size() ) {
@@ -128,10 +129,15 @@ public class Exercises {
      * @param target the integer to find.
      * 
      * @return true if there exists a group of integers in the list that 
-     *  sum to the given target value.
+     *  sum to the given target value OR false if it is not or the list
+     *  is empty.
+     * 
+     * @throws NullPointerException if numbers is null.
      */
     public static boolean groupExists(final List<Integer> numbers,
             final int target) {
+        if ( numbers == null )
+            throw new NullPointerException();
         if ( combinationExists( numbers, 0, target, 0, true ) ||
                 combinationExists( numbers, 0, target, 0, false ) ) {
             return true;
