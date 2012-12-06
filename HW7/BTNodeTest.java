@@ -134,14 +134,18 @@ public class BTNodeTest {
             assertFalse( string3.equals( string1 ) );
             assertFalse( string3.equals( string2 ) );
             
-            instance = new BTNode< String >( "test2", new BTNode< String >(), new BTNode< String >() );
+            instance = new BTNode< String >(
+                "test2", new BTNode< String >(), new BTNode< String >()
+            );
             String string4 = instance.toString();
             assertNotNull( string4 );
             assertFalse( string4.equals( string1 ) );
             assertFalse( string4.equals( string2 ) );
             assertFalse( string4.equals( string3 ) );
             
-            instance = new BTNode< String >( "test2", null, new BTNode< String >() );
+            instance = new BTNode< String >(
+                "test2", null, new BTNode< String >()
+            );
             String string5 = instance.toString();
             assertNotNull( string5 );
             assertFalse( string5.equals( string1 ) );
@@ -149,7 +153,9 @@ public class BTNodeTest {
             assertFalse( string5.equals( string3 ) );
             assertFalse( string5.equals( string4 ) );
             
-            instance = new BTNode< String >( "test2", new BTNode< String >(), null );
+            instance = new BTNode< String >(
+                "test2", new BTNode< String >(), null
+            );
             String string6 = instance.toString();
             assertNotNull( string6 );
             assertFalse( string6.equals( string1 ) );
@@ -177,12 +183,20 @@ public class BTNodeTest {
         root2 = new BTNode< String >(value );
         assertEquals( root1.hashCode(), root2.hashCode( ) );
         
-        root1 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
-        root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        root1 = new BTNode< String >(
+            value, new BTNode< String >(), new BTNode< String >()
+        );
+        root2 = new BTNode< String >(
+            value, new BTNode< String >(), new BTNode< String >()
+        );
         assertEquals( root1.hashCode(), root2.hashCode( ) );
         
-        root1 = new BTNode< String >(null, new BTNode< String >(), new BTNode< String >() );
-        root2 = new BTNode< String >(null, new BTNode< String >(), new BTNode< String >() );
+        root1 = new BTNode< String >(
+            null, new BTNode< String >(), new BTNode< String >()
+        );
+        root2 = new BTNode< String >(
+            null, new BTNode< String >(), new BTNode< String >()
+        );
         assertEquals( root1.hashCode(), root2.hashCode( ) );
     }
     
@@ -202,15 +216,25 @@ public class BTNodeTest {
         assertFalse( root1.hashCode() == root2.hashCode( ) );
         
         root1 = new BTNode< String >(value, null, new BTNode< String >() );
-        root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        root2 = new BTNode< String >(
+            value, new BTNode< String >(), new BTNode< String >()
+        );
         assertFalse( root1.hashCode() == root2.hashCode( ) );
         
-        root1 = new BTNode< String >(value, new BTNode< String >(), null );
-        root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        root1 = new BTNode< String >(
+            value, new BTNode< String >(), null
+        );
+        root2 = new BTNode< String >(
+            value, new BTNode< String >(), new BTNode< String >()
+        );
         assertFalse( root1.hashCode() == root2.hashCode( ) );
         
-        root1 = new BTNode< String >(null, new BTNode< String >(), new BTNode< String >() );
-        root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        root1 = new BTNode< String >(
+            null, new BTNode< String >(), new BTNode< String >()
+        );
+        root2 = new BTNode< String >(
+            value, new BTNode< String >(), new BTNode< String >()
+        );
         assertFalse( root1.hashCode() == root2.hashCode( ) );
     }
     
@@ -230,13 +254,21 @@ public class BTNodeTest {
         assertTrue( root1.equals( root2 ) );
         assertTrue( root2.equals( root1 ) );
         
-        root1 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
-        root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        root1 = new BTNode< String >(
+            value, new BTNode< String >(), new BTNode< String >()
+        );
+        root2 = new BTNode< String >(
+            value, new BTNode< String >(), new BTNode< String >()
+        );
         assertTrue( root1.equals( root2 ) );
         assertTrue( root2.equals( root1 ) );
         
-        root1 = new BTNode< String >(null, new BTNode< String >(), new BTNode< String >() );
-        root2 = new BTNode< String >(null, new BTNode< String >(), new BTNode< String >() );
+        root1 = new BTNode< String >(
+            null, new BTNode< String >(), new BTNode< String >()
+        );
+        root2 = new BTNode< String >(
+            null, new BTNode< String >(), new BTNode< String >()
+        );
         assertTrue( root1.equals( root2 ) );
         assertTrue( root2.equals( root1 ) );
     }
@@ -261,17 +293,27 @@ public class BTNodeTest {
         assertFalse( root2.equals( root1 ) );
         
         root1 = new BTNode< String >(value, null, new BTNode< String >() );
-        root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        root2 = new BTNode< String >(
+            value, new BTNode< String >(), new BTNode< String >()
+        );
         assertFalse( root1.equals( root2 ) );
         assertFalse( root2.equals( root1 ) );
         
-        root1 = new BTNode< String >(value, new BTNode< String >(), null );
-        root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        root1 = new BTNode< String >(
+            value, new BTNode< String >(), null
+        );
+        root2 = new BTNode< String >(
+            value, new BTNode< String >(), new BTNode< String >()
+        );
         assertFalse( root1.equals( root2 ) );
         assertFalse( root2.equals( root1 ) );
         
-        root1 = new BTNode< String >(null, new BTNode< String >(), new BTNode< String >() );
-        root2 = new BTNode< String >(value, new BTNode< String >(), new BTNode< String >() );
+        root1 = new BTNode< String >(
+            null, new BTNode< String >(), new BTNode< String >()
+        );
+        root2 = new BTNode< String >(
+            value, new BTNode< String >(), new BTNode< String >()
+        );
         assertFalse( root1.equals( root2 ) );
         assertFalse( root2.equals( root1 ) );
     }

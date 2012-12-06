@@ -71,7 +71,8 @@ public class HNode extends BTNode< HuffmanData > implements Comparable<HNode> {
     public int compareTo(HNode n) {
         if ( this.getFrequency() < n.getFrequency() ) {
             return -1;
-        } else if ( this.getFrequency() == n.getFrequency() ) {
+        }
+        else if ( this.getFrequency() == n.getFrequency() ) {
             return 0;
         }
         return 1;

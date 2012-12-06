@@ -32,7 +32,7 @@ public class HNodeTest {
             instance = new HNode( 'a', 1 );
             assertEquals( 'a', instance.getSymbol().charValue() );
             assertEquals( 1, instance.getFrequency() );
-            // Test with a symbol, frequency, code, and for field initialization.
+            // Test with a symbol, frequency, code, and fields.
             instance = new HNode( 'a', 1, "101" );
             assertEquals( 'a', instance.getSymbol().charValue() );
             assertEquals( 1, instance.getFrequency() );
@@ -169,18 +169,26 @@ public class HNodeTest {
         assertTrue( instance.equals( instance2 ) );
         assertTrue( instance2.equals( instance ) );
         // Test with symbol, frequency, and children but different codes.
-        instance = new HNode( 'a', 2, "101", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
-        instance2 = new HNode( 'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        instance = new HNode(
+            'a', 2, "101", new HNode( 't', 2 ), new HNode( 'c', 1 )
+        );
+        instance2 = new HNode( 
+            'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 )
+        );
         assertTrue( instance.equals( instance2 ) );
         assertTrue( instance2.equals( instance ) );
         // Test with symbol and frequency but different codes and children.
         instance = new HNode( 'a', 2, "101", new HNode( 't', 2 ), null );
-        instance2 = new HNode( 'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        instance2 = new HNode(
+            'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 )
+        );
         assertTrue( instance.equals( instance2 ) );
         assertTrue( instance2.equals( instance ) );
         // Test with symbol and frequency but different codes and children.
         instance = new HNode( 'a', 2, "101", null, new HNode( 'c', 1 ) );
-        instance2 = new HNode( 'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        instance2 = new HNode(
+            'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 )
+        );
         assertTrue( instance.equals( instance2 ) );
         assertTrue( instance2.equals( instance ) );
     }
@@ -223,33 +231,49 @@ public class HNodeTest {
         assertFalse( instance.equals( instance2 ) );
         assertFalse( instance2.equals( instance ) );
         
-        instance = new HNode( 'a', 1, "101", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
-        instance2 = new HNode( 'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        instance = new HNode(
+            'a', 1, "101", new HNode( 't', 2 ), new HNode( 'c', 1 )
+        );
+        instance2 = new HNode(
+            'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 )
+        );
         assertFalse( instance.equals( instance2 ) );
         assertFalse( instance2.equals( instance ) );
         
-        instance = new HNode( 'a', 2, "101", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
-        instance2 = new HNode( 'b', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        instance = new HNode(
+            'a', 2, "101", new HNode( 't', 2 ), new HNode( 'c', 1 )
+        );
+        instance2 = new HNode(
+            'b', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 )
+        );
         assertFalse( instance.equals( instance2 ) );
         assertFalse( instance2.equals( instance ) );
         
         instance = new HNode( 'a', 1, "101", new HNode( 't', 2 ), null );
-        instance2 = new HNode( 'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        instance2 = new HNode(
+            'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 )
+        );
         assertFalse( instance.equals( instance2 ) );
         assertFalse( instance2.equals( instance ) );
         
         instance = new HNode( 'b', 2, "101", new HNode( 't', 2 ), null );
-        instance2 = new HNode( 'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        instance2 = new HNode(
+            'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 )
+        );
         assertFalse( instance.equals( instance2 ) );
         assertFalse( instance2.equals( instance ) );
         
         instance = new HNode( 'b', 2, "101", null, new HNode( 'c', 1 ) );
-        instance2 = new HNode( 'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        instance2 = new HNode(
+            'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 )
+        );
         assertFalse( instance.equals( instance2 ) );
         assertFalse( instance2.equals( instance ) );
         
         instance = new HNode( 'a', 1, "101", null, new HNode( 'c', 1 ) );
-        instance2 = new HNode( 'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 ) );
+        instance2 = new HNode( 
+            'a', 2, "100", new HNode( 't', 2 ), new HNode( 'c', 1 )
+        );
         assertFalse( instance.equals( instance2 ) );
         assertFalse( instance2.equals( instance ) );
     }
@@ -359,6 +383,9 @@ public class HNodeTest {
         assertFalse( root1.hashCode() == root2.hashCode() );
     }
     
+    /**
+     * Proves that toString() produces unique strings based on the data.
+     */
     @Test
     public void testToString() {
         Character sym = Character.valueOf( 'a' );

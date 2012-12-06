@@ -235,7 +235,10 @@ public class HuffmanDataTest {
         root2 = new HuffmanData( 'g', frq, "100001" );
         assertFalse( root1.hashCode() == root2.hashCode() );
     }
-    
+    /**
+     * Proves that toString() produces unique strings depending
+     *  on the data.
+     */
     @Test
     public void testToString() {
         Character sym = Character.valueOf( 'a' );

@@ -28,7 +28,9 @@ public class HuffmanCode {
             HNode larger = t.poll();
             double combinedFrequencies = 
                 larger.getFrequency() + smaller.getFrequency();
-            t.add( new HNode( null, combinedFrequencies, null, larger, smaller ) );
+            t.add(
+                new HNode( null, combinedFrequencies, null, larger, smaller )
+            );
         }
         return t.poll();
     }
