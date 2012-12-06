@@ -20,6 +20,7 @@ public class Exercises {
      * @return the sum of the integers.
      * 
      * @throws IllegalArgumentException when values is empty.
+     * @throws NullPointerException when values is null.
      */
     public static Integer sum(final List<Integer> values) {
         switch ( values.size() ) {
@@ -131,15 +132,46 @@ public class Exercises {
      */
     public static boolean groupExists(final List<Integer> numbers,
             final int target) {
-        if ( numbers.isEmpty() )
+        if ( combinationExists( numbers, 0, target, 0, true ) ||
+                combinationExists( numbers, 0, target, 0, false ) ) {
+            return true;
+        } else {
             return false;
-        else {
-            if ( numbers.get( 0 ).intValue() == target )
-                return true;
-            else
-                return groupExists( 
-                    numbers.subList( 1, numbers.size() ), target
-                );
+        }
+    }
+    
+    /**
+     * Move through ever combination from the index in numbers. First,
+     *  compare the base to the target for a match. If there is a match,
+     *  signal success and return. Second, if not a match and we are "on",
+     *  add our number to the base. Third, call ourselves for the next
+     *  index and the newbase both for on and off selections. Finally,
+     *  every combination of numbers in the list is checked. This
+     *  algorithm borrows from addition.
+     * 
+     * @param numbers the list of numbers.
+     * @param base the starting number.
+     * @param index the starting index.
+     * @param on includes the number corresponding to the index.
+     */
+    public static boolean combinationExists( 
+            final List<Integer> numbers, Integer base, 
+            Integer target, int index, boolean on ) {
+        if ( base.equals( target ) ) {
+            return true;
+        }
+        if ( index >= numbers.size() ) {
+            return false;
+        }
+        Integer newBase = new Integer( base );
+        if ( on ) {
+            newBase += numbers.get( index );
+        }
+        if ( combinationExists( numbers, newBase, target, index + 1, true ) ||
+                combinationExists( numbers, newBase, target, index + 1, false ) ) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
