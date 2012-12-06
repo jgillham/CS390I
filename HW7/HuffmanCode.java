@@ -16,20 +16,19 @@ public class HuffmanCode {
     /**
      * Establish the codeTree using the PriorityQueue provided. 
      * 
-     * @param hh the priority queue with data for the Huffman Code.
+     * @param t the priority queue with data for the Huffman Code.
      * 
      * @return the root of the tree.
      */
-    static public HNode buildTree(PriorityQueue<HNode> hh) {
-        PriorityQueue<HNode> t = new PriorityQueue<HNode>( hh );
+    static public HNode buildTree(PriorityQueue<HNode> t) {
         if ( t.isEmpty() )
-            return null;
+            throw new IllegalArgumentException( "t cannot be empty." );
         while ( t.size() > 1 ) {
             HNode smaller = t.poll();
             HNode larger = t.poll();
             double combinedFrequencies = 
                 larger.getFrequency() + smaller.getFrequency();
-            t.add( new HNode( ' ', combinedFrequencies, "", larger, smaller ) );
+            t.add( new HNode( null, combinedFrequencies, null, larger, smaller ) );
         }
         return t.poll();
     }
@@ -105,9 +104,13 @@ public class HuffmanCode {
      * @param code the code to set at the root.
      */
     static public void setCodes(HNode root, String code) {
-        root.setCode( code );
         HNode leftTree = root.getLeftChild();
         HNode rightTree = root.getRightChild();
+        if ( leftTree == null && rightTree == null ) {
+            root.setCode( code );
+            return;
+        }
+        
         if ( leftTree != null ) {
             setCodes( leftTree, code + "0" );
         }
@@ -171,6 +174,10 @@ public class HuffmanCode {
             this.createFrequencyMap( initialString ) 
         ) );
         this.setCodes( "" );
+        if ( this.codeTree.getLeftChild() == null && 
+                this.codeTree.getRightChild() == null )
+            this.codeTree.setCode( "0" );
+            
         this.growCodeMap( codeTree );
     }
     
@@ -234,7 +241,7 @@ public class HuffmanCode {
         StringBuilder encodedText = new StringBuilder();
         for ( int i = 0; i < cleartext.length(); ++i ) {
             char c = cleartext.charAt( i );
-            String code = codeMap.get( c );
+            String code = this.codeMap.get( c );
 
             if ( code == null ) 
                 throw new IllegalArgumentException( "Symbol not defined." );
