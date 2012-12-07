@@ -124,8 +124,6 @@ public class ExercisesTest {
                 bits%=c;
                 --index;
             }
-            System.out.println( "numbers: " + numbers );
-            System.out.println( "num: " + num );
             
                 // "num" should be a combination of "numbers."
             assertTrue( Exercises.groupExists( numbers, num ) );
