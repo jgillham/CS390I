@@ -105,15 +105,16 @@ public class Exercises {
             // The base case. Impossible to find the sub string.
         if ( toExamine.length() < sub.length() )
             return 0;
-            // Check from the beginning.
-        boolean found = toExamine.startsWith( sub );
-        int counter = found ? 1 : 0;
             // Recursive call for the next part of the string.
         if ( toExamine.length() > sub.length() )
-            counter += strCount( 
-                toExamine.substring( ( found ? sub.length() : 1 ) ), sub
-            );
-        return counter;
+            return (toExamine.startsWith( sub )? 1 : 0) +
+                strCount( 
+                    toExamine.substring( 
+                        ( 
+                            toExamine.startsWith( sub ) ? sub.length() : 1
+                        ) ), sub
+                );
+        return (toExamine.startsWith( sub )? 1 : 0);
     }
     
     /**
@@ -176,21 +177,20 @@ public class Exercises {
         if ( base.equals( target ) ) {
             return true;
         }
+            // If we have passed the target then look no further.
+        if ( base > target )
+            return false;
             // Don't pass the end of the list.
         if ( index >= numbers.size() ) {
             return false;
         }
-            // Add the selected number.
-        Integer newBase = new Integer( base );
-        if ( on ) {
-            newBase += numbers.get( index );
-        }
-            // If we have passed the target then look no further.
-        if ( newBase > target )
-            return false;
             // Check each sub combination.
-        if ( combinationExists( numbers, newBase, target, index + 1, true ) ||
-                combinationExists( numbers, newBase, target, index + 1, false ) ) {
+        if ( combinationExists( numbers, new Integer( 
+                        (on ? numbers.get( index ): 0) + base
+                    ), target, index + 1, true ) ||
+                combinationExists( numbers, new Integer(
+                        (on ? numbers.get( index ): 0) + base 
+                    ), target, index + 1, false ) ) {
             return true;
         } else {
             return false;
