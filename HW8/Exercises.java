@@ -1,5 +1,6 @@
 import java.util.List;
 /**
+ * This class provides a namespace for exercise problems.
  * 
  * @author Josh Gillham
  * @version 11-28-12
@@ -61,10 +62,13 @@ public class Exercises {
                 throw new IllegalArgumentException(
                     "Taking the sum of an empty list is undefined."
                 );
+                // Only used when the call passes a list of one.
             case 1:
                 return values.get( 0 );
+                // Base case of two products.
             case 2:
                 return values.get( 0 ) * values.get( 1 );
+                // All other cases.
             default:
                 return values.get( 0 ) *
                     product( values.subList( 1, values.size() ) );
@@ -91,16 +95,20 @@ public class Exercises {
      */
     public static Integer strCount(final String toExamine,
             final String sub) {
+            // Handle bad arguments.
         if ( toExamine == null || sub == null )
             throw new NullPointerException( "Parameters cannot be null." );
         if ( toExamine.length() == 0 || sub.length() == 0 )
             throw new IllegalArgumentException( 
                 "Parameters cannot be empty strings."
             );
+            // The base case. Impossible to find the sub string.
         if ( toExamine.length() < sub.length() )
             return 0;
+            // Check from the beginning.
         boolean found = toExamine.startsWith( sub );
         int counter = found ? 1 : 0;
+            // Recursive call for the next part of the string.
         if ( toExamine.length() > sub.length() )
             counter += strCount( 
                 toExamine.substring( ( found ? sub.length() : 1 ) ), sub
@@ -138,6 +146,7 @@ public class Exercises {
             final int target) {
         if ( numbers == null )
             throw new NullPointerException();
+            // Start checking for combinations.
         if ( combinationExists( numbers, 0, target, 0, true ) ||
                 combinationExists( numbers, 0, target, 0, false ) ) {
             return true;
@@ -163,16 +172,23 @@ public class Exercises {
     public static boolean combinationExists( 
             final List<Integer> numbers, Integer base, 
             Integer target, int index, boolean on ) {
+            // Check for a match.
         if ( base.equals( target ) ) {
             return true;
         }
+            // Don't pass the end of the list.
         if ( index >= numbers.size() ) {
             return false;
         }
+            // Add the selected number.
         Integer newBase = new Integer( base );
         if ( on ) {
             newBase += numbers.get( index );
         }
+            // If we have passed the target then look no further.
+        if ( newBase > target )
+            return false;
+            // Check each sub combination.
         if ( combinationExists( numbers, newBase, target, index + 1, true ) ||
                 combinationExists( numbers, newBase, target, index + 1, false ) ) {
             return true;

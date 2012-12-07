@@ -42,6 +42,7 @@ public class ExercisesTest {
      */
     @Test
     public void testProduct() {
+        // Check through a range from positive to negative.
         List< Integer > series = new LinkedList< Integer >();
         int product = 1;
         for( int i = -50; i < 50; ++i ) {
@@ -51,7 +52,7 @@ public class ExercisesTest {
                 assertEquals( Integer.valueOf( product ), Exercises.product( series ) );
             }
         }
-        // Should be communitive.
+        // Should be communitive so try that in reverse.
         product = 1;
         series = new LinkedList< Integer >();
         for( int i = 50; i >= -50; --i ) {
@@ -67,7 +68,7 @@ public class ExercisesTest {
     }
     
     /**
-     * Proves that strCount() can handle those tricky cases.
+     * Proves that strCount() can handle most cases.
      */
     @Test
     public void testStrCount() {
@@ -80,7 +81,8 @@ public class ExercisesTest {
     }
     
     /**
-     * Proves that strCount() can handle those tricky cases.
+     * Proves that strCount() can handle those tricky cases where finding
+     *  a duplicate match is possible
      */
     @Test
     public void testStrCount_Tricky() {
